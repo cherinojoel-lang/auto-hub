@@ -1,0 +1,221 @@
+{
+  "id": "c5e76c95-914a-445d-810a-36890cb7f48d",
+  "initialPrompt": "Create a website inspired by https://www.reinhardtautomobile.de/",
+  "siteName": "reinhardtautomobile.de",
+  "brandBook": {
+    "tones": [
+      "professional",
+      "trustworthy",
+      "sophisticated",
+      "reassuring",
+      "knowledgeable",
+      "customer-centric"
+    ],
+    "designStyle": {
+      "primaryStyle": [
+        "Elegant"
+      ],
+      "supportingStyles": [
+        "Minimalist",
+        "Professional",
+        "Luxury"
+      ]
+    },
+    "toneOfVoice": "Professional, trustworthy, sophisticated, reassuring, knowledgeable, customer-centric.",
+    "graphicElements": {
+      "icons": "Clean, minimalist line icons. Consistent stroke weight and style. Primarily used for navigation, feature highlights, and contact information.",
+      "stickers": "Not applicable for this elegant, professional brand identity.",
+      "illustrations": "Avoidance of overly decorative or playful illustrations. If used, they should be abstract, geometric, or subtly represent automotive themes with a sophisticated aesthetic."
+    },
+    "designSummary": "**The Refined Automotive Showcase: A Synthesis of Elegance and Clarity**\n\nThe design philosophy for Reinhardt Automobile GmbH is rooted in establishing trust and conveying a premium, sophisticated image. We will achieve this by blending the structured elegance of classic automotive presentation with the quiet luxury and clarity demanded by an 'Elegant' design personality. The website will feel like a high-end showroom, where each vehicle is presented with meticulous attention to detail, and the user journey is seamless and reassuring.\n\n**Execution Blueprint:**\n1. **Symmetrical Balance & Generous Whitespace:** Layouts will favor symmetry and ample negative space to create a sense of calm, order, and premium quality. Elements will be given room to breathe, enhancing their perceived value.\n2. **Typographic Hierarchy with Classic Contrast:** Headlines will utilize a sophisticated serif font to evoke tradition and luxury, while body text will employ a clean, legible sans-serif for clarity and modern professionalism. This contrast will guide the user's eye and reinforce the brand's dual nature of heritage and forward-thinking.\n3. **Muted, Sophisticated Palette:** The color scheme will be predominantly monochromatic, using deep charcoals, soft greys, and off-whites. A single, subtle accent color will be used sparingly for calls to action and key interactive elements, ensuring it feels luxurious rather than loud.\n4. **Understated Components:** Buttons and interactive elements will be minimalist, relying on subtle outlines, text-based links, or gentle hover effects rather than heavy styling. This approach reinforces the 'quiet luxury' aspect.\n5. **Full-Bleed Presentation with Internal Framing:** Content sections will extend to the full width of the viewport, but internal content blocks will be carefully aligned and padded to maintain a sense of refined structure and prevent visual clutter.",
+    "layout": {
+      "grid": {
+        "margins": "Generous outer margins (e.g., 40px-80px) on desktop to frame content and enhance the sense of space.",
+        "padding": "Consistent internal padding within containers and sections (e.g., 40px-80px) to ensure content is not cramped.",
+        "compositionApproach": "Symmetrical 12-column grid with generous internal padding and margins.",
+        "spacing": {
+          "gaps": "Base unit: 8px. Grid gaps are 24px (3x base unit) for main content areas, with larger gaps (e.g., 40px-80px) between major sections.",
+          "rows": "Flexible row heights based on content, with consistent vertical rhythm.",
+          "columns": "12-column grid system.",
+          "compositionApproach": "Not specified"
+        }
+      },
+      "layoutDna": {
+        "contrastSpectrum": "Moderate to high contrast between text and background, with subtle contrast for interactive elements.",
+        "densitySpectrum": "Low density, emphasizing spaciousness and clarity.",
+        "textVsImageEmphasis": "Balanced, with high-quality vehicle imagery taking center stage, supported by clear, concise typography.",
+        "complexitySpectrum": "Low complexity, focusing on intuitive navigation and clear information architecture.",
+        "gridAlignmentSpectrum": "Symmetrical and balanced, utilizing a grid system for order but allowing for generous whitespace.",
+        "negativeSpaceUsage": "Extensive use of negative space to create a sense of luxury, calm, and focus on content."
+      },
+      "heroSectionLayout": "**The Sophisticated Welcome**\nComposition (Tailwind Spec): Main container (`h-screen grid place-items-center p-8`). A large, high-quality vehicle image as a background (`absolute inset-0 object-cover`). Headline 'Reinhardt Automobile GmbH' (`text-7xl font-bold text-white tracking-tight`) centered, with a subtle text shadow. Sub-headline 'Your Trusted Partner for Premium Vehicles' (`text-2xl text-white mt-4`) below the main headline. A primary button 'Explore Our Inventory' (`bg-primary text-primaryForeground px-8 py-4 rounded-lg font-semibold text-lg mt-8 hover:bg-opacity-90 transition-colors`) positioned below the sub-headline.\nSignature Hook (Framer Motion Spec): Parent `motion.div` for the hero content uses `variants` with `transition: { staggerChildren: 0.05 }`. Each element (`motion.h1`, `motion.p`, `motion.button`) has an `initial={{ opacity: 0, y: 30 }}` and `animate={{ opacity: 1, y: 0 }}` variant, with a `transition={{ duration: 0.8 }}`. The background image could have a subtle `whileInView={{ opacity: [0.8, 1] }}` effect."
+    },
+    "components": {
+      "images": "Layout Role: Full-bleed background for hero sections, or carefully placed within the grid for vehicle listings. | Gallery Type: Standard grid layout for vehicle listings, with larger featured images for specific models. Images should be high-resolution and professionally shot.",
+      "buttons": "Primary: background-color: #096A8A, color: #FFFFFF, border-radius: 4px, padding: 12px 24px, font-weight: 600, transition: background-color 0.3s ease. Secondary: background-color: transparent, color: #096A8A, border: 1px solid #096A8A, border-radius: 4px, padding: 12px 24px, font-weight: 600, transition: all 0.3s ease. Ghost buttons (text-only with hover effect) can also be used for secondary actions.",
+      "containers": "Method: Whitespace, Style: Generous vertical margins (40px-80px) between sections. Content sections are full-bleed but internally padded (40px-80px). Subtle background variations (e.g., very light grey) can be used for distinct sections."
+    },
+    "palette": {
+      "colors": {
+        "customColors": [
+          {
+            "name": "accent",
+            "value": "#0D1E3C"
+          },
+          {
+            "name": "destructive",
+            "value": "#dc3545"
+          },
+          {
+            "name": "destructiveForeground",
+            "value": "#FFFFFF"
+          }
+        ],
+        "background": "#FFFFFF",
+        "secondary": "#337AB7",
+        "foreground": "#0D1E3C",
+        "secondaryForeground": "#FFFFFF",
+        "primaryForeground": "#FFFFFF",
+        "primary": "#096A8A"
+      },
+      "paletteUsageGuide": "The primary color (#096A8A) should be used for key calls to action and prominent interactive elements. The secondary color (#337AB7) can be used for secondary buttons or informational highlights. The accent color (#0D1E3C) serves as the primary text color and for important links, providing a strong, sophisticated contrast against the background. The background is a clean white (#FFFFFF), with foreground text in a deep charcoal (#0D1E3C) for maximum readability. Custom colors should be used sparingly: 'accent' for subtle branding elements, and 'destructive' for error states.",
+      "paletteAccessibilityNotes": "Ensure sufficient contrast between primary/secondary colors and their foreground counterparts. Text color (#0D1E3C) on white background (#FFFFFF) provides excellent contrast. All interactive elements should meet WCAG AA contrast ratios."
+    },
+    "typography": {
+      "headings": {
+        "font": {
+          "fontFamily": "fraunces",
+          "role": "headings",
+          "fontJustification": ""
+        },
+        "headingsAccessibilityNotes": "Ensure headings are semantically correct and provide clear structure. Maintain sufficient contrast with the background.",
+        "headingsSimilarFonts": [
+          "playfair display",
+          "cormorantgaramond"
+        ],
+        "headingsUsageGuide": "Use for all major headings (H1, H2, H3). The font's high contrast and classic serifs lend an air of sophistication and importance. Ensure adequate line height and letter spacing for readability, especially for longer headings."
+      },
+      "paragraphs": {
+        "font": {
+          "fontFamily": "Cabin",
+          "role": "paragraphs",
+          "fontJustification": ""
+        },
+        "paragraphsUsageGuide": "Use for all body text, descriptions, and longer content blocks. Its clean, legible sans-serif form ensures readability across various screen sizes and for extended reading. Maintain a comfortable line height and appropriate font size.",
+        "paragraphsSimilarFonts": [
+          "open sans",
+          "nunito sans",
+          "rubik-v2"
+        ],
+        "paragraphsAccessibilityNotes": "Ensure body text is at least 16px for readability. Maintain a minimum contrast ratio of 4.5:1 against the background."
+      },
+      "customFontFamilies": {},
+      "fontSizes": [
+        {
+          "name": "xs",
+          "size": "0.75rem",
+          "lineHeight": "1.25",
+          "letterSpacing": "0.02em",
+          "fontWeight": "400"
+        },
+        {
+          "name": "sm",
+          "size": "0.875rem",
+          "lineHeight": "1.3",
+          "letterSpacing": "0.02em",
+          "fontWeight": "400"
+        },
+        {
+          "name": "base",
+          "size": "1rem",
+          "lineHeight": "1.5",
+          "letterSpacing": "0.01em",
+          "fontWeight": "400"
+        },
+        {
+          "name": "lg",
+          "size": "1.125rem",
+          "lineHeight": "1.4",
+          "letterSpacing": "0.01em",
+          "fontWeight": "500"
+        },
+        {
+          "name": "xl",
+          "size": "1.25rem",
+          "lineHeight": "1.35",
+          "letterSpacing": "0.01em",
+          "fontWeight": "500"
+        },
+        {
+          "name": "2xl",
+          "size": "1.5rem",
+          "lineHeight": "1.3",
+          "letterSpacing": "0.01em",
+          "fontWeight": "600"
+        },
+        {
+          "name": "3xl",
+          "size": "1.875rem",
+          "lineHeight": "1.25",
+          "letterSpacing": "0.005em",
+          "fontWeight": "600"
+        },
+        {
+          "name": "4xl",
+          "size": "2.25rem",
+          "lineHeight": "1.2",
+          "letterSpacing": "0.005em",
+          "fontWeight": "700"
+        },
+        {
+          "name": "5xl",
+          "size": "3rem",
+          "lineHeight": "1.15",
+          "letterSpacing": "0.002em",
+          "fontWeight": "700"
+        },
+        {
+          "name": "6xl",
+          "size": "3.75rem",
+          "lineHeight": "1.1",
+          "letterSpacing": "0.001em",
+          "fontWeight": "700"
+        },
+        {
+          "name": "7xl",
+          "size": "4.5rem",
+          "lineHeight": "1.05",
+          "letterSpacing": "0",
+          "fontWeight": "700"
+        },
+        {
+          "name": "8xl",
+          "size": "6rem",
+          "lineHeight": "1",
+          "letterSpacing": "0",
+          "fontWeight": "700"
+        },
+        {
+          "name": "9xl",
+          "size": "8rem",
+          "lineHeight": "1",
+          "letterSpacing": "0",
+          "fontWeight": "700"
+        }
+      ],
+      "welcomeSectionTypography": {
+        "placement": "Centered, prominent placement on the hero section.",
+        "implementation": "Large, impactful 'fraunces' font for the main headline, potentially with subtle letter spacing adjustments. Sub-headline in 'Cabin' for clarity and contrast."
+      }
+    },
+    "originImagesUrls": []
+  },
+  "attachments": {
+    "contentImagesUrls": [],
+    "inspirationImagesUrls": [
+      "https://wixmp-c562ea68f10846b458285ce5.wixmp.com/scraped-screenshots/screenshot-1778849000418.webp"
+    ]
+  },
+  "status": "READY",
+  "plan": "\n\n```json\n{\n  \"sections\": [\n    {\n      \"id\": \"overview\",\n      \"title\": \"## Overview\",\n      \"content\": \"This site showcases a used vehicle dealership offering cars from various manufacturers with detailed specifications, filtering options, and company information to build long-term customer relationships.\"\n    },\n    {\n      \"id\": \"key-features\",\n      \"title\": \"## Key features\",\n      \"content\": \"- **Vehicle Listing**: Browse all available vehicles with key details like make, model, year, and price.\\n- **Vehicle Detail View**: View comprehensive specifications including mileage, power, drive type, and electrical range for each vehicle.\\n- **Filtering / Search**: Filter vehicles by manufacturer, drive type (petrol, diesel, electric, hybrid), year of first registration, and mileage.\\n- **View Company Information**: Learn about Reinhardt Automobile's approach to fair pricing and customer relationships.\\n- **Contact Form**: Submit inquiries or schedule a personal visit to the dealership in Hagen.\",\n      \"metadata\": [\n        { \"id\": \"vehicle-listing\", \"name\": \"Vehicle Listing\" },\n        { \"id\": \"vehicle-detail-view\", \"name\": \"Vehicle Detail View\" },\n        { \"id\": \"filtering-search\", \"name\": \"Filtering / Search\" },\n        { \"id\": \"view-company-information\", \"name\": \"View Company Information\" },\n        { \"id\": \"contact-form\", \"name\": \"Contact Form\" }\n      ]\n    },\n    {\n      \"id\": \"structure\",\n      \"title\": \"## Structure\",\n      \"content\": \"- **Header (Reusable)**: Site name \\\"reinhardtautomobile.de\\\" with navigation links to Vehicles, About, and Contact pages.\\n- **Home Page**: Welcome section highlighting the dealership's value proposition and featured vehicles.\\n- **Vehicles Page**: Displays the complete vehicle inventory with filtering options and detailed view capability.\\n- **About Page**: Presents company information, location in Hagen, Germany, and business philosophy.\\n- **Contact Page**: Provides contact form and encourages personal visits to the dealership.\\n- **Footer (Reusable)**: Company contact details, location information, and relevant links.\"\n    }\n  ],\n  \"apps\": [\n    {\n      \"id\": \"wix-cms\",\n      \"keyFeatures\": [\n        { \"id\": \"vehicle-listing\", \"name\": \"Vehicle Listing\" },\n        { \"id\": \"vehicle-detail-view\", \"name\": \"Vehicle Detail View\" },\n        { \"id\": \"filtering-search\", \"name\": \"Filtering / Search\" },\n        { \"id\": \"view-company-information\", \"name\": \"View Company Information\" },\n        { \"id\": \"contact-form\", \"name\": \"Contact Form\" }\n      ]\n    }\n  ],\n  \"version\": \"4.0.1\"\n}\n```"
+}
