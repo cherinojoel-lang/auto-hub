@@ -79,7 +79,7 @@ export default function AboutPage() {
             <AnimatedElement>
               <div className="bg-background rounded-3xl p-8 md:p-12 shadow-lg border border-border/50">
                 <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-6 text-center">
-                  Reinhardt Automobile GmbH in Hagen
+                  Automobile Quick in Iserlohn-Letmathe
                 </h2>
                 <div className="space-y-6 text-lg text-foreground/80 leading-relaxed">
                   <p>
@@ -215,10 +215,10 @@ export default function AboutPage() {
                       <div>
                         <p className="font-medium text-foreground">E-Mail</p>
                         <a 
-                          href="mailto:info@reinhardtautomobile.de"
+                          href="mailto:info@automobilequick.de"
                           className="text-foreground/70 hover:text-primary transition-colors"
                         >
-                          info@reinhardtautomobile.de
+                          info@automobilequick.de
                         </a>
                       </div>
                     </div>

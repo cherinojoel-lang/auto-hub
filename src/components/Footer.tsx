@@ -9,10 +9,10 @@ export default function Footer() {
           {/* Company Info */}
           <div>
             <h3 className="text-xl font-heading font-bold mb-4">
-              reinhardtautomobile.de
+              Automobile Quick
             </h3>
             <p className="text-background/80 mb-4">
-              Ihr Partner für hochwertige Gebrauchtwagen in Hagen
+              Ihr Partner für hochwertige Gebrauchtwagen in Iserlohn-Letmathe
             </p>
           </div>
 
@@ -33,7 +33,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-3">
                 <Mail size={20} className="flex-shrink-0" />
-                <p className="text-background/90">info@reinhardtautomobile.de</p>
+                <p className="text-background/90">info@automobilequick.de</p>
               </div>
             </div>
           </div>
@@ -46,13 +46,13 @@ export default function Footer() {
                 to="/"
                 className="block text-background/90 hover:text-background transition-colors duration-200"
               >
-                Home
+                Start
               </Link>
               <Link
                 to="/vehicles"
                 className="block text-background/90 hover:text-background transition-colors duration-200"
               >
-                Fahrzeuge
+                Fahrzeugbestand
               </Link>
               <Link
                 to="/about"
@@ -64,7 +64,7 @@ export default function Footer() {
                 to="/contact"
                 className="block text-background/90 hover:text-background transition-colors duration-200"
               >
-                Kontakt
+                Kontakt & Anfahrt
               </Link>
             </div>
           </div>
@@ -72,7 +72,7 @@ export default function Footer() {
 
         <div className="border-t border-background/20 mt-8 pt-8 text-center">
           <p className="text-background/80">
-            © 2026 reinhardtautomobile.de - Alle Rechte vorbehalten
+            © 2026 Automobile Quick - Alle Rechte vorbehalten
           </p>
         </div>
       </div>

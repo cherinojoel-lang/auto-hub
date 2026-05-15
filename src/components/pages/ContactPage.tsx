@@ -246,10 +246,10 @@ export default function ContactPage() {
                         <div>
                           <p className="font-medium text-foreground mb-1">E-Mail</p>
                           <a 
-                            href="mailto:info@reinhardtautomobile.de"
+                            href="mailto:info@automobilequick.de"
                             className="text-foreground/70 hover:text-primary transition-colors"
                           >
-                            info@reinhardtautomobile.de
+                            info@automobilequick.de
                           </a>
                         </div>
                       </div>

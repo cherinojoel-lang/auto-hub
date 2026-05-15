@@ -130,10 +130,10 @@ export default function HomePage() {
         <div className="relative z-10 container mx-auto px-4 text-center mt-20">
           <AnimatedElement direction="up">
             <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-4 tracking-tight drop-shadow-lg">
-              REINHARDT
+              Ihr Autohaus in Iserlohn-Letmathe
             </h1>
-            <p className="text-xl md:text-2xl text-white/90 font-light tracking-widest uppercase mb-8">
-              Automobile
+            <p className="text-xl md:text-2xl text-white/90 font-light mb-8">
+              Gepflegte Gebrauchtwagen, persönliche Beratung und schnelle Kontaktaufnahme bei Automobile Quick – seit 1982.
             </p>
           </AnimatedElement>
         </div>
@@ -357,8 +357,8 @@ export default function HomePage() {
             <AnimatedElement direction="left">
               <div className="space-y-6">
                 <h2 className="text-3xl md:text-4xl font-serif font-bold text-accent leading-tight">
-                  Reinhardt Automobile GmbH<br/>
-                  <span className="text-primary">in Hagen</span>
+                  Automobile Quick<br/>
+                  <span className="text-primary">in Iserlohn-Letmathe</span>
                 </h2>
                 
                 <div className="w-16 h-1 bg-primary"></div>
@@ -462,7 +462,7 @@ export default function HomePage() {
             {/* Info Side */}
             <div className="p-10 flex flex-col justify-center">
               <AnimatedElement direction="left">
-                <h3 className="text-2xl font-serif font-bold text-accent mb-6">Reinhardt Automobile GmbH</h3>
+                <h3 className="text-2xl font-serif font-bold text-accent mb-6">Automobile Quick</h3>
                 
                 <div className="space-y-4 mb-8">
                   <div className="flex items-start gap-3 text-gray-600">
@@ -475,7 +475,7 @@ export default function HomePage() {
                   </div>
                   <div className="flex items-center gap-3 text-gray-600">
                     <Mail className="text-primary flex-shrink-0" size={20} />
-                    <p>info@reinhardtautomobile.de</p>
+                    <p>info@automobilequick.de</p>
                   </div>
                 </div>
 

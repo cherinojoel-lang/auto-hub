@@ -5,12 +5,15 @@
 
 /**
  * Collection ID: vehicles
+ * @catalog This collection is an eCommerce catalog
  * Interface for Vehicles
  */
 export interface Vehicles {
   _id: string;
   _createdDate?: Date;
   _updatedDate?: Date;
+  /** @wixFieldType number */
+  financingMonthly?: number;
   /** @wixFieldType text */
   manufacturer?: string;
   /** @wixFieldType text */

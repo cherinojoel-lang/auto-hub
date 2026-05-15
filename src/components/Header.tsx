@@ -12,7 +12,7 @@ export default function Header() {
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <span className="text-2xl font-heading font-bold text-primary">
-              reinhardtautomobile.de
+              Automobile Quick
             </span>
           </Link>
 
@@ -22,13 +22,13 @@ export default function Header() {
               to="/"
               className="text-foreground hover:text-primary transition-colors duration-200 font-medium"
             >
-              Home
+              Start
             </Link>
             <Link
               to="/vehicles"
               className="text-foreground hover:text-primary transition-colors duration-200 font-medium"
             >
-              Fahrzeuge
+              Fahrzeugbestand
             </Link>
             <Link
               to="/about"
@@ -40,7 +40,7 @@ export default function Header() {
               to="/contact"
               className="text-foreground hover:text-primary transition-colors duration-200 font-medium"
             >
-              Kontakt
+              Kontakt & Anfahrt
             </Link>
           </nav>
 
@@ -63,14 +63,14 @@ export default function Header() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
               >
-                Home
+                Start
               </Link>
               <Link
                 to="/vehicles"
                 onClick={() => setMobileMenuOpen(false)}
                 className="text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
               >
-                Fahrzeuge
+                Fahrzeugbestand
               </Link>
               <Link
                 to="/about"
@@ -84,7 +84,7 @@ export default function Header() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
               >
-                Kontakt
+                Kontakt & Anfahrt
               </Link>
             </div>
           </nav>
