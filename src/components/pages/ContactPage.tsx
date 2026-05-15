@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 
@@ -50,6 +51,22 @@ export default function ContactPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  useEffect(() => {
+    // Update SEO for contact page
+    updateMetaTags({
+      title: 'Kontakt & Anfahrt - Automobile Quick | Iserlohn-Letmathe',
+      description: 'Kontaktieren Sie Automobile Quick in Iserlohn-Letmathe. Telefon, E-Mail und Anfahrtsweg. Wir freuen uns auf Ihren Besuch!',
+      keywords: 'Kontakt Automobile Quick, Anfahrt, Telefon, E-Mail, Iserlohn, Letmathe',
+      ogTitle: 'Kontakt & Anfahrt - Automobile Quick',
+      ogDescription: 'Kontaktieren Sie uns in Iserlohn-Letmathe. Wir freuen uns auf Ihren Besuch!',
+      canonicalUrl: 'https://automobilequick.de/contact',
+      structuredData: getStructuredDataBreadcrumb([
+        { name: 'Home', url: 'https://automobilequick.de/' },
+        { name: 'Kontakt', url: 'https://automobilequick.de/contact' },
+      ]),
+    });
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

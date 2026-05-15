@@ -7,6 +7,7 @@ import { Image } from '@/components/ui/image';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { updateMetaTags, getStructuredDataProduct, getStructuredDataBreadcrumb } from '@/lib/seo';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string }> = ({ 
   children, 
@@ -61,6 +62,20 @@ export default function VehicleDetailPage() {
       setIsLoading(true);
       const data = await BaseCrudService.getById<Vehicles>('vehicles', id);
       setVehicle(data);
+      
+      // Update SEO for vehicle detail page
+      if (data) {
+        updateMetaTags({
+          title: `${data.manufacturer} ${data.model} - Gebrauchtwagen bei Automobile Quick`,
+          description: data.description || `${data.manufacturer} ${data.model} - Hochwertiger Gebrauchtwagen bei Automobile Quick in Iserlohn-Letmathe. Faire Preise und persönliche Beratung.`,
+          keywords: `${data.manufacturer}, ${data.model}, Gebrauchtwagen, ${data.driveType}, Iserlohn, Letmathe`,
+          ogTitle: `${data.manufacturer} ${data.model} - Automobile Quick`,
+          ogDescription: data.description || `${data.manufacturer} ${data.model} - Hochwertiger Gebrauchtwagen`,
+          ogImage: data.mainImage,
+          canonicalUrl: `https://automobilequick.de/vehicles/${id}`,
+          structuredData: getStructuredDataProduct(data),
+        });
+      }
     } catch (error) {
       console.error('Error loading vehicle:', error);
     } finally {

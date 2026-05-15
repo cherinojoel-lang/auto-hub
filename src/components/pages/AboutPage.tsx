@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { MapPin, Phone, Mail, Clock, ChevronRight, Award, Users, Target } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 
@@ -43,6 +44,22 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
 };
 
 export default function AboutPage() {
+  useEffect(() => {
+    // Update SEO for about page
+    updateMetaTags({
+      title: 'Über uns - Automobile Quick | Autohaus seit 1982',
+      description: 'Erfahren Sie mehr über Automobile Quick. Seit 1982 Ihr vertrauensvoller Partner für hochwertige Gebrauchtwagen in Iserlohn-Letmathe mit fairen Preisen und persönlicher Beratung.',
+      keywords: 'Über Automobile Quick, Autohaus Geschichte, Gebrauchtwagen Händler, Iserlohn, Letmathe',
+      ogTitle: 'Über uns - Automobile Quick',
+      ogDescription: 'Seit 1982 Ihr vertrauensvoller Partner für hochwertige Gebrauchtwagen mit fairen Preisen.',
+      canonicalUrl: 'https://automobilequick.de/about',
+      structuredData: getStructuredDataBreadcrumb([
+        { name: 'Home', url: 'https://automobilequick.de/' },
+        { name: 'Über uns', url: 'https://automobilequick.de/about' },
+      ]),
+    });
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />

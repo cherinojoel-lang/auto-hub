@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api
+
+Sitemap: https://automobilequick.de/sitemap.xml
+
+# Crawl delay for search engines
+Crawl-delay: 1

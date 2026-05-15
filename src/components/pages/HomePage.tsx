@@ -8,6 +8,7 @@ import { Image } from '@/components/ui/image';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { updateMetaTags, getStructuredDataOrganization } from '@/lib/seo';
 
 // --- Animation Components ---
 
@@ -75,6 +76,18 @@ export default function HomePage() {
   const [maxKm, setMaxKm] = useState('');
 
   useEffect(() => {
+    // Update SEO for homepage
+    updateMetaTags({
+      title: 'Automobile Quick - Gebrauchtwagen in Iserlohn-Letmathe | Autohaus seit 1982',
+      description: 'Hochwertige Gebrauchtwagen mit persönlicher Beratung. Automobile Quick - Ihr Autohaus seit 1982 in Iserlohn-Letmathe. Große Auswahl an Audi, BMW, Mercedes, VW und mehr.',
+      keywords: 'Gebrauchtwagen, Autohaus, Iserlohn, Letmathe, Automobile Quick, Fahrzeuge, Audi, BMW, Mercedes, VW, Porsche',
+      ogTitle: 'Automobile Quick - Gebrauchtwagen in Iserlohn-Letmathe',
+      ogDescription: 'Hochwertige Gebrauchtwagen mit persönlicher Beratung. Automobile Quick - Ihr Autohaus seit 1982.',
+      ogImage: 'https://static.wixstatic.com/media/32e7c0_d28732f69d9643a7ada1b1be4890a422~mv2.png',
+      canonicalUrl: 'https://automobilequick.de/',
+      structuredData: getStructuredDataOrganization(),
+    });
+    
     loadVehicles();
   }, []);
 
@@ -121,7 +134,7 @@ export default function HomePage() {
         <div className="absolute inset-0 z-0">
           <Image 
             src="https://static.wixstatic.com/media/32e7c0_d28732f69d9643a7ada1b1be4890a422~mv2.png?originWidth=1152&originHeight=576" 
-            alt="Reinhardt Automobile Hero" 
+            alt="Reinhardt Automobile Hero - Gebrauchtwagen Autohaus" 
             className="w-full h-full object-cover object-center opacity-60"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-accent/80 via-accent/40 to-background"></div>
@@ -236,6 +249,7 @@ export default function HomePage() {
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-accent mb-4">
                 Aktuelle Neuzugänge
               </h2>
+              <p className="text-gray-600 mb-4">Entdecken Sie unsere neuesten Fahrzeuge mit bester Qualität und fairen Preisen</p>
               <div className="w-24 h-1 bg-primary mx-auto"></div>
             </div>
           </AnimatedElement>

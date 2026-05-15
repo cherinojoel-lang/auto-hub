@@ -7,6 +7,7 @@ import { Image } from '@/components/ui/image';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 
@@ -60,6 +61,20 @@ export default function VehiclesPage() {
   const [maxMileage, setMaxMileage] = useState(searchParams.get('maxMileage') || '');
 
   useEffect(() => {
+    // Update SEO for vehicles page
+    updateMetaTags({
+      title: 'Fahrzeugbestand - Automobile Quick | Gebrauchtwagen in Iserlohn-Letmathe',
+      description: 'Entdecken Sie unsere große Auswahl an hochwertigen Gebrauchtwagen. Audi, BMW, Mercedes, VW und mehr. Faire Preise und persönliche Beratung bei Automobile Quick.',
+      keywords: 'Gebrauchtwagen Bestand, Fahrzeuge kaufen, Audi, BMW, Mercedes, VW, Iserlohn, Letmathe',
+      ogTitle: 'Unsere Fahrzeuge - Automobile Quick',
+      ogDescription: 'Entdecken Sie unsere große Auswahl an hochwertigen Gebrauchtwagen mit fairen Preisen.',
+      canonicalUrl: 'https://automobilequick.de/vehicles',
+      structuredData: getStructuredDataBreadcrumb([
+        { name: 'Home', url: 'https://automobilequick.de/' },
+        { name: 'Fahrzeugbestand', url: 'https://automobilequick.de/vehicles' },
+      ]),
+    });
+    
     loadVehicles();
   }, [skip]);
 
