@@ -189,9 +189,11 @@ export default function HomePage() {
             <AnimatedElement delay={0}>
               <div className="flex flex-col items-center">
                 <div className="flex gap-1 mb-3 justify-center">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={20} className="fill-yellow-400 text-yellow-400" />
-                  ))}
+                  <Star size={20} className="fill-yellow-400 text-yellow-400" />
+                  <Star size={20} className="fill-yellow-400 text-yellow-400" />
+                  <Star size={20} className="fill-yellow-400 text-yellow-400" />
+                  <Star size={20} className="fill-yellow-400 text-yellow-400" />
+                  <Star size={20} className="fill-yellow-400 text-yellow-400" />
                 </div>
                 <p className="text-base font-bold text-primary mb-1">5 Sterne</p>
                 <p className="text-xs text-gray-600">auf mobile.de</p>
@@ -479,9 +481,11 @@ export default function HomePage() {
                   <div className="flex items-center gap-4 mb-4">
                     <div className="text-4xl sm:text-5xl font-bold text-primary">4.9</div>
                     <div className="flex text-yellow-400">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} size={24} fill="currentColor" />
-                      ))}
+                      <Star size={24} fill="currentColor" />
+                      <Star size={24} fill="currentColor" />
+                      <Star size={24} fill="currentColor" />
+                      <Star size={24} fill="currentColor" />
+                      <Star size={24} fill="currentColor" />
                     </div>
                   </div>
                   <p className="text-sm text-gray-600 mb-2 font-medium">Basierend auf 157 Bewertungen</p>
