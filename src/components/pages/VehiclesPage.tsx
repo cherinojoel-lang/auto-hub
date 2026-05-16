@@ -344,9 +344,13 @@ export default function VehiclesPage() {
                       <div className="group bg-white rounded-sm shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:scale-[1.02] flex flex-col h-full">
                         {/* Image Section */}
                         <div className="aspect-[4/3] overflow-hidden bg-gray-100 relative">
-                          <div className="w-full h-full flex flex-col items-center justify-center bg-gray-200">
+                          {vehicle?.mainImage ? (
+                            <Image src={vehicle.mainImage} alt={`${vehicle?.manufacturer || ''} ${vehicle?.model || ''}`} className="w-full h-full object-cover" />
+                          ) : (
+                            <div className="w-full h-full flex flex-col items-center justify-center bg-gray-200">
                               <span className="text-gray-400 text-sm font-medium">Bild folgt</span>
                             </div>
+                          )}
                           <div className="absolute top-4 left-4 bg-success text-white px-3 py-1.5 text-xs font-bold rounded-sm shadow-md">
                             Verfügbar
                           </div>
