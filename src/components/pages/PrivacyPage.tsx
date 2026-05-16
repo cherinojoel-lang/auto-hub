@@ -6,8 +6,8 @@ import { updateMetaTags } from '@/lib/seo';
 export default function PrivacyPage() {
   useEffect(() => {
     updateMetaTags({
-      title: 'Datenschutz - Automobile Quick',
-      description: 'Datenschutzerklärung von Automobile Quick in Iserlohn-Letmathe.',
+      title: 'Datenschutzerklärung - Automobile Quick',
+      description: 'Datenschutzerklärung von Automobile Quick. Entwurf - muss vor Veröffentlichung rechtlich geprüft werden.',
       robots: 'noindex, follow',
     });
   }, []);
@@ -21,7 +21,7 @@ export default function PrivacyPage() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6">
-              Datenschutz
+              Datenschutzerklärung
             </h1>
           </div>
         </div>
@@ -32,121 +32,111 @@ export default function PrivacyPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto bg-background rounded-2xl p-8 shadow-lg border border-border/50">
             <div className="space-y-8">
+              {/* Draft Notice */}
+              <div className="bg-warning/10 rounded-lg p-6 border border-warning/30">
+                <p className="text-foreground font-medium mb-2">
+                  ⚠️ Entwurf
+                </p>
+                <p className="text-foreground/80 text-sm">
+                  Diese Datenschutzerklärung ist ein Entwurf und muss vor Veröffentlichung der Website rechtlich geprüft und an die tatsächlich eingesetzten Dienste, Formulare, Cookies, Tracking-Systeme und Hosting-Strukturen angepasst werden.
+                </p>
+              </div>
+
+              {/* Introduction */}
               <div>
                 <h2 className="text-2xl font-heading font-bold text-foreground mb-4">
-                  1. Datenschutz auf einen Blick
+                  Datenschutzerklärung
                 </h2>
                 <div className="space-y-4 text-foreground/80">
                   <p>
-                    <span className="font-medium">Allgemeine Hinweise</span>
-                  </p>
-                  <p>
-                    Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren 
-                    personenbezogenen Daten passiert, wenn Sie unsere Website besuchen. Personenbezogene 
-                    Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können.
+                    Der Schutz personenbezogener Daten ist uns wichtig. Diese Datenschutzerklärung informiert darüber, welche personenbezogenen Daten bei der Nutzung dieser Website verarbeitet werden können.
                   </p>
                 </div>
               </div>
 
+              {/* Responsible Party */}
               <div>
                 <h2 className="text-2xl font-heading font-bold text-foreground mb-4">
-                  2. Allgemeine Hinweise und Pflichtinformationen
-                </h2>
-                <div className="space-y-4 text-foreground/80">
-                  <p>
-                    <span className="font-medium">Datenschutz</span>
-                  </p>
-                  <p>
-                    Die Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr ernst. 
-                    Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend der gesetzlichen 
-                    Datenschutzvorschriften sowie dieser Datenschutzerklärung.
-                  </p>
-                  <p>
-                    Wenn Sie diese Website benutzen, werden verschiedene personenbezogene Daten erhoben. 
-                    Personenbezogene Daten sind Daten, mit denen Sie persönlich identifiziert werden können. 
-                    Diese Datenschutzerklärung erläutert, welche Daten wir erheben und wofür wir sie nutzen. 
-                    Sie erläutert auch, wie und zu welchem Zweck das geschieht.
-                  </p>
-                </div>
-              </div>
-
-              <div>
-                <h2 className="text-2xl font-heading font-bold text-foreground mb-4">
-                  3. Datenerfassung auf unserer Website
-                </h2>
-                <div className="space-y-4 text-foreground/80">
-                  <p>
-                    <span className="font-medium">Cookies</span>
-                  </p>
-                  <p>
-                    Die Internetseiten verwenden an mehreren Stellen sogenannte Cookies. Cookies richten 
-                    auf Ihrem Rechner keinen Schaden an und enthalten keine Viren. Cookies dienen dazu, 
-                    unser Angebot nutzerfreundlicher, effektiver und sicherer zu machen. Cookies sind kleine 
-                    Textdateien, die auf Ihrem Rechner abgelegt werden und die Ihr Browser speichert.
-                  </p>
-                  <p>
-                    Die meisten der von uns verwendeten Cookies sind sogenannte „Session-Cookies". Diese werden 
-                    nach Ende Ihres Besuchs automatisch gelöscht. Andere Cookies bleiben auf Ihrem Endgerät 
-                    gespeichert, bis Sie diese löschen. Diese Cookies ermöglichen es uns, Ihren Browser beim 
-                    nächsten Besuch wiederzuerkennen.
-                  </p>
-                </div>
-              </div>
-
-              <div>
-                <h2 className="text-2xl font-heading font-bold text-foreground mb-4">
-                  4. Kontaktformular
-                </h2>
-                <div className="space-y-4 text-foreground/80">
-                  <p>
-                    Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem 
-                    Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung 
-                    der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben 
-                    wir nicht ohne Ihre Einwilligung weiter.
-                  </p>
-                </div>
-              </div>
-
-              <div>
-                <h2 className="text-2xl font-heading font-bold text-foreground mb-4">
-                  5. Ihre Rechte
-                </h2>
-                <div className="space-y-4 text-foreground/80">
-                  <p>
-                    Sie haben das Recht:
-                  </p>
-                  <ul className="list-disc list-inside space-y-2">
-                    <li>Auskunft über die bei uns gespeicherten personenbezogenen Daten zu erhalten</li>
-                    <li>Berichtigung unrichtiger Daten zu verlangen</li>
-                    <li>Löschung Ihrer Daten zu verlangen</li>
-                    <li>Einschränkung der Verarbeitung zu verlangen</li>
-                    <li>Der Verarbeitung zu widersprechen</li>
-                    <li>Datenübertragbarkeit zu verlangen</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div>
-                <h2 className="text-2xl font-heading font-bold text-foreground mb-4">
-                  6. Kontakt zum Datenschutzbeauftragten
+                  Verantwortlicher
                 </h2>
                 <div className="space-y-2 text-foreground/80">
-                  <p>
-                    Bei Fragen zum Datenschutz kontaktieren Sie uns bitte unter:
-                  </p>
-                  <p>
-                    <span className="font-medium">E-Mail:</span> info@automobilequick.de
-                  </p>
-                  <p>
-                    <span className="font-medium">Telefon:</span> +49 (0) 2331 123456
+                  <p className="font-medium">Automobile Quick</p>
+                  <p>Konstantinos Pappas</p>
+                  <p>Hagener Str. 126a</p>
+                  <p>58642 Iserlohn-Letmathe</p>
+                  <p className="mt-3">
+                    <span className="font-medium">Telefon:</span> +49 (0) 2374 / 912912
                   </p>
                 </div>
               </div>
 
+              {/* Data Processing */}
+              <div>
+                <h2 className="text-2xl font-heading font-bold text-foreground mb-4">
+                  Verarbeitung personenbezogener Daten
+                </h2>
+                <div className="space-y-4 text-foreground/80">
+                  <p>
+                    Personenbezogene Daten werden verarbeitet, wenn Besucher über die Website Kontakt aufnehmen, eine Anfrage stellen, telefonisch Kontakt aufnehmen oder ein Formular nutzen. Dazu können insbesondere Name, Telefonnummer, E-Mail-Adresse, Fahrzeugdaten und Nachrichteninhalte gehören.
+                  </p>
+                </div>
+              </div>
+
+              {/* Processing Purposes */}
+              <div>
+                <h2 className="text-2xl font-heading font-bold text-foreground mb-4">
+                  Zwecke der Verarbeitung
+                </h2>
+                <div className="space-y-4 text-foreground/80">
+                  <p>
+                    Die Daten werden genutzt zur Bearbeitung von Kontaktanfragen, Fahrzeuganfragen, Besichtigungsanfragen, Finanzierungsanfragen und Autoankauf-Anfragen.
+                  </p>
+                </div>
+              </div>
+
+              {/* Contact Forms */}
+              <div>
+                <h2 className="text-2xl font-heading font-bold text-foreground mb-4">
+                  Kontaktformulare
+                </h2>
+                <div className="space-y-4 text-foreground/80">
+                  <p>
+                    Wenn Besucher ein Formular verwenden, werden die eingegebenen Daten zur Bearbeitung der Anfrage verarbeitet. Eine Weitergabe erfolgt nur, soweit dies zur Bearbeitung der Anfrage erforderlich ist oder eine gesetzliche Verpflichtung besteht.
+                  </p>
+                </div>
+              </div>
+
+              {/* Cookies and Tracking */}
+              <div>
+                <h2 className="text-2xl font-heading font-bold text-foreground mb-4">
+                  Cookies und Tracking
+                </h2>
+                <div className="space-y-4 text-foreground/80">
+                  <p>
+                    Nicht notwendige Cookies oder Tracking-Technologien dürfen erst nach gültiger Einwilligung eingesetzt werden. Technisch notwendige Funktionen können zur Bereitstellung der Website erforderlich sein.
+                  </p>
+                </div>
+              </div>
+
+              {/* Rights of Data Subjects */}
+              <div>
+                <h2 className="text-2xl font-heading font-bold text-foreground mb-4">
+                  Rechte der betroffenen Personen
+                </h2>
+                <div className="space-y-4 text-foreground/80">
+                  <p>
+                    Betroffene Personen haben im Rahmen der gesetzlichen Vorgaben Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch.
+                  </p>
+                </div>
+              </div>
+
+              {/* Important Notice */}
               <div className="bg-primary/5 rounded-lg p-6 border border-primary/20">
-                <p className="text-foreground/80">
-                  Diese Datenschutzerklärung wurde zuletzt aktualisiert am 16. Mai 2026. 
-                  Wir behalten uns das Recht vor, diese Datenschutzerklärung jederzeit zu ändern.
+                <p className="text-foreground/80 font-medium mb-2">
+                  Hinweis
+                </p>
+                <p className="text-foreground/80 text-sm">
+                  Diese Datenschutzerklärung ist ein Entwurf und muss vor Veröffentlichung der Website rechtlich geprüft und an die tatsächlich eingesetzten Dienste, Formulare, Cookies, Tracking-Systeme und Hosting-Strukturen angepasst werden.
                 </p>
               </div>
             </div>
