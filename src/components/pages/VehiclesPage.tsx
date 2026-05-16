@@ -170,7 +170,7 @@ export default function VehiclesPage() {
   };
 
   const loadMore = () => {
-    setSkip(prev => prev + 12);
+    setSkip(prev => prev + 15);
   };
 
   return (
