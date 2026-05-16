@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Calendar, Gauge, Zap, Fuel, ArrowLeft, Phone, MapPin, Wrench, Check } from 'lucide-react';
+import { Calendar, Gauge, Zap, Fuel, ArrowLeft, Phone, MapPin, Wrench, Wind } from 'lucide-react';
 import { BaseCrudService } from '@/integrations';
 import { Vehicles } from '@/entities';
 import { Image } from '@/components/ui/image';
@@ -49,12 +49,13 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string 
 // Mock features for the demo vehicle
 const DEMO_FEATURES = [
   'Klimaanlage',
-  'Einparkhilfe hinten',
-  'Apple CarPlay',
-  'Android Auto',
+  'Einparkhilfe',
   'Sitzheizung',
   'Tempomat',
-  'Alu 16"',
+  'Bluetooth',
+  'USB-Anschluss',
+  'Zentralverriegelung',
+  'Elektrische Fensterheber',
 ];
 
 export default function VehicleDetailPage() {
@@ -379,7 +380,7 @@ export default function VehicleDetailPage() {
                       {/* CTA Buttons */}
                       <div className="space-y-3">
                         <a
-                          href="tel:+4923749157-0"
+                          href="tel:+4923311234567"
                           className="flex items-center justify-center gap-2 w-full bg-secondary text-white px-6 py-4 rounded-lg font-bold hover:bg-secondary/90 transition-all duration-300 transform hover:-translate-y-0.5 shadow-md text-base"
                         >
                           <Phone size={20} />
@@ -413,7 +414,7 @@ export default function VehicleDetailPage() {
             <div className="fixed bottom-0 left-0 right-0 lg:hidden bg-white border-t border-gray-200 shadow-2xl">
               <div className="container mx-auto px-4 max-w-7xl py-3 flex gap-3">
                 <a
-                  href="tel:+4923749157-0"
+                  href="tel:+4923311234567"
                   className="flex-1 flex items-center justify-center gap-2 bg-secondary text-white px-4 py-3 rounded-lg font-bold hover:bg-secondary/90 transition-all duration-300 text-sm"
                 >
                   <Phone size={18} />
