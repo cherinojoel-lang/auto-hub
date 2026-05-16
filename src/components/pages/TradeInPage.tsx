@@ -264,10 +264,10 @@ export default function TradeInPage() {
                   <ChevronRight size={20} />
                 </Link>
                 <a
-                  href="tel:+4923311234567"
+                  href="tel:+4923749157-0"
                   className="bg-secondary/10 text-foreground px-8 py-4 rounded-lg font-medium hover:bg-secondary/20 transition-all duration-200"
                 >
-                  +49 (0) 2331 123456
+                  +49 2374 9157-0
                 </a>
               </div>
             </div>
