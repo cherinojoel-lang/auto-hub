@@ -47,25 +47,9 @@ Präsentationsfähige Lead-Website für Automobile Quick in Iserlohn-Letmathe.
   - Anrufen
   - Besichtigung anfragen
 
-## Verbotene Buttons
-- Kaufen
-- Jetzt kaufen
-- Checkout
-- Jetzt bezahlen
-- Reservieren
-- Verbindlich reservieren
-
 ## Build-Hinweis
-Dieses Wix/Astro-Projekt kann lokal an @wix/editor-elements-definitions oder wix CLI scheitern.
+Dieses Wix/Astro-Projekt kann lokal an @wix/editor-elements-definitions oder Wix CLI scheitern.
 Wenn npm install/build wegen Wix-internen Paketen fehlschlägt:
 - nicht weiter mit --force eskalieren
 - stattdessen statische Codeprüfung, Dateisuche und minimalen Patch durchführen
 - Build-Fehler sauber dokumentieren
-
-## Erwartete Ausgabe nach jeder Änderung
-1. Geänderte Dateien
-2. Fehlerursache
-3. Build-/Install-Ergebnis
-4. /fahrzeugbestand lädt: ja/nein oder nicht lokal prüfbar
-5. 17 Fahrzeuge sichtbar: ja/nein oder nicht lokal prüfbar
-6. Restfehler
