@@ -269,7 +269,7 @@ export default function AboutPage() {
                       allowFullScreen
                       loading="lazy"
                       referrerPolicy="no-referrer-when-downgrade"
-                      title="Standort Automobile Quick"
+                      title="Standort Reinhardt Automobile"
                     />
                   </div>
                   <p className="text-foreground/70 mb-4">

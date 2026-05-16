@@ -33,14 +33,14 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-3">
                 <Phone size={18} className="flex-shrink-0 text-secondary" />
-                <a href="tel:+4923749157-0" className="text-sm text-white/80 hover:text-white transition-colors">
-                  +49 2374 9157-0
+                <a href="tel:+4923311234567" className="text-sm text-white/80 hover:text-white transition-colors">
+                  +49 (0) 2331 123456
                 </a>
               </div>
               <div className="flex items-center gap-3">
                 <Mail size={18} className="flex-shrink-0 text-secondary" />
-                <a href="mailto:info@automobile-quick.de" className="text-sm text-white/80 hover:text-white transition-colors">
-                  info@automobile-quick.de
+                <a href="mailto:info@automobilequick.de" className="text-sm text-white/80 hover:text-white transition-colors">
+                  info@automobilequick.de
                 </a>
               </div>
               <div className="flex items-center gap-3">
@@ -91,7 +91,7 @@ export default function Footer() {
                 to="/contact"
                 className="block text-sm text-white/80 hover:text-white transition-colors duration-200"
               >
-                Kontakt & Anfahrt
+                Kontakt
               </Link>
             </nav>
           </div>
@@ -112,6 +112,12 @@ export default function Footer() {
               >
                 Datenschutz
               </Link>
+              <a
+                href="tel:+4923311234567"
+                className="block text-sm text-white/80 hover:text-white transition-colors duration-200 font-medium text-secondary"
+              >
+                Jetzt anrufen
+              </a>
             </nav>
           </div>
         </div>
