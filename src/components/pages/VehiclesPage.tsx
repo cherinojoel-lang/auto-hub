@@ -63,11 +63,11 @@ export default function VehiclesPage() {
   useEffect(() => {
     // Update SEO for vehicles page
     updateMetaTags({
-      title: 'Fahrzeugbestand - Automobile Quick | Gebrauchtwagen in Iserlohn-Letmathe',
-      description: 'Entdecken Sie unsere große Auswahl an hochwertigen Gebrauchtwagen. Audi, BMW, Mercedes, VW und mehr. Faire Preise und persönliche Beratung bei Automobile Quick.',
-      keywords: 'Gebrauchtwagen Bestand, Fahrzeuge kaufen, Audi, BMW, Mercedes, VW, Iserlohn, Letmathe',
-      ogTitle: 'Unsere Fahrzeuge - Automobile Quick',
-      ogDescription: 'Entdecken Sie unsere große Auswahl an hochwertigen Gebrauchtwagen mit fairen Preisen.',
+      title: 'Fahrzeugbestand - Gebrauchtwagen kaufen bei Automobile Quick in Iserlohn-Letmathe',
+      description: 'Große Auswahl an hochwertigen Gebrauchtwagen bei Automobile Quick. Audi, BMW, Mercedes, VW, Porsche - faire Preise, persönliche Beratung, schnelle Lieferung. Jetzt Fahrzeug finden!',
+      keywords: 'Fahrzeugbestand, Gebrauchtwagen kaufen, Gebrauchtwagen Iserlohn, Gebrauchtwagen Letmathe, Audi Gebrauchtwagen, BMW Gebrauchtwagen, Mercedes Gebrauchtwagen, VW Gebrauchtwagen, Porsche Gebrauchtwagen, Automobile Quick Fahrzeuge',
+      ogTitle: 'Fahrzeugbestand - Automobile Quick',
+      ogDescription: 'Große Auswahl an hochwertigen Gebrauchtwagen mit fairen Preisen und persönlicher Beratung.',
       canonicalUrl: 'https://automobilequick.de/vehicles',
       structuredData: getStructuredDataBreadcrumb([
         { name: 'Home', url: 'https://automobilequick.de/' },
@@ -137,10 +137,10 @@ export default function VehiclesPage() {
           <AnimatedElement>
             <div className="max-w-3xl mx-auto text-center">
               <h1 className="text-4xl md:text-5xl font-heading font-bold mb-4">
-                Unsere Fahrzeuge
+                Fahrzeugbestand - Gebrauchtwagen kaufen
               </h1>
               <p className="text-lg md:text-xl text-background/90">
-                Entdecken Sie unsere große Auswahl an hochwertigen Gebrauchtwagen
+                Große Auswahl an hochwertigen Gebrauchtwagen mit fairen Preisen und persönlicher Beratung
               </p>
             </div>
           </AnimatedElement>

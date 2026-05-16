@@ -78,11 +78,11 @@ export default function HomePage() {
   useEffect(() => {
     // Update SEO for homepage
     updateMetaTags({
-      title: 'Automobile Quick - Gebrauchtwagen in Iserlohn-Letmathe | Autohaus seit 1982',
-      description: 'Hochwertige Gebrauchtwagen mit persönlicher Beratung. Automobile Quick - Ihr Autohaus seit 1982 in Iserlohn-Letmathe. Große Auswahl an Audi, BMW, Mercedes, VW und mehr.',
-      keywords: 'Gebrauchtwagen, Autohaus, Iserlohn, Letmathe, Automobile Quick, Fahrzeuge, Audi, BMW, Mercedes, VW, Porsche',
+      title: 'Gebrauchtwagen Iserlohn-Letmathe | Automobile Quick - Autohaus seit 1982',
+      description: 'Automobile Quick: Hochwertige Gebrauchtwagen in Iserlohn-Letmathe. Audi, BMW, Mercedes, VW, Porsche - faire Preise, persönliche Beratung, seit 1982. Jetzt Fahrzeug finden!',
+      keywords: 'Gebrauchtwagen Iserlohn, Gebrauchtwagen Letmathe, Autohaus Iserlohn, Gebrauchtwagen kaufen, Audi Gebrauchtwagen, BMW Gebrauchtwagen, Mercedes Gebrauchtwagen, VW Gebrauchtwagen, Porsche Gebrauchtwagen, Automobile Quick, Fahrzeugbestand, Gebrauchtwagen Hagen',
       ogTitle: 'Automobile Quick - Gebrauchtwagen in Iserlohn-Letmathe',
-      ogDescription: 'Hochwertige Gebrauchtwagen mit persönlicher Beratung. Automobile Quick - Ihr Autohaus seit 1982.',
+      ogDescription: 'Hochwertige Gebrauchtwagen mit persönlicher Beratung. Automobile Quick - Ihr Autohaus seit 1982 in Iserlohn-Letmathe.',
       ogImage: 'https://static.wixstatic.com/media/32e7c0_d28732f69d9643a7ada1b1be4890a422~mv2.png',
       canonicalUrl: 'https://automobilequick.de/',
       structuredData: getStructuredDataOrganization(),
@@ -134,7 +134,7 @@ export default function HomePage() {
         <div className="absolute inset-0 z-0">
           <Image 
             src="https://static.wixstatic.com/media/32e7c0_d28732f69d9643a7ada1b1be4890a422~mv2.png?originWidth=1152&originHeight=576" 
-            alt="Reinhardt Automobile Hero - Gebrauchtwagen Autohaus" 
+            alt="Automobile Quick Autohaus - Gebrauchtwagen in Iserlohn-Letmathe seit 1982" 
             className="w-full h-full object-cover object-center opacity-60"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-accent/80 via-accent/40 to-background"></div>
@@ -143,10 +143,10 @@ export default function HomePage() {
         <div className="relative z-10 container mx-auto px-4 text-center mt-20">
           <AnimatedElement direction="up">
             <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-4 tracking-tight drop-shadow-lg">
-              Ihr Autohaus in Iserlohn-Letmathe
+              Gebrauchtwagen in Iserlohn-Letmathe
             </h1>
             <p className="text-xl md:text-2xl text-white/90 font-light mb-8">
-              Gepflegte Gebrauchtwagen, persönliche Beratung und schnelle Kontaktaufnahme bei Automobile Quick – seit 1982.
+              Automobile Quick: Hochwertige Gebrauchtwagen, persönliche Beratung und faire Preise – Ihr vertrauensvoller Autohaus-Partner seit 1982
             </p>
           </AnimatedElement>
         </div>

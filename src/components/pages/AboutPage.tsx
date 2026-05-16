@@ -47,9 +47,9 @@ export default function AboutPage() {
   useEffect(() => {
     // Update SEO for about page
     updateMetaTags({
-      title: 'Über uns - Automobile Quick | Autohaus seit 1982',
-      description: 'Erfahren Sie mehr über Automobile Quick. Seit 1982 Ihr vertrauensvoller Partner für hochwertige Gebrauchtwagen in Iserlohn-Letmathe mit fairen Preisen und persönlicher Beratung.',
-      keywords: 'Über Automobile Quick, Autohaus Geschichte, Gebrauchtwagen Händler, Iserlohn, Letmathe',
+      title: 'Über uns - Automobile Quick | Autohaus seit 1982 in Iserlohn-Letmathe',
+      description: 'Automobile Quick: Seit 1982 Ihr vertrauensvoller Partner für hochwertige Gebrauchtwagen in Iserlohn-Letmathe. Faire Preise, persönliche Beratung, langfristige Partnerschaft. Erfahren Sie mehr über uns!',
+      keywords: 'Über Automobile Quick, Autohaus Geschichte, Gebrauchtwagen Händler, Iserlohn, Letmathe, seit 1982, vertrauensvoller Partner',
       ogTitle: 'Über uns - Automobile Quick',
       ogDescription: 'Seit 1982 Ihr vertrauensvoller Partner für hochwertige Gebrauchtwagen mit fairen Preisen.',
       canonicalUrl: 'https://automobilequick.de/about',

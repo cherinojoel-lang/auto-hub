@@ -19,9 +19,9 @@ export interface SEOConfig {
 }
 
 export const DEFAULT_SEO: SEOConfig = {
-  title: 'Automobile Quick - Gebrauchtwagen in Iserlohn-Letmathe',
-  description: 'Hochwertige Gebrauchtwagen mit persönlicher Beratung. Automobile Quick - Ihr Autohaus seit 1982 in Iserlohn-Letmathe.',
-  keywords: 'Gebrauchtwagen, Autohaus, Iserlohn, Letmathe, Automobile Quick, Fahrzeuge',
+  title: 'Automobile Quick - Gebrauchtwagen in Iserlohn-Letmathe | Autohaus seit 1982',
+  description: 'Automobile Quick: Hochwertige Gebrauchtwagen in Iserlohn-Letmathe. Audi, BMW, Mercedes, VW, Porsche - faire Preise, persönliche Beratung, seit 1982. Jetzt Fahrzeug finden!',
+  keywords: 'Gebrauchtwagen Iserlohn, Gebrauchtwagen Letmathe, Autohaus Iserlohn, Gebrauchtwagen kaufen, Audi Gebrauchtwagen, BMW Gebrauchtwagen, Mercedes Gebrauchtwagen, VW Gebrauchtwagen, Porsche Gebrauchtwagen, Automobile Quick, Fahrzeugbestand, Gebrauchtwagen Hagen',
   ogType: 'website',
   robots: 'index, follow',
   author: 'Automobile Quick',
@@ -117,7 +117,7 @@ export function getStructuredDataOrganization() {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     name: 'Automobile Quick',
-    description: 'Hochwertige Gebrauchtwagen mit persönlicher Beratung',
+    description: 'Hochwertige Gebrauchtwagen mit persönlicher Beratung in Iserlohn-Letmathe seit 1982',
     url: 'https://automobilequick.de',
     telephone: '+49 (0) 2331 123456',
     email: 'info@automobilequick.de',
@@ -138,6 +138,7 @@ export function getStructuredDataOrganization() {
       ratingValue: '4.9',
       reviewCount: '1690',
     },
+    foundingDate: '1982',
   };
 }
 
@@ -146,13 +147,18 @@ export function getStructuredDataProduct(vehicle: any) {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: `${vehicle.manufacturer} ${vehicle.model}`,
-    description: vehicle.description || `${vehicle.manufacturer} ${vehicle.model} Gebrauchtwagen`,
+    description: vehicle.description || `${vehicle.manufacturer} ${vehicle.model} - Hochwertiger Gebrauchtwagen bei Automobile Quick in Iserlohn-Letmathe`,
     image: vehicle.mainImage,
     offers: {
       '@type': 'Offer',
       price: vehicle.price,
       priceCurrency: 'EUR',
       availability: 'https://schema.org/InStock',
+      seller: {
+        '@type': 'LocalBusiness',
+        name: 'Automobile Quick',
+        url: 'https://automobilequick.de',
+      },
     },
     aggregateRating: {
       '@type': 'AggregateRating',
