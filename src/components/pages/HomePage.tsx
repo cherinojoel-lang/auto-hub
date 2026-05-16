@@ -1,7 +1,7 @@
 // WI-HPI
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Search, ChevronRight, Star, MapPin, Phone, Mail, Clock, Info, Check, Award, Users, Zap } from 'lucide-react';
+import { Search, ChevronRight, Star, MapPin, Phone, Mail, Clock, Info, Check, Award, Users, Zap, Calendar, Gauge, Fuel } from 'lucide-react';
 import { BaseCrudService } from '@/integrations';
 import { Vehicles } from '@/entities';
 import { Image } from '@/components/ui/image';
@@ -142,136 +142,40 @@ export default function HomePage() {
 
         <div className="relative z-10 container mx-auto px-4 max-w-7xl text-center py-8 sm:py-12 md:py-20">
           <AnimatedElement direction="up">
-            <div className="mb-4 sm:mb-6">
-              <span className="inline-block px-4 py-2 bg-secondary/20 text-secondary text-xs sm:text-sm font-bold rounded-full mb-6">
-                SEIT 1982 IN ISERLOHN-LETMATHE
-              </span>
-            </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-white mb-4 sm:mb-6 tracking-tight leading-tight">
-              Ein guter Gebrauchter ist keine Glücksache
+              Ihr Autohaus in Iserlohn-Letmathe
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-white/90 font-paragraph font-light mb-10 sm:mb-14 leading-relaxed max-w-3xl mx-auto">
-              Hochwertige Gebrauchtwagen, persönliche Beratung und schnelle Kontaktaufnahme – Automobile Quick ist Ihr vertrauensvoller Partner.
+              Gepflegte Gebrauchtwagen, persönliche Beratung und schnelle Kontaktaufnahme bei Automobile Quick – seit 1982.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center flex-wrap">
               <Link
                 to="/vehicles"
-                className="px-8 sm:px-10 py-4 bg-secondary text-white font-bold rounded-sm hover:bg-secondary/90 transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-2xl transform hover:-translate-y-0.5 text-base sm:text-lg"
+                className="px-8 sm:px-10 py-4 bg-secondary text-white font-bold rounded-sm hover:bg-secondary/90 transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-2xl transform hover:-translate-y-0.5 text-base sm:text-lg min-h-[48px]"
               >
-                Fahrzeugbestand durchsuchen
+                Fahrzeuge ansehen
                 <ChevronRight size={20} />
               </Link>
               <button
                 onClick={() => window.location.href = '#contact'}
-                className="px-8 sm:px-10 py-4 bg-white text-primary font-bold rounded-sm hover:bg-gray-50 transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-2xl transform hover:-translate-y-0.5 text-base sm:text-lg"
+                className="px-8 sm:px-10 py-4 bg-white text-primary font-bold rounded-sm hover:bg-gray-50 transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-2xl transform hover:-translate-y-0.5 text-base sm:text-lg min-h-[48px]"
               >
                 Besichtigung anfragen
                 <ChevronRight size={20} />
               </button>
               <a
                 href="tel:+4923311234567"
-                className="px-8 sm:px-10 py-4 border-2 border-white text-white font-bold rounded-sm hover:bg-white/10 transition-all duration-300 inline-flex items-center justify-center gap-2 text-base sm:text-lg"
+                className="px-8 sm:px-10 py-4 bg-secondary text-white font-bold rounded-sm hover:bg-secondary/90 transition-all duration-300 inline-flex items-center justify-center gap-2 text-base sm:text-lg min-h-[48px]"
               >
                 <Phone size={20} />
-                +49 2331 123456
+                Anrufen
               </a>
             </div>
           </AnimatedElement>
         </div>
       </section>
 
-      {/* SEARCH SECTION */}
-      <section className="relative z-20 -mt-8 sm:-mt-12 md:-mt-16 mb-8 sm:mb-12 md:mb-16 px-4">
-        <div className="container mx-auto max-w-7xl">
-          <AnimatedElement delay={200}>
-            <div className="bg-white rounded-sm shadow-2xl p-6 sm:p-8 md:p-10 border border-gray-100">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-center mb-8 sm:mb-10 text-primary">
-                Fahrzeug finden
-              </h2>
-              
-              <form onSubmit={handleSearch} className="flex flex-col gap-6 sm:gap-8">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-                  {/* Manufacturer */}
-                  <div className="flex flex-col">
-                    <label className="text-xs font-bold text-primary mb-2 uppercase tracking-wide">Hersteller</label>
-                    <select
-                      value={manufacturer}
-                      onChange={(e) => setManufacturer(e.target.value)}
-                      className="w-full px-4 py-3 rounded-sm border-2 border-gray-200 bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
-                    >
-                      <option value="">Alle Hersteller</option>
-                      <option value="Audi">Audi</option>
-                      <option value="BMW">BMW</option>
-                      <option value="Mercedes-Benz">Mercedes-Benz</option>
-                      <option value="VW">VW</option>
-                      <option value="Porsche">Porsche</option>
-                    </select>
-                  </div>
-
-                  {/* Drive Type */}
-                  <div className="flex flex-col">
-                    <label className="text-xs font-bold text-primary mb-2 uppercase tracking-wide">Antriebsart</label>
-                    <select
-                      value={driveType}
-                      onChange={(e) => setDriveType(e.target.value)}
-                      className="w-full px-4 py-3 rounded-sm border-2 border-gray-200 bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
-                    >
-                      <option value="">Alle Antriebsarten</option>
-                      <option value="Benzin">Benzin</option>
-                      <option value="Diesel">Diesel</option>
-                      <option value="Elektro">Elektro</option>
-                      <option value="Hybrid">Hybrid</option>
-                    </select>
-                  </div>
-
-                  {/* Min Year */}
-                  <div className="flex flex-col">
-                    <label className="text-xs font-bold text-primary mb-2 uppercase tracking-wide">EZ ab</label>
-                    <select
-                      value={minYear}
-                      onChange={(e) => setMinYear(e.target.value)}
-                      className="w-full px-4 py-3 rounded-sm border-2 border-gray-200 bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
-                    >
-                      <option value="">Alle Jahre</option>
-                      <option value="2024">ab 2024</option>
-                      <option value="2023">ab 2023</option>
-                      <option value="2022">ab 2022</option>
-                      <option value="2021">ab 2021</option>
-                      <option value="2020">ab 2020</option>
-                    </select>
-                  </div>
-
-                  {/* Max KM */}
-                  <div className="flex flex-col">
-                    <label className="text-xs font-bold text-primary mb-2 uppercase tracking-wide">km bis</label>
-                    <select
-                      value={maxKm}
-                      onChange={(e) => setMaxKm(e.target.value)}
-                      className="w-full px-4 py-3 rounded-sm border-2 border-gray-200 bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
-                    >
-                      <option value="">Alle km</option>
-                      <option value="10000">bis 10.000</option>
-                      <option value="30000">bis 30.000</option>
-                      <option value="50000">bis 50.000</option>
-                      <option value="100000">bis 100.000</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="flex justify-center">
-                  <button
-                    type="submit"
-                    className="bg-primary text-white px-10 sm:px-14 py-4 rounded-sm font-bold text-base sm:text-lg hover:bg-primary/90 transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-2xl transform hover:-translate-y-0.5"
-                  >
-                    <Search size={20} />
-                    <span>Fahrzeuge durchsuchen</span>
-                  </button>
-                </div>
-              </form>
-            </div>
-          </AnimatedElement>
-        </div>
-      </section>
+      {/* ... keep existing code (SEARCH SECTION removed for lead-focused homepage) ... */}
 
       {/* TRUST BAR */}
       <section className="bg-white border-b border-gray-200 py-8 sm:py-12">
