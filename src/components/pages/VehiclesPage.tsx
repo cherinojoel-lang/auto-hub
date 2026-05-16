@@ -132,14 +132,14 @@ export default function VehiclesPage() {
       <Header />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-accent via-accent to-primary/20 text-background py-16 md:py-20">
+      <section className="bg-gradient-to-br from-accent via-accent to-primary/20 text-background py-8 sm:py-12 md:py-16 lg:py-20">
         <div className="container mx-auto px-4">
           <AnimatedElement>
             <div className="max-w-3xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl font-heading font-bold mb-4">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-3 sm:mb-4">
                 Fahrzeugbestand - Gebrauchtwagen kaufen
               </h1>
-              <p className="text-lg md:text-xl text-background/90">
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-background/90">
                 Große Auswahl an hochwertigen Gebrauchtwagen mit fairen Preisen und persönlicher Beratung
               </p>
             </div>
@@ -148,15 +148,15 @@ export default function VehiclesPage() {
       </section>
 
       {/* Filters Section */}
-      <section className="py-8 bg-background border-b border-border/50">
+      <section className="py-6 sm:py-8 bg-background border-b border-border/50">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-heading font-bold text-foreground">
+          <div className="flex items-center justify-between mb-3 sm:mb-4">
+            <h2 className="text-lg sm:text-xl font-heading font-bold text-foreground">
               Filter
             </h2>
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="md:hidden flex items-center gap-2 text-primary font-medium"
+              className="md:hidden flex items-center gap-2 text-primary font-medium text-sm sm:text-base"
             >
               <Filter size={20} />
               {showFilters ? 'Schließen' : 'Filter anzeigen'}
@@ -164,15 +164,15 @@ export default function VehiclesPage() {
           </div>
 
           <div className={`${showFilters ? 'block' : 'hidden'} md:block`}>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-4">
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label className="block text-xs sm:text-sm font-medium text-foreground mb-2">
                   Hersteller
                 </label>
                 <select
                   value={manufacturer}
                   onChange={(e) => setManufacturer(e.target.value)}
-                  className="w-full px-4 py-2 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-2 rounded-lg border border-border bg-background text-foreground text-sm focus:ring-2 focus:ring-primary focus:border-primary transition-all"
                 >
                   <option value="">Alle Hersteller</option>
                   <option value="Audi">Audi</option>
@@ -186,13 +186,13 @@ export default function VehiclesPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label className="block text-xs sm:text-sm font-medium text-foreground mb-2">
                   Antriebsart
                 </label>
                 <select
                   value={driveType}
                   onChange={(e) => setDriveType(e.target.value)}
-                  className="w-full px-4 py-2 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-2 rounded-lg border border-border bg-background text-foreground text-sm focus:ring-2 focus:ring-primary focus:border-primary transition-all"
                 >
                   <option value="">Alle Antriebsarten</option>
                   <option value="Benzin">Benzin</option>
@@ -204,13 +204,13 @@ export default function VehiclesPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label className="block text-xs sm:text-sm font-medium text-foreground mb-2">
                   EZ ab
                 </label>
                 <select
                   value={yearFrom}
                   onChange={(e) => setYearFrom(e.target.value)}
-                  className="w-full px-4 py-2 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-2 rounded-lg border border-border bg-background text-foreground text-sm focus:ring-2 focus:ring-primary focus:border-primary transition-all"
                 >
                   <option value="">Alle Jahre</option>
                   <option value="2024">ab 2024</option>
@@ -224,13 +224,13 @@ export default function VehiclesPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label className="block text-xs sm:text-sm font-medium text-foreground mb-2">
                   km bis
                 </label>
                 <select
                   value={maxMileage}
                   onChange={(e) => setMaxMileage(e.target.value)}
-                  className="w-full px-4 py-2 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-2 rounded-lg border border-border bg-background text-foreground text-sm focus:ring-2 focus:ring-primary focus:border-primary transition-all"
                 >
                   <option value="">Alle km</option>
                   <option value="20000">bis 20.000</option>
@@ -242,16 +242,16 @@ export default function VehiclesPage() {
               </div>
             </div>
 
-            <div className="flex gap-3">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
               <button
                 onClick={applyFilters}
-                className="bg-primary text-primary-foreground px-6 py-2 rounded-lg font-medium hover:bg-primary/90 transition-all duration-200"
+                className="bg-primary text-primary-foreground px-4 sm:px-6 py-2 sm:py-2 rounded-lg font-medium text-sm sm:text-base hover:bg-primary/90 transition-all duration-200"
               >
                 Filter anwenden
               </button>
               <button
                 onClick={clearFilters}
-                className="bg-secondary/10 text-foreground px-6 py-2 rounded-lg font-medium hover:bg-secondary/20 transition-all duration-200 flex items-center gap-2"
+                className="bg-secondary/10 text-foreground px-4 sm:px-6 py-2 sm:py-2 rounded-lg font-medium text-sm sm:text-base hover:bg-secondary/20 transition-all duration-200 flex items-center justify-center gap-2"
               >
                 <X size={18} />
                 Zurücksetzen
@@ -262,7 +262,7 @@ export default function VehiclesPage() {
       </section>
 
       {/* Vehicles Grid */}
-      <section className="py-12 bg-gradient-to-b from-background to-secondary/5">
+      <section className="py-8 sm:py-12 bg-gradient-to-b from-background to-secondary/5">
         <div className="container mx-auto px-4">
           <div className="min-h-[600px]">
             {isLoading ? (
@@ -271,7 +271,7 @@ export default function VehiclesPage() {
               </div>
             ) : vehicles.length > 0 ? (
               <>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                   {vehicles.map((vehicle, index) => (
                     <AnimatedElement key={vehicle._id} delay={index * 50}>
                       <Link
@@ -288,17 +288,17 @@ export default function VehiclesPage() {
                             />
                           ) : (
                             <div className="w-full h-full flex items-center justify-center bg-secondary/10">
-                              <span className="text-4xl font-bold text-secondary/30">
+                              <span className="text-3xl sm:text-4xl font-bold text-secondary/30">
                                 {vehicle.manufacturer?.charAt(0)}
                               </span>
                             </div>
                           )}
                         </div>
-                        <div className="p-6">
-                          <h3 className="text-xl font-heading font-bold mb-2 text-foreground group-hover:text-primary transition-colors">
+                        <div className="p-4 sm:p-6">
+                          <h3 className="text-base sm:text-xl font-heading font-bold mb-2 text-foreground group-hover:text-primary transition-colors">
                             {vehicle.manufacturer} {vehicle.model}
                           </h3>
-                          <div className="space-y-2 mb-4 text-sm text-foreground/70">
+                          <div className="space-y-1 sm:space-y-2 mb-4 text-xs sm:text-sm text-foreground/70">
                             {vehicle.firstRegistrationYear && (
                               <p>EZ: {vehicle.firstRegistrationYear}</p>
                             )}
@@ -311,7 +311,7 @@ export default function VehiclesPage() {
                             {vehicle.driveType && <p>{vehicle.driveType}</p>}
                           </div>
                           <div className="flex items-center justify-between pt-4 border-t border-border/50">
-                            <span className="text-2xl font-bold text-primary">
+                            <span className="text-lg sm:text-2xl font-bold text-primary">
                               {formatPrice(vehicle.price)}
                             </span>
                             <ChevronRight className="text-primary group-hover:translate-x-1 transition-transform" />
@@ -323,10 +323,10 @@ export default function VehiclesPage() {
                 </div>
 
                 {hasNext && (
-                  <div className="text-center mt-12">
+                  <div className="text-center mt-8 sm:mt-12">
                     <button
                       onClick={loadMore}
-                      className="bg-primary text-primary-foreground px-8 py-4 rounded-lg font-medium hover:bg-primary/90 hover:shadow-lg transition-all duration-200"
+                      className="bg-primary text-primary-foreground px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-medium text-sm sm:text-base hover:bg-primary/90 hover:shadow-lg transition-all duration-200"
                     >
                       Mehr Fahrzeuge laden
                     </button>
@@ -335,7 +335,7 @@ export default function VehiclesPage() {
               </>
             ) : (
               <div className="text-center py-20">
-                <p className="text-xl text-foreground/70">
+                <p className="text-base sm:text-xl text-foreground/70">
                   Keine Fahrzeuge gefunden. Bitte passen Sie Ihre Filter an.
                 </p>
               </div>
