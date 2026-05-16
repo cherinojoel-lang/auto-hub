@@ -1,6 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { TrendingDown, Percent, Clock, CheckCircle, ChevronRight } from 'lucide-react';
+import { Zap, Percent, Clock } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
@@ -44,6 +43,15 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
 };
 
 export default function FinancingPage() {
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    vehicle: '',
+    message: '',
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   useEffect(() => {
     updateMetaTags({
       title: 'Gebrauchtwagen-Finanzierung in Iserlohn-Letmathe | Automobile Quick',
@@ -59,13 +67,29 @@ export default function FinancingPage() {
     });
   }, []);
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    // Simulate form submission
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setFormData({
+        name: '',
+        phone: '',
+        email: '',
+        vehicle: '',
+        message: '',
+      });
+    }, 1000);
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-accent via-accent to-primary/20 text-background py-20 md:py-28 overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
+      <section className="relative bg-gradient-to-br from-primary via-primary to-primary/80 text-background py-16 md:py-24 overflow-hidden">
+        <div className="absolute inset-0 opacity-5">
           <div
             className="absolute inset-0"
             style={{
@@ -74,214 +98,173 @@ export default function FinancingPage() {
             }}
           />
         </div>
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container mx-auto px-4 relative z-10 max-w-4xl">
           <AnimatedElement>
-            <div className="max-w-3xl mx-auto text-center">
+            <div className="text-center">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6">
                 Gebrauchtwagen-Finanzierung in Iserlohn-Letmathe
               </h1>
-              <p className="text-xl md:text-2xl text-background/90">
-                Flexible Lösungen mit fairen Konditionen
+              <p className="text-lg md:text-xl text-background/90 leading-relaxed">
+                Automobile Quick unterstützt Sie bei der passenden Finanzierung für Ihren Gebrauchtwagen. Fragen Sie Ihr Wunschfahrzeug direkt an und erhalten Sie persönliche Beratung zu möglichen Monatsraten und Laufzeiten.
               </p>
             </div>
           </AnimatedElement>
         </div>
       </section>
 
-      {/* Benefits Section */}
-      <section className="py-20 bg-gradient-to-b from-background to-secondary/5">
-        <div className="container mx-auto px-4">
-          <AnimatedElement>
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-4">
-                Unsere Finanzierungsvorteile
-              </h2>
-              <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
-                Wir bieten Ihnen flexible und faire Finanzierungslösungen
-              </p>
-            </div>
-          </AnimatedElement>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+      {/* Info Cards Section */}
+      <section className="py-16 md:py-20 bg-background">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <AnimatedElement delay={100}>
-              <div className="bg-background rounded-2xl p-8 shadow-lg border border-border/50 hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 mx-auto">
-                  <Percent className="text-primary" size={32} />
-                </div>
-                <h3 className="text-xl font-heading font-bold text-foreground mb-3 text-center">
-                  Faire Zinssätze
-                </h3>
-                <p className="text-foreground/70 leading-relaxed text-center">
-                  Wettbewerbsfähige Zinssätze für Ihre Finanzierung.
-                </p>
-              </div>
-            </AnimatedElement>
-
-            <AnimatedElement delay={150}>
-              <div className="bg-background rounded-2xl p-8 shadow-lg border border-border/50 hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 mx-auto">
-                  <TrendingDown className="text-primary" size={32} />
-                </div>
-                <h3 className="text-xl font-heading font-bold text-foreground mb-3 text-center">
-                  Flexible Laufzeiten
-                </h3>
-                <p className="text-foreground/70 leading-relaxed text-center">
-                  Wählen Sie die Laufzeit, die zu Ihnen passt.
-                </p>
-              </div>
-            </AnimatedElement>
-
-            <AnimatedElement delay={200}>
-              <div className="bg-background rounded-2xl p-8 shadow-lg border border-border/50 hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 mx-auto">
-                  <Clock className="text-primary" size={32} />
-                </div>
-                <h3 className="text-xl font-heading font-bold text-foreground mb-3 text-center">
-                  Schnelle Abwicklung
-                </h3>
-                <p className="text-foreground/70 leading-relaxed text-center">
-                  Schnelle Genehmigung und Auszahlung.
-                </p>
-              </div>
-            </AnimatedElement>
-
-            <AnimatedElement delay={250}>
-              <div className="bg-background rounded-2xl p-8 shadow-lg border border-border/50 hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 mx-auto">
-                  <CheckCircle className="text-primary" size={32} />
+              <div className="bg-neutral-100 rounded-lg p-8">
+                <div className="w-14 h-14 bg-secondary rounded-full flex items-center justify-center mb-6 mx-auto">
+                  <Zap className="text-background" size={28} />
                 </div>
                 <h3 className="text-xl font-heading font-bold text-foreground mb-3 text-center">
                   Persönliche Beratung
                 </h3>
-                <p className="text-foreground/70 leading-relaxed text-center">
-                  Unser Team berät Sie kompetent und fair.
+                <p className="text-foreground/70 text-sm leading-relaxed text-center">
+                  Kein Online-Abschluss – wir beraten Sie persönlich vor Ort.
                 </p>
-              </div>
-            </AnimatedElement>
-          </div>
-        </div>
-      </section>
-
-      {/* Options Section */}
-      <section className="py-20 bg-secondary/5">
-        <div className="container mx-auto px-4">
-          <AnimatedElement>
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-4">
-                Finanzierungsoptionen
-              </h2>
-              <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
-                Wir bieten verschiedene Finanzierungsmöglichkeiten für Ihr Fahrzeug
-              </p>
-            </div>
-          </AnimatedElement>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <AnimatedElement delay={100}>
-              <div className="bg-background rounded-2xl p-8 shadow-lg border border-border/50">
-                <h3 className="text-2xl font-heading font-bold text-foreground mb-4">
-                  Autokredit
-                </h3>
-                <p className="text-foreground/70 mb-6 leading-relaxed">
-                  Klassischer Autokredit mit flexiblen Laufzeiten und fairen Zinssätzen.
-                </p>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="text-primary flex-shrink-0 mt-1" size={20} />
-                    <span className="text-foreground/70">Flexible Laufzeiten</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="text-primary flex-shrink-0 mt-1" size={20} />
-                    <span className="text-foreground/70">Faire Zinssätze</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="text-primary flex-shrink-0 mt-1" size={20} />
-                    <span className="text-foreground/70">Schnelle Genehmigung</span>
-                  </li>
-                </ul>
               </div>
             </AnimatedElement>
 
             <AnimatedElement delay={150}>
-              <div className="bg-background rounded-2xl p-8 shadow-lg border border-border/50">
-                <h3 className="text-2xl font-heading font-bold text-foreground mb-4">
-                  Leasing
+              <div className="bg-neutral-100 rounded-lg p-8">
+                <div className="w-14 h-14 bg-secondary rounded-full flex items-center justify-center mb-6 mx-auto">
+                  <Percent className="text-background" size={28} />
+                </div>
+                <h3 className="text-xl font-heading font-bold text-foreground mb-3 text-center">
+                  Flexible Laufzeiten
                 </h3>
-                <p className="text-foreground/70 mb-6 leading-relaxed">
-                  Fahren Sie ein neues Auto ohne Kaufverpflichtung. Ideal für Vielfahrer.
+                <p className="text-foreground/70 text-sm leading-relaxed text-center">
+                  Monatsraten und Laufzeiten individuell nach Ihren Möglichkeiten.
                 </p>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="text-primary flex-shrink-0 mt-1" size={20} />
-                    <span className="text-foreground/70">Keine Kaufverpflichtung</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="text-primary flex-shrink-0 mt-1" size={20} />
-                    <span className="text-foreground/70">Wartung inklusive</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="text-primary flex-shrink-0 mt-1" size={20} />
-                    <span className="text-foreground/70">Versicherung inklusive</span>
-                  </li>
-                </ul>
               </div>
             </AnimatedElement>
 
             <AnimatedElement delay={200}>
-              <div className="bg-background rounded-2xl p-8 shadow-lg border border-border/50">
-                <h3 className="text-2xl font-heading font-bold text-foreground mb-4">
-                  Ballonfinanzierung
+              <div className="bg-neutral-100 rounded-lg p-8">
+                <div className="w-14 h-14 bg-secondary rounded-full flex items-center justify-center mb-6 mx-auto">
+                  <Clock className="text-background" size={28} />
+                </div>
+                <h3 className="text-xl font-heading font-bold text-foreground mb-3 text-center">
+                  Schnelle Rückmeldung
                 </h3>
-                <p className="text-foreground/70 mb-6 leading-relaxed">
-                  Niedrige monatliche Raten mit Schlussrate am Ende der Laufzeit.
+                <p className="text-foreground/70 text-sm leading-relaxed text-center">
+                  Wir melden uns zeitnah nach Ihrer Anfrage.
                 </p>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="text-primary flex-shrink-0 mt-1" size={20} />
-                    <span className="text-foreground/70">Niedrige Monatsraten</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="text-primary flex-shrink-0 mt-1" size={20} />
-                    <span className="text-foreground/70">Flexible Schlussrate</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="text-primary flex-shrink-0 mt-1" size={20} />
-                    <span className="text-foreground/70">Kaufoption am Ende</span>
-                  </li>
-                </ul>
               </div>
             </AnimatedElement>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-b from-background to-secondary/5">
-        <div className="container mx-auto px-4">
+      {/* Form Section */}
+      <section className="py-16 md:py-20 bg-neutral-100">
+        <div className="container mx-auto px-4 max-w-2xl">
           <AnimatedElement>
-            <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-6">
-                Interessiert an einer Finanzierung?
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-2">
+                Finanzierung anfragen
               </h2>
-              <p className="text-lg text-foreground/70 mb-8">
-                Kontaktieren Sie uns noch heute für ein unverbindliches Finanzierungsangebot.
+              <p className="text-foreground/70">
+                Füllen Sie das Formular aus und wir melden uns zeitnah bei Ihnen.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  to="/contact"
-                  className="bg-primary text-primary-foreground px-8 py-4 rounded-lg font-medium hover:bg-primary/90 hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2"
-                >
-                  Jetzt anfragen
-                  <ChevronRight size={20} />
-                </Link>
-                <a
-                  href="tel:+4923311234567"
-                  className="bg-secondary/10 text-foreground px-8 py-4 rounded-lg font-medium hover:bg-secondary/20 transition-all duration-200"
-                >
-                  +49 (0) 2331 123456
-                </a>
-              </div>
             </div>
+          </AnimatedElement>
+
+          <AnimatedElement delay={100}>
+            <form onSubmit={handleSubmit} className="bg-background rounded-lg p-8 shadow-sm border border-neutral-200">
+              {/* Name */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Name <span className="text-secondary">*</span>
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
+                  placeholder="Ihr Name"
+                />
+              </div>
+
+              {/* Phone */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Telefon <span className="text-secondary">*</span>
+                </label>
+                <input
+                  type="tel"
+                  required
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
+                  placeholder="Ihre Telefonnummer"
+                />
+              </div>
+
+              {/* Email */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  E-Mail
+                </label>
+                <input
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
+                  placeholder="Ihre E-Mail"
+                />
+              </div>
+
+              {/* Vehicle */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Gewünschtes Fahrzeug
+                </label>
+                <input
+                  type="text"
+                  value={formData.vehicle}
+                  onChange={(e) => setFormData({ ...formData, vehicle: e.target.value })}
+                  className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
+                  placeholder="z.B. BMW 3er, Mercedes C-Klasse"
+                />
+              </div>
+
+              {/* Message */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Nachricht
+                </label>
+                <textarea
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50 resize-none"
+                  placeholder="Weitere Informationen zu Ihrer Finanzierungsanfrage..."
+                  rows={4}
+                />
+              </div>
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-secondary hover:bg-secondary/90 text-background font-medium py-3 rounded-lg transition-all duration-200 disabled:opacity-50"
+              >
+                {isSubmitting ? 'Wird gesendet...' : 'Finanzierung anfragen'}
+              </button>
+
+              {/* Legal Notice */}
+              <div className="mt-8 p-4 bg-neutral-100 rounded-lg border border-neutral-300">
+                <p className="text-xs text-foreground/70 leading-relaxed">
+                  <strong>Unverbindliche Anfrage.</strong> Keine Kreditzusage. Kein Online-Abschluss. Keine Garantieversprechen. Alle Angaben ohne Gewähr.
+                </p>
+              </div>
+            </form>
           </AnimatedElement>
         </div>
       </section>

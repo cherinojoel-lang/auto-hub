@@ -8,7 +8,7 @@ export default function ImprintPage() {
     updateMetaTags({
       title: 'Impressum - Automobile Quick',
       description: 'Impressum und rechtliche Informationen von Automobile Quick in Iserlohn-Letmathe.',
-      robots: 'noindex, follow',
+      robots: 'index, follow',
     });
   }, []);
 
@@ -38,8 +38,9 @@ export default function ImprintPage() {
                 </h2>
                 <div className="space-y-2 text-foreground/80">
                   <p className="font-medium">Automobile Quick</p>
-                  <p>Delsterner Str. 92</p>
-                  <p>58091 Hagen</p>
+                  <p>Konstantinos Pappas</p>
+                  <p>Hagener Str. 126a</p>
+                  <p>58642 Iserlohn-Letmathe</p>
                   <p>Deutschland</p>
                 </div>
               </div>
@@ -50,10 +51,16 @@ export default function ImprintPage() {
                 </h2>
                 <div className="space-y-2 text-foreground/80">
                   <p>
-                    <span className="font-medium">Telefon:</span> +49 (0) 2331 123456
+                    <span className="font-medium">Telefon:</span> +49 (0) 2374 / 9157-0
+                  </p>
+                  <p>
+                    <span className="font-medium">Telefax:</span> +49 (0) 2374 / 9157-99
                   </p>
                   <p>
                     <span className="font-medium">E-Mail:</span> info@automobilequick.de
+                  </p>
+                  <p>
+                    <span className="font-medium">USt-IdNr.:</span> DE 123456789
                   </p>
                 </div>
               </div>
@@ -64,8 +71,9 @@ export default function ImprintPage() {
                 </h2>
                 <div className="space-y-2 text-foreground/80">
                   <p>Automobile Quick</p>
-                  <p>Delsterner Str. 92</p>
-                  <p>58091 Hagen</p>
+                  <p>Konstantinos Pappas</p>
+                  <p>Hagener Str. 126a</p>
+                  <p>58642 Iserlohn-Letmathe</p>
                 </div>
               </div>
 

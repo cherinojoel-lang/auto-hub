@@ -251,10 +251,10 @@ export default function ContactPage() {
                         <div>
                           <p className="font-medium text-foreground mb-1">Telefon</p>
                           <a 
-                            href="tel:+4923311234567"
+                            href="tel:+4923749157-0"
                             className="text-foreground/70 hover:text-primary transition-colors"
                           >
-                            +49 (0) 2331 123456
+                            +49 2374 9157-0
                           </a>
                         </div>
                       </div>
@@ -330,7 +330,7 @@ export default function ContactPage() {
                     allowFullScreen
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
-                    title="Standort Reinhardt Automobile"
+                    title="Standort Automobile Quick"
                   />
                 </div>
               </div>

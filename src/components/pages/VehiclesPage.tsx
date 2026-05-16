@@ -47,6 +47,27 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
   );
 };
 
+
+const STATIC_VEHICLES: Vehicles[] = [
+  { _id: '1', manufacturer: 'BMW', model: 'X1 ssDrive 18 i Advantage', price: 21900, mileage: 54000, firstRegistrationYear: 2019, power: 103, driveType: 'Benzin', mainImage: '' },
+  { _id: '2', manufacturer: 'Opel', model: 'Mokka 1.4 Turbo 4x4 Innovation', price: 14900, mileage: 75000, firstRegistrationYear: 2018, power: 103, driveType: 'Benzin', mainImage: '' },
+  { _id: '3', manufacturer: 'Opel', model: 'Mokka X 1.4 Turbo Edition 4x4', price: 16500, mileage: 62000, firstRegistrationYear: 2019, power: 103, driveType: 'Benzin', mainImage: '' },
+  { _id: '4', manufacturer: 'Citroën', model: 'C3 1.2 Aircross', price: 13900, mileage: 45000, firstRegistrationYear: 2020, power: 81, driveType: 'Benzin', mainImage: '' },
+  { _id: '5', manufacturer: 'Opel', model: 'Mokka 1.4 Turbo Innovation', price: 15500, mileage: 58000, firstRegistrationYear: 2019, power: 103, driveType: 'Benzin', mainImage: '' },
+  { _id: '6', manufacturer: 'Opel', model: 'Crossland 1.2 Innovation', price: 14500, mileage: 49000, firstRegistrationYear: 2020, power: 96, driveType: 'Benzin', mainImage: '' },
+  { _id: '7', manufacturer: 'Opel', model: 'Astra K 1.0 Active', price: 11900, mileage: 85000, firstRegistrationYear: 2018, power: 77, driveType: 'Benzin', mainImage: '' },
+  { _id: '8', manufacturer: 'Kia', model: 'Soul 1.6 GDI Dream Team', price: 12900, mileage: 68000, firstRegistrationYear: 2018, power: 97, driveType: 'Benzin', mainImage: '' },
+  { _id: '9', manufacturer: 'Ford', model: 'Fiesta 1.0 Trend EcoBoost', price: 10500, mileage: 55000, firstRegistrationYear: 2019, power: 74, driveType: 'Benzin', mainImage: '' },
+  { _id: '10', manufacturer: 'Opel', model: 'Mokka 1.2 GS-Line', price: 23900, mileage: 15000, firstRegistrationYear: 2022, power: 96, driveType: 'Benzin', mainImage: '' },
+  { _id: '11', manufacturer: 'Opel', model: 'Corsa F 1.2 Elegance', price: 15900, mileage: 25000, firstRegistrationYear: 2021, power: 74, driveType: 'Benzin', mainImage: '' },
+  { _id: '12', manufacturer: 'Opel', model: 'Corsa E 1.2 Selektion 3-Türig', price: 8900, mileage: 95000, firstRegistrationYear: 2018, power: 51, driveType: 'Benzin', mainImage: '' },
+  { _id: '13', manufacturer: 'Opel', model: 'Corsa F 1.2 Elegance 1.Hand', price: 16500, mileage: 20000, firstRegistrationYear: 2022, power: 74, driveType: 'Benzin', mainImage: '' },
+  { _id: '14', manufacturer: 'Opel', model: 'Corsa F 1.2 Automatik Elegance', price: 17900, mileage: 18000, firstRegistrationYear: 2022, power: 74, driveType: 'Benzin', mainImage: '' },
+  { _id: '15', manufacturer: 'Fiat', model: '500 1.0 GSE Dolce Vita Mild Hybrid', price: 14900, mileage: 12000, firstRegistrationYear: 2022, power: 51, driveType: 'Hybrid Benzin', mainImage: '' },
+  { _id: '16', manufacturer: 'Opel', model: 'Corsa F e Edition', price: 19900, mileage: 22000, firstRegistrationYear: 2021, power: 100, driveType: 'Elektro', mainImage: '' },
+  { _id: '17', manufacturer: 'Fiat', model: '500 1.0 GSE Hybrid', price: 13900, mileage: 15000, firstRegistrationYear: 2022, power: 51, driveType: 'Hybrid Benzin', mainImage: '' },
+];
+
 export default function VehiclesPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [vehicles, setVehicles] = useState<Vehicles[]>([]);
@@ -80,18 +101,39 @@ export default function VehiclesPage() {
     loadVehicles();
   }, [skip]);
 
+
   const loadVehicles = async () => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
-      const result = await BaseCrudService.getAll<Vehicles>('vehicles', [], { limit: 12, skip });
-      setVehicles(result.items);
-      setHasNext(result.hasNext);
+      // Simulate API latency
+      await new Promise(resolve => setTimeout(resolve, 300));
+      let filtered = [...STATIC_VEHICLES];
+
+      if (manufacturer) {
+        filtered = filtered.filter(v => v.manufacturer?.toLowerCase() === manufacturer.toLowerCase());
+      }
+      if (priceMax) {
+        filtered = filtered.filter(v => v.price && v.price <= parseInt(priceMax));
+      }
+      if (driveType) {
+        filtered = filtered.filter(v => v.driveType?.toLowerCase() === driveType.toLowerCase());
+      }
+      if (maxMileage) {
+        filtered = filtered.filter(v => v.mileage && v.mileage <= parseInt(maxMileage));
+      }
+      if (yearFrom) {
+        filtered = filtered.filter(v => v.firstRegistrationYear && v.firstRegistrationYear >= parseInt(yearFrom));
+      }
+
+      setVehicles(filtered);
+      setHasNext(false); // All static items loaded
     } catch (error) {
-      console.error('Error loading vehicles:', error);
+      console.error('Error loading static vehicles:', error);
     } finally {
       setIsLoading(false);
     }
   };
+
 
   const applyFilters = () => {
     const params = new URLSearchParams();
@@ -128,7 +170,7 @@ export default function VehiclesPage() {
   };
 
   const loadMore = () => {
-    setSkip(prev => prev + 12);
+    setSkip(prev => prev + 15);
   };
 
   return (
@@ -302,18 +344,9 @@ export default function VehiclesPage() {
                       <div className="group bg-white rounded-sm shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:scale-[1.02] flex flex-col h-full">
                         {/* Image Section */}
                         <div className="aspect-[4/3] overflow-hidden bg-gray-100 relative">
-                          {vehicle.mainImage ? (
-                            <Image
-                              src={vehicle.mainImage}
-                              alt={`${vehicle.manufacturer} ${vehicle.model}`}
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                              width={400}
-                            />
-                          ) : (
-                            <div className="w-full h-full flex flex-col items-center justify-center bg-gray-200">
+                          <div className="w-full h-full flex flex-col items-center justify-center bg-gray-200">
                               <span className="text-gray-400 text-sm font-medium">Bild folgt</span>
                             </div>
-                          )}
                           <div className="absolute top-4 left-4 bg-success text-white px-3 py-1.5 text-xs font-bold rounded-sm shadow-md">
                             Verfügbar
                           </div>
