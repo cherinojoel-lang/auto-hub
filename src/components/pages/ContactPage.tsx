@@ -330,7 +330,7 @@ export default function ContactPage() {
                     allowFullScreen
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
-                    title="Standort Reinhardt Automobile"
+                    title="Standort Automobile Quick"
                   />
                 </div>
               </div>
