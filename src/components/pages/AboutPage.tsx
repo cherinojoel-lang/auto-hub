@@ -222,10 +222,10 @@ export default function AboutPage() {
                       <div>
                         <p className="font-medium text-foreground">Telefon</p>
                         <a 
-                          href="tel:+4923311234567"
+                          href="tel:+492374912912"
                           className="text-foreground/70 hover:text-primary transition-colors"
                         >
-                          +49 (0) 2331 123456
+                          +49 (0) 2374 / 912912
                         </a>
                       </div>
                     </div>

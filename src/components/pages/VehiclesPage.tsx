@@ -434,7 +434,7 @@ export default function VehiclesPage() {
       <div className="fixed bottom-0 left-0 right-0 md:hidden bg-white border-t border-gray-200 shadow-2xl z-50">
         <div className="flex gap-3 p-4 max-w-7xl mx-auto">
           <a
-            href="tel:+4923311234567"
+            href="tel:+492374912912"
             className="flex-1 flex items-center justify-center gap-2 bg-primary text-white px-4 py-3 rounded-sm font-bold text-sm hover:bg-primary/90 transition-all duration-300 shadow-md"
           >
             <Phone size={18} />

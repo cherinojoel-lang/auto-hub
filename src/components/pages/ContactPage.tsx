@@ -56,7 +56,7 @@ export default function ContactPage() {
     // Update SEO for contact page
     updateMetaTags({
       title: 'Kontakt & Anfahrt - Automobile Quick in Iserlohn-Letmathe | Gebrauchtwagen Autohaus',
-      description: 'Kontaktieren Sie Automobile Quick in Iserlohn-Letmathe. Telefon: +49 (0) 2331 123456, E-Mail: info@automobilequick.de. Öffnungszeiten, Anfahrt und Kontaktformular. Wir freuen uns auf Ihren Besuch!',
+      description: 'Kontaktieren Sie Automobile Quick in Iserlohn-Letmathe. Telefon: +49 (0) 2374 / 912912, E-Mail: info@automobilequick.de. Öffnungszeiten, Anfahrt und Kontaktformular. Wir freuen uns auf Ihren Besuch!',
       keywords: 'Kontakt Automobile Quick, Anfahrt, Telefon, E-Mail, Iserlohn, Letmathe, Öffnungszeiten, Autohaus',
       ogTitle: 'Kontakt & Anfahrt - Automobile Quick',
       ogDescription: 'Kontaktieren Sie uns in Iserlohn-Letmathe. Wir freuen uns auf Ihren Besuch!',
@@ -251,10 +251,10 @@ export default function ContactPage() {
                         <div>
                           <p className="font-medium text-foreground mb-1">Telefon</p>
                           <a 
-                            href="tel:+4923749157-0"
+                            href="tel:+492374912912"
                             className="text-foreground/70 hover:text-primary transition-colors"
                           >
-                            +49 2374 9157-0
+                            +49 (0) 2374 / 912912
                           </a>
                         </div>
                       </div>

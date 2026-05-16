@@ -22,7 +22,7 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-lg sm:text-xl font-heading font-bold mb-4">Kontakt</h3>
+            <h3 className="text-lg sm:text-xl font-heading font-bold mb-4">Kontakt & Anfahrt</h3>
             <div className="space-y-3">
               <div className="flex items-start gap-3">
                 <MapPin size={18} className="mt-0.5 flex-shrink-0 text-secondary" />
@@ -33,8 +33,8 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-3">
                 <Phone size={18} className="flex-shrink-0 text-secondary" />
-                <a href="tel:+4923749157-0" className="text-sm text-white/80 hover:text-white transition-colors">
-                  +49 2374 9157-0
+                <a href="tel:+492374912912" className="text-sm text-white/80 hover:text-white transition-colors">
+                  +49 (0) 2374 / 912912
                 </a>
               </div>
               <div className="flex items-center gap-3">
@@ -64,7 +64,7 @@ export default function Footer() {
                 Start
               </Link>
               <Link
-                to="/vehicles"
+                to="/fahrzeugbestand"
                 className="block text-sm text-white/80 hover:text-white transition-colors duration-200"
               >
                 Fahrzeugbestand
@@ -82,13 +82,13 @@ export default function Footer() {
                 Finanzierung
               </Link>
               <Link
-                to="/about"
+                to="/ueber-uns"
                 className="block text-sm text-white/80 hover:text-white transition-colors duration-200"
               >
                 Über uns
               </Link>
               <Link
-                to="/contact"
+                to="/kontakt"
                 className="block text-sm text-white/80 hover:text-white transition-colors duration-200"
               >
                 Kontakt & Anfahrt

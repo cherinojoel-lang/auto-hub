@@ -169,7 +169,7 @@ export default function HomePage() {
                 <ChevronRight size={20} />
               </button>
               <a
-                href="tel:+4923749157-0"
+                href="tel:+492374912912"
                 className="px-8 sm:px-10 py-4 bg-secondary text-white font-bold rounded-sm hover:bg-secondary/90 transition-all duration-300 inline-flex items-center justify-center gap-2 text-base sm:text-lg min-h-[48px]"
               >
                 <Phone size={20} />
@@ -455,7 +455,7 @@ export default function HomePage() {
                     <Phone className="text-secondary flex-shrink-0" size={28} />
                     <div>
                       <p className="font-bold text-primary mb-2 text-lg">Telefon</p>
-                      <a href="tel:+4923749157-0" className="text-base text-secondary hover:text-secondary/80 transition-colors font-medium">+49 2374 9157-0</a>
+                      <a href="tel:+492374912912" className="text-base text-secondary hover:text-secondary/80 transition-colors font-medium">+49 (0) 2374 / 912912</a>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
