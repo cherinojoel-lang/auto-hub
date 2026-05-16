@@ -36,28 +36,28 @@ const router = createBrowserRouter([
         },
       },
       {
-        path: "vehicles",
+        path: "fahrzeugbestand",
         element: <VehiclesPage />,
         routeMetadata: {
           pageIdentifier: 'vehicles',
         },
       },
       {
-        path: "vehicles/:id",
+        path: "fahrzeugdetail/:id",
         element: <VehicleDetailPage />,
         routeMetadata: {
           pageIdentifier: 'vehicle-detail',
         },
       },
       {
-        path: "about",
+        path: "ueber-uns",
         element: <AboutPage />,
         routeMetadata: {
           pageIdentifier: 'about',
         },
       },
       {
-        path: "contact",
+        path: "kontakt",
         element: <ContactPage />,
         routeMetadata: {
           pageIdentifier: 'contact',

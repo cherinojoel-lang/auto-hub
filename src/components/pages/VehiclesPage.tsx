@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ChevronRight, Filter, X, Phone, MessageSquare } from 'lucide-react';
-import { BaseCrudService } from '@/integrations';
-import { Vehicles } from '@/entities';
+import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
 import { Image } from '@/components/ui/image';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import Header from '@/components/Header';
@@ -47,9 +46,10 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
   );
 };
 
-export default function VehiclesPage() {
+
+export default function VehiclePage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [vehicles, setVehicles] = useState<Vehicles[]>([]);
+  const [vehicles, setVehicle] = useState<Vehicle[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [hasNext, setHasNext] = useState(false);
   const [skip, setSkip] = useState(0);
@@ -77,21 +77,42 @@ export default function VehiclesPage() {
       ]),
     });
     
-    loadVehicles();
+    loadVehicle();
   }, [skip]);
 
-  const loadVehicles = async () => {
+
+  const loadVehicle = async () => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
-      const result = await BaseCrudService.getAll<Vehicles>('vehicles', [], { limit: 12, skip });
-      setVehicles(result.items);
-      setHasNext(result.hasNext);
+      // Simulate API latency
+      await new Promise(resolve => setTimeout(resolve, 300));
+      let filtered = [...STATIC_VEHICLES];
+
+      if (manufacturer) {
+        filtered = filtered.filter(v => v.manufacturer?.toLowerCase() === manufacturer.toLowerCase());
+      }
+      if (priceMax) {
+        filtered = filtered.filter(v => v.price && parseInt(v.price.replace(/[^0-9]/g, '')) <= parseInt(priceMax));
+      }
+      if (driveType) {
+        filtered = filtered.filter(v => v.driveType?.toLowerCase() === driveType.toLowerCase());
+      }
+      if (maxMileage) {
+        filtered = filtered.filter(v => v.mileage && parseInt(v.mileage.replace(/[^0-9]/g, '')) <= parseInt(maxMileage));
+      }
+      if (yearFrom) {
+        filtered = filtered.filter(v => v.firstRegistration && v.firstRegistration.includes(yearFrom));
+      }
+
+      setVehicle(filtered);
+      setHasNext(false); // All static items loaded
     } catch (error) {
-      console.error('Error loading vehicles:', error);
+      console.error('Error loading static vehicles:', error);
     } finally {
       setIsLoading(false);
     }
   };
+
 
   const applyFilters = () => {
     const params = new URLSearchParams();
@@ -102,7 +123,7 @@ export default function VehiclesPage() {
     if (maxMileage) params.set('maxMileage', maxMileage);
     setSearchParams(params);
     setSkip(0);
-    loadVehicles();
+    loadVehicle();
     setShowFilters(false);
   };
 
@@ -114,7 +135,7 @@ export default function VehiclesPage() {
     setMaxMileage('');
     setSearchParams(new URLSearchParams());
     setSkip(0);
-    loadVehicles();
+    loadVehicle();
   };
 
   const formatPrice = (price?: number) => {
@@ -128,7 +149,7 @@ export default function VehiclesPage() {
   };
 
   const loadMore = () => {
-    setSkip(prev => prev + 12);
+    setSkip(prev => prev + 15);
   };
 
   return (
@@ -286,7 +307,7 @@ export default function VehiclesPage() {
         </div>
       </section>
 
-      {/* Vehicles Grid */}
+      {/* Vehicle Grid */}
       <section className="py-12 sm:py-16 md:py-20 bg-white flex-1" id="main-content">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="min-h-[600px]">
@@ -298,16 +319,17 @@ export default function VehiclesPage() {
               <>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                   {vehicles.map((vehicle, index) => (
-                    <AnimatedElement key={vehicle._id} delay={index * 50}>
+                    <AnimatedElement key={vehicle.id} delay={index * 50}>
                       <div className="group bg-white rounded-sm shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:scale-[1.02] flex flex-col h-full">
                         {/* Image Section */}
                         <div className="aspect-[4/3] overflow-hidden bg-gray-100 relative">
                           {vehicle.mainImage ? (
                             <Image
                               src={vehicle.mainImage}
-                              alt={`${vehicle.manufacturer} ${vehicle.model}`}
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                              alt={vehicle.alt || vehicle.title}
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
                               width={400}
+                              height={300}
                             />
                           ) : (
                             <div className="w-full h-full flex flex-col items-center justify-center bg-gray-200">
@@ -323,13 +345,13 @@ export default function VehiclesPage() {
                         <div className="p-6 sm:p-8 flex flex-col flex-1">
                           {/* Title */}
                           <h3 className="text-lg sm:text-xl font-heading font-bold mb-4 text-foreground group-hover:text-primary transition-colors">
-                            {vehicle.manufacturer} {vehicle.model}
+                            {vehicle.title}
                           </h3>
 
                           {/* Price */}
                           <div className="mb-2">
                             <span className="text-3xl sm:text-4xl font-bold text-primary">
-                              {formatPrice(vehicle.price)}
+                              {vehicle.price}
                             </span>
                           </div>
 
@@ -342,28 +364,28 @@ export default function VehiclesPage() {
 
                           {/* Details */}
                           <div className="space-y-2 mb-6 text-sm text-gray-600 flex-1">
-                            {vehicle.firstRegistrationYear && (
-                              <p className="font-medium">Erstzulassung: {vehicle.firstRegistrationYear}</p>
+                            {vehicle.firstRegistration && (
+                              <p className="font-medium">Erstzulassung: {vehicle.firstRegistration}</p>
                             )}
                             {vehicle.mileage && (
-                              <p className="font-medium">Kilometerstand: {vehicle.mileage.toLocaleString('de-DE')} km</p>
+                              <p className="font-medium">Kilometerstand: {vehicle.mileage}</p>
                             )}
                             {vehicle.power && (
-                              <p className="font-medium">Leistung: {vehicle.power} kW ({Math.round(vehicle.power * 1.36)} PS)</p>
+                              <p className="font-medium">Leistung: {vehicle.power}</p>
                             )}
-                            {vehicle.driveType && <p className="font-medium">Kraftstoff: {vehicle.driveType}</p>}
+                            {vehicle.fuel && <p className="font-medium">Kraftstoff: {vehicle.fuel}</p>}
                           </div>
 
                           {/* Buttons */}
                           <div className="flex gap-3 pt-6 border-t border-gray-100">
                             <Link
-                              to={`/vehicles/${vehicle._id}`}
+                              to={`/fahrzeugdetail/${vehicle.id}`}
                               className="flex-1 bg-primary text-white px-4 py-3 rounded-sm font-bold text-sm text-center hover:bg-primary/90 transition-all duration-300 shadow-sm hover:shadow-md"
                             >
                               Details ansehen
                             </Link>
                             <Link
-                              to="/contact"
+                              to="/kontakt"
                               className="flex-1 bg-secondary text-white px-4 py-3 rounded-sm font-bold text-sm text-center hover:bg-secondary/90 transition-all duration-300 shadow-sm hover:shadow-md"
                             >
                               Anfragen
@@ -408,7 +430,7 @@ export default function VehiclesPage() {
             Anrufen
           </a>
           <Link
-            to="/contact"
+            to="/kontakt"
             className="flex-1 flex items-center justify-center gap-2 bg-secondary text-white px-4 py-3 rounded-sm font-bold text-sm hover:bg-secondary/90 transition-all duration-300 shadow-md"
           >
             <MessageSquare size={18} />
