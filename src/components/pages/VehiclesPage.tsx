@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { ChevronRight, Filter, X } from 'lucide-react';
+import { ChevronRight, Filter, X, Phone, MessageSquare } from 'lucide-react';
 import { BaseCrudService } from '@/integrations';
 import { Vehicles } from '@/entities';
 import { Image } from '@/components/ui/image';
@@ -54,20 +54,22 @@ export default function VehiclesPage() {
   const [hasNext, setHasNext] = useState(false);
   const [skip, setSkip] = useState(0);
   const [showFilters, setShowFilters] = useState(false);
+  const [showMobileBar, setShowMobileBar] = useState(false);
 
   const [manufacturer, setManufacturer] = useState(searchParams.get('manufacturer') || '');
+  const [priceMax, setPriceMax] = useState(searchParams.get('priceMax') || '');
   const [driveType, setDriveType] = useState(searchParams.get('driveType') || '');
-  const [yearFrom, setYearFrom] = useState(searchParams.get('yearFrom') || '');
   const [maxMileage, setMaxMileage] = useState(searchParams.get('maxMileage') || '');
+  const [yearFrom, setYearFrom] = useState(searchParams.get('yearFrom') || '');
 
   useEffect(() => {
     // Update SEO for vehicles page
     updateMetaTags({
       title: 'Aktuelle Gebrauchtwagen in Iserlohn-Letmathe | Automobile Quick Fahrzeugbestand',
-      description: 'Große Auswahl an hochwertigen Gebrauchtwagen bei Automobile Quick. Audi, BMW, Mercedes, VW, Porsche - faire Preise, persönliche Beratung, schnelle Lieferung. Jetzt Fahrzeug finden!',
+      description: 'Entdecken Sie den aktuellen Fahrzeugbestand von Automobile Quick. Alle Fahrzeuge mit Preis, Finanzierung, Erstzulassung, Kilometerstand, Leistung und Kraftstoff.',
       keywords: 'Fahrzeugbestand, Gebrauchtwagen kaufen, Gebrauchtwagen Iserlohn, Gebrauchtwagen Letmathe, Audi Gebrauchtwagen, BMW Gebrauchtwagen, Mercedes Gebrauchtwagen, VW Gebrauchtwagen, Porsche Gebrauchtwagen, Automobile Quick Fahrzeuge',
       ogTitle: 'Fahrzeugbestand - Automobile Quick',
-      ogDescription: 'Große Auswahl an hochwertigen Gebrauchtwagen mit fairen Preisen und persönlicher Beratung.',
+      ogDescription: 'Entdecken Sie den aktuellen Fahrzeugbestand von Automobile Quick. Alle Fahrzeuge mit Preis, Finanzierung, Erstzulassung, Kilometerstand, Leistung und Kraftstoff.',
       canonicalUrl: 'https://automobilequick.de/vehicles',
       structuredData: getStructuredDataBreadcrumb([
         { name: 'Home', url: 'https://automobilequick.de/' },
@@ -94,6 +96,7 @@ export default function VehiclesPage() {
   const applyFilters = () => {
     const params = new URLSearchParams();
     if (manufacturer) params.set('manufacturer', manufacturer);
+    if (priceMax) params.set('priceMax', priceMax);
     if (driveType) params.set('driveType', driveType);
     if (yearFrom) params.set('yearFrom', yearFrom);
     if (maxMileage) params.set('maxMileage', maxMileage);
@@ -105,6 +108,7 @@ export default function VehiclesPage() {
 
   const clearFilters = () => {
     setManufacturer('');
+    setPriceMax('');
     setDriveType('');
     setYearFrom('');
     setMaxMileage('');
@@ -128,7 +132,7 @@ export default function VehiclesPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-screen flex flex-col bg-background pb-20 md:pb-0">
       <Header />
 
       {/* Hero Section */}
@@ -137,10 +141,10 @@ export default function VehiclesPage() {
           <AnimatedElement>
             <div className="max-w-3xl mx-auto text-center">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-4 sm:mb-6">
-                Fahrzeugbestand
+                Aktuelle Gebrauchtwagen in Iserlohn-Letmathe
               </h1>
               <p className="text-base sm:text-lg md:text-xl text-white/90 leading-relaxed">
-                Große Auswahl an hochwertigen Gebrauchtwagen mit fairen Preisen und persönlicher Beratung
+                Entdecken Sie den aktuellen Fahrzeugbestand von Automobile Quick. Alle Fahrzeuge mit Preis, Finanzierung, Erstzulassung, Kilometerstand, Leistung und Kraftstoff.
               </p>
             </div>
           </AnimatedElement>
@@ -151,7 +155,7 @@ export default function VehiclesPage() {
       <section className="py-8 sm:py-10 bg-white border-b border-gray-200 sticky top-20 z-40">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="flex items-center justify-between mb-4 sm:mb-6">
-            <h2 className="text-xl sm:text-2xl font-heading font-bold text-foreground">
+            <h2 className="text-lg sm:text-xl font-heading font-bold text-foreground">
               Filter
             </h2>
             <button
@@ -164,17 +168,17 @@ export default function VehiclesPage() {
           </div>
 
           <div className={`${showFilters ? 'block' : 'hidden'} md:block`}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 mb-6">
               <div>
                 <label className="block text-xs font-bold text-primary mb-2 uppercase tracking-wide">
-                  Hersteller
+                  Marke
                 </label>
                 <select
                   value={manufacturer}
                   onChange={(e) => setManufacturer(e.target.value)}
                   className="w-full px-4 py-3 rounded-sm border-2 border-gray-200 bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
                 >
-                  <option value="">Alle Hersteller</option>
+                  <option value="">Alle Marken</option>
                   <option value="Audi">Audi</option>
                   <option value="BMW">BMW</option>
                   <option value="Mercedes-Benz">Mercedes-Benz</option>
@@ -187,14 +191,32 @@ export default function VehiclesPage() {
 
               <div>
                 <label className="block text-xs font-bold text-primary mb-2 uppercase tracking-wide">
-                  Antriebsart
+                  Preis
+                </label>
+                <select
+                  value={priceMax}
+                  onChange={(e) => setPriceMax(e.target.value)}
+                  className="w-full px-4 py-3 rounded-sm border-2 border-gray-200 bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
+                >
+                  <option value="">Alle Preise</option>
+                  <option value="15000">bis 15.000 €</option>
+                  <option value="25000">bis 25.000 €</option>
+                  <option value="40000">bis 40.000 €</option>
+                  <option value="60000">bis 60.000 €</option>
+                  <option value="100000">bis 100.000 €</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-primary mb-2 uppercase tracking-wide">
+                  Kraftstoff
                 </label>
                 <select
                   value={driveType}
                   onChange={(e) => setDriveType(e.target.value)}
                   className="w-full px-4 py-3 rounded-sm border-2 border-gray-200 bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
                 >
-                  <option value="">Alle Antriebsarten</option>
+                  <option value="">Alle Kraftstoffe</option>
                   <option value="Benzin">Benzin</option>
                   <option value="Diesel">Diesel</option>
                   <option value="Elektro">Elektro</option>
@@ -205,7 +227,25 @@ export default function VehiclesPage() {
 
               <div>
                 <label className="block text-xs font-bold text-primary mb-2 uppercase tracking-wide">
-                  EZ ab
+                  Kilometerstand
+                </label>
+                <select
+                  value={maxMileage}
+                  onChange={(e) => setMaxMileage(e.target.value)}
+                  className="w-full px-4 py-3 rounded-sm border-2 border-gray-200 bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
+                >
+                  <option value="">Alle km</option>
+                  <option value="20000">bis 20.000</option>
+                  <option value="50000">bis 50.000</option>
+                  <option value="100000">bis 100.000</option>
+                  <option value="150000">bis 150.000</option>
+                  <option value="200000">bis 200.000</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-primary mb-2 uppercase tracking-wide">
+                  Erstzulassung
                 </label>
                 <select
                   value={yearFrom}
@@ -220,24 +260,6 @@ export default function VehiclesPage() {
                   <option value="2020">ab 2020</option>
                   <option value="2019">ab 2019</option>
                   <option value="2018">ab 2018</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-primary mb-2 uppercase tracking-wide">
-                  km bis
-                </label>
-                <select
-                  value={maxMileage}
-                  onChange={(e) => setMaxMileage(e.target.value)}
-                  className="w-full px-4 py-3 rounded-sm border-2 border-gray-200 bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
-                >
-                  <option value="">Alle km</option>
-                  <option value="20000">bis 20.000</option>
-                  <option value="50000">bis 50.000</option>
-                  <option value="100000">bis 100.000</option>
-                  <option value="150000">bis 150.000</option>
-                  <option value="200000">bis 200.000</option>
                 </select>
               </div>
             </div>
@@ -274,10 +296,8 @@ export default function VehiclesPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                   {vehicles.map((vehicle, index) => (
                     <AnimatedElement key={vehicle._id} delay={index * 50}>
-                      <Link
-                        to={`/vehicles/${vehicle._id}`}
-                        className="group block bg-white rounded-sm shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:scale-[1.02]"
-                      >
+                      <div className="group bg-white rounded-sm shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:scale-[1.02] flex flex-col h-full">
+                        {/* Image Section */}
                         <div className="aspect-[4/3] overflow-hidden bg-gray-100 relative">
                           {vehicle.mainImage ? (
                             <Image
@@ -287,40 +307,67 @@ export default function VehiclesPage() {
                               width={400}
                             />
                           ) : (
-                            <div className="w-full h-full flex items-center justify-center bg-gray-200">
-                              <span className="text-4xl sm:text-5xl font-bold text-gray-400">
-                                {vehicle.manufacturer?.charAt(0)}
-                              </span>
+                            <div className="w-full h-full flex flex-col items-center justify-center bg-gray-200">
+                              <span className="text-gray-400 text-sm font-medium">Bild folgt</span>
                             </div>
                           )}
                           <div className="absolute top-4 left-4 bg-success text-white px-3 py-1.5 text-xs font-bold rounded-sm shadow-md">
-                            Sofort lieferbar
+                            Verfügbar
                           </div>
                         </div>
-                        <div className="p-6 sm:p-8">
-                          <h3 className="text-lg sm:text-xl font-heading font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
+
+                        {/* Content Section */}
+                        <div className="p-6 sm:p-8 flex flex-col flex-1">
+                          {/* Title */}
+                          <h3 className="text-lg sm:text-xl font-heading font-bold mb-4 text-foreground group-hover:text-primary transition-colors">
                             {vehicle.manufacturer} {vehicle.model}
                           </h3>
-                          <div className="space-y-2 mb-6 text-sm text-gray-600">
-                            {vehicle.firstRegistrationYear && (
-                              <p className="font-medium">EZ: {vehicle.firstRegistrationYear}</p>
-                            )}
-                            {vehicle.mileage && (
-                              <p className="font-medium">{vehicle.mileage.toLocaleString('de-DE')} km</p>
-                            )}
-                            {vehicle.power && (
-                              <p className="font-medium">{vehicle.power} kW ({Math.round(vehicle.power * 1.36)} PS)</p>
-                            )}
-                            {vehicle.driveType && <p className="font-medium">{vehicle.driveType}</p>}
-                          </div>
-                          <div className="flex items-center justify-between pt-6 border-t border-gray-100">
-                            <span className="text-2xl sm:text-3xl font-bold text-primary">
+
+                          {/* Price */}
+                          <div className="mb-2">
+                            <span className="text-3xl sm:text-4xl font-bold text-primary">
                               {formatPrice(vehicle.price)}
                             </span>
-                            <ChevronRight className="text-primary group-hover:translate-x-1 transition-transform" size={24} />
+                          </div>
+
+                          {/* Financing */}
+                          {vehicle.financingMonthly && (
+                            <p className="text-sm text-gray-600 mb-6 font-medium">
+                              Finanzierung ab {formatPrice(vehicle.financingMonthly)}/Monat
+                            </p>
+                          )}
+
+                          {/* Details */}
+                          <div className="space-y-2 mb-6 text-sm text-gray-600 flex-1">
+                            {vehicle.firstRegistrationYear && (
+                              <p className="font-medium">Erstzulassung: {vehicle.firstRegistrationYear}</p>
+                            )}
+                            {vehicle.mileage && (
+                              <p className="font-medium">Kilometerstand: {vehicle.mileage.toLocaleString('de-DE')} km</p>
+                            )}
+                            {vehicle.power && (
+                              <p className="font-medium">Leistung: {vehicle.power} kW ({Math.round(vehicle.power * 1.36)} PS)</p>
+                            )}
+                            {vehicle.driveType && <p className="font-medium">Kraftstoff: {vehicle.driveType}</p>}
+                          </div>
+
+                          {/* Buttons */}
+                          <div className="flex gap-3 pt-6 border-t border-gray-100">
+                            <Link
+                              to={`/vehicles/${vehicle._id}`}
+                              className="flex-1 bg-primary text-white px-4 py-3 rounded-sm font-bold text-sm text-center hover:bg-primary/90 transition-all duration-300 shadow-sm hover:shadow-md"
+                            >
+                              Details ansehen
+                            </Link>
+                            <Link
+                              to="/contact"
+                              className="flex-1 bg-secondary text-white px-4 py-3 rounded-sm font-bold text-sm text-center hover:bg-secondary/90 transition-all duration-300 shadow-sm hover:shadow-md"
+                            >
+                              Anfragen
+                            </Link>
                           </div>
                         </div>
-                      </Link>
+                      </div>
                     </AnimatedElement>
                   ))}
                 </div>
@@ -346,6 +393,26 @@ export default function VehiclesPage() {
           </div>
         </div>
       </section>
+
+      {/* Mobile Sticky Bottom Bar */}
+      <div className="fixed bottom-0 left-0 right-0 md:hidden bg-white border-t border-gray-200 shadow-2xl z-50">
+        <div className="flex gap-3 p-4 max-w-7xl mx-auto">
+          <a
+            href="tel:+4923311234567"
+            className="flex-1 flex items-center justify-center gap-2 bg-primary text-white px-4 py-3 rounded-sm font-bold text-sm hover:bg-primary/90 transition-all duration-300 shadow-md"
+          >
+            <Phone size={18} />
+            Anrufen
+          </a>
+          <Link
+            to="/contact"
+            className="flex-1 flex items-center justify-center gap-2 bg-secondary text-white px-4 py-3 rounded-sm font-bold text-sm hover:bg-secondary/90 transition-all duration-300 shadow-md"
+          >
+            <MessageSquare size={18} />
+            Besichtigung
+          </Link>
+        </div>
+      </div>
 
       <Footer />
     </div>
