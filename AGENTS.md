@@ -28,7 +28,7 @@ Präsentationsfähige Lead-Website für Automobile Quick in Iserlohn-Letmathe.
 4. Navigation muss korrekt sein.
 5. Keine Reinhardt-/AutoHub-Reste.
 6. Keine Shop-/Checkout-/Login-Elemente.
-7. Build muss erfolgreich laufen.
+7. Lokaler Preview- oder Wix-Preview-Test muss nachvollziehbar sein.
 
 ## Design-Tokens
 --color-primary: #1A2B4C
@@ -55,10 +55,17 @@ Präsentationsfähige Lead-Website für Automobile Quick in Iserlohn-Letmathe.
 - Reservieren
 - Verbindlich reservieren
 
+## Build-Hinweis
+Dieses Wix/Astro-Projekt kann lokal an @wix/editor-elements-definitions oder wix CLI scheitern.
+Wenn npm install/build wegen Wix-internen Paketen fehlschlägt:
+- nicht weiter mit --force eskalieren
+- stattdessen statische Codeprüfung, Dateisuche und minimalen Patch durchführen
+- Build-Fehler sauber dokumentieren
+
 ## Erwartete Ausgabe nach jeder Änderung
 1. Geänderte Dateien
 2. Fehlerursache
-3. Build-Ergebnis
-4. /fahrzeugbestand lädt: ja/nein
-5. 17 Fahrzeuge sichtbar: ja/nein
+3. Build-/Install-Ergebnis
+4. /fahrzeugbestand lädt: ja/nein oder nicht lokal prüfbar
+5. 17 Fahrzeuge sichtbar: ja/nein oder nicht lokal prüfbar
 6. Restfehler
