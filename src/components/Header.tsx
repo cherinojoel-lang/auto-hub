@@ -64,11 +64,11 @@ export default function Header() {
           {/* CTA Button - Desktop */}
           <div className="hidden md:flex items-center gap-4">
             <a
-              href="tel:+4923311234567"
+              href="tel:+4923749157-0"
               className="flex items-center gap-2 px-4 py-2 bg-secondary text-white text-sm font-medium rounded-sm hover:bg-secondary/90 transition-all duration-200 shadow-sm hover:shadow-md"
             >
               <Phone size={16} />
-              <span>+49 2331 123456</span>
+              <span>+49 2374 9157-0</span>
             </a>
           </div>
 
@@ -130,7 +130,7 @@ export default function Header() {
               </Link>
               <div className="border-t border-gray-200 mt-3 pt-3">
                 <a
-                  href="tel:+4923311234567"
+                  href="tel:+4923749157-0"
                   className="flex items-center justify-center gap-2 mx-4 px-4 py-3 bg-secondary text-white text-sm font-medium rounded-sm hover:bg-secondary/90 transition-all duration-200"
                 >
                   <Phone size={16} />
