@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Calendar, Gauge, Zap, Fuel, ArrowLeft, Phone, MapPin, Wrench, Wind } from 'lucide-react';
+import { Calendar, Gauge, Zap, Fuel, ArrowLeft, Phone, MapPin, Wrench, Check } from 'lucide-react';
 import { BaseCrudService } from '@/integrations';
 import { Vehicles } from '@/entities';
 import { Image } from '@/components/ui/image';
@@ -49,13 +49,12 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string 
 // Mock features for the demo vehicle
 const DEMO_FEATURES = [
   'Klimaanlage',
-  'Einparkhilfe',
+  'Einparkhilfe hinten',
+  'Apple CarPlay',
+  'Android Auto',
   'Sitzheizung',
   'Tempomat',
-  'Bluetooth',
-  'USB-Anschluss',
-  'Zentralverriegelung',
-  'Elektrische Fensterheber',
+  'Alu 16"',
 ];
 
 export default function VehicleDetailPage() {
