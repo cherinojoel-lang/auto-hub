@@ -1,7 +1,7 @@
 // WI-HPI
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Search, ChevronRight, Star, MapPin, Phone, Mail, Clock, Info, Check, Award, Users, Zap, Calendar, Gauge, Fuel } from 'lucide-react';
+import { ChevronRight, Star, MapPin, Phone, Mail, Clock, Award, Users, Zap, Calendar, Gauge, Fuel } from 'lucide-react';
 import { BaseCrudService } from '@/integrations';
 import { Vehicles } from '@/entities';
 import { Image } from '@/components/ui/image';
