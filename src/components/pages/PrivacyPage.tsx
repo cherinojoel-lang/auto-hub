@@ -7,8 +7,8 @@ export default function PrivacyPage() {
   useEffect(() => {
     updateMetaTags({
       title: 'Datenschutzerklärung - Automobile Quick',
-      description: 'Datenschutzerklärung von Automobile Quick. Entwurf - muss vor Veröffentlichung rechtlich geprüft werden.',
-      robots: 'noindex, follow',
+      description: 'Datenschutzerklärung von Automobile Quick. Stand: Mai 2026.',
+      robots: 'index, follow',
     });
   }, []);
 
@@ -32,13 +32,10 @@ export default function PrivacyPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto bg-background rounded-2xl p-8 shadow-lg border border-border/50">
             <div className="space-y-8">
-              {/* Draft Notice */}
-              <div className="bg-warning/10 rounded-lg p-6 border border-warning/30">
-                <p className="text-foreground font-medium mb-2">
-                  ⚠️ Entwurf
-                </p>
+              {/* Status Notice */}
+              <div className="bg-primary/5 rounded-lg p-6 border border-primary/20">
                 <p className="text-foreground/80 text-sm">
-                  Diese Datenschutzerklärung ist ein Entwurf und muss vor Veröffentlichung der Website rechtlich geprüft und an die tatsächlich eingesetzten Dienste, Formulare, Cookies, Tracking-Systeme und Hosting-Strukturen angepasst werden.
+                  Stand: Mai 2026. Diese Datenschutzerklärung informiert über die Verarbeitung personenbezogener Daten auf dieser Website.
                 </p>
               </div>
 
@@ -128,16 +125,6 @@ export default function PrivacyPage() {
                     Betroffene Personen haben im Rahmen der gesetzlichen Vorgaben Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch.
                   </p>
                 </div>
-              </div>
-
-              {/* Important Notice */}
-              <div className="bg-primary/5 rounded-lg p-6 border border-primary/20">
-                <p className="text-foreground/80 font-medium mb-2">
-                  Hinweis
-                </p>
-                <p className="text-foreground/80 text-sm">
-                  Diese Datenschutzerklärung ist ein Entwurf und muss vor Veröffentlichung der Website rechtlich geprüft und an die tatsächlich eingesetzten Dienste, Formulare, Cookies, Tracking-Systeme und Hosting-Strukturen angepasst werden.
-                </p>
               </div>
             </div>
           </div>

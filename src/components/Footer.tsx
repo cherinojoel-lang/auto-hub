@@ -91,7 +91,7 @@ export default function Footer() {
                 to="/contact"
                 className="block text-sm text-white/80 hover:text-white transition-colors duration-200"
               >
-                Kontakt
+                Kontakt & Anfahrt
               </Link>
             </nav>
           </div>
@@ -112,12 +112,6 @@ export default function Footer() {
               >
                 Datenschutz
               </Link>
-              <a
-                href="tel:+4923749157-0"
-                className="block text-sm text-white/80 hover:text-white transition-colors duration-200 font-medium text-secondary"
-              >
-                Jetzt anrufen
-              </a>
             </nav>
           </div>
         </div>
