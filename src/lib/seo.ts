@@ -123,9 +123,9 @@ export function getStructuredDataOrganization() {
     email: 'info@automobilequick.de',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Delsterner Str. 92',
-      addressLocality: 'Hagen',
-      postalCode: '58091',
+      streetAddress: 'Hagener Str. 126a',
+      addressLocality: 'Iserlohn',
+      postalCode: '58642',
       addressCountry: 'DE',
     },
     sameAs: [
@@ -136,9 +136,23 @@ export function getStructuredDataOrganization() {
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: '4.9',
-      reviewCount: '1690',
+      reviewCount: '157',
     },
     foundingDate: '1982',
+    openingHoursSpecification: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        opens: '09:00',
+        closes: '18:00',
+      },
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: 'Saturday',
+        opens: '10:00',
+        closes: '16:00',
+      },
+    ],
   };
 }
 
@@ -163,7 +177,18 @@ export function getStructuredDataProduct(vehicle: any) {
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: '4.9',
-      reviewCount: '1690',
+      reviewCount: '157',
+    },
+    vehicleSpecializations: {
+      '@type': 'Vehicle',
+      manufacturer: vehicle.manufacturer,
+      model: vehicle.model,
+      productionDate: vehicle.firstRegistrationYear,
+      mileageFromOdometer: {
+        '@type': 'QuantitativeValue',
+        value: vehicle.mileage,
+        unitCode: 'KMT',
+      },
     },
   };
 }

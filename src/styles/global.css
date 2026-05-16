@@ -38,14 +38,14 @@ button:focus-visible {
 
 /* Skip to main content link for accessibility */
 .skip-to-main {
-  @apply absolute -top-full left-0 z-50 bg-primary text-white px-4 py-2 rounded;
+  @apply absolute -top-full left-0 z-50 bg-primary text-white px-4 py-2 rounded focus:top-0 focus:outline-none;
 }
 
 .skip-to-main:focus {
   @apply top-0;
 }
 
-/* Improve image loading performance */
+/* Improve image loading with lazy loading */
 img {
   @apply max-w-full h-auto;
 }

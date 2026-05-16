@@ -133,6 +133,9 @@ export default function VehiclesPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background pb-20 md:pb-0">
+      <a href="#main-content" className="skip-to-main">
+        Zum Hauptinhalt springen
+      </a>
       <Header />
 
       {/* Hero Section */}
@@ -284,7 +287,7 @@ export default function VehiclesPage() {
       </section>
 
       {/* Vehicles Grid */}
-      <section className="py-12 sm:py-16 md:py-20 bg-white flex-1">
+      <section className="py-12 sm:py-16 md:py-20 bg-white flex-1" id="main-content">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="min-h-[600px]">
             {isLoading ? (

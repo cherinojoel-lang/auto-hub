@@ -130,6 +130,9 @@ export default function VehicleDetailPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <a href="#main-content" className="skip-to-main">
+        Zum Hauptinhalt springen
+      </a>
       <Header />
 
       <div className="flex-1">
@@ -152,7 +155,7 @@ export default function VehicleDetailPage() {
         ) : (
           <>
             {/* Back Link */}
-            <div className="container mx-auto px-4 max-w-7xl pt-6 sm:pt-8">
+            <div className="container mx-auto px-4 max-w-7xl pt-6 sm:pt-8" id="main-content">
               <Link
                 to="/vehicles"
                 className="inline-flex items-center gap-2 text-primary font-bold hover:gap-3 transition-all duration-200 text-base sm:text-lg"
@@ -172,6 +175,7 @@ export default function VehicleDetailPage() {
                       alt={`${vehicle.manufacturer} ${vehicle.model}`}
                       className="w-full h-full object-cover"
                       width={1200}
+                      height={675}
                     />
                   ) : (
                     <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">
@@ -325,6 +329,7 @@ export default function VehicleDetailPage() {
                                     alt={`${v.manufacturer} ${v.model}`}
                                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                                     width={400}
+                                    height={225}
                                   />
                                 ) : (
                                   <div className="w-full h-full flex items-center justify-center bg-gray-200">

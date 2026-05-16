@@ -62,6 +62,9 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <a href="#main-content" className="skip-to-main">
+        Zum Hauptinhalt springen
+      </a>
       <Header />
 
       {/* Hero Section */}

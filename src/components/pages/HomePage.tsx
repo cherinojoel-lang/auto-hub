@@ -126,16 +126,21 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background font-paragraph text-foreground overflow-x-hidden">
+      <a href="#main-content" className="skip-to-main">
+        Zum Hauptinhalt springen
+      </a>
       <Header />
 
       {/* HERO SECTION */}
-      <section className="relative w-full bg-primary flex items-center justify-center overflow-hidden pt-8 sm:pt-12 md:pt-16 pb-12 sm:pb-16 md:pb-20">
+      <section className="relative w-full bg-primary flex items-center justify-center overflow-hidden pt-8 sm:pt-12 md:pt-16 pb-12 sm:pb-16 md:pb-20" role="banner" aria-label="Willkommen bei Automobile Quick">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <Image 
             src="https://static.wixstatic.com/media/32e7c0_d28732f69d9643a7ada1b1be4890a422~mv2.png?originWidth=1152&originHeight=576" 
             alt="Automobile Quick Autohaus - Gebrauchtwagen in Iserlohn-Letmathe seit 1982" 
             className="w-full h-full object-cover object-center opacity-30"
+            width={1152}
+            height={576}
           />
           <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/95 to-primary/85"></div>
         </div>
@@ -225,7 +230,7 @@ export default function HomePage() {
       </section>
 
       {/* FEATURED VEHICLES SECTION */}
-      <section className="py-12 sm:py-16 md:py-20 bg-white">
+      <section className="py-12 sm:py-16 md:py-20 bg-white" id="main-content">
         <div className="container mx-auto px-4 max-w-7xl">
           <AnimatedElement>
             <div className="text-center mb-12 sm:mb-16">
@@ -270,6 +275,8 @@ export default function HomePage() {
                             src={vehicle.mainImage}
                             alt={`${vehicle.manufacturer} ${vehicle.model}`}
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
+                            width={400}
+                            height={300}
                           />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center text-gray-400">

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
-    <footer className="bg-primary text-white">
+    <footer className="bg-primary text-white" role="contentinfo">
       {/* Main Footer Content */}
       <div className="container mx-auto px-4 max-w-7xl py-12 sm:py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
@@ -56,7 +56,7 @@ export default function Footer() {
           {/* Quick Links */}
           <div>
             <h3 className="text-lg sm:text-xl font-heading font-bold mb-4">Navigation</h3>
-            <div className="space-y-2">
+            <nav className="space-y-2">
               <Link
                 to="/"
                 className="block text-sm text-white/80 hover:text-white transition-colors duration-200"
@@ -93,13 +93,13 @@ export default function Footer() {
               >
                 Kontakt
               </Link>
-            </div>
+            </nav>
           </div>
 
           {/* Legal Links */}
           <div>
             <h3 className="text-lg sm:text-xl font-heading font-bold mb-4">Rechtliches</h3>
-            <div className="space-y-2">
+            <nav className="space-y-2">
               <Link
                 to="/impressum"
                 className="block text-sm text-white/80 hover:text-white transition-colors duration-200"
@@ -118,7 +118,7 @@ export default function Footer() {
               >
                 Jetzt anrufen
               </a>
-            </div>
+            </nav>
           </div>
         </div>
       </div>

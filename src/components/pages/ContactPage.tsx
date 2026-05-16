@@ -93,6 +93,9 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <a href="#main-content" className="skip-to-main">
+        Zum Hauptinhalt springen
+      </a>
       <Header />
 
       {/* Hero Section */}
@@ -121,7 +124,7 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Form & Info Section */}
-      <section className="py-20 bg-gradient-to-b from-background to-secondary/5">
+      <section className="py-20 bg-gradient-to-b from-background to-secondary/5" id="main-content">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
