@@ -94,42 +94,42 @@ export default function VehicleDetailPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-background">
       <Header />
 
-      <div className="flex-1 bg-gradient-to-b from-background to-secondary/5">
-        <div className="container mx-auto px-4 py-8">
+      <div className="flex-1">
+        <div className="container mx-auto px-4 max-w-7xl py-8 sm:py-12">
           <Link
             to="/vehicles"
-            className="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all duration-200 mb-6"
+            className="inline-flex items-center gap-2 text-primary font-bold hover:gap-3 transition-all duration-200 mb-8 sm:mb-12 text-base sm:text-lg"
           >
-            <ArrowLeft size={20} />
+            <ArrowLeft size={22} />
             Zurück zur Übersicht
           </Link>
 
           <div className="min-h-[600px]">
             {isLoading ? (
               <div className="flex justify-center items-center py-20">
-                <LoadingSpinner />
+                <LoadingSpinner className="w-12 h-12 text-primary" />
               </div>
             ) : !vehicle ? (
               <div className="text-center py-20">
-                <h2 className="text-2xl font-heading font-bold text-foreground mb-4">
+                <h2 className="text-3xl font-heading font-bold text-foreground mb-6">
                   Fahrzeug nicht gefunden
                 </h2>
                 <Link
                   to="/vehicles"
-                  className="text-primary hover:underline"
+                  className="text-primary hover:text-primary/80 font-bold text-lg transition-colors"
                 >
                   Zurück zur Übersicht
                 </Link>
               </div>
             ) : (
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
                 {/* Image Section */}
                 <AnimatedElement>
-                  <div className="bg-background rounded-2xl shadow-lg overflow-hidden border border-border/50">
-                    <div className="aspect-[4/3] bg-secondary/5">
+                  <div className="bg-white rounded-sm shadow-2xl overflow-hidden border border-gray-100">
+                    <div className="aspect-[4/3] bg-gray-100">
                       {vehicle.mainImage ? (
                         <Image
                           src={vehicle.mainImage}
@@ -138,8 +138,8 @@ export default function VehicleDetailPage() {
                           width={800}
                         />
                       ) : (
-                        <div className="w-full h-full flex items-center justify-center bg-secondary/10">
-                          <span className="text-8xl font-bold text-secondary/30">
+                        <div className="w-full h-full flex items-center justify-center bg-gray-200">
+                          <span className="text-9xl font-bold text-gray-400">
                             {vehicle.manufacturer?.charAt(0)}
                           </span>
                         </div>
@@ -150,35 +150,35 @@ export default function VehicleDetailPage() {
 
                 {/* Details Section */}
                 <AnimatedElement>
-                  <div className="bg-background rounded-2xl shadow-lg p-8 border border-border/50">
-                    <h1 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-2">
+                  <div className="bg-white rounded-sm shadow-2xl p-8 sm:p-10 border border-gray-100">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-primary mb-4">
                       {vehicle.manufacturer} {vehicle.model}
                     </h1>
                     
-                    <div className="mb-6">
-                      <span className="text-4xl font-bold text-primary">
+                    <div className="mb-8 sm:mb-10">
+                      <span className="text-4xl sm:text-5xl font-bold text-secondary">
                         {formatPrice(vehicle.price)}
                       </span>
-                      <p className="text-sm text-foreground/60 mt-1">inkl. 19% MwSt.</p>
+                      <p className="text-sm text-gray-600 mt-2 font-medium">inkl. 19% MwSt.</p>
                     </div>
 
-                    <div className="space-y-4 mb-8">
+                    <div className="space-y-4 sm:space-y-5 mb-10 sm:mb-12">
                       {vehicle.firstRegistrationYear && (
-                        <div className="flex items-center gap-3 p-4 bg-secondary/5 rounded-lg">
-                          <Calendar className="text-primary flex-shrink-0" size={24} />
+                        <div className="flex items-center gap-4 p-5 bg-gray-50 rounded-sm border border-gray-200">
+                          <Calendar className="text-secondary flex-shrink-0" size={28} />
                           <div>
-                            <p className="text-sm text-foreground/60">Erstzulassung</p>
-                            <p className="font-medium text-foreground">{vehicle.firstRegistrationYear}</p>
+                            <p className="text-xs font-bold text-gray-600 uppercase tracking-wide">Erstzulassung</p>
+                            <p className="font-bold text-lg text-primary">{vehicle.firstRegistrationYear}</p>
                           </div>
                         </div>
                       )}
 
                       {vehicle.mileage && (
-                        <div className="flex items-center gap-3 p-4 bg-secondary/5 rounded-lg">
-                          <Gauge className="text-primary flex-shrink-0" size={24} />
+                        <div className="flex items-center gap-4 p-5 bg-gray-50 rounded-sm border border-gray-200">
+                          <Gauge className="text-secondary flex-shrink-0" size={28} />
                           <div>
-                            <p className="text-sm text-foreground/60">Kilometerstand</p>
-                            <p className="font-medium text-foreground">
+                            <p className="text-xs font-bold text-gray-600 uppercase tracking-wide">Kilometerstand</p>
+                            <p className="font-bold text-lg text-primary">
                               {vehicle.mileage.toLocaleString('de-DE')} km
                             </p>
                           </div>
@@ -186,11 +186,11 @@ export default function VehicleDetailPage() {
                       )}
 
                       {vehicle.power && (
-                        <div className="flex items-center gap-3 p-4 bg-secondary/5 rounded-lg">
-                          <Zap className="text-primary flex-shrink-0" size={24} />
+                        <div className="flex items-center gap-4 p-5 bg-gray-50 rounded-sm border border-gray-200">
+                          <Zap className="text-secondary flex-shrink-0" size={28} />
                           <div>
-                            <p className="text-sm text-foreground/60">Leistung</p>
-                            <p className="font-medium text-foreground">
+                            <p className="text-xs font-bold text-gray-600 uppercase tracking-wide">Leistung</p>
+                            <p className="font-bold text-lg text-primary">
                               {vehicle.power} kW ({Math.round(vehicle.power * 1.36)} PS)
                             </p>
                           </div>
@@ -198,49 +198,49 @@ export default function VehicleDetailPage() {
                       )}
 
                       {vehicle.driveType && (
-                        <div className="flex items-center gap-3 p-4 bg-secondary/5 rounded-lg">
-                          <Fuel className="text-primary flex-shrink-0" size={24} />
+                        <div className="flex items-center gap-4 p-5 bg-gray-50 rounded-sm border border-gray-200">
+                          <Fuel className="text-secondary flex-shrink-0" size={28} />
                           <div>
-                            <p className="text-sm text-foreground/60">Antriebsart</p>
-                            <p className="font-medium text-foreground">{vehicle.driveType}</p>
+                            <p className="text-xs font-bold text-gray-600 uppercase tracking-wide">Antriebsart</p>
+                            <p className="font-bold text-lg text-primary">{vehicle.driveType}</p>
                           </div>
                         </div>
                       )}
 
                       {vehicle.electricalRange && (
-                        <div className="flex items-center gap-3 p-4 bg-secondary/5 rounded-lg">
-                          <Zap className="text-primary flex-shrink-0" size={24} />
+                        <div className="flex items-center gap-4 p-5 bg-gray-50 rounded-sm border border-gray-200">
+                          <Zap className="text-secondary flex-shrink-0" size={28} />
                           <div>
-                            <p className="text-sm text-foreground/60">Elektrische Reichweite</p>
-                            <p className="font-medium text-foreground">{vehicle.electricalRange} km</p>
+                            <p className="text-xs font-bold text-gray-600 uppercase tracking-wide">Elektrische Reichweite</p>
+                            <p className="font-bold text-lg text-primary">{vehicle.electricalRange} km</p>
                           </div>
                         </div>
                       )}
                     </div>
 
                     {vehicle.description && (
-                      <div className="mb-8">
-                        <h2 className="text-xl font-heading font-bold text-foreground mb-3">
+                      <div className="mb-10 sm:mb-12">
+                        <h2 className="text-2xl font-heading font-bold text-primary mb-4">
                           Beschreibung
                         </h2>
-                        <p className="text-foreground/80 leading-relaxed">
+                        <p className="text-gray-700 leading-relaxed text-base">
                           {vehicle.description}
                         </p>
                       </div>
                     )}
 
-                    <div className="space-y-3">
+                    <div className="space-y-4 sm:space-y-5">
                       <Link
                         to="/contact"
-                        className="block w-full bg-primary text-primary-foreground text-center px-6 py-4 rounded-lg font-medium hover:bg-primary/90 hover:shadow-lg transition-all duration-200"
+                        className="block w-full bg-primary text-white text-center px-8 py-4 rounded-sm font-bold hover:bg-primary/90 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 text-lg shadow-md"
                       >
                         Jetzt anfragen
                       </Link>
                       <a
                         href="tel:+4923311234567"
-                        className="block w-full bg-secondary/10 text-foreground text-center px-6 py-4 rounded-lg font-medium hover:bg-secondary/20 transition-all duration-200"
+                        className="block w-full bg-secondary text-white text-center px-8 py-4 rounded-sm font-bold hover:bg-secondary/90 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 text-lg shadow-md"
                       >
-                        Anrufen
+                        +49 2331 123456 anrufen
                       </a>
                     </div>
                   </div>

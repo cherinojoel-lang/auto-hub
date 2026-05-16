@@ -129,46 +129,51 @@ export default function HomePage() {
       <Header />
 
       {/* HERO SECTION */}
-      <section className="relative h-[50vh] sm:h-[60vh] md:h-[70vh] min-h-[400px] sm:min-h-[500px] md:min-h-[600px] w-full bg-primary flex items-center justify-center overflow-hidden">
+      <section className="relative w-full bg-primary flex items-center justify-center overflow-hidden pt-8 sm:pt-12 md:pt-16 pb-12 sm:pb-16 md:pb-20">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <Image 
             src="https://static.wixstatic.com/media/32e7c0_d28732f69d9643a7ada1b1be4890a422~mv2.png?originWidth=1152&originHeight=576" 
             alt="Automobile Quick Autohaus - Gebrauchtwagen in Iserlohn-Letmathe seit 1982" 
-            className="w-full h-full object-cover object-center opacity-40"
+            className="w-full h-full object-cover object-center opacity-30"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-primary/85 via-primary/60 to-background"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/95 to-primary/85"></div>
         </div>
 
-        <div className="relative z-10 container mx-auto px-4 text-center py-8 sm:py-12 md:py-20">
+        <div className="relative z-10 container mx-auto px-4 max-w-7xl text-center py-8 sm:py-12 md:py-20">
           <AnimatedElement direction="up">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-3 sm:mb-4 tracking-tight leading-tight">
-              Ihr Autohaus in Iserlohn-Letmathe
+            <div className="mb-4 sm:mb-6">
+              <span className="inline-block px-4 py-2 bg-secondary/20 text-secondary text-xs sm:text-sm font-bold rounded-full mb-6">
+                SEIT 1982 IN ISERLOHN-LETMATHE
+              </span>
+            </div>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-white mb-4 sm:mb-6 tracking-tight leading-tight">
+              Ein guter Gebrauchter ist keine Glücksache
             </h1>
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 font-paragraph font-light mb-8 sm:mb-12 leading-relaxed px-2">
-              Gepflegte Gebrauchtwagen, persönliche Beratung und schnelle Kontaktaufnahme bei Automobile Quick – seit 1982.
+            <p className="text-base sm:text-lg md:text-xl text-white/90 font-paragraph font-light mb-10 sm:mb-14 leading-relaxed max-w-3xl mx-auto">
+              Hochwertige Gebrauchtwagen, persönliche Beratung und schnelle Kontaktaufnahme – Automobile Quick ist Ihr vertrauensvoller Partner.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center flex-wrap">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center flex-wrap">
               <Link
                 to="/vehicles"
-                className="px-6 sm:px-8 py-3 bg-secondary text-white font-medium rounded-sm hover:bg-secondary/90 transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                className="px-8 sm:px-10 py-4 bg-secondary text-white font-bold rounded-sm hover:bg-secondary/90 transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-2xl transform hover:-translate-y-0.5 text-base sm:text-lg"
               >
-                Fahrzeuge ansehen
-                <ChevronRight size={18} />
+                Fahrzeugbestand durchsuchen
+                <ChevronRight size={20} />
               </Link>
               <button
                 onClick={() => window.location.href = '#contact'}
-                className="px-6 sm:px-8 py-3 bg-white text-primary font-medium rounded-sm hover:bg-gray-100 transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                className="px-8 sm:px-10 py-4 bg-white text-primary font-bold rounded-sm hover:bg-gray-50 transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-2xl transform hover:-translate-y-0.5 text-base sm:text-lg"
               >
                 Besichtigung anfragen
-                <ChevronRight size={18} />
+                <ChevronRight size={20} />
               </button>
               <a
                 href="tel:+4923311234567"
-                className="px-6 sm:px-8 py-3 border-2 border-white text-white font-medium rounded-sm hover:bg-white/10 transition-all duration-300 inline-flex items-center justify-center gap-2"
+                className="px-8 sm:px-10 py-4 border-2 border-white text-white font-bold rounded-sm hover:bg-white/10 transition-all duration-300 inline-flex items-center justify-center gap-2 text-base sm:text-lg"
               >
-                <Phone size={18} />
-                Anrufen
+                <Phone size={20} />
+                +49 2331 123456
               </a>
             </div>
           </AnimatedElement>
@@ -176,24 +181,25 @@ export default function HomePage() {
       </section>
 
       {/* SEARCH SECTION */}
-      <section className="relative z-20 -mt-12 sm:-mt-16 md:-mt-24 mb-6 sm:mb-12 md:mb-16 px-4">
-        <div className="container mx-auto max-w-6xl">
+      <section className="relative z-20 -mt-8 sm:-mt-12 md:-mt-16 mb-8 sm:mb-12 md:mb-16 px-4">
+        <div className="container mx-auto max-w-7xl">
           <AnimatedElement delay={200}>
-            <div className="bg-white rounded-lg sm:rounded-xl shadow-lg sm:shadow-2xl p-4 sm:p-6 md:p-8 border border-gray-100">
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-heading font-bold text-center mb-4 sm:mb-6 md:mb-8 text-primary">
-                Jetzt Fahrzeug finden
+            <div className="bg-white rounded-sm shadow-2xl p-6 sm:p-8 md:p-10 border border-gray-100">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-center mb-8 sm:mb-10 text-primary">
+                Fahrzeug finden
               </h2>
               
-              <form onSubmit={handleSearch} className="flex flex-col gap-3 sm:gap-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
+              <form onSubmit={handleSearch} className="flex flex-col gap-6 sm:gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                   {/* Manufacturer */}
                   <div className="flex flex-col">
+                    <label className="text-xs font-bold text-primary mb-2 uppercase tracking-wide">Hersteller</label>
                     <select
                       value={manufacturer}
                       onChange={(e) => setManufacturer(e.target.value)}
-                      className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-none border-b-2 border-gray-200 bg-transparent text-foreground text-sm sm:text-base focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer"
+                      className="w-full px-4 py-3 rounded-sm border-2 border-gray-200 bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
                     >
-                      <option value="">Hersteller</option>
+                      <option value="">Alle Hersteller</option>
                       <option value="Audi">Audi</option>
                       <option value="BMW">BMW</option>
                       <option value="Mercedes-Benz">Mercedes-Benz</option>
@@ -204,12 +210,13 @@ export default function HomePage() {
 
                   {/* Drive Type */}
                   <div className="flex flex-col">
+                    <label className="text-xs font-bold text-primary mb-2 uppercase tracking-wide">Antriebsart</label>
                     <select
                       value={driveType}
                       onChange={(e) => setDriveType(e.target.value)}
-                      className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-none border-b-2 border-gray-200 bg-transparent text-foreground text-sm sm:text-base focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer"
+                      className="w-full px-4 py-3 rounded-sm border-2 border-gray-200 bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
                     >
-                      <option value="">Antriebsart</option>
+                      <option value="">Alle Antriebsarten</option>
                       <option value="Benzin">Benzin</option>
                       <option value="Diesel">Diesel</option>
                       <option value="Elektro">Elektro</option>
@@ -219,12 +226,13 @@ export default function HomePage() {
 
                   {/* Min Year */}
                   <div className="flex flex-col">
+                    <label className="text-xs font-bold text-primary mb-2 uppercase tracking-wide">EZ ab</label>
                     <select
                       value={minYear}
                       onChange={(e) => setMinYear(e.target.value)}
-                      className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-none border-b-2 border-gray-200 bg-transparent text-foreground text-sm sm:text-base focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer"
+                      className="w-full px-4 py-3 rounded-sm border-2 border-gray-200 bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
                     >
-                      <option value="">EZ ab</option>
+                      <option value="">Alle Jahre</option>
                       <option value="2024">ab 2024</option>
                       <option value="2023">ab 2023</option>
                       <option value="2022">ab 2022</option>
@@ -235,12 +243,13 @@ export default function HomePage() {
 
                   {/* Max KM */}
                   <div className="flex flex-col">
+                    <label className="text-xs font-bold text-primary mb-2 uppercase tracking-wide">km bis</label>
                     <select
                       value={maxKm}
                       onChange={(e) => setMaxKm(e.target.value)}
-                      className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-none border-b-2 border-gray-200 bg-transparent text-foreground text-sm sm:text-base focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer"
+                      className="w-full px-4 py-3 rounded-sm border-2 border-gray-200 bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
                     >
-                      <option value="">km bis</option>
+                      <option value="">Alle km</option>
                       <option value="10000">bis 10.000</option>
                       <option value="30000">bis 30.000</option>
                       <option value="50000">bis 50.000</option>
@@ -249,13 +258,13 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                <div className="flex justify-center mt-2 sm:mt-4">
+                <div className="flex justify-center">
                   <button
                     type="submit"
-                    className="bg-primary text-white px-6 sm:px-12 py-2 sm:py-3 rounded-sm font-medium text-sm sm:text-base hover:bg-primary/90 transition-all duration-300 flex items-center gap-2 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                    className="bg-primary text-white px-10 sm:px-14 py-4 rounded-sm font-bold text-base sm:text-lg hover:bg-primary/90 transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-2xl transform hover:-translate-y-0.5"
                   >
-                    <Search size={16} className="sm:w-[18px] sm:h-[18px]" />
-                    <span>1040 Treffer</span>
+                    <Search size={20} />
+                    <span>Fahrzeuge durchsuchen</span>
                   </button>
                 </div>
               </form>
@@ -265,46 +274,46 @@ export default function HomePage() {
       </section>
 
       {/* TRUST BAR */}
-      <section className="bg-white border-b border-gray-200 py-6 sm:py-8">
+      <section className="bg-white border-b border-gray-200 py-8 sm:py-12">
         <div className="container mx-auto px-4 max-w-7xl">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 text-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8 text-center">
             <AnimatedElement delay={0}>
               <div className="flex flex-col items-center">
-                <div className="flex gap-1 mb-2 justify-center">
+                <div className="flex gap-1 mb-3 justify-center">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={18} className="fill-yellow-400 text-yellow-400" />
+                    <Star key={i} size={20} className="fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
-                <p className="text-sm font-bold text-primary">5 Sterne</p>
+                <p className="text-base font-bold text-primary mb-1">5 Sterne</p>
                 <p className="text-xs text-gray-600">auf mobile.de</p>
               </div>
             </AnimatedElement>
             <AnimatedElement delay={100}>
               <div className="flex flex-col items-center">
-                <p className="text-2xl sm:text-3xl font-bold text-primary mb-1">157</p>
-                <p className="text-sm font-bold text-primary">Bewertungen</p>
+                <p className="text-3xl sm:text-4xl font-bold text-primary mb-2">157</p>
+                <p className="text-base font-bold text-primary mb-1">Bewertungen</p>
                 <p className="text-xs text-gray-600">von Kunden</p>
               </div>
             </AnimatedElement>
             <AnimatedElement delay={200}>
               <div className="flex flex-col items-center">
-                <p className="text-2xl sm:text-3xl font-bold text-primary mb-1">1982</p>
-                <p className="text-sm font-bold text-primary">Seit</p>
-                <p className="text-xs text-gray-600">in Iserlohn-Letmathe</p>
+                <p className="text-3xl sm:text-4xl font-bold text-primary mb-2">42</p>
+                <p className="text-base font-bold text-primary mb-1">Jahre</p>
+                <p className="text-xs text-gray-600">Erfahrung</p>
               </div>
             </AnimatedElement>
             <AnimatedElement delay={300}>
               <div className="flex flex-col items-center">
-                <Users size={28} className="text-primary mb-2" />
-                <p className="text-sm font-bold text-primary">Persönliche</p>
+                <Users size={32} className="text-secondary mb-3" />
+                <p className="text-base font-bold text-primary mb-1">Persönliche</p>
                 <p className="text-xs text-gray-600">Beratung</p>
               </div>
             </AnimatedElement>
             <AnimatedElement delay={400}>
               <div className="flex flex-col items-center">
-                <Award size={28} className="text-primary mb-2" />
-                <p className="text-sm font-bold text-primary">Geprüfte</p>
-                <p className="text-xs text-gray-600">Gebrauchtwagen</p>
+                <Award size={32} className="text-secondary mb-3" />
+                <p className="text-base font-bold text-primary mb-1">Geprüfte</p>
+                <p className="text-xs text-gray-600">Fahrzeuge</p>
               </div>
             </AnimatedElement>
           </div>
@@ -312,27 +321,27 @@ export default function HomePage() {
       </section>
 
       {/* FEATURED VEHICLES SECTION */}
-      <section className="py-8 sm:py-12 md:py-16 bg-gray-50">
+      <section className="py-12 sm:py-16 md:py-20 bg-white">
         <div className="container mx-auto px-4 max-w-7xl">
           <AnimatedElement>
-            <div className="text-center mb-8 sm:mb-12">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-primary mb-3 sm:mb-4">
+            <div className="text-center mb-12 sm:mb-16">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-primary mb-4 sm:mb-6">
                 Aktuelle Fahrzeuge
               </h2>
-              <p className="text-sm sm:text-base text-gray-600 mb-4">Entdecken Sie unsere neuesten Fahrzeuge mit bester Qualität und fairen Preisen</p>
-              <div className="w-16 sm:w-24 h-1 bg-secondary mx-auto"></div>
+              <p className="text-base sm:text-lg text-gray-600 mb-6">Entdecken Sie unsere neuesten Fahrzeuge mit bester Qualität und fairen Preisen</p>
+              <div className="w-20 sm:w-32 h-1.5 bg-secondary mx-auto rounded-full"></div>
             </div>
           </AnimatedElement>
 
-          <div className="relative min-h-[400px]">
+          <div className="relative min-h-[500px]">
             {/* Always render the grid container for refs to attach safely */}
-            <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 transition-opacity duration-500 ${isLoading ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
+            <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 transition-opacity duration-500 ${isLoading ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
               {isLoading ? (
                 // Loading Skeletons
                 Array.from({ length: 6 }).map((_, i) => (
-                  <div key={`skeleton-${i}`} className="bg-white rounded-sm shadow-sm border border-gray-100 overflow-hidden animate-pulse">
+                  <div key={`skeleton-${i}`} className="bg-white rounded-sm shadow-md border border-gray-100 overflow-hidden animate-pulse">
                     <div className="aspect-[4/3] bg-gray-200"></div>
-                    <div className="p-4 space-y-4">
+                    <div className="p-6 space-y-4">
                       <div className="h-6 bg-gray-200 rounded w-3/4"></div>
                       <div className="space-y-2">
                         <div className="h-4 bg-gray-200 rounded w-full"></div>
@@ -348,7 +357,7 @@ export default function HomePage() {
                   <AnimatedElement key={vehicle._id} delay={index * 100} direction="up">
                     <Link
                       to={`/vehicles/${vehicle._id}`}
-                      className="group flex flex-col h-full bg-white rounded-sm shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100"
+                      className="group flex flex-col h-full bg-white rounded-sm shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:scale-[1.02]"
                     >
                       {/* Image Container */}
                       <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
@@ -356,60 +365,60 @@ export default function HomePage() {
                           <Image
                             src={vehicle.mainImage}
                             alt={`${vehicle.manufacturer} ${vehicle.model}`}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out"
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
                           />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center text-gray-400">
                             <Image src="https://static.wixstatic.com/media/32e7c0_4f4de78aefaa4e51a7d376395358a592~mv2.png?originWidth=1152&originHeight=896" alt="Placeholder" className="w-full h-full object-cover opacity-50" />
                           </div>
                         )}
-                        <div className="absolute top-2 sm:top-4 left-2 sm:left-4 bg-white/90 backdrop-blur-sm px-2 sm:px-3 py-1 text-xs font-bold text-primary rounded-sm shadow-sm">
+                        <div className="absolute top-4 left-4 bg-success text-white px-3 py-1.5 text-xs font-bold rounded-sm shadow-md">
                           Sofort lieferbar
                         </div>
                       </div>
 
                       {/* Content Container */}
-                      <div className="p-3 sm:p-5 flex flex-col flex-grow">
-                        <div className="mb-3 sm:mb-4 flex-grow">
-                          <h3 className="text-base sm:text-lg font-bold text-primary leading-tight mb-1 group-hover:text-secondary transition-colors">
+                      <div className="p-6 flex flex-col flex-grow">
+                        <div className="mb-6 flex-grow">
+                          <h3 className="text-lg sm:text-xl font-bold text-primary leading-tight mb-2 group-hover:text-secondary transition-colors">
                             {vehicle.manufacturer} {vehicle.model}
                           </h3>
-                          <p className="text-xs text-gray-500 line-clamp-2 mb-2 sm:mb-3">
+                          <p className="text-xs text-gray-500 line-clamp-2 mb-4">
                             {vehicle.description || 'Gebrauchtwagen | Automatik | Top Zustand'}
                           </p>
                           
-                          <div className="grid grid-cols-2 gap-y-1 sm:gap-y-2 text-xs text-gray-600">
-                            <div className="flex items-center gap-1">
-                              <Clock size={12} className="text-secondary" />
+                          <div className="grid grid-cols-2 gap-3 text-xs text-gray-600">
+                            <div className="flex items-center gap-2">
+                              <Calendar size={14} className="text-secondary" />
                               <span>{vehicle.firstRegistrationYear ? `EZ ${vehicle.firstRegistrationYear}` : 'Neu'}</span>
                             </div>
-                            <div className="flex items-center gap-1">
-                              <Info size={12} className="text-secondary" />
+                            <div className="flex items-center gap-2">
+                              <Gauge size={14} className="text-secondary" />
                               <span>{vehicle.mileage ? `${vehicle.mileage.toLocaleString('de-DE')} km` : '0 km'}</span>
                             </div>
-                            <div className="flex items-center gap-1">
-                              <Zap size={12} className="text-secondary" />
+                            <div className="flex items-center gap-2">
+                              <Zap size={14} className="text-secondary" />
                               <span>{vehicle.power ? `${vehicle.power} kW` : '-'}</span>
                             </div>
-                            <div className="flex items-center gap-1">
-                              <Check size={12} className="text-secondary" />
+                            <div className="flex items-center gap-2">
+                              <Fuel size={14} className="text-secondary" />
                               <span>{vehicle.driveType || 'Automatik'}</span>
                             </div>
                           </div>
                         </div>
 
                         {/* Price Section */}
-                        <div className="pt-3 sm:pt-4 border-t border-gray-100 mt-auto">
-                          <p className="text-xs text-gray-500 mb-1">Barpreis</p>
+                        <div className="pt-6 border-t border-gray-100 mt-auto">
+                          <p className="text-xs text-gray-500 mb-2">Barpreis</p>
                           <div className="flex items-end justify-between">
                             <div>
-                              <span className="text-xl sm:text-2xl font-bold text-primary">
+                              <span className="text-2xl sm:text-3xl font-bold text-primary">
                                 {formatPrice(vehicle.price)}
                               </span>
-                              <p className="text-[10px] text-gray-400">inkl. 19% MwSt.</p>
+                              <p className="text-[10px] text-gray-400 mt-1">inkl. 19% MwSt.</p>
                             </div>
-                            <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-secondary group-hover:text-white transition-colors">
-                              <ChevronRight size={16} />
+                            <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-secondary group-hover:text-white transition-colors">
+                              <ChevronRight size={20} />
                             </div>
                           </div>
                         </div>
@@ -427,7 +436,7 @@ export default function HomePage() {
             {/* Loading Overlay (Optional, if you prefer spinner over skeletons) */}
             {isLoading && (
               <div className="absolute inset-0 flex items-center justify-center bg-white/50 backdrop-blur-sm z-10">
-                <LoadingSpinner className="w-10 h-10 text-primary" />
+                <LoadingSpinner className="w-12 h-12 text-primary" />
               </div>
             )}
           </div>
@@ -435,28 +444,28 @@ export default function HomePage() {
       </section>
 
       {/* ABOUT SECTION */}
-      <section className="py-12 sm:py-16 md:py-20 bg-white">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-12">
+      <section className="py-12 sm:py-16 md:py-20 bg-gray-50">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-10">
             <AnimatedElement direction="left">
-              <div className="bg-gradient-to-br from-primary to-primary/80 text-white p-6 sm:p-8 rounded-sm shadow-lg">
-                <Award size={40} className="mb-4 text-secondary" />
-                <h3 className="text-xl sm:text-2xl font-heading font-bold mb-3">Geprüfte Gebrauchtwagen</h3>
-                <p className="text-sm sm:text-base text-white/90">Alle Fahrzeuge werden sorgfältig geprüft und inspiziert, um höchste Qualitätsstandards zu gewährleisten.</p>
+              <div className="bg-white p-8 sm:p-10 rounded-sm shadow-lg border-l-4 border-secondary h-full">
+                <Award size={44} className="mb-6 text-secondary" />
+                <h3 className="text-xl sm:text-2xl font-heading font-bold mb-4 text-primary">Geprüfte Fahrzeuge</h3>
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">Alle Fahrzeuge werden sorgfältig geprüft und inspiziert, um höchste Qualitätsstandards zu gewährleisten.</p>
               </div>
             </AnimatedElement>
             <AnimatedElement direction="up" delay={100}>
-              <div className="bg-gradient-to-br from-secondary to-secondary/80 text-white p-6 sm:p-8 rounded-sm shadow-lg">
-                <Users size={40} className="mb-4 text-white" />
-                <h3 className="text-xl sm:text-2xl font-heading font-bold mb-3">Persönliche Beratung</h3>
-                <p className="text-sm sm:text-base text-white/90">Unser erfahrenes Team berät Sie kompetent und fair – ganz nach Ihren individuellen Wünschen und Anforderungen.</p>
+              <div className="bg-white p-8 sm:p-10 rounded-sm shadow-lg border-l-4 border-secondary h-full">
+                <Users size={44} className="mb-6 text-secondary" />
+                <h3 className="text-xl sm:text-2xl font-heading font-bold mb-4 text-primary">Persönliche Beratung</h3>
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">Unser erfahrenes Team berät Sie kompetent und fair – ganz nach Ihren individuellen Wünschen und Anforderungen.</p>
               </div>
             </AnimatedElement>
             <AnimatedElement direction="right" delay={200}>
-              <div className="bg-gradient-to-br from-primary to-primary/80 text-white p-6 sm:p-8 rounded-sm shadow-lg">
-                <Zap size={40} className="mb-4 text-secondary" />
-                <h3 className="text-xl sm:text-2xl font-heading font-bold mb-3">Regional verwurzelt</h3>
-                <p className="text-sm sm:text-base text-white/90">Seit 1982 sind wir ein verlässlicher Partner für Gebrauchtwagen in Iserlohn-Letmathe und der Region.</p>
+              <div className="bg-white p-8 sm:p-10 rounded-sm shadow-lg border-l-4 border-secondary h-full">
+                <Award size={44} className="mb-6 text-secondary" />
+                <h3 className="text-xl sm:text-2xl font-heading font-bold mb-4 text-primary">Seit 1982</h3>
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">Ein verlässlicher Partner für hochwertige Gebrauchtwagen in Iserlohn-Letmathe und der Region.</p>
               </div>
             </AnimatedElement>
           </div>
@@ -464,22 +473,22 @@ export default function HomePage() {
       </section>
 
       {/* TRADE-IN TEASER */}
-      <section className="py-12 sm:py-16 md:py-20 bg-gray-50">
-        <div className="container mx-auto px-4 max-w-6xl">
+      <section className="py-12 sm:py-16 md:py-20 bg-white">
+        <div className="container mx-auto px-4 max-w-7xl">
           <AnimatedElement>
-            <div className="bg-white rounded-sm shadow-lg p-8 sm:p-12 md:p-16 text-center border-l-4 border-secondary">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-primary mb-4 sm:mb-6">
+            <div className="bg-gradient-to-r from-primary to-primary/90 rounded-sm shadow-2xl p-10 sm:p-14 md:p-16 text-center text-white border-b-4 border-secondary">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold mb-6 sm:mb-8">
                 Sie möchten Ihr Auto verkaufen?
               </h2>
-              <p className="text-sm sm:text-base text-gray-600 mb-8 sm:mb-10 max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg text-white/90 mb-10 sm:mb-12 max-w-2xl mx-auto leading-relaxed">
                 Automobile Quick bietet faire Preise für Ihren Gebrauchtwagen. Kontaktieren Sie uns für eine unverbindliche Bewertung.
               </p>
               <Link
                 to="/autoankauf"
-                className="inline-flex items-center gap-2 px-8 py-3 bg-secondary text-white font-medium rounded-sm hover:bg-secondary/90 transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="inline-flex items-center gap-3 px-10 py-4 bg-secondary text-white font-bold rounded-sm hover:bg-secondary/90 transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:-translate-y-0.5 text-lg"
               >
                 Autoankauf anfragen
-                <ChevronRight size={20} />
+                <ChevronRight size={24} />
               </Link>
             </div>
           </AnimatedElement>
@@ -487,22 +496,22 @@ export default function HomePage() {
       </section>
 
       {/* FINANCING TEASER */}
-      <section className="py-12 sm:py-16 md:py-20 bg-white">
-        <div className="container mx-auto px-4 max-w-6xl">
+      <section className="py-12 sm:py-16 md:py-20 bg-gray-50">
+        <div className="container mx-auto px-4 max-w-7xl">
           <AnimatedElement>
-            <div className="bg-gradient-to-r from-primary to-primary/80 rounded-sm shadow-lg p-8 sm:p-12 md:p-16 text-center text-white border-r-4 border-secondary">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold mb-4 sm:mb-6">
+            <div className="bg-white rounded-sm shadow-2xl p-10 sm:p-14 md:p-16 text-center border-b-4 border-secondary">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-primary mb-6 sm:mb-8">
                 Flexible Finanzierungslösungen
               </h2>
-              <p className="text-sm sm:text-base text-white/90 mb-8 sm:mb-10 max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg text-gray-600 mb-10 sm:mb-12 max-w-2xl mx-auto leading-relaxed">
                 Wir bieten attraktive Finanzierungsmöglichkeiten für Ihren Traumwagen. Lassen Sie sich von unserem Team beraten.
               </p>
               <Link
                 to="/finanzierung"
-                className="inline-flex items-center gap-2 px-8 py-3 bg-white text-primary font-medium rounded-sm hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="inline-flex items-center gap-3 px-10 py-4 bg-primary text-white font-bold rounded-sm hover:bg-primary/90 transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:-translate-y-0.5 text-lg"
               >
                 Finanzierung anfragen
-                <ChevronRight size={20} />
+                <ChevronRight size={24} />
               </Link>
             </div>
           </AnimatedElement>
@@ -510,21 +519,21 @@ export default function HomePage() {
       </section>
 
       {/* CONTACT & LOCATION SECTION */}
-      <section id="contact" className="py-12 sm:py-16 md:py-20 bg-gray-50">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 bg-white rounded-sm shadow-lg overflow-hidden border border-gray-100">
+      <section id="contact" className="py-12 sm:py-16 md:py-20 bg-white">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 bg-gray-50 rounded-sm shadow-2xl overflow-hidden border border-gray-200">
             
             {/* Info Side */}
-            <div className="p-6 sm:p-8 md:p-10 flex flex-col justify-center">
+            <div className="p-8 sm:p-10 md:p-12 flex flex-col justify-center">
               <AnimatedElement direction="left">
-                <h3 className="text-2xl sm:text-3xl font-heading font-bold text-primary mb-6 sm:mb-8">Kontakt & Anfahrt</h3>
+                <h3 className="text-3xl sm:text-4xl font-heading font-bold text-primary mb-8 sm:mb-10">Kontakt & Anfahrt</h3>
                 
-                <div className="space-y-4 sm:space-y-6 mb-8 sm:mb-10">
+                <div className="space-y-6 sm:space-y-8 mb-10 sm:mb-12">
                   <div className="flex items-start gap-4">
-                    <MapPin className="text-secondary mt-1 flex-shrink-0" size={24} />
+                    <MapPin className="text-secondary mt-1 flex-shrink-0" size={28} />
                     <div>
-                      <p className="font-bold text-primary mb-1">Adresse</p>
-                      <p className="text-sm sm:text-base text-gray-600">
+                      <p className="font-bold text-primary mb-2 text-lg">Adresse</p>
+                      <p className="text-base text-gray-600 leading-relaxed">
                         Automobile Quick<br/>
                         Hagener Str. 126a<br/>
                         58642 Iserlohn
@@ -532,32 +541,40 @@ export default function HomePage() {
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
-                    <Phone className="text-secondary flex-shrink-0" size={24} />
+                    <Phone className="text-secondary flex-shrink-0" size={28} />
                     <div>
-                      <p className="font-bold text-primary mb-1">Telefon</p>
-                      <a href="tel:+4923311234567" className="text-sm sm:text-base text-secondary hover:text-secondary/80 transition-colors">+49 (0) 2331 123456</a>
+                      <p className="font-bold text-primary mb-2 text-lg">Telefon</p>
+                      <a href="tel:+4923311234567" className="text-base text-secondary hover:text-secondary/80 transition-colors font-medium">+49 (0) 2331 123456</a>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
-                    <Mail className="text-secondary flex-shrink-0" size={24} />
+                    <Mail className="text-secondary flex-shrink-0" size={28} />
                     <div>
-                      <p className="font-bold text-primary mb-1">E-Mail</p>
-                      <a href="mailto:info@automobilequick.de" className="text-sm sm:text-base text-secondary hover:text-secondary/80 transition-colors">info@automobilequick.de</a>
+                      <p className="font-bold text-primary mb-2 text-lg">E-Mail</p>
+                      <a href="mailto:info@automobilequick.de" className="text-base text-secondary hover:text-secondary/80 transition-colors font-medium">info@automobilequick.de</a>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <Clock className="text-secondary flex-shrink-0" size={28} />
+                    <div>
+                      <p className="font-bold text-primary mb-2 text-lg">Öffnungszeiten</p>
+                      <p className="text-base text-gray-600">Mo-Fr: 09:00 - 18:00</p>
+                      <p className="text-base text-gray-600">Sa: 10:00 - 16:00</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-gray-50 p-4 sm:p-6 rounded-sm border border-gray-200">
-                  <div className="flex items-center gap-4 mb-3">
-                    <div className="text-3xl sm:text-4xl font-bold text-primary">4.9</div>
+                <div className="bg-white p-6 sm:p-8 rounded-sm border-2 border-secondary/20">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="text-4xl sm:text-5xl font-bold text-primary">4.9</div>
                     <div className="flex text-yellow-400">
                       {[...Array(5)].map((_, i) => (
-                        <Star key={i} size={20} fill="currentColor" />
+                        <Star key={i} size={24} fill="currentColor" />
                       ))}
                     </div>
                   </div>
-                  <p className="text-xs sm:text-sm text-gray-600 mb-2">Basierend auf 157 Bewertungen</p>
-                  <p className="text-xs sm:text-sm text-gray-500">Vertrauen Sie auf unsere Erfahrung und Kundenzufriedenheit</p>
+                  <p className="text-sm text-gray-600 mb-2 font-medium">Basierend auf 157 Bewertungen</p>
+                  <p className="text-sm text-gray-500">Vertrauen Sie auf unsere Erfahrung und Kundenzufriedenheit</p>
                 </div>
               </AnimatedElement>
             </div>
@@ -566,12 +583,12 @@ export default function HomePage() {
             <div className="h-[300px] sm:h-[400px] lg:h-auto relative bg-gray-200">
               <AnimatedElement direction="right" className="w-full h-full">
                 {/* Placeholder for Google Maps iframe to avoid actual external requests in this environment */}
-                <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-gray-200 to-gray-300 text-gray-600 p-6 sm:p-8 text-center">
-                  <MapPin size={48} className="mb-4 text-primary" />
-                  <p className="font-bold mb-2 text-sm sm:text-base text-primary">Automobile Quick</p>
-                  <p className="text-xs sm:text-sm text-gray-600 mb-6">Hagener Str. 126a, 58642 Iserlohn</p>
+                <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-gray-200 to-gray-300 text-gray-600 p-8 sm:p-10 text-center">
+                  <MapPin size={56} className="mb-6 text-primary" />
+                  <p className="font-bold mb-3 text-lg text-primary">Automobile Quick</p>
+                  <p className="text-base text-gray-600 mb-8">Hagener Str. 126a, 58642 Iserlohn</p>
                   <button 
-                    className="bg-secondary text-white px-6 py-2 rounded-sm text-xs sm:text-sm font-medium hover:bg-secondary/90 transition-colors shadow-md"
+                    className="bg-secondary text-white px-8 py-3 rounded-sm text-base font-bold hover:bg-secondary/90 transition-all duration-300 shadow-lg hover:shadow-xl"
                     onClick={() => window.open('https://maps.google.com', '_blank')}
                   >
                     Route berechnen
