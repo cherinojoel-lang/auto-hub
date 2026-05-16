@@ -83,7 +83,7 @@ export default function VehiclesPage() {
   const loadVehicles = async () => {
     try {
       setIsLoading(true);
-      const result = await BaseCrudService.getAll<Vehicles>('vehicles', [], { limit: 12, skip });
+      const result = await BaseCrudService.getAll<Vehicles>('vehicles', [], { limit: 15, skip });
       setVehicles(result.items);
       setHasNext(result.hasNext);
     } catch (error) {
@@ -128,7 +128,7 @@ export default function VehiclesPage() {
   };
 
   const loadMore = () => {
-    setSkip(prev => prev + 12);
+    setSkip(prev => prev + 15);
   };
 
   return (
