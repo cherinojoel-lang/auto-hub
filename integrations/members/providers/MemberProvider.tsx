@@ -91,7 +91,8 @@ export const MemberProvider: React.FC<MemberProviderProps> = ({ children }) => {
      * Login redirect
      */
     login: useCallback(() => {
-      const returnUrl = encodeURIComponent(window.location.pathname);
+      // Sanitize the pathname to ensure it starts with a single slash, preventing open redirects
+      const returnUrl = encodeURIComponent(window.location.pathname.replace(/^[/\\]+/, '/'));
       const loginUrl = `/api/auth/login?returnToUrl=${returnUrl}`;
 
       const insideIframe = window.self !== window.top;
