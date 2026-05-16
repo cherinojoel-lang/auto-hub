@@ -1,3 +1,4 @@
+import { AnimatedElement } from "@/components/ui/animated-element";
 import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { TrendingDown, Percent, Clock, CheckCircle, ChevronRight } from 'lucide-react';
@@ -5,43 +6,6 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
 
-const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
-  children, 
-  className = '',
-  delay = 0 
-}) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => setIsVisible(true), delay);
-          observer.unobserve(el);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [delay]);
-
-  return (
-    <div
-      ref={ref}
-      className={`transition-all duration-700 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-      } ${className}`}
-    >
-      {children}
-    </div>
-  );
-};
 
 export default function FinancingPage() {
   useEffect(() => {
