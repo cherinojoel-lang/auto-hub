@@ -7,6 +7,10 @@ import VehiclesPage from '@/components/pages/VehiclesPage';
 import VehicleDetailPage from '@/components/pages/VehicleDetailPage';
 import AboutPage from '@/components/pages/AboutPage';
 import ContactPage from '@/components/pages/ContactPage';
+import TradeInPage from '@/components/pages/TradeInPage';
+import FinancingPage from '@/components/pages/FinancingPage';
+import ImprintPage from '@/components/pages/ImprintPage';
+import PrivacyPage from '@/components/pages/PrivacyPage';
 
 // Layout component that includes ScrollToTop
 function Layout() {
@@ -57,6 +61,34 @@ const router = createBrowserRouter([
         element: <ContactPage />,
         routeMetadata: {
           pageIdentifier: 'contact',
+        },
+      },
+      {
+        path: "autoankauf",
+        element: <TradeInPage />,
+        routeMetadata: {
+          pageIdentifier: 'trade-in',
+        },
+      },
+      {
+        path: "finanzierung",
+        element: <FinancingPage />,
+        routeMetadata: {
+          pageIdentifier: 'financing',
+        },
+      },
+      {
+        path: "impressum",
+        element: <ImprintPage />,
+        routeMetadata: {
+          pageIdentifier: 'imprint',
+        },
+      },
+      {
+        path: "datenschutz",
+        element: <PrivacyPage />,
+        routeMetadata: {
+          pageIdentifier: 'privacy',
         },
       },
       {

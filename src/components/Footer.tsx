@@ -55,6 +55,18 @@ export default function Footer() {
                 Fahrzeugbestand
               </Link>
               <Link
+                to="/autoankauf"
+                className="block text-xs sm:text-sm text-background/90 hover:text-background transition-colors duration-200"
+              >
+                Autoankauf
+              </Link>
+              <Link
+                to="/finanzierung"
+                className="block text-xs sm:text-sm text-background/90 hover:text-background transition-colors duration-200"
+              >
+                Finanzierung
+              </Link>
+              <Link
                 to="/about"
                 className="block text-xs sm:text-sm text-background/90 hover:text-background transition-colors duration-200"
               >
@@ -65,6 +77,18 @@ export default function Footer() {
                 className="block text-xs sm:text-sm text-background/90 hover:text-background transition-colors duration-200"
               >
                 Kontakt & Anfahrt
+              </Link>
+              <Link
+                to="/impressum"
+                className="block text-xs sm:text-sm text-background/90 hover:text-background transition-colors duration-200"
+              >
+                Impressum
+              </Link>
+              <Link
+                to="/datenschutz"
+                className="block text-xs sm:text-sm text-background/90 hover:text-background transition-colors duration-200"
+              >
+                Datenschutz
               </Link>
             </div>
           </div>

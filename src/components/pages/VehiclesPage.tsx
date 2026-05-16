@@ -63,7 +63,7 @@ export default function VehiclesPage() {
   useEffect(() => {
     // Update SEO for vehicles page
     updateMetaTags({
-      title: 'Fahrzeugbestand - Gebrauchtwagen kaufen bei Automobile Quick in Iserlohn-Letmathe',
+      title: 'Aktuelle Gebrauchtwagen in Iserlohn-Letmathe | Automobile Quick Fahrzeugbestand',
       description: 'Große Auswahl an hochwertigen Gebrauchtwagen bei Automobile Quick. Audi, BMW, Mercedes, VW, Porsche - faire Preise, persönliche Beratung, schnelle Lieferung. Jetzt Fahrzeug finden!',
       keywords: 'Fahrzeugbestand, Gebrauchtwagen kaufen, Gebrauchtwagen Iserlohn, Gebrauchtwagen Letmathe, Audi Gebrauchtwagen, BMW Gebrauchtwagen, Mercedes Gebrauchtwagen, VW Gebrauchtwagen, Porsche Gebrauchtwagen, Automobile Quick Fahrzeuge',
       ogTitle: 'Fahrzeugbestand - Automobile Quick',
@@ -137,7 +137,7 @@ export default function VehiclesPage() {
           <AnimatedElement>
             <div className="max-w-3xl mx-auto text-center">
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-3 sm:mb-4">
-                Fahrzeugbestand - Gebrauchtwagen kaufen
+                Aktuelle Gebrauchtwagen in Iserlohn-Letmathe
               </h1>
               <p className="text-sm sm:text-base md:text-lg lg:text-xl text-background/90">
                 Große Auswahl an hochwertigen Gebrauchtwagen mit fairen Preisen und persönlicher Beratung

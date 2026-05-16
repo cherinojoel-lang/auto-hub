@@ -110,7 +110,7 @@ export default function ContactPage() {
           <AnimatedElement>
             <div className="max-w-3xl mx-auto text-center">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6">
-                Kontakt
+                Kontakt & Anfahrt
               </h1>
               <p className="text-xl md:text-2xl text-background/90">
                 Wir freuen uns auf Ihre Nachricht

@@ -31,6 +31,18 @@ export default function Header() {
               Fahrzeugbestand
             </Link>
             <Link
+              to="/autoankauf"
+              className="text-sm lg:text-base text-foreground hover:text-primary transition-colors duration-200 font-medium"
+            >
+              Autoankauf
+            </Link>
+            <Link
+              to="/finanzierung"
+              className="text-sm lg:text-base text-foreground hover:text-primary transition-colors duration-200 font-medium"
+            >
+              Finanzierung
+            </Link>
+            <Link
               to="/about"
               className="text-sm lg:text-base text-foreground hover:text-primary transition-colors duration-200 font-medium"
             >
@@ -71,6 +83,20 @@ export default function Header() {
                 className="text-sm sm:text-base text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
               >
                 Fahrzeugbestand
+              </Link>
+              <Link
+                to="/autoankauf"
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-sm sm:text-base text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
+              >
+                Autoankauf
+              </Link>
+              <Link
+                to="/finanzierung"
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-sm sm:text-base text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
+              >
+                Finanzierung
               </Link>
               <Link
                 to="/about"
