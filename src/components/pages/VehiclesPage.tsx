@@ -1,18 +1,18 @@
-import { useState, useEffect, useRef } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
-import { ChevronRight, Filter, X, Phone, MessageSquare } from 'lucide-react';
-import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
-import { Image } from '@/components/ui/image';
-import { LoadingSpinner } from '@/components/ui/loading-spinner';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
+import { useState, useEffect, useRef } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import { ChevronRight, Filter, X, Phone, MessageSquare } from "lucide-react";
+import { vehiclesData, type Vehicle } from "@/data/vehiclesData.generated";
+import { Image } from "@/components/ui/image";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { updateMetaTags, getStructuredDataBreadcrumb } from "@/lib/seo";
 
-const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
-  children, 
-  className = '',
-  delay = 0 
-}) => {
+const AnimatedElement: React.FC<{
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+}> = ({ children, className = "", delay = 0 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -27,7 +27,7 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
           observer.unobserve(el);
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     observer.observe(el);
@@ -38,14 +38,13 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
     <div
       ref={ref}
       className={`transition-all duration-700 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       } ${className}`}
     >
       {children}
     </div>
   );
 };
-
 
 export default function VehiclePage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -56,71 +55,101 @@ export default function VehiclePage() {
   const [showFilters, setShowFilters] = useState(false);
   const [showMobileBar, setShowMobileBar] = useState(false);
 
-  const [manufacturer, setManufacturer] = useState(searchParams.get('manufacturer') || '');
-  const [priceMax, setPriceMax] = useState(searchParams.get('priceMax') || '');
-  const [driveType, setDriveType] = useState(searchParams.get('driveType') || '');
-  const [maxMileage, setMaxMileage] = useState(searchParams.get('maxMileage') || '');
-  const [yearFrom, setYearFrom] = useState(searchParams.get('yearFrom') || '');
+  const [manufacturer, setManufacturer] = useState(
+    searchParams.get("manufacturer") || "",
+  );
+  const [priceMax, setPriceMax] = useState(searchParams.get("priceMax") || "");
+  const [driveType, setDriveType] = useState(
+    searchParams.get("driveType") || "",
+  );
+  const [maxMileage, setMaxMileage] = useState(
+    searchParams.get("maxMileage") || "",
+  );
+  const [yearFrom, setYearFrom] = useState(searchParams.get("yearFrom") || "");
 
   useEffect(() => {
     // Update SEO for vehicles page
     updateMetaTags({
-      title: 'Aktuelle Gebrauchtwagen in Iserlohn-Letmathe | Automobile Quick Fahrzeugbestand',
-      description: 'Entdecken Sie den aktuellen Fahrzeugbestand von Automobile Quick. Alle Fahrzeuge mit Preis, Finanzierung, Erstzulassung, Kilometerstand, Leistung und Kraftstoff.',
-      keywords: 'Fahrzeugbestand, Gebrauchtwagen kaufen, Gebrauchtwagen Iserlohn, Gebrauchtwagen Letmathe, Audi Gebrauchtwagen, BMW Gebrauchtwagen, Mercedes Gebrauchtwagen, VW Gebrauchtwagen, Porsche Gebrauchtwagen, Automobile Quick Fahrzeuge',
-      ogTitle: 'Fahrzeugbestand - Automobile Quick',
-      ogDescription: 'Entdecken Sie den aktuellen Fahrzeugbestand von Automobile Quick. Alle Fahrzeuge mit Preis, Finanzierung, Erstzulassung, Kilometerstand, Leistung und Kraftstoff.',
-      canonicalUrl: 'https://automobilequick.de/fahrzeugbestand',
+      title:
+        "Aktuelle Gebrauchtwagen in Iserlohn-Letmathe | Automobile Quick Fahrzeugbestand",
+      description:
+        "Entdecken Sie den aktuellen Fahrzeugbestand von Automobile Quick. Alle Fahrzeuge mit Preis, Finanzierung, Erstzulassung, Kilometerstand, Leistung und Kraftstoff.",
+      keywords:
+        "Fahrzeugbestand, Gebrauchtwagen kaufen, Gebrauchtwagen Iserlohn, Gebrauchtwagen Letmathe, Audi Gebrauchtwagen, BMW Gebrauchtwagen, Mercedes Gebrauchtwagen, VW Gebrauchtwagen, Porsche Gebrauchtwagen, Automobile Quick Fahrzeuge",
+      ogTitle: "Fahrzeugbestand - Automobile Quick",
+      ogDescription:
+        "Entdecken Sie den aktuellen Fahrzeugbestand von Automobile Quick. Alle Fahrzeuge mit Preis, Finanzierung, Erstzulassung, Kilometerstand, Leistung und Kraftstoff.",
+      canonicalUrl: "https://automobilequick.de/fahrzeugbestand",
       structuredData: getStructuredDataBreadcrumb([
-        { name: 'Home', url: 'https://automobilequick.de/' },
-        { name: 'Fahrzeugbestand', url: 'https://automobilequick.de/fahrzeugbestand' },
+        { name: "Home", url: "https://automobilequick.de/" },
+        {
+          name: "Fahrzeugbestand",
+          url: "https://automobilequick.de/fahrzeugbestand",
+        },
       ]),
     });
-    
+
     loadVehicle();
   }, [skip]);
-
 
   const loadVehicle = async () => {
     setIsLoading(true);
     try {
       // Simulate API latency
-      await new Promise(resolve => setTimeout(resolve, 300));
+      await new Promise((resolve) => setTimeout(resolve, 300));
       let filtered = [...vehiclesData];
 
-      if (manufacturer) {
-        filtered = filtered.filter(v => v.title?.toLowerCase().includes(manufacturer.toLowerCase()));
-      }
-      if (priceMax) {
-        filtered = filtered.filter(v => v.price && parseInt(v.price.replace(/[^0-9]/g, '')) <= parseInt(priceMax));
-      }
-      if (driveType) {
-        filtered = filtered.filter(v => v.fuel?.toLowerCase().includes(driveType.toLowerCase()));
-      }
-      if (maxMileage) {
-        filtered = filtered.filter(v => v.mileage && parseInt(v.mileage.replace(/[^0-9]/g, '')) <= parseInt(maxMileage));
-      }
-      if (yearFrom) {
-        filtered = filtered.filter(v => v.firstRegistration && v.firstRegistration.includes(yearFrom));
-      }
+      const manufacturerLower = manufacturer
+        ? manufacturer.toLowerCase()
+        : null;
+      const driveTypeLower = driveType ? driveType.toLowerCase() : null;
+      const priceMaxParsed = priceMax ? parseInt(priceMax, 10) : null;
+      const maxMileageParsed = maxMileage ? parseInt(maxMileage, 10) : null;
+
+      filtered = filtered.filter((v) => {
+        if (
+          manufacturerLower &&
+          !v.title?.toLowerCase().includes(manufacturerLower)
+        )
+          return false;
+        if (
+          priceMaxParsed !== null &&
+          (!v.price ||
+            parseInt(v.price.replace(/[^0-9]/g, ""), 10) > priceMaxParsed)
+        )
+          return false;
+        if (driveTypeLower && !v.fuel?.toLowerCase().includes(driveTypeLower))
+          return false;
+        if (
+          maxMileageParsed !== null &&
+          (!v.mileage ||
+            parseInt(v.mileage.replace(/[^0-9]/g, ""), 10) > maxMileageParsed)
+        )
+          return false;
+        if (
+          yearFrom &&
+          (!v.firstRegistration || !v.firstRegistration.includes(yearFrom))
+        )
+          return false;
+        return true;
+      });
 
       setVehicle(filtered);
       setHasNext(false); // All static items loaded
     } catch (error) {
-      console.error('Error loading static vehicles:', error);
+      console.error("Error loading static vehicles:", error);
     } finally {
       setIsLoading(false);
     }
   };
 
-
   const applyFilters = () => {
     const params = new URLSearchParams();
-    if (manufacturer) params.set('manufacturer', manufacturer);
-    if (priceMax) params.set('priceMax', priceMax);
-    if (driveType) params.set('driveType', driveType);
-    if (yearFrom) params.set('yearFrom', yearFrom);
-    if (maxMileage) params.set('maxMileage', maxMileage);
+    if (manufacturer) params.set("manufacturer", manufacturer);
+    if (priceMax) params.set("priceMax", priceMax);
+    if (driveType) params.set("driveType", driveType);
+    if (yearFrom) params.set("yearFrom", yearFrom);
+    if (maxMileage) params.set("maxMileage", maxMileage);
     setSearchParams(params);
     setSkip(0);
     loadVehicle();
@@ -128,28 +157,28 @@ export default function VehiclePage() {
   };
 
   const clearFilters = () => {
-    setManufacturer('');
-    setPriceMax('');
-    setDriveType('');
-    setYearFrom('');
-    setMaxMileage('');
+    setManufacturer("");
+    setPriceMax("");
+    setDriveType("");
+    setYearFrom("");
+    setMaxMileage("");
     setSearchParams(new URLSearchParams());
     setSkip(0);
     loadVehicle();
   };
 
   const formatPrice = (price?: number) => {
-    if (!price) return 'Preis auf Anfrage';
-    return new Intl.NumberFormat('de-DE', {
-      style: 'currency',
-      currency: 'EUR',
+    if (!price) return "Preis auf Anfrage";
+    return new Intl.NumberFormat("de-DE", {
+      style: "currency",
+      currency: "EUR",
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(price);
   };
 
   const loadMore = () => {
-    setSkip(prev => prev + 15);
+    setSkip((prev) => prev + 15);
   };
 
   return (
@@ -168,7 +197,9 @@ export default function VehiclePage() {
                 Aktuelle Gebrauchtwagen in Iserlohn-Letmathe
               </h1>
               <p className="text-base sm:text-lg md:text-xl text-white/90 leading-relaxed">
-                Entdecken Sie den aktuellen Fahrzeugbestand von Automobile Quick. Alle Fahrzeuge mit Preis, Finanzierung, Erstzulassung, Kilometerstand, Leistung und Kraftstoff.
+                Entdecken Sie den aktuellen Fahrzeugbestand von Automobile
+                Quick. Alle Fahrzeuge mit Preis, Finanzierung, Erstzulassung,
+                Kilometerstand, Leistung und Kraftstoff.
               </p>
             </div>
           </AnimatedElement>
@@ -187,11 +218,11 @@ export default function VehiclePage() {
               className="md:hidden flex items-center gap-2 text-primary font-bold text-sm sm:text-base hover:text-primary/80 transition-colors"
             >
               <Filter size={22} />
-              {showFilters ? 'Schließen' : 'Filter anzeigen'}
+              {showFilters ? "Schließen" : "Filter anzeigen"}
             </button>
           </div>
 
-          <div className={`${showFilters ? 'block' : 'hidden'} md:block`}>
+          <div className={`${showFilters ? "block" : "hidden"} md:block`}>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 mb-6">
               <div>
                 <label className="block text-xs font-bold text-primary mb-2 uppercase tracking-wide">
@@ -307,7 +338,10 @@ export default function VehiclePage() {
       </section>
 
       {/* Vehicle Grid */}
-      <section className="py-12 sm:py-16 md:py-20 bg-white flex-1" id="main-content">
+      <section
+        className="py-12 sm:py-16 md:py-20 bg-white flex-1"
+        id="main-content"
+      >
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="min-h-[600px]">
             {isLoading ? (
@@ -332,7 +366,9 @@ export default function VehiclePage() {
                             />
                           ) : (
                             <div className="w-full h-full flex flex-col items-center justify-center bg-gray-200">
-                              <span className="text-gray-400 text-sm font-medium">Bild folgt</span>
+                              <span className="text-gray-400 text-sm font-medium">
+                                Bild folgt
+                              </span>
                             </div>
                           )}
                           <div className="absolute top-4 left-4 bg-success text-white px-3 py-1.5 text-xs font-bold rounded-sm shadow-md">
@@ -364,15 +400,25 @@ export default function VehiclePage() {
                           {/* Details */}
                           <div className="space-y-2 mb-6 text-sm text-gray-600 flex-1">
                             {vehicle.firstRegistration && (
-                              <p className="font-medium">Erstzulassung: {vehicle.firstRegistration}</p>
+                              <p className="font-medium">
+                                Erstzulassung: {vehicle.firstRegistration}
+                              </p>
                             )}
                             {vehicle.mileage && (
-                              <p className="font-medium">Kilometerstand: {vehicle.mileage}</p>
+                              <p className="font-medium">
+                                Kilometerstand: {vehicle.mileage}
+                              </p>
                             )}
                             {vehicle.power && (
-                              <p className="font-medium">Leistung: {vehicle.power}</p>
+                              <p className="font-medium">
+                                Leistung: {vehicle.power}
+                              </p>
                             )}
-                            {vehicle.fuel && <p className="font-medium">Kraftstoff: {vehicle.fuel}</p>}
+                            {vehicle.fuel && (
+                              <p className="font-medium">
+                                Kraftstoff: {vehicle.fuel}
+                              </p>
+                            )}
                           </div>
 
                           {/* Buttons */}
