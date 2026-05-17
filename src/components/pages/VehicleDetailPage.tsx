@@ -8,6 +8,7 @@ import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { updateMetaTags, getStructuredDataProduct } from '@/lib/seo';
+import { formatPrice } from '@/lib/utils';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string }> = ({ 
   children, 
@@ -110,16 +111,6 @@ export default function VehicleDetailPage() {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const formatPrice = (price?: number) => {
-    if (!price) return 'Preis auf Anfrage';
-    return new Intl.NumberFormat('de-DE', {
-      style: 'currency',
-      currency: 'EUR',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(price);
   };
 
   const calculateFinancing = (price?: number) => {

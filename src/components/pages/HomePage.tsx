@@ -9,6 +9,7 @@ import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { updateMetaTags, getStructuredDataOrganization } from '@/lib/seo';
+import { formatPrice } from '@/lib/utils';
 
 // --- Animation Components ---
 
@@ -112,16 +113,6 @@ export default function HomePage() {
     if (minYear) params.set('minYear', minYear);
     if (maxKm) params.set('maxKm', maxKm);
     navigate(`/vehicles?${params.toString()}`);
-  };
-
-  const formatPrice = (price?: number) => {
-    if (!price) return 'Preis auf Anfrage';
-    return new Intl.NumberFormat('de-DE', {
-      style: 'currency',
-      currency: 'EUR',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(price);
   };
 
   return (
