@@ -70,10 +70,10 @@ export default function VehiclePage() {
       keywords: 'Fahrzeugbestand, Gebrauchtwagen kaufen, Gebrauchtwagen Iserlohn, Gebrauchtwagen Letmathe, Audi Gebrauchtwagen, BMW Gebrauchtwagen, Mercedes Gebrauchtwagen, VW Gebrauchtwagen, Porsche Gebrauchtwagen, Automobile Quick Fahrzeuge',
       ogTitle: 'Fahrzeugbestand - Automobile Quick',
       ogDescription: 'Entdecken Sie den aktuellen Fahrzeugbestand von Automobile Quick. Alle Fahrzeuge mit Preis, Finanzierung, Erstzulassung, Kilometerstand, Leistung und Kraftstoff.',
-      canonicalUrl: 'https://automobilequick.de/vehicles',
+      canonicalUrl: 'https://automobilequick.de/fahrzeugbestand',
       structuredData: getStructuredDataBreadcrumb([
         { name: 'Home', url: 'https://automobilequick.de/' },
-        { name: 'Fahrzeugbestand', url: 'https://automobilequick.de/vehicles' },
+        { name: 'Fahrzeugbestand', url: 'https://automobilequick.de/fahrzeugbestand' },
       ]),
     });
     
@@ -86,16 +86,16 @@ export default function VehiclePage() {
     try {
       // Simulate API latency
       await new Promise(resolve => setTimeout(resolve, 300));
-      let filtered = [...STATIC_VEHICLES];
+      let filtered = [...vehiclesData];
 
       if (manufacturer) {
-        filtered = filtered.filter(v => v.manufacturer?.toLowerCase() === manufacturer.toLowerCase());
+        filtered = filtered.filter(v => v.title?.toLowerCase().includes(manufacturer.toLowerCase()));
       }
       if (priceMax) {
         filtered = filtered.filter(v => v.price && parseInt(v.price.replace(/[^0-9]/g, '')) <= parseInt(priceMax));
       }
       if (driveType) {
-        filtered = filtered.filter(v => v.driveType?.toLowerCase() === driveType.toLowerCase());
+        filtered = filtered.filter(v => v.fuel?.toLowerCase().includes(driveType.toLowerCase()));
       }
       if (maxMileage) {
         filtered = filtered.filter(v => v.mileage && parseInt(v.mileage.replace(/[^0-9]/g, '')) <= parseInt(maxMileage));
@@ -203,13 +203,12 @@ export default function VehiclePage() {
                   className="w-full px-4 py-3 rounded-sm border-2 border-gray-200 bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
                 >
                   <option value="">Alle Marken</option>
-                  <option value="Audi">Audi</option>
                   <option value="BMW">BMW</option>
-                  <option value="Mercedes-Benz">Mercedes-Benz</option>
-                  <option value="VW">VW</option>
-                  <option value="Porsche">Porsche</option>
-                  <option value="Skoda">Skoda</option>
-                  <option value="Seat">Seat</option>
+                  <option value="Opel">Opel</option>
+                  <option value="Citroën">Citroën</option>
+                  <option value="Kia">Kia</option>
+                  <option value="Ford">Ford</option>
+                  <option value="Fiat">Fiat</option>
                 </select>
               </div>
 
@@ -356,9 +355,9 @@ export default function VehiclePage() {
                           </div>
 
                           {/* Financing */}
-                          {vehicle.financingMonthly && (
+                          {vehicle.financing && (
                             <p className="text-sm text-gray-600 mb-6 font-medium">
-                              Finanzierung ab {formatPrice(vehicle.financingMonthly)}/Monat
+                              {vehicle.financing}
                             </p>
                           )}
 
@@ -423,7 +422,7 @@ export default function VehiclePage() {
       <div className="fixed bottom-0 left-0 right-0 md:hidden bg-white border-t border-gray-200 shadow-2xl z-50">
         <div className="flex gap-3 p-4 max-w-7xl mx-auto">
           <a
-            href="tel:+4923311234567"
+            href="tel:+492374912912"
             className="flex-1 flex items-center justify-center gap-2 bg-primary text-white px-4 py-3 rounded-sm font-bold text-sm hover:bg-primary/90 transition-all duration-300 shadow-md"
           >
             <Phone size={18} />
