@@ -15,12 +15,9 @@ Lies zuerst AGENTS.md.
 - Keine neue komplexe Routerlogik.
 - Nicht neu designen.
 
-<<<<<<< HEAD
-=======
 ## Wichtig
 Lokaler npm build kann wegen Wix-internen Paketen fehlschlagen. Wenn das passiert, dokumentiere es und führe trotzdem statische Codeprüfung + minimalen Patch aus.
 
->>>>>>> main
 ## Aufgaben
 1. Finde die Route /fahrzeugbestand.
 2. Finde die Fahrzeugbestand-Komponente.
@@ -31,9 +28,7 @@ Lokaler npm build kann wegen Wix-internen Paketen fehlschlagen. Wenn das passier
 7. Anfragen -> /kontakt.
 8. Keine map/filter auf undefined.
 9. Bild-Fallback: „Bild folgt“.
-<<<<<<< HEAD
 10. Suche und entferne sichtbare Reste von Reinhardt, reinhardtautomobile, AutoHub, autohubs.
-=======
 10. Suche und entferne sichtbare Reste von:
    - Reinhardt
    - reinhardtautomobile
@@ -59,7 +54,6 @@ Nutze 17 statische Fahrzeuge von Automobile Quick:
 - Fiat 500 1.0 GSE Dolce Vita Mild Hybrid
 - Opel Corsa F e Edition
 - Fiat 500 1.0 GSE Hybrid
->>>>>>> main
 
 ## Ausgabe
 - geänderte Dateien

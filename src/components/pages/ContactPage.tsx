@@ -251,10 +251,10 @@ export default function ContactPage() {
                         <div>
                           <p className="font-medium text-foreground mb-1">Telefon</p>
                           <a 
-                            href="tel:+4923749157-0"
+                            href="tel:+492374912912"
                             className="text-foreground/70 hover:text-primary transition-colors"
                           >
-                            +49 2374 9157-0
+                            +49 (0) 2374 / 912912
                           </a>
                         </div>
                       </div>
