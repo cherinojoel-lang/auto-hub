@@ -7,6 +7,7 @@ import { Image } from '@/components/ui/image';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { BaseCrudService } from "@/integrations";
 import { updateMetaTags, getStructuredDataOrganization } from '@/lib/seo';
 
 // --- Animation Components ---
