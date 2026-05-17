@@ -269,7 +269,7 @@ export default function AboutPage() {
                       allowFullScreen
                       loading="lazy"
                       referrerPolicy="no-referrer-when-downgrade"
-                      title="Standort Reinhardt Automobile"
+                      title="Standort Automobile Quick"
                     />
                   </div>
                   <p className="text-foreground/70 mb-4">
@@ -277,7 +277,7 @@ export default function AboutPage() {
                     Parkplätze sind direkt vor Ort vorhanden.
                   </p>
                   <Link
-                    to="/contact"
+                    to="/kontakt"
                     className="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all duration-200"
                   >
                     Termin vereinbaren
@@ -303,13 +303,13 @@ export default function AboutPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
-                  to="/vehicles"
+                  to="/fahrzeugbestand"
                   className="bg-primary text-primary-foreground px-8 py-4 rounded-lg font-medium hover:bg-primary/90 hover:shadow-lg transition-all duration-200"
                 >
                   Fahrzeuge ansehen
                 </Link>
                 <Link
-                  to="/contact"
+                  to="/kontakt"
                   className="bg-secondary/10 text-foreground px-8 py-4 rounded-lg font-medium hover:bg-secondary/20 transition-all duration-200"
                 >
                   Kontakt aufnehmen

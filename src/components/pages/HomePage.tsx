@@ -2,8 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Search, ChevronRight, Star, MapPin, Phone, Mail, Clock, Info, Check, Award, Users, Zap, Calendar, Gauge, Fuel } from 'lucide-react';
-import { BaseCrudService } from '@/integrations';
-import { Vehicles } from '@/entities';
+import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
 import { Image } from '@/components/ui/image';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import Header from '@/components/Header';
@@ -66,7 +65,7 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
 
 export default function HomePage() {
   const navigate = useNavigate();
-  const [vehicles, setVehicles] = useState<Vehicles[]>([]);
+  const [vehicles, setVehicle] = useState<Vehicle[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   
   // Search State
@@ -88,15 +87,15 @@ export default function HomePage() {
       structuredData: getStructuredDataOrganization(),
     });
     
-    loadVehicles();
+    loadVehicle();
   }, []);
 
-  const loadVehicles = async () => {
+  const loadVehicle = async () => {
     try {
       setIsLoading(true);
       // Fetching more to ensure we have enough for the grid
-      const result = await BaseCrudService.getAll<Vehicles>('vehicles', [], { limit: 8 });
-      setVehicles(result.items || []);
+      const result = await BaseCrudService.getAll<Vehicle>('vehicles', [], { limit: 8 });
+      setVehicle(result.items || []);
     } catch (error) {
       console.error('Error loading vehicles:', error);
     } finally {
@@ -155,7 +154,7 @@ export default function HomePage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center flex-wrap">
               <Link
-                to="/vehicles"
+                to="/fahrzeugbestand"
                 className="px-8 sm:px-10 py-4 bg-secondary text-white font-bold rounded-sm hover:bg-secondary/90 transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-2xl transform hover:-translate-y-0.5 text-base sm:text-lg min-h-[48px]"
               >
                 Fahrzeuge ansehen
@@ -169,7 +168,7 @@ export default function HomePage() {
                 <ChevronRight size={20} />
               </button>
               <a
-                href="tel:+4923311234567"
+                href="tel:+4923749157-0"
                 className="px-8 sm:px-10 py-4 bg-secondary text-white font-bold rounded-sm hover:bg-secondary/90 transition-all duration-300 inline-flex items-center justify-center gap-2 text-base sm:text-lg min-h-[48px]"
               >
                 <Phone size={20} />
@@ -263,17 +262,17 @@ export default function HomePage() {
               ) : vehicles.length > 0 ? (
                 // Actual Data - Show first 6 vehicles
                 vehicles.slice(0, 6).map((vehicle, index) => (
-                  <AnimatedElement key={vehicle._id} delay={index * 100} direction="up">
+                  <AnimatedElement key={vehicle.id} delay={index * 100} direction="up">
                     <Link
-                      to={`/vehicles/${vehicle._id}`}
+                      to={`/fahrzeugdetail/${vehicle.id}`}
                       className="group flex flex-col h-full bg-white rounded-sm shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:scale-[1.02]"
                     >
                       {/* Image Container */}
                       <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
                         {vehicle.mainImage ? (
                           <Image
-                            src={vehicle.mainImage}
-                            alt={`${vehicle.manufacturer} ${vehicle.model}`}
+                            src={vehicle.mainImage || "" || ""}
+                            alt={vehicle.alt || vehicle.title}
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
                             width={400}
                             height={300}
@@ -292,7 +291,7 @@ export default function HomePage() {
                       <div className="p-6 flex flex-col flex-grow">
                         <div className="mb-6 flex-grow">
                           <h3 className="text-lg sm:text-xl font-bold text-primary leading-tight mb-2 group-hover:text-secondary transition-colors">
-                            {vehicle.manufacturer} {vehicle.model}
+                            {vehicle.title}
                           </h3>
                           <p className="text-xs text-gray-500 line-clamp-2 mb-4">
                             {vehicle.description || 'Gebrauchtwagen | Automatik | Top Zustand'}
@@ -301,11 +300,11 @@ export default function HomePage() {
                           <div className="grid grid-cols-2 gap-3 text-xs text-gray-600">
                             <div className="flex items-center gap-2">
                               <Calendar size={14} className="text-secondary" />
-                              <span>{vehicle.firstRegistrationYear ? `EZ ${vehicle.firstRegistrationYear}` : 'Neu'}</span>
+                              <span>{vehicle.firstRegistration ? `EZ ${vehicle.firstRegistration}` : 'Neu'}</span>
                             </div>
                             <div className="flex items-center gap-2">
                               <Gauge size={14} className="text-secondary" />
-                              <span>{vehicle.mileage ? `${vehicle.mileage.toLocaleString('de-DE')} km` : '0 km'}</span>
+                              <span>{vehicle.mileage ? `${vehicle.mileage}` : '0 km'}</span>
                             </div>
                             <div className="flex items-center gap-2">
                               <Zap size={14} className="text-secondary" />
@@ -313,7 +312,7 @@ export default function HomePage() {
                             </div>
                             <div className="flex items-center gap-2">
                               <Fuel size={14} className="text-secondary" />
-                              <span>{vehicle.driveType || 'Automatik'}</span>
+                              <span>{vehicle.fuel || 'Automatik'}</span>
                             </div>
                           </div>
                         </div>
@@ -324,7 +323,7 @@ export default function HomePage() {
                           <div className="flex items-end justify-between">
                             <div>
                               <span className="text-2xl sm:text-3xl font-bold text-primary">
-                                {formatPrice(vehicle.price)}
+                                {vehicle.price}
                               </span>
                               <p className="text-[10px] text-gray-400 mt-1">inkl. 19% MwSt.</p>
                             </div>
@@ -455,7 +454,7 @@ export default function HomePage() {
                     <Phone className="text-secondary flex-shrink-0" size={28} />
                     <div>
                       <p className="font-bold text-primary mb-2 text-lg">Telefon</p>
-                      <a href="tel:+4923311234567" className="text-base text-secondary hover:text-secondary/80 transition-colors font-medium">+49 (0) 2331 123456</a>
+                      <a href="tel:+4923749157-0" className="text-base text-secondary hover:text-secondary/80 transition-colors font-medium">+49 2374 9157-0</a>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
