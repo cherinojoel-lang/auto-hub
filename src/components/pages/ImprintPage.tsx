@@ -51,16 +51,16 @@ export default function ImprintPage() {
                 </h2>
                 <div className="space-y-2 text-foreground/80">
                   <p>
-                    <span className="font-medium">Telefon:</span> +49 (0) 2374 / 9157-0
+                    <span className="font-medium">Telefon:</span> +49 (0) 2374 / 912912
                   </p>
                   <p>
-                    <span className="font-medium">Telefax:</span> +49 (0) 2374 / 9157-99
+                    <span className="font-medium">Telefax:</span> +49 (0) 2374 / 2813
                   </p>
                   <p>
                     <span className="font-medium">E-Mail:</span> info@automobilequick.de
                   </p>
                   <p>
-                    <span className="font-medium">USt-IdNr.:</span> DE 123456789
+                    <span className="font-medium">USt-IdNr.:</span> DE196524275
                   </p>
                 </div>
               </div>
