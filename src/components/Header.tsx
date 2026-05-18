@@ -76,7 +76,9 @@ export default function Header() {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="md:hidden p-2 text-foreground hover:text-primary transition-colors"
-            aria-label="Toggle menu"
+            aria-label={mobileMenuOpen ? 'Menü schließen' : 'Menü öffnen'}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-menu"
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -84,7 +86,7 @@ export default function Header() {
 
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <nav className="md:hidden py-4 border-t border-gray-200 bg-gray-50" role="navigation" aria-label="Mobile Navigation">
+          <nav id="mobile-menu" className="md:hidden py-4 border-t border-gray-200 bg-gray-50" role="navigation" aria-label="Mobile Navigation">
             <div className="flex flex-col gap-1">
               <Link
                 to="/"
