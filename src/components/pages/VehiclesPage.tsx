@@ -84,8 +84,6 @@ export default function VehiclePage() {
   const loadVehicle = async () => {
     setIsLoading(true);
     try {
-      // Simulate API latency
-      await new Promise(resolve => setTimeout(resolve, 300));
       let filtered = [...vehiclesData];
 
       if (manufacturer) {
