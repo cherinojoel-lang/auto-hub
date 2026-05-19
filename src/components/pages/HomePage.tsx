@@ -499,7 +499,7 @@ export default function HomePage() {
                   <p className="text-base text-gray-600 mb-8">Hagener Str. 126a, 58642 Iserlohn</p>
                   <button 
                     className="bg-secondary text-white px-8 py-3 rounded-sm text-base font-bold hover:bg-secondary/90 transition-all duration-300 shadow-lg hover:shadow-xl"
-                    onClick={() => window.open('https://maps.google.com', '_blank')}
+                    onClick={() => window.open('https://maps.google.com', '_blank', 'noopener,noreferrer')}
                   >
                     Route berechnen
                   </button>
