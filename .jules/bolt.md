@@ -1,0 +1,3 @@
+## 2024-05-19 - [Optimize Image Loading Strategy]
+**Learning:** NextJS-like automated image optimization doesn't apply equally across custom wrappers (like the Wix image library here). The `wix:image` protocol requires explicitly setting browser-native hints like `fetchPriority="high"` on LCP images, and `loading="lazy"` on below-the-fold content to avoid blocking initial render.
+**Action:** Always manually identify the LCP image in each page component (e.g. hero image, main vehicle image) and inject `fetchPriority="high"`, while ensuring list/gallery maps pass `loading="lazy"` to their `<Image />` props.
