@@ -140,6 +140,7 @@ export default function HomePage() {
             className="w-full h-full object-cover object-center opacity-30"
             width={1152}
             height={576}
+            loading="eager"
           />
           <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/95 to-primary/85"></div>
         </div>

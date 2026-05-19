@@ -110,7 +110,7 @@ const WixImage = forwardRef<HTMLImageElement, WixImageProps>(
     // Expose the img ref to the parent component
     useImperativeHandle(parentRef, () => imgRef.current as HTMLImageElement)
 
-    const imgProps = { ...props } as ImgHTMLAttributes<HTMLImageElement>
+    const imgProps = { loading: 'lazy' as const, ...props } as ImgHTMLAttributes<HTMLImageElement>
     // Add src (and other props if needed)to the img props
     if (size) {
       const scale = fittingType === 'fit' ? sdk.getScaleToFitImageURL : sdk.getScaleToFillImageURL
@@ -158,7 +158,7 @@ export const Image = forwardRef<HTMLImageElement, ImageProps>(
       return <div data-empty-image ref={ref} {...props} />
     }
 
-    const imageProps = { ...props, onError: () => setImgSrc(FALLBACK_IMAGE_URL) }
+    const imageProps = { loading: 'lazy' as const, ...props, onError: () => setImgSrc(FALLBACK_IMAGE_URL) }
     const imageData = getImageData(imgSrc, additionalImgProps)
 
     if (!imageData) {
