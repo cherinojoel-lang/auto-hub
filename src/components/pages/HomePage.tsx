@@ -93,9 +93,10 @@ export default function HomePage() {
   const loadVehicle = async () => {
     try {
       setIsLoading(true);
-      // Fetching more to ensure we have enough for the grid
-      const result = await BaseCrudService.getAll<Vehicle>('vehicles', [], { limit: 8 });
-      setVehicle(result.items || []);
+      // Use static data instead of API call
+      // Simulate API latency
+      await new Promise(resolve => setTimeout(resolve, 300));
+      setVehicle(vehiclesData.slice(0, 8));
     } catch (error) {
       console.error('Error loading vehicles:', error);
     } finally {

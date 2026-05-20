@@ -84,25 +84,15 @@ export default function VehiclePage() {
   const loadVehicle = async () => {
     setIsLoading(true);
     try {
-      // Simulate API latency
-      await new Promise(resolve => setTimeout(resolve, 300));
-      let filtered = [...vehiclesData];
-
-      if (manufacturer) {
-        filtered = filtered.filter(v => v.title?.toLowerCase().includes(manufacturer.toLowerCase()));
-      }
-      if (priceMax) {
-        filtered = filtered.filter(v => v.price && parseInt(v.price.replace(/[^0-9]/g, '')) <= parseInt(priceMax));
-      }
-      if (driveType) {
-        filtered = filtered.filter(v => v.fuel?.toLowerCase().includes(driveType.toLowerCase()));
-      }
-      if (maxMileage) {
-        filtered = filtered.filter(v => v.mileage && parseInt(v.mileage.replace(/[^0-9]/g, '')) <= parseInt(maxMileage));
-      }
-      if (yearFrom) {
-        filtered = filtered.filter(v => v.firstRegistration && v.firstRegistration.includes(yearFrom));
-      }
+      // Optimize filtering to use a single pass instead of multiple filter iterations.
+      const filtered = vehiclesData.filter(v => {
+        if (manufacturer && !v.title?.toLowerCase().includes(manufacturer.toLowerCase())) return false;
+        if (priceMax && (!v.price || parseInt(v.price.replace(/[^0-9]/g, '')) > parseInt(priceMax))) return false;
+        if (driveType && !v.fuel?.toLowerCase().includes(driveType.toLowerCase())) return false;
+        if (maxMileage && (!v.mileage || parseInt(v.mileage.replace(/[^0-9]/g, '')) > parseInt(maxMileage))) return false;
+        if (yearFrom && (!v.firstRegistration || !v.firstRegistration.includes(yearFrom))) return false;
+        return true;
+      });
 
       setVehicle(filtered);
       setHasNext(false); // All static items loaded
