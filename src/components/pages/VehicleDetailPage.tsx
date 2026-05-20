@@ -100,7 +100,7 @@ export default function VehicleDetailPage() {
         });
       }
     } catch (error) {
-      console.error('Error loading vehicle:', error);
+      // Error intentionally swallowed. UI handles missing vehicle data (null state) appropriately.
     } finally {
       setIsLoading(false);
     }
