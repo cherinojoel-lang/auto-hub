@@ -134,12 +134,15 @@ export default function HomePage() {
       <section className="relative w-full bg-primary flex items-center justify-center overflow-hidden pt-8 sm:pt-12 md:pt-16 pb-12 sm:pb-16 md:pb-20" role="banner" aria-label="Willkommen bei Automobile Quick">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
+          {/* ⚡ Bolt Optimization: Added loading="eager" and fetchPriority="high" to the hero image. This explicitly prevents lazy loading (which the custom Image component defaults to) and signals to the browser to prioritize fetching this asset. This reduces the time to render the Largest Contentful Paint (LCP) element. */}
           <Image 
             src="https://static.wixstatic.com/media/32e7c0_d28732f69d9643a7ada1b1be4890a422~mv2.png?originWidth=1152&originHeight=576" 
             alt="Automobile Quick Autohaus - Gebrauchtwagen in Iserlohn-Letmathe seit 1982" 
             className="w-full h-full object-cover object-center opacity-30"
             width={1152}
             height={576}
+            loading="eager"
+            fetchPriority="high"
           />
           <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/95 to-primary/85"></div>
         </div>
