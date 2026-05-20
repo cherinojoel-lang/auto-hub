@@ -13,6 +13,7 @@ export type Vehicle = {
   mainImage: string;
   gallery: string[];
   alt: string;
+  description?: string;
 };
 
 export const vehiclesData: Vehicle[] = [
