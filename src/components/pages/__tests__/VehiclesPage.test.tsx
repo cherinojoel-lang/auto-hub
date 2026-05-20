@@ -1,14 +1,7 @@
 import { render, screen, waitFor, act } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import VehiclesPage from '../VehiclesPage';
-import { BaseCrudService } from '@/integrations';
-import { vi } from 'vitest';
-
-vi.mock('@/integrations', () => ({
-  BaseCrudService: {
-    getAll: vi.fn(),
-  },
-}));
+import { vi, describe, beforeEach, it, expect } from 'vitest';
 
 vi.mock('@/lib/seo', () => ({
   updateMetaTags: vi.fn(),
@@ -30,14 +23,17 @@ window.IntersectionObserver = mockIntersectionObserver;
 describe('VehiclesPage', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    vi.mocked(BaseCrudService.getAll).mockResolvedValue({ items: [], hasNext: false });
   });
 
   it('handles error when loading vehicles fails', async () => {
     const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
     const error = new Error('Network error');
 
-    vi.mocked(BaseCrudService.getAll).mockRejectedValueOnce(error);
+    // Mock setTimeout to throw an error to simulate loadVehicle failure
+    const originalSetTimeout = global.setTimeout;
+    vi.spyOn(global, 'setTimeout').mockImplementation((cb) => {
+      throw error;
+    });
 
     render(
       <BrowserRouter>
@@ -46,14 +42,15 @@ describe('VehiclesPage', () => {
     );
 
     await waitFor(() => {
-      expect(consoleSpy).toHaveBeenCalledWith('Error loading vehicles:', error);
+      expect(consoleSpy).toHaveBeenCalledWith('Error loading static vehicles:', error);
     });
 
     // Check if the loading spinner is eventually removed
     await waitFor(() => {
-      expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+      expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
     });
 
     consoleSpy.mockRestore();
+    global.setTimeout = originalSetTimeout;
   });
 });

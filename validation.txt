@@ -1,0 +1,13 @@
+bestätigt behoben:
+1. Unresolved Import: BaseCrudService -> Removed from HomePage.tsx, replaced with vehiclesData
+2. Unused Import: Search Icon -> Removed from HomePage.tsx
+3. Broken Route Navigation von /vehicles auf /fahrzeugbestand -> Alle Routen im Projekt zeigen auf /fahrzeugbestand.
+
+weiterhin problematisch:
+- (None)
+
+neue Fehler gefunden:
+- (None)
+
+final publishbar ja/nein:
+Ja. Die Analyse war vorher unvollständig in dem Sinne, dass ich HomePage übersehen hatte. Nun sind diese Altlasten beseitigt.

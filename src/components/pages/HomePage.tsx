@@ -1,7 +1,7 @@
 // WI-HPI
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Search, ChevronRight, Star, MapPin, Phone, Mail, Clock, Info, Check, Award, Users, Zap, Calendar, Gauge, Fuel } from 'lucide-react';
+import { ChevronRight, Star, MapPin, Phone, Mail, Clock, Info, Check, Award, Users, Zap, Calendar, Gauge, Fuel } from 'lucide-react';
 import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
 import { Image } from '@/components/ui/image';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
@@ -94,8 +94,8 @@ export default function HomePage() {
     try {
       setIsLoading(true);
       // Fetching more to ensure we have enough for the grid
-      const result = await BaseCrudService.getAll<Vehicle>('vehicles', [], { limit: 8 });
-      setVehicle(result.items || []);
+      await new Promise(resolve => setTimeout(resolve, 300));
+      setVehicle(vehiclesData.slice(0, 8));
     } catch (error) {
       console.error('Error loading vehicles:', error);
     } finally {
