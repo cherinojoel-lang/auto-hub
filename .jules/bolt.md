@@ -1,0 +1,3 @@
+## 2024-05-20 - Manual Image Optimization Required for Custom Wrapper
+**Learning:** The project's custom image library wrapper (`src/components/ui/image.tsx`) based on `@wix/image-kit` does NOT automatically apply browser-native performance hints like `loading="lazy"` or `fetchPriority="high"`. This is a codebase-specific architectural bottleneck where developers might assume images are optimized simply by using the `<Image>` component, leading to LCP delays and unnecessary initial payload sizes.
+**Action:** When working with `<Image>` components in this codebase, explicitly pass `fetchPriority="high"` for above-the-fold images (hero sections, main product images) and `loading="lazy"` for below-the-fold images (grids, galleries) to ensure proper resource prioritization.

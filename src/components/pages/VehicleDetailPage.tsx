@@ -171,6 +171,7 @@ export default function VehicleDetailPage() {
                         className="w-full aspect-video object-cover"
                         width={1200}
                         height={675}
+                        fetchPriority="high"
                       />
                       {vehicle.gallery && vehicle.gallery.length > 0 && (
                         <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2 p-4 bg-gray-50 overflow-x-auto">
@@ -182,6 +183,7 @@ export default function VehicleDetailPage() {
                                 className="w-full h-full object-cover"
                                 width={150}
                                 height={100}
+                                loading="lazy"
                               />
                             </div>
                           ))}
@@ -341,6 +343,7 @@ export default function VehicleDetailPage() {
                                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                                     width={400}
                                     height={225}
+                                    loading="lazy"
                                   />
                                 ) : (
                                   <div className="w-full h-full flex items-center justify-center bg-gray-200">

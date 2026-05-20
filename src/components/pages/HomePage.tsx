@@ -140,6 +140,7 @@ export default function HomePage() {
             className="w-full h-full object-cover object-center opacity-30"
             width={1152}
             height={576}
+            fetchPriority="high"
           />
           <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/95 to-primary/85"></div>
         </div>
@@ -276,10 +277,11 @@ export default function HomePage() {
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
                             width={400}
                             height={300}
+                            loading="lazy"
                           />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center text-gray-400">
-                            <Image src="https://static.wixstatic.com/media/32e7c0_4f4de78aefaa4e51a7d376395358a592~mv2.png?originWidth=1152&originHeight=896" alt="Placeholder" className="w-full h-full object-cover opacity-50" />
+                            <Image src="https://static.wixstatic.com/media/32e7c0_4f4de78aefaa4e51a7d376395358a592~mv2.png?originWidth=1152&originHeight=896" alt="Placeholder" className="w-full h-full object-cover opacity-50" loading="lazy" />
                           </div>
                         )}
                         <div className="absolute top-4 left-4 bg-success text-white px-3 py-1.5 text-xs font-bold rounded-sm shadow-md">
