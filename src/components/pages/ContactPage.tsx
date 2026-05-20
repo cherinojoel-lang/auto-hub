@@ -60,10 +60,10 @@ export default function ContactPage() {
       keywords: 'Kontakt Automobile Quick, Anfahrt, Telefon, E-Mail, Iserlohn, Letmathe, Öffnungszeiten, Autohaus',
       ogTitle: 'Kontakt & Anfahrt - Automobile Quick',
       ogDescription: 'Kontaktieren Sie uns in Iserlohn-Letmathe. Wir freuen uns auf Ihren Besuch!',
-      canonicalUrl: 'https://automobilequick.de/contact',
+      canonicalUrl: 'https://automobilequick.de/kontakt',
       structuredData: getStructuredDataBreadcrumb([
         { name: 'Home', url: 'https://automobilequick.de/' },
-        { name: 'Kontakt', url: 'https://automobilequick.de/contact' },
+        { name: 'Kontakt', url: 'https://automobilequick.de/kontakt' },
       ]),
     });
   }, []);
@@ -239,8 +239,8 @@ export default function ContactPage() {
                         </div>
                         <div>
                           <p className="font-medium text-foreground mb-1">Adresse</p>
-                          <p className="text-foreground/70">Delsterner Str. 92</p>
-                          <p className="text-foreground/70">58091 Hagen</p>
+                          <p className="text-foreground/70">Hagener Str. 126a</p>
+                          <p className="text-foreground/70">58642 Iserlohn</p>
                         </div>
                       </div>
 
@@ -317,7 +317,7 @@ export default function ContactPage() {
                   So finden Sie uns
                 </h2>
                 <p className="text-lg text-foreground/70">
-                  Delsterner Str. 92, 58091 Hagen
+                  Hagener Str. 126a, 58642 Iserlohn
                 </p>
               </div>
               <div className="bg-background rounded-2xl shadow-lg overflow-hidden border border-border/50">

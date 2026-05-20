@@ -52,10 +52,10 @@ export default function AboutPage() {
       keywords: 'Über Automobile Quick, Autohaus Geschichte, Gebrauchtwagen Händler, Iserlohn, Letmathe, seit 1982, vertrauensvoller Partner',
       ogTitle: 'Über uns - Automobile Quick',
       ogDescription: 'Seit 1982 Ihr vertrauensvoller Partner für hochwertige Gebrauchtwagen mit fairen Preisen.',
-      canonicalUrl: 'https://automobilequick.de/about',
+      canonicalUrl: 'https://automobilequick.de/ueber-uns',
       structuredData: getStructuredDataBreadcrumb([
         { name: 'Home', url: 'https://automobilequick.de/' },
-        { name: 'Über uns', url: 'https://automobilequick.de/about' },
+        { name: 'Über uns', url: 'https://automobilequick.de/ueber-uns' },
       ]),
     });
   }, []);
@@ -212,8 +212,8 @@ export default function AboutPage() {
                       <MapPin className="text-primary flex-shrink-0 mt-1" size={24} />
                       <div>
                         <p className="font-medium text-foreground">Adresse</p>
-                        <p className="text-foreground/70">Delsterner Str. 92</p>
-                        <p className="text-foreground/70">58091 Hagen</p>
+                        <p className="text-foreground/70">Hagener Str. 126a</p>
+                        <p className="text-foreground/70">58642 Iserlohn</p>
                       </div>
                     </div>
 
@@ -222,10 +222,10 @@ export default function AboutPage() {
                       <div>
                         <p className="font-medium text-foreground">Telefon</p>
                         <a 
-                          href="tel:+4923311234567"
+                          href="tel:+492374912912"
                           className="text-foreground/70 hover:text-primary transition-colors"
                         >
-                          +49 (0) 2331 123456
+                          +49 (0) 2374 / 912912
                         </a>
                       </div>
                     </div>

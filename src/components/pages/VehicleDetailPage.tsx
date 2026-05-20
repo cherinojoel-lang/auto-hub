@@ -95,7 +95,7 @@ export default function VehicleDetailPage() {
           ogTitle: `${data.title} - Automobile Quick`,
           ogDescription: data.description || `${data.title} - Hochwertiger Gebrauchtwagen`,
           ogImage: data.mainImage,
-          canonicalUrl: `https://automobilequick.de/vehicles/${id}`,
+          canonicalUrl: `https://automobilequick.de/fahrzeugdetail/${id}`,
           structuredData: getStructuredDataProduct(data),
         });
       }
