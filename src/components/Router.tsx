@@ -11,6 +11,7 @@ import TradeInPage from '@/components/pages/TradeInPage';
 import FinancingPage from '@/components/pages/FinancingPage';
 import ImprintPage from '@/components/pages/ImprintPage';
 import PrivacyPage from '@/components/pages/PrivacyPage';
+import { Toaster } from '@/components/ui/toaster';
 
 // Layout component that includes ScrollToTop
 function Layout() {
@@ -18,6 +19,7 @@ function Layout() {
     <>
       <ScrollToTop />
       <Outlet />
+      <Toaster />
     </>
   );
 }

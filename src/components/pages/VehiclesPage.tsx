@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ChevronRight, Filter, X, Phone, MessageSquare } from 'lucide-react';
 import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
+import { useToast } from '@/hooks/use-toast';
 import { Image } from '@/components/ui/image';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import Header from '@/components/Header';
@@ -48,6 +49,7 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
 
 
 export default function VehiclePage() {
+  const { toast } = useToast();
   const [searchParams, setSearchParams] = useSearchParams();
   const [vehicles, setVehicle] = useState<Vehicle[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -107,7 +109,11 @@ export default function VehiclePage() {
       setVehicle(filtered);
       setHasNext(false); // All static items loaded
     } catch (error) {
-      console.error('Error loading static vehicles:', error);
+      toast({
+        title: "Fehler",
+        description: "Fehler beim Laden der Fahrzeuge. Bitte versuchen Sie es später erneut.",
+        variant: "destructive"
+      });
     } finally {
       setIsLoading(false);
     }
