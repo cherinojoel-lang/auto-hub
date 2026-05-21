@@ -1,0 +1,12 @@
+name: Notify on Jules PR
+on:
+  pull_request:
+    types: [opened]
+    branches: [main]
+jobs:
+  notify:
+    if: contains(github.head_ref, 'jules')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Jules PR created
+        run: echo "Jules opened PR - ${{ github.event.pull_request.html_url }}"
