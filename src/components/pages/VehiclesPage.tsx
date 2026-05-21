@@ -326,7 +326,7 @@ export default function VehiclePage() {
                             <Image
                               src={vehicle.mainImage}
                               alt={vehicle.alt || vehicle.title}
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" loading={index <= 2 ? "eager" : "lazy"} fetchPriority={index <= 2 ? "high" : "auto"}
                               width={400}
                               height={300}
                             />

@@ -168,7 +168,7 @@ export default function VehicleDetailPage() {
                       <Image
                         src={vehicle.mainImage}
                         alt={vehicle.alt || vehicle.title}
-                        className="w-full aspect-video object-cover"
+                        className="w-full aspect-video object-cover" loading="eager" fetchPriority="high"
                         width={1200}
                         height={675}
                       />
