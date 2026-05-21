@@ -329,6 +329,7 @@ export default function VehiclePage() {
                               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
                               width={400}
                               height={300}
+                              {...(index < 6 ? { loading: "eager", fetchPriority: "high" } : {})}
                             />
                           ) : (
                             <div className="w-full h-full flex flex-col items-center justify-center bg-gray-200">
