@@ -30,7 +30,7 @@ window.IntersectionObserver = mockIntersectionObserver;
 describe('VehiclesPage', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    vi.mocked(BaseCrudService.getAll).mockResolvedValue({ items: [], hasNext: false });
+    vi.mocked(BaseCrudService.getAll).mockResolvedValue({ items: [], hasNext: false } as any);
   });
 
   it('handles error when loading vehicles fails', async () => {
