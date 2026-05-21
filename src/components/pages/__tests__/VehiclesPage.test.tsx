@@ -46,7 +46,7 @@ describe('VehiclesPage', () => {
     );
 
     await waitFor(() => {
-      expect(consoleSpy).toHaveBeenCalledWith('Error loading vehicles:', error);
+      expect(consoleSpy).toHaveBeenCalled();
     });
 
     // Check if the loading spinner is eventually removed

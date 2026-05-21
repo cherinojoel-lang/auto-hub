@@ -1,4 +1,5 @@
 import { MemberProvider } from '@/integrations';
+import ErrorBoundary from '@/components/ErrorBoundary';
 import { createBrowserRouter, RouterProvider, Navigate, Outlet } from 'react-router-dom';
 import { ScrollToTop } from '@/lib/scroll-to-top';
 import ErrorPage from '@/integrations/errorHandlers/ErrorPage';
@@ -31,65 +32,38 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
-        routeMetadata: {
-          pageIdentifier: 'home',
-        },
       },
       {
         path: "fahrzeugbestand",
         element: <VehiclesPage />,
-        routeMetadata: {
-          pageIdentifier: 'vehicles',
-        },
       },
       {
         path: "fahrzeugdetail/:id",
         element: <VehicleDetailPage />,
-        routeMetadata: {
-          pageIdentifier: 'vehicle-detail',
-        },
       },
       {
         path: "ueber-uns",
         element: <AboutPage />,
-        routeMetadata: {
-          pageIdentifier: 'about',
-        },
       },
       {
         path: "kontakt",
         element: <ContactPage />,
-        routeMetadata: {
-          pageIdentifier: 'contact',
-        },
       },
       {
         path: "autoankauf",
         element: <TradeInPage />,
-        routeMetadata: {
-          pageIdentifier: 'trade-in',
-        },
       },
       {
         path: "finanzierung",
         element: <FinancingPage />,
-        routeMetadata: {
-          pageIdentifier: 'financing',
-        },
       },
       {
         path: "impressum",
         element: <ImprintPage />,
-        routeMetadata: {
-          pageIdentifier: 'imprint',
-        },
       },
       {
         path: "datenschutz",
         element: <PrivacyPage />,
-        routeMetadata: {
-          pageIdentifier: 'privacy',
-        },
       },
       {
         path: "*",
@@ -104,7 +78,9 @@ const router = createBrowserRouter([
 export default function AppRouter() {
   return (
     <MemberProvider>
-      <RouterProvider router={router} />
+      <ErrorBoundary>
+        <RouterProvider router={router} />
+      </ErrorBoundary>
     </MemberProvider>
   );
 }
