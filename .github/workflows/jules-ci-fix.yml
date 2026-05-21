@@ -11,8 +11,7 @@ jobs:
       - uses: google-labs-code/jules-invoke@v1
         with:
           prompt: |
-            CI pipeline failed. Analyze logs, find root cause,
-            fix it with minimal changes. Verify tests pass.
+            CI failed. Analyze logs, find root cause, fix minimal, verify tests.
           jules_api_key: ${{ secrets.JULES_API_KEY }}
           include_last_commit: true
           include_commit_log: true
