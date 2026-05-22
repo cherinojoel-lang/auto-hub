@@ -5,8 +5,6 @@ import { Search, ChevronRight, Star, MapPin, Phone, Mail, Clock, Info, Check, Aw
 import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
 import { Image } from '@/components/ui/image';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { updateMetaTags, getStructuredDataOrganization } from '@/lib/seo';
 
 // --- Animation Components ---

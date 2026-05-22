@@ -1,7 +1,8 @@
 import { MemberProvider } from '@/integrations';
-import { createBrowserRouter, RouterProvider, Navigate, Outlet } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 import { ScrollToTop } from '@/lib/scroll-to-top';
 import ErrorPage from '@/integrations/errorHandlers/ErrorPage';
+import Layout from '@/components/Layout';
 import HomePage from '@/components/pages/HomePage';
 import VehiclesPage from '@/components/pages/VehiclesPage';
 import VehicleDetailPage from '@/components/pages/VehicleDetailPage';
@@ -12,16 +13,6 @@ import FinancingPage from '@/components/pages/FinancingPage';
 import ImprintPage from '@/components/pages/ImprintPage';
 import PrivacyPage from '@/components/pages/PrivacyPage';
 
-// Layout component that includes ScrollToTop
-function Layout() {
-  return (
-    <>
-      <ScrollToTop />
-      <Outlet />
-    </>
-  );
-}
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -30,63 +21,108 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <HomePage />,
+        element: (
+          <>
+            <ScrollToTop />
+            <HomePage />
+          </>
+        ),
         routeMetadata: {
           pageIdentifier: 'home',
         },
       },
       {
         path: "fahrzeugbestand",
-        element: <VehiclesPage />,
+        element: (
+          <>
+            <ScrollToTop />
+            <VehiclesPage />
+          </>
+        ),
         routeMetadata: {
           pageIdentifier: 'vehicles',
         },
       },
       {
         path: "fahrzeugdetail/:id",
-        element: <VehicleDetailPage />,
+        element: (
+          <>
+            <ScrollToTop />
+            <VehicleDetailPage />
+          </>
+        ),
         routeMetadata: {
           pageIdentifier: 'vehicle-detail',
         },
       },
       {
         path: "ueber-uns",
-        element: <AboutPage />,
+        element: (
+          <>
+            <ScrollToTop />
+            <AboutPage />
+          </>
+        ),
         routeMetadata: {
           pageIdentifier: 'about',
         },
       },
       {
         path: "kontakt",
-        element: <ContactPage />,
+        element: (
+          <>
+            <ScrollToTop />
+            <ContactPage />
+          </>
+        ),
         routeMetadata: {
           pageIdentifier: 'contact',
         },
       },
       {
         path: "autoankauf",
-        element: <TradeInPage />,
+        element: (
+          <>
+            <ScrollToTop />
+            <TradeInPage />
+          </>
+        ),
         routeMetadata: {
           pageIdentifier: 'trade-in',
         },
       },
       {
         path: "finanzierung",
-        element: <FinancingPage />,
+        element: (
+          <>
+            <ScrollToTop />
+            <FinancingPage />
+          </>
+        ),
         routeMetadata: {
           pageIdentifier: 'financing',
         },
       },
       {
         path: "impressum",
-        element: <ImprintPage />,
+        element: (
+          <>
+            <ScrollToTop />
+            <ImprintPage />
+          </>
+        ),
         routeMetadata: {
           pageIdentifier: 'imprint',
         },
       },
       {
         path: "datenschutz",
-        element: <PrivacyPage />,
+        element: (
+          <>
+            <ScrollToTop />
+            <PrivacyPage />
+          </>
+        ),
         routeMetadata: {
           pageIdentifier: 'privacy',
         },

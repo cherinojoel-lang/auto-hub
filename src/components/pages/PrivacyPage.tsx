@@ -1,6 +1,4 @@
 import { useEffect } from 'react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { updateMetaTags } from '@/lib/seo';
 
 export default function PrivacyPage() {
@@ -14,7 +12,6 @@ export default function PrivacyPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-accent via-accent to-primary/20 text-background py-20 md:py-28 overflow-hidden">
