@@ -5,6 +5,8 @@ import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
 import { Image } from '@/components/ui/image';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { updateMetaTags, getStructuredDataProduct } from '@/lib/seo';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string }> = ({ 
   children, 
@@ -125,7 +127,6 @@ export default function VehicleDetailPage() {
       <a href="#main-content" className="skip-to-main">
         Zum Hauptinhalt springen
       </a>
-      <Header />
 
       <div className="flex-1">
         {isLoading ? (

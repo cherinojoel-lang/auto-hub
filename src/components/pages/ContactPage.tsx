@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react';
 import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 

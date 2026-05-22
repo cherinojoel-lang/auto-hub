@@ -6,6 +6,9 @@ import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
 import { Image } from '@/components/ui/image';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { updateMetaTags, getStructuredDataOrganization } from '@/lib/seo';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import { BaseCrudService } from '@/integrations';
 
 // --- Animation Components ---
 
@@ -126,7 +129,6 @@ export default function HomePage() {
       <a href="#main-content" className="skip-to-main">
         Zum Hauptinhalt springen
       </a>
-      <Header />
 
       {/* HERO SECTION */}
       <section className="relative w-full bg-primary flex items-center justify-center overflow-hidden pt-8 sm:pt-12 md:pt-16 pb-12 sm:pb-16 md:pb-20" role="banner" aria-label="Willkommen bei Automobile Quick">
@@ -514,7 +516,7 @@ export default function HomePage() {
 
       {/* ... keep existing code (BESTSELLER BRANDS, IMAGE GALLERY, LOCATION & REVIEWS sections removed) ... */}
 
-      <Footer />
+       <Footer />
     </div>
   );
 }

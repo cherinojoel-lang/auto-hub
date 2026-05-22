@@ -5,6 +5,8 @@ import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
 import { Image } from '@/components/ui/image';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 
@@ -155,7 +157,6 @@ export default function VehiclePage() {
       <a href="#main-content" className="skip-to-main">
         Zum Hauptinhalt springen
       </a>
-      <Header />
 
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary via-primary to-primary/90 text-white py-12 sm:py-16 md:py-20">

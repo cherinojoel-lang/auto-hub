@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { updateMetaTags } from '@/lib/seo';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export default function PrivacyPage() {
   useEffect(() => {
