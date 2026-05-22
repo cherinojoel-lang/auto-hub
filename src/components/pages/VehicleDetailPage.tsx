@@ -165,12 +165,15 @@ export default function VehicleDetailPage() {
                 <div className="aspect-video bg-gray-100 flex items-center justify-center">
                   {vehicle.mainImage ? (
                     <div className="w-full h-full flex flex-col">
+                      {/* ⚡ Bolt Optimization: Added loading="eager" and fetchPriority="high" to the main image. This explicitly prevents lazy loading (which the custom Image component defaults to) and signals to the browser to prioritize fetching this asset. This reduces the time to render the Largest Contentful Paint (LCP) element. */}
                       <Image
                         src={vehicle.mainImage}
                         alt={vehicle.alt || vehicle.title}
                         className="w-full aspect-video object-cover"
                         width={1200}
                         height={675}
+                        loading="eager"
+                        fetchPriority="high"
                       />
                       {vehicle.gallery && vehicle.gallery.length > 0 && (
                         <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2 p-4 bg-gray-50 overflow-x-auto">

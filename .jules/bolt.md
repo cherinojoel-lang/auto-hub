@@ -4,3 +4,6 @@
 ## 2024-05-15 - [LCP Optimization]
 **Learning:** The custom `<Image>` component implicitly defaults to `loading="lazy"` via browser defaults unless overridden. This delays rendering for critical above-the-fold assets, negatively impacting LCP (Largest Contentful Paint).
 **Action:** Always add `loading="eager"` and `fetchPriority="high"` to hero images and other above-the-fold images to optimize LCP.
+## 2024-05-22 - [LCP Optimization - Detail Page]
+**Learning:** Verified that the custom `<Image>` component indeed defaults to `loading="lazy"`. This creates a performance bottleneck for LCP on dynamic detail pages (like Vehicle Detail) where the main image is always above the fold. The same principle applied to the homepage must be applied here.
+**Action:** Always add `loading="eager"` and `fetchPriority="high"` to main images on detail pages that are guaranteed to be above the fold.
