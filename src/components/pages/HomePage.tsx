@@ -94,9 +94,11 @@ export default function HomePage() {
   const loadVehicle = async () => {
     try {
       setIsLoading(true);
-      // Fetching more to ensure we have enough for the grid
-      const result = await BaseCrudService.getAll<Vehicle>('vehicles', [], { limit: 8 });
-      setVehicle(result.items || []);
+      // Simulate API latency for smooth UX
+      await new Promise(resolve => setTimeout(resolve, 300));
+      // Use local vehiclesData - filter out hidden_review vehicles
+      const visibleVehicles = vehiclesData.filter(v => v.folder && !v.folder.includes('hidden_review'));
+      setVehicle(visibleVehicles);
     } catch (error) {
       console.error('Error loading vehicles:', error);
     } finally {
@@ -274,15 +276,15 @@ export default function HomePage() {
                       <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
                         {vehicle.mainImage ? (
                           <Image
-                            src={vehicle.mainImage || "" || ""}
+                            src={vehicle.mainImage}
                             alt={vehicle.alt || vehicle.title}
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
                             width={400}
                             height={300}
                           />
                         ) : (
-                          <div className="w-full h-full flex items-center justify-center text-gray-400">
-                            <Image src="https://static.wixstatic.com/media/32e7c0_4f4de78aefaa4e51a7d376395358a592~mv2.png?originWidth=1152&originHeight=896" alt="Placeholder" className="w-full h-full object-cover opacity-50" />
+                          <div className="w-full h-full flex items-center justify-center text-gray-400 bg-gray-200">
+                            <span className="text-sm font-medium">Bild folgt</span>
                           </div>
                         )}
                         <div className="absolute top-4 left-4 bg-success text-white px-3 py-1.5 text-xs font-bold rounded-sm shadow-md">
@@ -307,11 +309,11 @@ export default function HomePage() {
                             </div>
                             <div className="flex items-center gap-2">
                               <Gauge size={14} className="text-secondary" />
-                              <span>{vehicle.mileage ? `${vehicle.mileage}` : '0 km'}</span>
+                              <span>{vehicle.mileage ? vehicle.mileage : '0 km'}</span>
                             </div>
                             <div className="flex items-center gap-2">
                               <Zap size={14} className="text-secondary" />
-                              <span>{vehicle.power ? `${vehicle.power} kW` : '-'}</span>
+                              <span>{vehicle.power ? vehicle.power : '-'}</span>
                             </div>
                             <div className="flex items-center gap-2">
                               <Fuel size={14} className="text-secondary" />
