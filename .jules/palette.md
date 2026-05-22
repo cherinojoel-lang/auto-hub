@@ -1,0 +1,3 @@
+## 2024-05-18 - [Header Mobile Menu A11y]
+**Learning:** Stateful toggle buttons in this application must include dynamic `aria-label` attributes localized to German (the application's primary language), `aria-expanded` to convey the open/closed state, `aria-controls` linked to the controlled element's ID, and `focus-visible` styles for clear keyboard navigation.
+**Action:** When creating or modifying stateful UI components (like dropdowns, modals, or menus), always ensure to include these ARIA attributes and states, and localize text for screen readers appropriately.
