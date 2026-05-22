@@ -160,17 +160,21 @@ export default function VehicleDetailPage() {
             </div>
 
             {/* Image Gallery Section */}
-            <AnimatedElement className="container mx-auto px-4 max-w-7xl py-8 sm:py-12">
+            {/* ⚡ Bolt Optimization: Removed AnimatedElement wrapper around the Image Gallery Section. The main image is the Largest Contentful Paint (LCP) element for this page. Wrapping it in AnimatedElement causes it to start with opacity-0 and wait for JS execution, artificially delaying rendering. */}
+            <div className="container mx-auto px-4 max-w-7xl py-8 sm:py-12">
               <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100">
                 <div className="aspect-video bg-gray-100 flex items-center justify-center">
                   {vehicle.mainImage ? (
                     <div className="w-full h-full flex flex-col">
+                      {/* ⚡ Bolt Optimization: Added loading="eager" and fetchPriority="high" to the main image since it is above the fold. This prevents lazy loading (the default behavior of the custom Image component) and prioritizes this asset for faster LCP. */}
                       <Image
                         src={vehicle.mainImage}
                         alt={vehicle.alt || vehicle.title}
                         className="w-full aspect-video object-cover"
                         width={1200}
                         height={675}
+                        loading="eager"
+                        fetchPriority="high"
                       />
                       {vehicle.gallery && vehicle.gallery.length > 0 && (
                         <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2 p-4 bg-gray-50 overflow-x-auto">
@@ -199,7 +203,7 @@ export default function VehicleDetailPage() {
                   )}
                 </div>
               </div>
-            </AnimatedElement>
+            </div>
 
             {/* Main Content Grid */}
             <div className="container mx-auto px-4 max-w-7xl pb-24 sm:pb-12">
