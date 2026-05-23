@@ -1,0 +1,4 @@
+## 2024-05-23 - [Fix missing CSRF protection]
+**Vulnerability:** Astro's built-in CSRF protection for server-rendered endpoints was explicitly disabled in `astro.config.mjs` via `security.checkOrigin = false`.
+**Learning:** This is a critical security vulnerability, as disabling CSRF protection leaves server-rendered endpoints susceptible to Cross-Site Request Forgery attacks. It's particularly dangerous as Astro protects against CSRF out-of-the-box, but it was explicitly overridden in this codebase.
+**Prevention:** Ensure `security.checkOrigin` remains `true` in `astro.config.mjs`. Do not disable security features unless strictly necessary, and only with appropriate mitigations in place.
