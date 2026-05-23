@@ -1,0 +1,3 @@
+## 2024-05-23 - Stateful Menu Toggle Accessibility
+**Learning:** Hardcoded static labels like `aria-label="Toggle menu"` are insufficient for stateful UI controls (e.g., hamburger menus) as they don't communicate the current state to screen reader users, and English labels reduce accessibility on a primary German site.
+**Action:** Always implement stateful toggle buttons with dynamic localized labels (e.g. `aria-label={isOpen ? "Schließen" : "Öffnen"}`), track current state with `aria-expanded={isOpen}`, link to the controlled element with `aria-controls="[id]"`, and provide clear keyboard focus indicators using `focus-visible`.
