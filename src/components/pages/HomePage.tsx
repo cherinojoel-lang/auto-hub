@@ -11,6 +11,7 @@ import Footer from '@/components/Footer';
 import { BaseCrudService } from '@/integrations';
 import VehicleInventorySection from '@/components/VehicleInventorySection';
 import SocialProofSection from '@/components/SocialProofSection';
+import ContactSection from '@/components/ContactSection';
 
 // --- Animation Components ---
 
@@ -498,90 +499,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CONTACT & LOCATION SECTION */}
-      <section id="contact" className="py-12 sm:py-16 md:py-20 bg-white">
-        <div className="container mx-auto px-4 max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 bg-gray-50 rounded-sm shadow-2xl overflow-hidden border border-gray-200">
-            
-            {/* Info Side */}
-            <div className="p-8 sm:p-10 md:p-12 flex flex-col justify-center">
-              <AnimatedElement direction="left">
-                <h3 className="text-3xl sm:text-4xl font-heading font-bold text-primary mb-8 sm:mb-10">Kontakt & Anfahrt</h3>
-                
-                <div className="space-y-6 sm:space-y-8 mb-10 sm:mb-12">
-                  <div className="flex items-start gap-4">
-                    <MapPin className="text-secondary mt-1 flex-shrink-0" size={28} />
-                    <div>
-                      <p className="font-bold text-primary mb-2 text-lg">Adresse</p>
-                      <p className="text-base text-gray-600 leading-relaxed">
-                        Automobile Quick<br/>
-                        Hagener Str. 126a<br/>
-                        58642 Iserlohn
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <Phone className="text-secondary flex-shrink-0" size={28} />
-                    <div>
-                      <p className="font-bold text-primary mb-2 text-lg">Telefon</p>
-                      <a href="tel:+4923749157-0" className="text-base text-secondary hover:text-secondary/80 transition-colors font-medium">+49 2374 9157-0</a>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <Mail className="text-secondary flex-shrink-0" size={28} />
-                    <div>
-                      <p className="font-bold text-primary mb-2 text-lg">E-Mail</p>
-                      <a href="mailto:info@automobilequick.de" className="text-base text-secondary hover:text-secondary/80 transition-colors font-medium">info@automobilequick.de</a>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <Clock className="text-secondary flex-shrink-0" size={28} />
-                    <div>
-                      <p className="font-bold text-primary mb-2 text-lg">Öffnungszeiten</p>
-                      <p className="text-base text-gray-600">Mo-Fr: 09:00 - 18:00</p>
-                      <p className="text-base text-gray-600">Sa: 10:00 - 16:00</p>
-                    </div>
-                  </div>
-                </div>
+      {/* CONTACT SECTION - NEW REDESIGNED CONTACT SECTION */}
+      <ContactSection />
 
-                <div className="bg-white p-6 sm:p-8 rounded-sm border-2 border-secondary/20">
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="text-4xl sm:text-5xl font-bold text-primary">4.9</div>
-                    <div className="flex text-yellow-400">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} size={24} fill="currentColor" />
-                      ))}
-                    </div>
-                  </div>
-                  <p className="text-sm text-gray-600 mb-2 font-medium">Basierend auf 157 Bewertungen</p>
-                  <p className="text-sm text-gray-500">Vertrauen Sie auf unsere Erfahrung und Kundenzufriedenheit</p>
-                </div>
-              </AnimatedElement>
-            </div>
-
-            {/* Map Side */}
-            <div className="h-[300px] sm:h-[400px] lg:h-auto relative bg-gray-200">
-              <AnimatedElement direction="right" className="w-full h-full">
-                {/* Placeholder for Google Maps iframe to avoid actual external requests in this environment */}
-                <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-gray-200 to-gray-300 text-gray-600 p-8 sm:p-10 text-center">
-                  <MapPin size={56} className="mb-6 text-primary" />
-                  <p className="font-bold mb-3 text-lg text-primary">Automobile Quick</p>
-                  <p className="text-base text-gray-600 mb-8">Hagener Str. 126a, 58642 Iserlohn</p>
-                  <button 
-                    className="bg-secondary text-white px-8 py-3 rounded-sm text-base font-bold hover:bg-secondary/90 transition-all duration-300 shadow-lg hover:shadow-xl"
-                    onClick={() => window.open('https://maps.google.com', '_blank')}
-                  >
-                    Route berechnen
-                  </button>
-                </div>
-              </AnimatedElement>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* ... keep existing code (BESTSELLER BRANDS, IMAGE GALLERY, LOCATION & REVIEWS sections removed) ... */}
+      {/* ... keep existing code (old CONTACT & LOCATION SECTION removed) ... */}
 
        <Footer />
     </div>
