@@ -153,23 +153,18 @@ export default function HomePage() {
 
         <div className="relative z-10 container mx-auto px-4 max-w-7xl text-left py-12 sm:py-16 md:py-24 w-full">
           <div className="max-w-2xl">
-            {/* Headline with animation */}
-            <AnimatedElement direction="up" delay={0}>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-bold text-white mb-6 sm:mb-8 tracking-tight leading-[1.1]">
-                Ihr vertrauensvoller Partner für Gebrauchtwagen in Iserlohn-Letmathe
-              </h1>
-            </AnimatedElement>
+            {/* Headline without animation for better LCP */}
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-bold text-white mb-6 sm:mb-8 tracking-tight leading-[1.1]">
+              Ihr vertrauensvoller Partner für Gebrauchtwagen in Iserlohn-Letmathe
+            </h1>
 
-            {/* Subheadline with animation */}
-            <AnimatedElement direction="up" delay={200}>
-              <p className="text-base sm:text-lg md:text-xl text-white/95 font-paragraph font-normal mb-10 sm:mb-12 leading-relaxed max-w-2xl">
-                Seit 1982 finden wir für jeden das passende Fahrzeug — mit transparenter Beratung, fairen Preisen und einem erstklassigen Service. 157 zufriedene Kunden vertrauen uns.
-              </p>
-            </AnimatedElement>
+            {/* Subheadline without animation for better LCP */}
+            <p className="text-base sm:text-lg md:text-xl text-white/95 font-paragraph font-normal mb-10 sm:mb-12 leading-relaxed max-w-2xl">
+              Seit 1982 finden wir für jeden das passende Fahrzeug — mit transparenter Beratung, fairen Preisen und einem erstklassigen Service. 157 zufriedene Kunden vertrauen uns.
+            </p>
 
-            {/* CTA Buttons with animation */}
-            <AnimatedElement direction="up" delay={400}>
-              <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 mb-12 sm:mb-16 flex-wrap">
+            {/* CTA Buttons without animation for better LCP */}
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 mb-12 sm:mb-16 flex-wrap">
                 {/* Primary CTA: Jetzt Fahrzeuge entdecken */}
                 <Link
                   to="/fahrzeugbestand"
@@ -200,7 +195,6 @@ export default function HomePage() {
                   +49 (0) 2374 / 912912
                 </a>
               </div>
-            </AnimatedElement>
 
             {/* Social Proof Strip */}
             <AnimatedElement direction="up" delay={600}>
