@@ -1,7 +1,5 @@
 import { useEffect } from 'react';
 import { updateMetaTags } from '@/lib/seo';
-import SeoHead from '@/components/SeoHead';
-import { PAGE_METADATA, SITE_CONFIG } from '@/lib/seo-config';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
