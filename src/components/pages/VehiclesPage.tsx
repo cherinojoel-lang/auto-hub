@@ -5,6 +5,8 @@ import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
 import { Image } from '@/components/ui/image';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
+import SeoHead from '@/components/SeoHead';
+import { PAGE_METADATA, SITE_CONFIG } from '@/lib/seo-config';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -65,15 +67,15 @@ export default function VehiclePage() {
   useEffect(() => {
     // Update SEO for vehicles page
     updateMetaTags({
-      title: 'Aktuelle Gebrauchtwagen in Iserlohn-Letmathe | Automobile Quick Fahrzeugbestand',
-      description: 'Entdecken Sie den aktuellen Fahrzeugbestand von Automobile Quick. Alle Fahrzeuge mit Preis, Finanzierung, Erstzulassung, Kilometerstand, Leistung und Kraftstoff.',
+      title: PAGE_METADATA.vehicles.title,
+      description: PAGE_METADATA.vehicles.description,
       keywords: 'Fahrzeugbestand, Gebrauchtwagen kaufen, Gebrauchtwagen Iserlohn, Gebrauchtwagen Letmathe, Audi Gebrauchtwagen, BMW Gebrauchtwagen, Mercedes Gebrauchtwagen, VW Gebrauchtwagen, Porsche Gebrauchtwagen, Automobile Quick Fahrzeuge',
       ogTitle: 'Fahrzeugbestand - Automobile Quick',
-      ogDescription: 'Entdecken Sie den aktuellen Fahrzeugbestand von Automobile Quick. Alle Fahrzeuge mit Preis, Finanzierung, Erstzulassung, Kilometerstand, Leistung und Kraftstoff.',
-      canonicalUrl: 'https://automobilequick.de/fahrzeugbestand',
+      ogDescription: PAGE_METADATA.vehicles.description,
+      canonicalUrl: `${SITE_CONFIG.url}${PAGE_METADATA.vehicles.path}`,
       structuredData: getStructuredDataBreadcrumb([
-        { name: 'Home', url: 'https://automobilequick.de/' },
-        { name: 'Fahrzeugbestand', url: 'https://automobilequick.de/fahrzeugbestand' },
+        { name: 'Home', url: `${SITE_CONFIG.url}/` },
+        { name: 'Fahrzeugbestand', url: `${SITE_CONFIG.url}${PAGE_METADATA.vehicles.path}` },
       ]),
     });
     
@@ -154,6 +156,11 @@ export default function VehiclePage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background pb-20 md:pb-0">
+      <SeoHead 
+        title={PAGE_METADATA.vehicles.title}
+        description={PAGE_METADATA.vehicles.description}
+        url={`${SITE_CONFIG.url}${PAGE_METADATA.vehicles.path}`}
+      />
       <a href="#main-content" className="skip-to-main">
         Zum Hauptinhalt springen
       </a>

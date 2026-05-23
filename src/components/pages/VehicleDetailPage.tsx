@@ -5,6 +5,8 @@ import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
 import { Image } from '@/components/ui/image';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { updateMetaTags, getStructuredDataProduct } from '@/lib/seo';
+import SeoHead from '@/components/SeoHead';
+import { PAGE_METADATA, generateProductSchema, SITE_CONFIG } from '@/lib/seo-config';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -88,14 +90,20 @@ export default function VehicleDetailPage() {
       
       // Update SEO for vehicle detail page
       if (data) {
+        const title = PAGE_METADATA.vehicleDetail.title
+          .replace('{title}', data.title || 'Fahrzeug')
+          .replace('{manufacturer}', data.manufacturer || '')
+          .replace('{model}', data.model || '')
+          .replace('{year}', data.firstRegistration?.toString() || '');
+        
         updateMetaTags({
-          title: `${data.title} - Gebrauchtwagen bei Automobile Quick`,
+          title: title,
           description: data.description || `${data.title} - Hochwertiger Gebrauchtwagen bei Automobile Quick in Iserlohn-Letmathe. Faire Preise und persönliche Beratung.`,
           keywords: `${data.title}, Gebrauchtwagen, ${data.fuel}, Iserlohn, Letmathe`,
           ogTitle: `${data.title} - Automobile Quick`,
           ogDescription: data.description || `${data.title} - Hochwertiger Gebrauchtwagen`,
           ogImage: data.mainImage,
-          canonicalUrl: `https://automobilequick.de/vehicles/${id}`,
+          canonicalUrl: `${SITE_CONFIG.url}/fahrzeugdetail/${id}`,
           structuredData: getStructuredDataProduct(data),
         });
       }
@@ -124,6 +132,12 @@ export default function VehicleDetailPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <SeoHead 
+        title={vehicle ? `${vehicle.title} - Gebrauchtwagen bei Automobile Quick` : 'Fahrzeug nicht gefunden'}
+        description={vehicle?.description || 'Hochwertiger Gebrauchtwagen bei Automobile Quick in Iserlohn-Letmathe'}
+        url={`${SITE_CONFIG.url}/fahrzeugdetail/${id}`}
+        schema={vehicle ? generateProductSchema(vehicle) : undefined}
+      />
       <a href="#main-content" className="skip-to-main">
         Zum Hauptinhalt springen
       </a>

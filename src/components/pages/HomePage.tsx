@@ -6,6 +6,8 @@ import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
 import { Image } from '@/components/ui/image';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { updateMetaTags, getStructuredDataOrganization } from '@/lib/seo';
+import SeoHead from '@/components/SeoHead';
+import { PAGE_METADATA, generateBusinessSchema, SITE_CONFIG } from '@/lib/seo-config';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { BaseCrudService } from '@/integrations';
@@ -82,13 +84,13 @@ export default function HomePage() {
   useEffect(() => {
     // Update SEO for homepage
     updateMetaTags({
-      title: 'Ihr Autohaus in Iserlohn-Letmathe | Automobile Quick - Gebrauchtwagen seit 1982',
-      description: 'Automobile Quick: Hochwertige Gebrauchtwagen in Iserlohn-Letmathe. Audi, BMW, Mercedes, VW, Porsche - faire Preise, persönliche Beratung, seit 1982. Jetzt Fahrzeug finden!',
+      title: PAGE_METADATA.home.title,
+      description: PAGE_METADATA.home.description,
       keywords: 'Gebrauchtwagen Iserlohn, Gebrauchtwagen Letmathe, Autohaus Iserlohn, Gebrauchtwagen kaufen, Audi Gebrauchtwagen, BMW Gebrauchtwagen, Mercedes Gebrauchtwagen, VW Gebrauchtwagen, Porsche Gebrauchtwagen, Automobile Quick, Fahrzeugbestand, Gebrauchtwagen Hagen',
       ogTitle: 'Automobile Quick - Gebrauchtwagen in Iserlohn-Letmathe',
-      ogDescription: 'Hochwertige Gebrauchtwagen mit persönlicher Beratung. Automobile Quick - Ihr Autohaus seit 1982 in Iserlohn-Letmathe.',
+      ogDescription: PAGE_METADATA.home.description,
       ogImage: 'https://static.wixstatic.com/media/32e7c0_d28732f69d9643a7ada1b1be4890a422~mv2.png',
-      canonicalUrl: 'https://automobilequick.de/',
+      canonicalUrl: `${SITE_CONFIG.url}/`,
       structuredData: getStructuredDataOrganization(),
     });
     
@@ -132,6 +134,12 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background font-paragraph text-foreground overflow-x-hidden">
+      <SeoHead 
+        title={PAGE_METADATA.home.title}
+        description={PAGE_METADATA.home.description}
+        url={`${SITE_CONFIG.url}/`}
+        schema={generateBusinessSchema()}
+      />
       <a href="#main-content" className="skip-to-main">
         Zum Hauptinhalt springen
       </a>
