@@ -5,6 +5,7 @@ import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, SITE_CONFIG } from '@/lib/seo-config';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import FinancingCalculatorSection from '@/components/FinancingCalculatorSection';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 
@@ -118,6 +119,9 @@ export default function FinancingPage() {
           </AnimatedElement>
         </div>
       </section>
+
+      {/* Financing Calculator Section */}
+      <FinancingCalculatorSection />
 
       {/* Info Cards Section */}
       <section className="py-16 md:py-20 bg-background">
