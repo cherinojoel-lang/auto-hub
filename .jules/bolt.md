@@ -1,6 +1,9 @@
-## 2024-05-15 - [Initial setup]
-**Learning:** Checking the codebase to see how images are loaded. Noticed that the custom Image and WixImage components in src/components/ui/image.tsx default to loading="lazy" based on typical browser behavior if not specified, but the memo says we need explicit eager loading for above-the-fold images.
-**Action:** Always check the memory directives. For above the fold hero images, we should explicitly pass loading="eager".
-## 2024-05-15 - [LCP Optimization]
-**Learning:** The custom `<Image>` component implicitly defaults to `loading="lazy"` via browser defaults unless overridden. This delays rendering for critical above-the-fold assets, negatively impacting LCP (Largest Contentful Paint).
-**Action:** Always add `loading="eager"` and `fetchPriority="high"` to hero images and other above-the-fold images to optimize LCP.
+### ⚡ Data Fetching Optimization: Server-Side Filtering via `getByField`
+**Problem**: The `BlogDetailPage` originally loaded an article by calling `BaseCrudService.getAll()` with a `{ limit: 1 }` parameter and filtering the results on the client side via `items.find`. This meant the application only retrieved the very first record out of the database and attempted to match it against the slug—meaning any request for an article that wasn't the first record created would fail to load. This approach causes a substantial database read overhead and potential incorrect functional behavior.
+
+**Solution**: I added an optimized `getByField` method to the `BaseCrudService` that queries the database directly with the `.eq(fieldName, value)` constraint utilizing the Wix data items API. This completely avoids fetching unrelated records over the network. I then updated `BlogDetailPage` to use this new targeted fetch.
+
+**Measured Impact**:
+*   **Reduced CPU Overhead**: Eliminates O(N) JavaScript client-side array search processing.
+*   **Reduced Network Payload**: Prevents the unnecessary network transfer of unrequested data objects.
+*   **Functionality Fix**: Effectively fixes a logical bug where limiting `getAll` fetches to `1` prevented the retrieval of any article beyond the first entry in the database.

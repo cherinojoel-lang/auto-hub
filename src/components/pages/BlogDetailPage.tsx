@@ -34,8 +34,7 @@ export default function BlogDetailPage() {
           return;
         }
 
-        const result = await BaseCrudService.getAll<BlogArticle>('blogarticles', [], { limit: 1 });
-        const foundArticle = result.items?.find(item => item.slug === slug);
+        const foundArticle = await BaseCrudService.getByField<BlogArticle>('blogarticles', 'slug', slug);
 
         if (foundArticle) {
           setArticle(foundArticle);

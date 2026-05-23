@@ -192,6 +192,43 @@ export class BaseCrudService {
   }
 
   /**
+   * Retrieves a single item by a specific field value
+   * More efficient than getAll + client-side filtering
+   * @param fieldName - The field to search by
+   * @param value - The value to search for
+   * @param includeRefs - References to include
+   */
+  static async getByField<T extends WixDataItem>(
+    collectionId: string,
+    fieldName: string,
+    value: any,
+    includeRefs?: { singleRef?: string[]; multiRef?: string[] } | string[]
+  ): Promise<T | null> {
+    try {
+      const isLegacyFormat = Array.isArray(includeRefs);
+      const singleRefs = isLegacyFormat ? includeRefs : (includeRefs?.singleRef || []);
+      const multiRefs = isLegacyFormat ? [] : (includeRefs?.multiRef || []);
+
+      let query = items.query(collectionId).eq(fieldName, value);
+      if (singleRefs.length > 0) {
+        query = query.include(...singleRefs);
+      }
+
+      const result = await query.find();
+      if (result.items.length === 0) return null;
+
+      // Populate multi-refs using queryReferenced
+      return this.populateMultiRefs<T>(collectionId, result.items[0] as T, multiRefs);
+    } catch (error) {
+      console.error(`Error fetching ${collectionId} by ${fieldName}:`, error);
+      throw new Error(
+        error instanceof Error ? error.message : `Failed to fetch ${collectionId}`
+      );
+    }
+  }
+
+
+  /**
    * Updates an existing item
    * @param itemData - Updated item data (must include _id, only include fields to update)
    * @returns Promise<T> - The updated item
