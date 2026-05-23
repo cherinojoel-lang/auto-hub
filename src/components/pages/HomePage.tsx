@@ -12,6 +12,7 @@ import { BaseCrudService } from '@/integrations';
 import VehicleInventorySection from '@/components/VehicleInventorySection';
 import SocialProofSection from '@/components/SocialProofSection';
 import ContactSection from '@/components/ContactSection';
+import HowItWorksSection from '@/components/HowItWorksSection';
 
 // --- Animation Components ---
 
@@ -248,6 +249,9 @@ export default function HomePage() {
 
       {/* VEHICLE INVENTORY SECTION */}
       <VehicleInventorySection />
+
+      {/* HOW IT WORKS SECTION */}
+      <HowItWorksSection />
 
       {/* SOCIAL PROOF SECTION - CUSTOMER REVIEWS & TESTIMONIALS */}
       <SocialProofSection />
