@@ -133,54 +133,111 @@ export default function HomePage() {
       </a>
 
       {/* HERO SECTION */}
-      <section className="relative w-full bg-primary flex items-center justify-center overflow-hidden pt-8 sm:pt-12 md:pt-16 pb-12 sm:pb-16 md:pb-20" role="banner" aria-label="Willkommen bei Automobile Quick">
-        {/* Background Image with Overlay */}
+      <section className="relative w-full min-h-[70vh] md:min-h-[90vh] flex items-center justify-center overflow-hidden" role="banner" aria-label="Automobile Quick - Ihr vertrauensvoller Partner für Gebrauchtwagen">
+        {/* Background Image with Dark Overlay Gradient */}
         <div className="absolute inset-0 z-0">
-          {/* ⚡ Bolt Optimization: Added loading="eager" and fetchPriority="high" to the hero image. This explicitly prevents lazy loading (which the custom Image component defaults to) and signals to the browser to prioritize fetching this asset. This reduces the time to render the Largest Contentful Paint (LCP) element. */}
           <Image 
-            src="https://static.wixstatic.com/media/32e7c0_d28732f69d9643a7ada1b1be4890a422~mv2.png?originWidth=1152&originHeight=576" 
+            src="https://static.wixstatic.com/media/32e7c0_72b43166ec7744bdb672b1eef573e535~mv2.png?originWidth=1600&originHeight=896" 
             alt="Automobile Quick Autohaus - Gebrauchtwagen in Iserlohn-Letmathe seit 1982" 
-            className="w-full h-full object-cover object-center opacity-30"
-            width={1152}
-            height={576}
+            className="w-full h-full object-cover object-center"
+            width={1600}
+            height={900}
             loading="eager"
             fetchPriority="high"
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/95 to-primary/85"></div>
+          {/* Dark Overlay Gradient: left (rgba(15,23,42,0.85)) to right (rgba(15,23,42,0.4)) */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[rgba(15,23,42,0.85)] via-[rgba(15,23,42,0.65)] to-[rgba(15,23,42,0.4)]"></div>
         </div>
 
-        <div className="relative z-10 container mx-auto px-4 max-w-7xl text-center py-8 sm:py-12 md:py-20">
-          <AnimatedElement direction="up">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-white mb-4 sm:mb-6 tracking-tight leading-tight">
-              Ihr Autohaus in Iserlohn-Letmathe
-            </h1>
-            <p className="text-base sm:text-lg md:text-xl text-white/90 font-paragraph font-light mb-10 sm:mb-14 leading-relaxed max-w-3xl mx-auto">
-              Gepflegte Gebrauchtwagen, persönliche Beratung und schnelle Kontaktaufnahme bei Automobile Quick – seit 1982.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center flex-wrap">
-              <Link
-                to="/fahrzeugbestand"
-                className="px-8 sm:px-10 py-4 bg-secondary text-white font-bold rounded-sm hover:bg-secondary/90 transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-2xl transform hover:-translate-y-0.5 text-base sm:text-lg min-h-[48px]"
-              >
-                Fahrzeuge ansehen
-                <ChevronRight size={20} />
-              </Link>
-              <button
-                onClick={() => window.location.href = '#contact'}
-                className="px-8 sm:px-10 py-4 bg-white text-primary font-bold rounded-sm hover:bg-gray-50 transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-2xl transform hover:-translate-y-0.5 text-base sm:text-lg min-h-[48px]"
-              >
-                Besichtigung anfragen
-                <ChevronRight size={20} />
-              </button>
-              <a
-                href="tel:+4923749157-0"
-                className="px-8 sm:px-10 py-4 bg-secondary text-white font-bold rounded-sm hover:bg-secondary/90 transition-all duration-300 inline-flex items-center justify-center gap-2 text-base sm:text-lg min-h-[48px]"
-              >
-                <Phone size={20} />
-                Anrufen
-              </a>
-            </div>
-          </AnimatedElement>
+        <div className="relative z-10 container mx-auto px-4 max-w-7xl text-left py-12 sm:py-16 md:py-24 w-full">
+          <div className="max-w-2xl">
+            {/* Headline with animation */}
+            <AnimatedElement direction="up" delay={0}>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-bold text-white mb-6 sm:mb-8 tracking-tight leading-[1.1]">
+                Ihr vertrauensvoller Partner für Gebrauchtwagen in Iserlohn-Letmathe
+              </h1>
+            </AnimatedElement>
+
+            {/* Subheadline with animation */}
+            <AnimatedElement direction="up" delay={200}>
+              <p className="text-base sm:text-lg md:text-xl text-white/95 font-paragraph font-normal mb-10 sm:mb-12 leading-relaxed max-w-2xl">
+                Seit 1982 finden wir für jeden das passende Fahrzeug — mit transparenter Beratung, fairen Preisen und einem erstklassigen Service. 157 zufriedene Kunden vertrauen uns.
+              </p>
+            </AnimatedElement>
+
+            {/* CTA Buttons with animation */}
+            <AnimatedElement direction="up" delay={400}>
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 mb-12 sm:mb-16 flex-wrap">
+                {/* Primary CTA: Jetzt Fahrzeuge entdecken */}
+                <Link
+                  to="/fahrzeugbestand"
+                  className="px-8 sm:px-10 py-4 bg-secondary text-white font-bold rounded-sm hover:bg-[#ef4444] transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-2xl transform hover:-translate-y-0.5 text-base sm:text-lg min-h-[48px] whitespace-nowrap"
+                  aria-label="Fahrzeuge entdecken - Zu unserem Fahrzeugbestand"
+                >
+                  Jetzt Fahrzeuge entdecken
+                  <ChevronRight size={20} />
+                </Link>
+
+                {/* Secondary CTA: Probefahrt vereinbaren */}
+                <Link
+                  to="/kontakt"
+                  className="px-8 sm:px-10 py-4 bg-transparent border-2 border-white text-white font-bold rounded-sm hover:bg-white hover:text-primary transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-2xl transform hover:-translate-y-0.5 text-base sm:text-lg min-h-[48px] whitespace-nowrap"
+                  aria-label="Probefahrt vereinbaren - Kontaktformular"
+                >
+                  Probefahrt vereinbaren
+                  <ChevronRight size={20} />
+                </Link>
+
+                {/* Phone CTA */}
+                <a
+                  href="tel:+4923749157-0"
+                  className="px-6 sm:px-8 py-4 bg-secondary text-white font-bold rounded-sm hover:bg-[#ef4444] transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-2xl transform hover:-translate-y-0.5 text-base sm:text-lg min-h-[48px] whitespace-nowrap"
+                  aria-label="Anrufen: +49 2374 912912"
+                >
+                  <Phone size={18} />
+                  +49 (0) 2374 / 912912
+                </a>
+              </div>
+            </AnimatedElement>
+
+            {/* Social Proof Strip */}
+            <AnimatedElement direction="up" delay={600}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 pt-8 sm:pt-12 border-t border-white/20">
+                {/* Rating */}
+                <div className="flex items-center gap-4">
+                  <div className="flex flex-col">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-2xl sm:text-3xl font-bold text-white">5,0/5,0</span>
+                      <div className="flex gap-0.5">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} size={16} className="fill-yellow-400 text-yellow-400" />
+                        ))}
+                      </div>
+                    </div>
+                    <p className="text-xs sm:text-sm text-white/80">157 mobile.de Bewertungen</p>
+                  </div>
+                </div>
+
+                {/* Experience */}
+                <div className="flex items-center gap-4">
+                  <Calendar size={28} className="text-secondary flex-shrink-0" />
+                  <div className="flex flex-col">
+                    <p className="text-lg sm:text-xl font-bold text-white">Seit 1982</p>
+                    <p className="text-xs sm:text-sm text-white/80">42 Jahre Erfahrung</p>
+                  </div>
+                </div>
+
+                {/* Recommendation */}
+                <div className="flex items-center gap-4">
+                  <Award size={28} className="text-secondary flex-shrink-0" />
+                  <div className="flex flex-col">
+                    <p className="text-lg sm:text-xl font-bold text-white">100%</p>
+                    <p className="text-xs sm:text-sm text-white/80">Weiterempfehlung</p>
+                  </div>
+                </div>
+              </div>
+            </AnimatedElement>
+          </div>
         </div>
       </section>
 
