@@ -4,6 +4,35 @@
  */
 
 /**
+ * Collection ID: blogarticles
+ * Interface for Blogartikel
+ */
+export interface Blogartikel {
+  _id: string;
+  _createdDate?: Date;
+  _updatedDate?: Date;
+  /** @wixFieldType text */
+  title?: string;
+  /** @wixFieldType text */
+  metaDescription?: string;
+  /** @wixFieldType text */
+  slug?: string;
+  /** @wixFieldType text */
+  category?: string;
+  /** @wixFieldType text */
+  excerpt?: string;
+  /** @wixFieldType image - Contains image URL, render with <Image> component, NOT as text */
+  featuredImage?: string;
+  /** @wixFieldType text */
+  content?: string;
+  /** @wixFieldType text */
+  author?: string;
+  /** @wixFieldType datetime */
+  publishedDate?: Date | string;
+}
+
+
+/**
  * Collection ID: contactinquiries
  * Interface for ContactInquiries
  */

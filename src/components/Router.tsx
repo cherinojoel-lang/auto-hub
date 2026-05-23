@@ -12,6 +12,8 @@ import TradeInPage from '@/components/pages/TradeInPage';
 import FinancingPage from '@/components/pages/FinancingPage';
 import ImprintPage from '@/components/pages/ImprintPage';
 import PrivacyPage from '@/components/pages/PrivacyPage';
+import BlogPage from '@/components/pages/BlogPage';
+import BlogDetailPage from '@/components/pages/BlogDetailPage';
 
 const router = createBrowserRouter([
   {
@@ -125,6 +127,30 @@ const router = createBrowserRouter([
         ),
         routeMetadata: {
           pageIdentifier: 'privacy',
+        },
+      },
+      {
+        path: "blog",
+        element: (
+          <>
+            <ScrollToTop />
+            <BlogPage />
+          </>
+        ),
+        routeMetadata: {
+          pageIdentifier: 'blog',
+        },
+      },
+      {
+        path: "blog/:slug",
+        element: (
+          <>
+            <ScrollToTop />
+            <BlogDetailPage />
+          </>
+        ),
+        routeMetadata: {
+          pageIdentifier: 'blog-detail',
         },
       },
       {
