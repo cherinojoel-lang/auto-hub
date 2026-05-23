@@ -4,3 +4,6 @@
 ## 2024-05-15 - [LCP Optimization]
 **Learning:** The custom `<Image>` component implicitly defaults to `loading="lazy"` via browser defaults unless overridden. This delays rendering for critical above-the-fold assets, negatively impacting LCP (Largest Contentful Paint).
 **Action:** Always add `loading="eager"` and `fetchPriority="high"` to hero images and other above-the-fold images to optimize LCP.
+## 2024-05-23 - [Artificial Latency Removal]
+**Learning:** Found artificial `setTimeout` delays used in component `loadVehicle` functions (e.g., `HomePage.tsx`, `VehiclesPage.tsx`) intended to simulate API latency for smooth UX. This unnecessarily blocks the UI from rendering immediate local data.
+**Action:** Removed the artificial 300ms delays to allow instant component rendering and strictly improve load times.

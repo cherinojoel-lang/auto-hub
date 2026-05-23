@@ -100,8 +100,6 @@ export default function HomePage() {
   const loadVehicle = async () => {
     try {
       setIsLoading(true);
-      // Simulate API latency for smooth UX
-      await new Promise(resolve => setTimeout(resolve, 300));
       // Use local vehiclesData - filter out hidden_review vehicles
       const visibleVehicles = vehiclesData.filter(v => v.folder && !v.folder.includes('hidden_review'));
       setVehicle(visibleVehicles);
