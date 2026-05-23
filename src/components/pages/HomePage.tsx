@@ -9,6 +9,7 @@ import { updateMetaTags, getStructuredDataOrganization } from '@/lib/seo';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { BaseCrudService } from '@/integrations';
+import VehicleInventorySection from '@/components/VehicleInventorySection';
 
 // --- Animation Components ---
 
@@ -242,6 +243,9 @@ export default function HomePage() {
       </section>
 
       {/* ... keep existing code (SEARCH SECTION removed for lead-focused homepage) ... */}
+
+      {/* VEHICLE INVENTORY SECTION */}
+      <VehicleInventorySection />
 
       {/* TRUST BAR */}
       <section className="bg-white border-b border-gray-200 py-8 sm:py-12">
