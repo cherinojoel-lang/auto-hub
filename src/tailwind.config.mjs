@@ -34,6 +34,9 @@ export default {
                 'neutral-100': '#F8F9FA',
                 'neutral-900': '#1A1A1A',
             },
+            zIndex: {
+                '1000': '1000',
+            },
         },
     },
     future: {
