@@ -88,23 +88,19 @@ export default function VehiclePage() {
     try {
       // Simulate API latency
       await new Promise(resolve => setTimeout(resolve, 300));
-      let filtered = [...vehiclesData];
+      const manufacturerLower = manufacturer?.toLowerCase();
+      const priceMaxInt = priceMax ? parseInt(priceMax) : null;
+      const driveTypeLower = driveType?.toLowerCase();
+      const maxMileageInt = maxMileage ? parseInt(maxMileage) : null;
 
-      if (manufacturer) {
-        filtered = filtered.filter(v => v.title?.toLowerCase().includes(manufacturer.toLowerCase()));
-      }
-      if (priceMax) {
-        filtered = filtered.filter(v => v.price && parseInt(v.price.replace(/[^0-9]/g, '')) <= parseInt(priceMax));
-      }
-      if (driveType) {
-        filtered = filtered.filter(v => v.fuel?.toLowerCase().includes(driveType.toLowerCase()));
-      }
-      if (maxMileage) {
-        filtered = filtered.filter(v => v.mileage && parseInt(v.mileage.replace(/[^0-9]/g, '')) <= parseInt(maxMileage));
-      }
-      if (yearFrom) {
-        filtered = filtered.filter(v => v.firstRegistration && v.firstRegistration.includes(yearFrom));
-      }
+      const filtered = vehiclesData.filter(v => {
+        if (manufacturerLower && !v.title?.toLowerCase().includes(manufacturerLower)) return false;
+        if (priceMaxInt !== null && !(v.price && parseInt(v.price.replace(/[^0-9]/g, '')) <= priceMaxInt)) return false;
+        if (driveTypeLower && !v.fuel?.toLowerCase().includes(driveTypeLower)) return false;
+        if (maxMileageInt !== null && !(v.mileage && parseInt(v.mileage.replace(/[^0-9]/g, '')) <= maxMileageInt)) return false;
+        if (yearFrom && !(v.firstRegistration && v.firstRegistration.includes(yearFrom))) return false;
+        return true;
+      });
 
       setVehicle(filtered);
       setHasNext(false); // All static items loaded
