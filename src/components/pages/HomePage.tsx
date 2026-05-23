@@ -10,6 +10,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { BaseCrudService } from '@/integrations';
 import VehicleInventorySection from '@/components/VehicleInventorySection';
+import SocialProofSection from '@/components/SocialProofSection';
 
 // --- Animation Components ---
 
@@ -246,6 +247,9 @@ export default function HomePage() {
 
       {/* VEHICLE INVENTORY SECTION */}
       <VehicleInventorySection />
+
+      {/* SOCIAL PROOF SECTION - CUSTOMER REVIEWS & TESTIMONIALS */}
+      <SocialProofSection />
 
       {/* TRUST BAR */}
       <section className="bg-white border-b border-gray-200 py-8 sm:py-12">
