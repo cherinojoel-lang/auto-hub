@@ -1,0 +1,3 @@
+## 2026-05-24 - Accessibility: Conditional aria-controls for Unmounted Elements
+**Learning:** When a toggle button controls a navigation menu (or any element) that is completely unmounted from the DOM when closed (e.g., conditionally rendered via `{isOpen && <nav/>}`), the `aria-controls` attribute should either conditionally point to the ID when open and be `undefined` when closed, OR the element should use `display: none` instead of unmounting. Setting `aria-controls` to an ID that doesn't exist in the DOM creates an invalid ARIA reference.
+**Action:** Always conditionally omit the `aria-controls` attribute (`aria-controls={isOpen ? 'element-id' : undefined}`) when the controlled element is conditionally rendered in React.
