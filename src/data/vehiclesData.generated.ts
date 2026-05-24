@@ -107,8 +107,8 @@ export const vehiclesData: Vehicle[] = [
       "/vehicles/20_fiat-500-2022/portal_1.webp"
     ],
     "alt": "Fiat 500 1.0 GSE Dolce Vita Mild Hybrid gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available",
-    "isNew": true,
+    "status": "sold",
+    "isNew": false,
     "listingDate": "2026-05-19T22:00:00.000Z"
   },
   {

@@ -7,8 +7,19 @@ const DATA_FILE = path.join(REPO_ROOT, 'src/data/vehiclesData.generated.ts');
 async function finalAudit() {
   console.log('=== AUTOMOBILE QUICK FINAL DATA INTEGRITY AUDIT ===\n');
 
+  if (!fs.existsSync(DATA_FILE)) {
+    console.error('❌ FEHLER: Datei nicht gefunden: ' + DATA_FILE);
+    return;
+  }
+
   const content = fs.readFileSync(DATA_FILE, 'utf8');
   const arrayMatch = content.match(/export const vehiclesData: Vehicle\[\] = (\[[\s\S]*?\]);/);
+  
+  if (!arrayMatch) {
+    console.error('❌ FEHLER: Daten-Array konnte nicht extrahiert werden.');
+    return;
+  }
+
   const vehicles = JSON.parse(arrayMatch[1]);
 
   const visibleVehicles = vehicles.filter(v => v.status === 'available');
@@ -20,12 +31,12 @@ async function finalAudit() {
 
   let errors = 0;
 
-  // Validation according to portal status (19 identified active listings)
-  if (visibleVehicles.length !== 19) {
-    console.log(`❌ FEHLER: Es sollten exakt 19 sichtbare Fahrzeuge sein (entsprechend Portal-Sync), gefunden: ${visibleVehicles.length}`);
+  // Validation according to portal status (18 identified active listings on mobile.de)
+  if (visibleVehicles.length !== 18) {
+    console.log(`❌ FEHLER: Es sollten exakt 18 sichtbare Fahrzeuge sein (entsprechend mobile.de), gefunden: ${visibleVehicles.length}`);
     errors++;
   } else {
-    console.log('✅ 19 sichtbare Fahrzeuge verifiziert.');
+    console.log('✅ 18 sichtbare Fahrzeuge verifiziert.');
   }
 
   // 2. Check for forbidden terms
@@ -51,8 +62,6 @@ async function finalAudit() {
         const regex = new RegExp(term, 'gi');
         const matches = fileContent.match(regex) || [];
         if (matches.length > 0) {
-            // Exceptions: comments or specific safe contexts (though we avoid them)
-            // For now, any match is a warning/error in this strict audit
           console.log(`⚠️  "${term}" gefunden in ${file}: ${matches.length} mal`);
           totalForbidden += matches.length;
         }
@@ -64,7 +73,7 @@ async function finalAudit() {
   console.log('\n=== AUDIT ERGEBNIS ===');
   const isPass = errors === 0 && totalForbidden === 0;
   if (isPass) {
-    console.log('✅ STATUS: PASS - 19 sichtbare Fahrzeuge verifiziert, keine verbotenen Daten gefunden.');
+    console.log('✅ STATUS: PASS - 18 sichtbare Fahrzeuge verifiziert, keine verbotenen Daten gefunden.');
   } else {
     console.log(`❌ STATUS: FAIL - ${errors} Datenfehler und ${totalForbidden} verbotene Begriffe gefunden.`);
   }
