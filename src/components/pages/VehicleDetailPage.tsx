@@ -173,17 +173,21 @@ export default function VehicleDetailPage() {
             </div>
 
             {/* Image Gallery Section */}
-            <AnimatedElement className="container mx-auto px-4 max-w-7xl py-8 sm:py-12">
+            {/* ⚡ Bolt Optimization: Removed AnimatedElement to avoid IntersectionObserver delaying initial render of LCP image. */}
+            <div className="container mx-auto px-4 max-w-7xl py-8 sm:py-12">
               <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100">
                 <div className="aspect-video bg-gray-100 flex items-center justify-center">
                   {vehicle.mainImage ? (
                     <div className="w-full h-full flex flex-col">
+                      {/* ⚡ Bolt Optimization: Added explicit eager loading and high fetch priority for LCP image */}
                       <Image
                         src={vehicle.mainImage}
                         alt={vehicle.alt || vehicle.title}
                         className="w-full aspect-video object-cover"
                         width={1200}
                         height={675}
+                        loading="eager"
+                        fetchPriority="high"
                       />
                       {vehicle.gallery && vehicle.gallery.length > 0 && (
                         <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2 p-4 bg-gray-50 overflow-x-auto">
@@ -212,7 +216,7 @@ export default function VehicleDetailPage() {
                   )}
                 </div>
               </div>
-            </AnimatedElement>
+            </div>
 
             {/* Main Content Grid */}
             <div className="container mx-auto px-4 max-w-7xl pb-24 sm:pb-12">
