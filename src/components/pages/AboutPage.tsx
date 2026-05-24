@@ -273,7 +273,7 @@ export default function AboutPage() {
                     />
                   </div>
                   <p className="text-foreground/70 mb-4">
-                    Unser Autohaus befindet sich in verkehrsgünstiger Lage in Hagen. 
+                    Unser Autohaus befindet sich in verkehrsgünstiger Lage in Iserlohn-Letmathe. 
                     Parkplätze sind direkt vor Ort vorhanden.
                   </p>
                   <Link
@@ -323,4 +323,6 @@ export default function AboutPage() {
       <Footer />
     </div>
   );
+}
+
 }

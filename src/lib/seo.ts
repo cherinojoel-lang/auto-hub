@@ -133,11 +133,6 @@ export function getStructuredDataOrganization() {
     ],
     image: 'https://static.wixstatic.com/media/32e7c0_d28732f69d9643a7ada1b1be4890a422~mv2.png',
     priceRange: '€€',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '157',
-    },
     foundingDate: '1982',
     openingHoursSpecification: [
       {
@@ -173,11 +168,6 @@ export function getStructuredDataProduct(vehicle: any) {
         name: 'Automobile Quick',
         url: 'https://automobilequick.de',
       },
-    },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '157',
     },
     vehicleSpecializations: {
       '@type': 'Vehicle',

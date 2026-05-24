@@ -247,7 +247,7 @@ export default function TradeInPage() {
                   value={formData.brand}
                   onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
-                  placeholder="z.B. BMW, Mercedes, VW"
+                  placeholder="z.B. BMW, Opel, Fiat"
                 />
               </div>
 
@@ -261,7 +261,7 @@ export default function TradeInPage() {
                   value={formData.model}
                   onChange={(e) => setFormData({ ...formData, model: e.target.value })}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
-                  placeholder="z.B. 3er, C-Klasse, Golf"
+                  placeholder="z.B. X1, Mokka, 500"
                 />
               </div>
 

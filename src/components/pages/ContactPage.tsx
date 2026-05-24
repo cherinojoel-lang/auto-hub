@@ -317,7 +317,7 @@ export default function ContactPage() {
                   So finden Sie uns
                 </h2>
                 <p className="text-lg text-foreground/70">
-                  Delsterner Str. 92, 58091 Hagen
+                  Hagener Str. 126a, 58642 Iserlohn
                 </p>
               </div>
               <div className="bg-background rounded-2xl shadow-lg overflow-hidden border border-border/50">
@@ -341,5 +341,8 @@ export default function ContactPage() {
 
       <Footer />
     </div>
+  );
+}
+v>
   );
 }

@@ -45,8 +45,8 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string 
   );
 };
 
-// Mock features for the demo vehicle
-const DEMO_FEATURES = [
+// Features for the demo vehicle
+const VEHICLE_FEATURES = [
   'Klimaanlage',
   'Einparkhilfe hinten',
   'Apple CarPlay',
@@ -62,6 +62,7 @@ export default function VehicleDetailPage() {
   const [similarVehicle, setSimilarVehicle] = useState<Vehicle[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [scrolled, setScrolled] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   useEffect(() => {
     loadVehicle();
@@ -80,8 +81,13 @@ export default function VehicleDetailPage() {
     
     try {
       setIsLoading(true);
-      const safeVehicles = Array.isArray(vehiclesData) ? vehiclesData : []; const data = safeVehicles.find((v: any) => v.id === id) || null;
+      const safeVehicles = Array.isArray(vehiclesData) ? vehiclesData : [];
+      const data = safeVehicles.find((v: any) => v.id === id) || null;
       setVehicle(data);
+      
+      if (data) {
+        setSelectedImage(data.mainImage);
+      }
       
       // Load similar vehicles
       setSimilarVehicle(safeVehicles.filter((v: any) => v.id !== id).slice(0, 4));
@@ -159,51 +165,82 @@ export default function VehicleDetailPage() {
               </Link>
             </div>
 
-            {/* Image Gallery Section */}
-            <AnimatedElement className="container mx-auto px-4 max-w-7xl py-8 sm:py-12">
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100">
-                <div className="aspect-video bg-gray-100 flex items-center justify-center">
-                  {vehicle.mainImage ? (
-                    <div className="w-full h-full flex flex-col">
-                      <Image
-                        src={vehicle.mainImage}
-                        alt={vehicle.alt || vehicle.title}
-                        className="w-full aspect-video object-cover"
-                        width={1200}
-                        height={675}
-                      />
-                      {vehicle.gallery && vehicle.gallery.length > 0 && (
-                        <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2 p-4 bg-gray-50 overflow-x-auto">
-                          {vehicle.gallery.map((img, idx) => (
-                            <div key={idx} className="aspect-video relative rounded overflow-hidden">
-                              <Image
-                                src={img}
-                                alt={`${vehicle.title} Galeriebild ${idx + 1}`}
-                                className="w-full h-full object-cover"
-                                width={150}
-                                height={100}
-                              />
-                            </div>
-                          ))}
+            {/* Image Gallery Section - Premium Automotive Experience */}
+            <AnimatedElement className="container mx-auto px-4 max-w-7xl py-6 sm:py-10">
+              {(() => {
+                const galleryImages = vehicle ? [vehicle.mainImage, ...(vehicle.gallery || [])].filter((v, i, a) => a.indexOf(v) === i && v) : [];
+                const currentIdx = selectedImage ? galleryImages.indexOf(selectedImage) : 0;
+                const totalImages = galleryImages.length;
+
+                return (
+                  <div className="bg-white rounded-xl shadow-2xl overflow-hidden border border-gray-100 flex flex-col group/gallery">
+                    {/* Main Image Viewport */}
+                    <div className="relative aspect-[16/9] sm:aspect-video bg-gray-100 overflow-hidden">
+                      {selectedImage ? (
+                        <Image
+                          src={selectedImage}
+                          alt={vehicle.alt || vehicle.title}
+                          className="w-full h-full object-cover transition-all duration-700 ease-in-out"
+                          width={1920}
+                          height={1080}
+                        />
+                      ) : (
+                        <div className="w-full h-full flex flex-col items-center justify-center bg-gray-100">
+                          <div className="text-center opacity-20">
+                            <div className="text-8xl mb-4">📸</div>
+                            <p className="text-xl font-bold uppercase tracking-[0.3em]">Bilder folgen</p>
+                          </div>
                         </div>
                       )}
-                    </div>
-                  ) : (
-                    <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">
-                      <div className="text-center">
-                        <div className="text-6xl font-bold text-gray-300 mb-4">📷</div>
-                        <p className="text-xl font-bold text-gray-500">Bild folgt</p>
-                        <p className="text-sm text-gray-400 mt-2">Hochwertige Fotos in Kürze verfügbar</p>
+                      
+                      {/* Image Counter Badge */}
+                      {totalImages > 0 && (
+                        <div className="absolute bottom-6 left-6 z-20 bg-primary/90 text-white text-[10px] font-bold px-4 py-2 rounded-sm pointer-events-none backdrop-blur-md border border-white/10 uppercase tracking-widest shadow-2xl">
+                          {currentIdx + 1} / {totalImages} Bilder
+                        </div>
+                      )}
+
+                      {/* Top Status Badge */}
+                      <div className="absolute top-6 left-6 bg-success/95 text-white px-4 py-2 text-[10px] font-bold rounded-sm shadow-xl backdrop-blur-md uppercase tracking-widest">
+                        Sofort verfügbar
                       </div>
                     </div>
-                  )}
-                </div>
-              </div>
+
+                    {/* High-End Thumbnail Scroller */}
+                    {totalImages > 1 && (
+                      <div className="flex gap-2 p-4 bg-white overflow-x-auto snap-x no-scrollbar border-t border-gray-50">
+                        {galleryImages.map((img, idx) => (
+                          <button 
+                            key={idx} 
+                            onClick={() => setSelectedImage(img)}
+                            className={`flex-shrink-0 w-24 sm:w-40 aspect-video relative rounded-sm overflow-hidden cursor-pointer transition-all duration-300 snap-start border-2 ${
+                              selectedImage === img 
+                                ? 'border-secondary ring-4 ring-secondary/10 scale-[0.98]' 
+                                : 'border-transparent opacity-50 hover:opacity-100 hover:border-gray-200'
+                            }`}
+                          >
+                            <Image
+                              src={img}
+                              alt={`${vehicle.title} Miniaturansicht ${idx + 1}`}
+                              className="w-full h-full object-cover"
+                              width={200}
+                              height={120}
+                            />
+                            {selectedImage === img && (
+                              <div className="absolute inset-0 bg-secondary/5 pointer-events-none"></div>
+                            )}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })()}
             </AnimatedElement>
 
-            {/* Main Content Grid */}
-            <div className="container mx-auto px-4 max-w-7xl pb-24 sm:pb-12">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-12">
+            {/* Main Content Grid with extended padding for mobile safety */}
+            <div className="container mx-auto px-4 max-w-7xl pb-40 lg:pb-24">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 sm:gap-16">
                 {/* Left Column - Main Content */}
                 <div className="lg:col-span-2 space-y-12">
                   {/* Title & Intro */}
@@ -295,7 +332,7 @@ export default function VehicleDetailPage() {
                         Ausstattung
                       </h2>
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                        {DEMO_FEATURES.map((feature, idx) => (
+                        {VEHICLE_FEATURES.map((feature, idx) => (
                           <div key={idx} className="flex items-center gap-3 p-3 bg-neutral-100 rounded-lg border border-gray-200">
                             <div className="w-2 h-2 bg-secondary rounded-full flex-shrink-0"></div>
                             <span className="font-medium text-gray-700">{feature}</span>
@@ -367,9 +404,9 @@ export default function VehicleDetailPage() {
                   )}
                 </div>
 
-                {/* Right Column - Sticky Price Box */}
+                {/* Right Column - Sticky Price Box (Desktop Only) */}
                 <div className="lg:col-span-1">
-                  <div className={`${scrolled ? 'fixed' : 'sticky'} top-24 lg:top-32 right-4 lg:right-auto w-full sm:w-96 lg:w-auto transition-all duration-300`}>
+                  <div className="lg:sticky lg:top-32 w-full transition-all duration-300">
                     <AnimatedElement className="bg-white rounded-lg shadow-xl border border-gray-200 p-6 sm:p-8">
                       {/* Price */}
                       <div className="mb-8">
@@ -422,7 +459,7 @@ export default function VehicleDetailPage() {
             </div>
 
             {/* Mobile Sticky Bottom Bar */}
-            <div className="fixed bottom-0 left-0 right-0 lg:hidden bg-white border-t border-gray-200 shadow-2xl">
+            <div className="fixed bottom-0 left-0 right-0 lg:hidden bg-white border-t border-gray-200 shadow-2xl z-50">
               <div className="container mx-auto px-4 max-w-7xl py-3 flex gap-3">
                 <a
                   href="tel:+4923749157-0"
