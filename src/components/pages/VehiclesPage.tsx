@@ -326,8 +326,15 @@ export default function VehiclePage() {
                               <span className="text-xs font-bold uppercase tracking-widest">Bild folgt</span>
                             </div>
                           )}
-                          <div className="absolute top-4 left-4 bg-success/95 text-white px-3 py-1.5 text-[10px] font-bold rounded-sm shadow-sm backdrop-blur-md uppercase tracking-wider">
-                            Verfügbar
+                          <div className="absolute top-4 left-4 flex flex-col gap-2">
+                            <div className="bg-success/95 text-white px-3 py-1.5 text-[10px] font-bold rounded-sm shadow-sm backdrop-blur-md uppercase tracking-wider">
+                              Verfügbar
+                            </div>
+                            {vehicle.isNew && (
+                              <div className="bg-secondary text-white px-3 py-1.5 text-[10px] font-bold rounded-sm shadow-sm backdrop-blur-md uppercase tracking-wider animate-pulse">
+                                NEU EINGETROFFEN
+                              </div>
+                            )}
                           </div>
                         </div>
 

@@ -92,16 +92,16 @@ export default function VehicleDetailPage() {
       // Load similar vehicles
       setSimilarVehicle(safeVehicles.filter((v: any) => v.id !== id).slice(0, 4));
       
-      // Update SEO for vehicle detail page
+      // Update SEO for vehicle detail page - Maximum Supra-regional reach
       if (data) {
         updateMetaTags({
-          title: `${data.title} - Gebrauchtwagen bei Automobile Quick`,
-          description: data.description || `${data.title} - Hochwertiger Gebrauchtwagen bei Automobile Quick in Iserlohn-Letmathe. Faire Preise und persönliche Beratung.`,
-          keywords: `${data.title}, Gebrauchtwagen, ${data.fuel}, Iserlohn, Letmathe`,
-          ogTitle: `${data.title} - Automobile Quick`,
-          ogDescription: data.description || `${data.title} - Hochwertiger Gebrauchtwagen`,
+          title: `${data.title} kaufen | Iserlohn-Letmathe | Automobile Quick`,
+          description: `${data.title} gebraucht bei Automobile Quick. EZ ${data.firstRegistration}, ${data.mileage}, ${data.power}. Top gepflegt in Iserlohn. Jetzt Besichtigung anfragen!`,
+          keywords: `${data.make} ${data.model} kaufen, ${data.title} Gebrauchtwagen, ${data.make} Iserlohn, Auto kaufen Letmathe, ${data.fuel} Gebrauchtwagen NRW`,
+          ogTitle: `${data.title} - Automobile Quick Iserlohn`,
+          ogDescription: `${data.title} in Top-Zustand. EZ ${data.firstRegistration}, ${data.mileage}. Besichtigen Sie uns in Iserlohn-Letmathe.`,
           ogImage: data.mainImage,
-          canonicalUrl: `https://automobilequick.de/vehicles/${id}`,
+          canonicalUrl: `https://automobilequick.de/fahrzeugdetail/${id}`,
           structuredData: getStructuredDataProduct(data),
         });
       }

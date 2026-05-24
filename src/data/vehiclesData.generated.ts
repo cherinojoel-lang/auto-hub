@@ -3,8 +3,11 @@
 export type Vehicle = {
   id: string;
   folder: string;
+  make: string;
+  model: string;
   title: string;
   price: string;
+  priceValue: number;
   financing: string;
   firstRegistration: string;
   mileage: string;
@@ -14,15 +17,131 @@ export type Vehicle = {
   gallery: string[];
   alt: string;
   status: 'available' | 'sold' | 'hidden_review';
+  isNew?: boolean;
+  listingDate?: string;
   description?: string;
 };
 
 export const vehiclesData: Vehicle[] = [
   {
+    "id": "renault-scenic-2013",
+    "folder": "23_renault-scenic-2013",
+    "make": "Renault",
+    "model": "Scenic",
+    "title": "Renault Scenic 1.2 Tce Paris",
+    "price": "7.990 €",
+    "priceValue": 7990,
+    "financing": "ab 80 € mtl.",
+    "firstRegistration": "10/2013",
+    "mileage": "69.500 km",
+    "power": "85 kW / 116 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/23_renault-scenic-2013/portal_1.webp",
+    "gallery": [
+      "/vehicles/23_renault-scenic-2013/portal_1.webp"
+    ],
+    "alt": "Renault Scenic 1.2 Tce Paris gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": true,
+    "listingDate": "2026-05-22T22:00:00.000Z"
+  },
+  {
+    "id": "opel-astra-st-2022",
+    "folder": "22_opel-astra-st-2022",
+    "make": "Opel",
+    "model": "Astra K ST",
+    "title": "Opel Astra K ST 1.2 Design Tech",
+    "price": "16.990 €",
+    "priceValue": 16990,
+    "financing": "ab 170 € mtl.",
+    "firstRegistration": "02/2022",
+    "mileage": "31.500 km",
+    "power": "96 kW / 131 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/22_opel-astra-st-2022/portal_1.webp",
+    "gallery": [
+      "/vehicles/22_opel-astra-st-2022/portal_1.webp"
+    ],
+    "alt": "Opel Astra K ST 1.2 Design Tech gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": true,
+    "listingDate": "2026-05-21T22:00:00.000Z"
+  },
+  {
+    "id": "opel-corsa-2016",
+    "folder": "21_opel-corsa-2016",
+    "make": "Opel",
+    "model": "Corsa E",
+    "title": "Opel Corsa E 1.2 Selektion 3-Türig",
+    "price": "7.250 €",
+    "priceValue": 7250,
+    "financing": "ab 73 € mtl.",
+    "firstRegistration": "12/2016",
+    "mileage": "64.500 km",
+    "power": "51 kW / 69 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/21_opel-corsa-2016/portal_1.webp",
+    "gallery": [
+      "/vehicles/21_opel-corsa-2016/portal_1.webp"
+    ],
+    "alt": "Opel Corsa E 1.2 Selektion 3-Türig gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": true,
+    "listingDate": "2026-05-20T22:00:00.000Z"
+  },
+  {
+    "id": "fiat-500-2022",
+    "folder": "20_fiat-500-2022",
+    "make": "Fiat",
+    "model": "500",
+    "title": "Fiat 500 1.0 GSE Dolce Vita Mild Hybrid",
+    "price": "12.750 €",
+    "priceValue": 12750,
+    "financing": "ab 128 € mtl.",
+    "firstRegistration": "02/2022",
+    "mileage": "38.200 km",
+    "power": "52 kW / 71 PS",
+    "fuel": "Hybrid",
+    "mainImage": "/vehicles/20_fiat-500-2022/portal_1.webp",
+    "gallery": [
+      "/vehicles/20_fiat-500-2022/portal_1.webp"
+    ],
+    "alt": "Fiat 500 1.0 GSE Dolce Vita Mild Hybrid gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": true,
+    "listingDate": "2026-05-19T22:00:00.000Z"
+  },
+  {
+    "id": "nissan-micra-2017",
+    "folder": "19_nissan-micra-2017",
+    "make": "Nissan",
+    "model": "Micra",
+    "title": "Nissan Micra 0.9 IG-T Tekna",
+    "price": "10.990 €",
+    "priceValue": 10990,
+    "financing": "ab 110 € mtl.",
+    "firstRegistration": "03/2017",
+    "mileage": "62.800 km",
+    "power": "66 kW / 90 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/19_nissan-micra-2017/portal_1.webp",
+    "gallery": [
+      "/vehicles/19_nissan-micra-2017/portal_1.webp",
+      "/vehicles/19_nissan-micra-2017/portal_2.webp"
+    ],
+    "alt": "Nissan Micra 0.9 IG-T Tekna gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": true,
+    "listingDate": "2026-05-23T22:00:00.000Z"
+  },
+  {
     "id": "opel-astra-2024",
     "folder": "18_opel-astra-2024",
+    "make": "Opel",
+    "model": "Astra",
     "title": "Opel Astra 1.2 GS-Line",
     "price": "20.990 €",
+    "priceValue": 20990,
     "financing": "ab 210 € mtl.",
     "firstRegistration": "08/2024",
     "mileage": "14.350 km",
@@ -34,99 +153,18 @@ export const vehiclesData: Vehicle[] = [
       "/vehicles/18_opel-astra-2024/portal_2.webp"
     ],
     "alt": "Opel Astra 1.2 GS-Line gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available"
-  },
-  {
-    "id": "bmw-x1-2018",
-    "folder": "01_bmw-x1-2018",
-    "title": "BMW X1 sDrive 18 i Advantage",
-    "price": "16.990 €",
-    "financing": "ab 170 € mtl.",
-    "firstRegistration": "09/2018",
-    "mileage": "68.900 km",
-    "power": "103 kW / 140 PS",
-    "fuel": "Benzin",
-    "mainImage": "/vehicles/01_bmw-x1-2018/01_front.jpg",
-    "gallery": [
-      "/vehicles/01_bmw-x1-2018/01_front.jpg",
-      "/vehicles/01_bmw-x1-2018/portal_1.webp",
-      "/vehicles/01_bmw-x1-2018/02_gallery.webp",
-      "/vehicles/01_bmw-x1-2018/portal_2.webp",
-      "/vehicles/01_bmw-x1-2018/03_gallery.webp",
-      "/vehicles/01_bmw-x1-2018/portal_3.webp",
-      "/vehicles/01_bmw-x1-2018/portal_4.webp",
-      "/vehicles/01_bmw-x1-2018/portal_5.webp",
-      "/vehicles/01_bmw-x1-2018/portal_6.webp",
-      "/vehicles/01_bmw-x1-2018/portal_7.webp",
-      "/vehicles/01_bmw-x1-2018/portal_8.webp",
-      "/vehicles/01_bmw-x1-2018/portal_9.webp",
-      "/vehicles/01_bmw-x1-2018/portal_10.webp"
-    ],
-    "alt": "BMW X1 sDrive 18 i Advantage gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available"
-  },
-  {
-    "id": "opel-mokka-gs-line-2022",
-    "folder": "10_opel-mokka-gs-line-2022",
-    "title": "Opel Mokka 1.2 GS-Line",
-    "price": "16.990 €",
-    "financing": "ab 170 € mtl.",
-    "firstRegistration": "03/2022",
-    "mileage": "57.600 km",
-    "power": "96 kW / 131 PS",
-    "fuel": "Benzin",
-    "mainImage": "/vehicles/10_opel-mokka-gs-line-2022/01_front.jpg",
-    "gallery": [
-      "/vehicles/10_opel-mokka-gs-line-2022/01_front.jpg",
-      "/vehicles/10_opel-mokka-gs-line-2022/portal_1.webp",
-      "/vehicles/10_opel-mokka-gs-line-2022/02_gallery.webp",
-      "/vehicles/10_opel-mokka-gs-line-2022/portal_2.webp",
-      "/vehicles/10_opel-mokka-gs-line-2022/03_gallery.webp"
-    ],
-    "alt": "Opel Mokka 1.2 GS-Line gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available"
-  },
-  {
-    "id": "opel-astra-st-2022",
-    "folder": "22_opel-astra-st-2022",
-    "title": "Opel Astra K ST 1.2 Design Tech",
-    "price": "16.990 €",
-    "financing": "ab 170 € mtl.",
-    "firstRegistration": "02/2022",
-    "mileage": "31.500 km",
-    "power": "96 kW / 131 PS",
-    "fuel": "Benzin",
-    "mainImage": "/vehicles/22_opel-astra-st-2022/portal_1.webp",
-    "gallery": [
-      "/vehicles/22_opel-astra-st-2022/portal_1.webp"
-    ],
-    "alt": "Opel Astra K ST 1.2 Design Tech gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available"
-  },
-  {
-    "id": "kia-soul-2017",
-    "folder": "08_kia-soul-2017",
-    "title": "Kia Soul 1.6 GDI Dream Team",
-    "price": "12.990 €",
-    "financing": "ab 130 € mtl.",
-    "firstRegistration": "06/2017",
-    "mileage": "49.000 km",
-    "power": "97 kW / 132 PS",
-    "fuel": "Benzin",
-    "mainImage": "/vehicles/08_kia-soul-2017/01_front.jpg",
-    "gallery": [
-      "/vehicles/08_kia-soul-2017/01_front.jpg",
-      "/vehicles/08_kia-soul-2017/02_gallery.webp",
-      "/vehicles/08_kia-soul-2017/03_gallery.webp"
-    ],
-    "alt": "Kia Soul 1.6 GDI Dream Team gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available"
+    "status": "available",
+    "isNew": true,
+    "listingDate": "2026-05-22T22:00:00.000Z"
   },
   {
     "id": "fiat-500-hybrid-2024",
     "folder": "17_fiat-500-hybrid-2024",
+    "make": "Fiat",
+    "model": "500",
     "title": "Fiat 500 1.0 GSE Hybrid",
     "price": "12.990 €",
+    "priceValue": 12990,
     "financing": "ab 130 € mtl.",
     "firstRegistration": "01/2024",
     "mileage": "31.800 km",
@@ -141,114 +179,18 @@ export const vehiclesData: Vehicle[] = [
       "/vehicles/17_fiat-500-hybrid-2024/03_gallery.webp"
     ],
     "alt": "Fiat 500 1.0 GSE Hybrid gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available"
-  },
-  {
-    "id": "opel-corsa-f-2020",
-    "folder": "11_opel-corsa-f-2020",
-    "title": "Opel Corsa F 1.2 Elegance",
-    "price": "12.750 €",
-    "financing": "ab 128 € mtl.",
-    "firstRegistration": "08/2020",
-    "mileage": "45.000 km",
-    "power": "74 kW / 101 PS",
-    "fuel": "Benzin",
-    "mainImage": "/vehicles/11_opel-corsa-f-2020/01_front.jpg",
-    "gallery": [
-      "/vehicles/11_opel-corsa-f-2020/01_front.jpg",
-      "/vehicles/11_opel-corsa-f-2020/portal_1.webp",
-      "/vehicles/11_opel-corsa-f-2020/02_gallery.webp",
-      "/vehicles/11_opel-corsa-f-2020/portal_2.webp",
-      "/vehicles/11_opel-corsa-f-2020/03_gallery.webp"
-    ],
-    "alt": "Opel Corsa F 1.2 Elegance gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available"
-  },
-  {
-    "id": "fiat-500-2022",
-    "folder": "20_fiat-500-2022",
-    "title": "Fiat 500 1.0 GSE Dolce Vita Mild Hybrid",
-    "price": "12.750 €",
-    "financing": "ab 128 € mtl.",
-    "firstRegistration": "02/2022",
-    "mileage": "38.200 km",
-    "power": "52 kW / 71 PS",
-    "fuel": "Hybrid",
-    "mainImage": "/vehicles/20_fiat-500-2022/portal_1.webp",
-    "gallery": [
-      "/vehicles/20_fiat-500-2022/portal_1.webp"
-    ],
-    "alt": "Fiat 500 1.0 GSE Dolce Vita Mild Hybrid gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available"
-  },
-  {
-    "id": "opel-mokka-x-2017",
-    "folder": "03_opel-mokka-x-2017",
-    "title": "Opel Mokka X 1.4 Turbo Edition",
-    "price": "11.990 €",
-    "financing": "ab 120 € mtl.",
-    "firstRegistration": "03/2017",
-    "mileage": "78.100 km",
-    "power": "103 kW / 140 PS",
-    "fuel": "Benzin",
-    "mainImage": "/vehicles/03_opel-mokka-x-2017/01_front.jpg",
-    "gallery": [
-      "/vehicles/03_opel-mokka-x-2017/01_front.jpg",
-      "/vehicles/03_opel-mokka-x-2017/portal_1.webp",
-      "/vehicles/03_opel-mokka-x-2017/02_gallery.webp",
-      "/vehicles/03_opel-mokka-x-2017/portal_2.webp",
-      "/vehicles/03_opel-mokka-x-2017/03_gallery.webp",
-      "/vehicles/03_opel-mokka-x-2017/portal_3.webp",
-      "/vehicles/03_opel-mokka-x-2017/04_gallery.jpg",
-      "/vehicles/03_opel-mokka-x-2017/05_gallery.jpg",
-      "/vehicles/03_opel-mokka-x-2017/06_gallery.jpg",
-      "/vehicles/03_opel-mokka-x-2017/07_gallery.jpg",
-      "/vehicles/03_opel-mokka-x-2017/08_gallery.jpg",
-      "/vehicles/03_opel-mokka-x-2017/09_gallery.jpg",
-      "/vehicles/03_opel-mokka-x-2017/10_gallery.jpg",
-      "/vehicles/03_opel-mokka-x-2017/11_gallery.jpg",
-      "/vehicles/03_opel-mokka-x-2017/12_gallery.jpg",
-      "/vehicles/03_opel-mokka-x-2017/13_gallery.jpg",
-      "/vehicles/03_opel-mokka-x-2017/14_gallery.jpg",
-      "/vehicles/03_opel-mokka-x-2017/15_gallery.jpg",
-      "/vehicles/03_opel-mokka-x-2017/16_gallery.jpg",
-      "/vehicles/03_opel-mokka-x-2017/17_gallery.jpg",
-      "/vehicles/03_opel-mokka-x-2017/18_gallery.jpg",
-      "/vehicles/03_opel-mokka-x-2017/19_gallery.jpg",
-      "/vehicles/03_opel-mokka-x-2017/20_gallery.jpg",
-      "/vehicles/03_opel-mokka-x-2017/21_gallery.jpg",
-      "/vehicles/03_opel-mokka-x-2017/22_gallery.jpg",
-      "/vehicles/03_opel-mokka-x-2017/23_gallery.jpg",
-      "/vehicles/03_opel-mokka-x-2017/24_gallery.jpg",
-      "/vehicles/03_opel-mokka-x-2017/25_gallery.jpg"
-    ],
-    "alt": "Opel Mokka X 1.4 Turbo Edition gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available"
-  },
-  {
-    "id": "opel-mokka-2016",
-    "folder": "05_opel-mokka-2016",
-    "title": "Opel Mokka 1.4 Turbo Innovation",
-    "price": "11.990 €",
-    "financing": "ab 120 € mtl.",
-    "firstRegistration": "06/2016",
-    "mileage": "60.800 km",
-    "power": "103 kW / 140 PS",
-    "fuel": "Benzin",
-    "mainImage": "/vehicles/05_opel-mokka-2016/01_front.jpg",
-    "gallery": [
-      "/vehicles/05_opel-mokka-2016/01_front.jpg",
-      "/vehicles/05_opel-mokka-2016/02_gallery.webp",
-      "/vehicles/05_opel-mokka-2016/03_gallery.webp"
-    ],
-    "alt": "Opel Mokka 1.4 Turbo Innovation gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available"
+    "status": "available",
+    "isNew": false,
+    "listingDate": "2026-05-21T22:00:00.000Z"
   },
   {
     "id": "fiat-500-dolce-vita-2022",
     "folder": "15_fiat-500-dolce-vita-2022",
+    "make": "Fiat",
+    "model": "500",
     "title": "Fiat 500 1.0 GSE Dolce Vita Mild Hybrid",
     "price": "11.990 €",
+    "priceValue": 11990,
     "financing": "ab 120 € mtl.",
     "firstRegistration": "12/2022",
     "mileage": "42.700 km",
@@ -261,119 +203,18 @@ export const vehiclesData: Vehicle[] = [
       "/vehicles/15_fiat-500-dolce-vita-2022/03_gallery.webp"
     ],
     "alt": "Fiat 500 1.0 GSE Dolce Vita Mild Hybrid gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available"
-  },
-  {
-    "id": "opel-mokka-2013",
-    "folder": "02_opel-mokka-2013",
-    "title": "Opel Mokka 1.4 Turbo 4x4 Innovation",
-    "price": "10.990 €",
-    "financing": "ab 110 € mtl.",
-    "firstRegistration": "12/2013",
-    "mileage": "74.800 km",
-    "power": "103 kW / 140 PS",
-    "fuel": "Benzin",
-    "mainImage": "/vehicles/02_opel-mokka-2013/01_front.jpg",
-    "gallery": [
-      "/vehicles/02_opel-mokka-2013/01_front.jpg",
-      "/vehicles/02_opel-mokka-2013/portal_1.webp",
-      "/vehicles/02_opel-mokka-2013/02_gallery.webp",
-      "/vehicles/02_opel-mokka-2013/portal_2.webp",
-      "/vehicles/02_opel-mokka-2013/03_gallery.webp",
-      "/vehicles/02_opel-mokka-2013/portal_3.webp",
-      "/vehicles/02_opel-mokka-2013/portal_4.webp",
-      "/vehicles/02_opel-mokka-2013/portal_5.webp",
-      "/vehicles/02_opel-mokka-2013/portal_6.webp",
-      "/vehicles/02_opel-mokka-2013/portal_7.webp",
-      "/vehicles/02_opel-mokka-2013/portal_8.webp",
-      "/vehicles/02_opel-mokka-2013/portal_9.webp",
-      "/vehicles/02_opel-mokka-2013/portal_10.webp"
-    ],
-    "alt": "Opel Mokka 1.4 Turbo 4x4 Innovation gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available"
-  },
-  {
-    "id": "citroen-c3-aircross-2017",
-    "folder": "04_citroen-c3-aircross-2017",
-    "title": "Citroen C3 1.2 Aircross",
-    "price": "10.990 €",
-    "financing": "ab 110 € mtl.",
-    "firstRegistration": "10/2017",
-    "mileage": "81.000 km",
-    "power": "96 kW / 131 PS",
-    "fuel": "Benzin",
-    "mainImage": "/vehicles/04_citroen-c3-aircross-2017/01_front.jpg",
-    "gallery": [
-      "/vehicles/04_citroen-c3-aircross-2017/01_front.jpg",
-      "/vehicles/04_citroen-c3-aircross-2017/portal_1.webp",
-      "/vehicles/04_citroen-c3-aircross-2017/02_gallery.webp",
-      "/vehicles/04_citroen-c3-aircross-2017/portal_2.webp",
-      "/vehicles/04_citroen-c3-aircross-2017/03_gallery.webp"
-    ],
-    "alt": "Citroen C3 1.2 Aircross gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available"
-  },
-  {
-    "id": "opel-astra-2017",
-    "folder": "07_opel-astra-2017",
-    "title": "Opel Astra K 1.0 Active",
-    "price": "10.990 €",
-    "financing": "ab 110 € mtl.",
-    "firstRegistration": "06/2017",
-    "mileage": "62.600 km",
-    "power": "77 kW / 105 PS",
-    "fuel": "Benzin",
-    "mainImage": "/vehicles/07_opel-astra-2017/01_front.jpg",
-    "gallery": [
-      "/vehicles/07_opel-astra-2017/01_front.jpg",
-      "/vehicles/07_opel-astra-2017/02_gallery.webp",
-      "/vehicles/07_opel-astra-2017/03_gallery.webp"
-    ],
-    "alt": "Opel Astra K 1.0 Active gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available"
-  },
-  {
-    "id": "ford-fiesta-2021",
-    "folder": "09_ford-fiesta-2021",
-    "title": "Ford Fiesta 1.0 Trend EcoBoost",
-    "price": "10.990 €",
-    "financing": "ab 110 € mtl.",
-    "firstRegistration": "03/2021",
-    "mileage": "57.000 km",
-    "power": "70 kW / 95 PS",
-    "fuel": "Benzin",
-    "mainImage": "/vehicles/09_ford-fiesta-2021/01_front.jpg",
-    "gallery": [
-      "/vehicles/09_ford-fiesta-2021/01_front.jpg",
-      "/vehicles/09_ford-fiesta-2021/02_gallery.webp",
-      "/vehicles/09_ford-fiesta-2021/03_gallery.webp"
-    ],
-    "alt": "Ford Fiesta 1.0 Trend EcoBoost gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available"
-  },
-  {
-    "id": "nissan-micra-2017",
-    "folder": "19_nissan-micra-2017",
-    "title": "Nissan Micra 0.9 IG-T Tekna",
-    "price": "10.990 €",
-    "financing": "ab 110 € mtl.",
-    "firstRegistration": "03/2017",
-    "mileage": "62.800 km",
-    "power": "66 kW / 90 PS",
-    "fuel": "Benzin",
-    "mainImage": "/vehicles/19_nissan-micra-2017/portal_1.webp",
-    "gallery": [
-      "/vehicles/19_nissan-micra-2017/portal_1.webp",
-      "/vehicles/19_nissan-micra-2017/portal_2.webp"
-    ],
-    "alt": "Nissan Micra 0.9 IG-T Tekna gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available"
+    "status": "available",
+    "isNew": false,
+    "listingDate": "2026-05-19T22:00:00.000Z"
   },
   {
     "id": "opel-corsa-e-2018",
     "folder": "12_opel-corsa-e-2018",
+    "make": "Opel",
+    "model": "Corsa E",
     "title": "Opel Corsa E 1.2 Selektion 3-Türig",
     "price": "8.990 €",
+    "priceValue": 8990,
     "financing": "ab 90 € mtl.",
     "firstRegistration": "04/2018",
     "mileage": "34.100 km",
@@ -426,66 +267,309 @@ export const vehiclesData: Vehicle[] = [
       "/vehicles/12_opel-corsa-e-2018/43_gallery.jpg"
     ],
     "alt": "Opel Corsa E 1.2 Selektion 3-Türig gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available"
+    "status": "available",
+    "isNew": false,
+    "listingDate": "2026-05-21T22:00:00.000Z"
   },
   {
-    "id": "renault-scenic-2013",
-    "folder": "23_renault-scenic-2013",
-    "title": "Renault Scenic 1.2 Tce Paris",
-    "price": "7.990 €",
-    "financing": "ab 80 € mtl.",
-    "firstRegistration": "10/2013",
-    "mileage": "69.500 km",
-    "power": "85 kW / 116 PS",
-    "fuel": "Benzin",
-    "mainImage": "/vehicles/23_renault-scenic-2013/portal_1.webp",
-    "gallery": [
-      "/vehicles/23_renault-scenic-2013/portal_1.webp"
-    ],
-    "alt": "Renault Scenic 1.2 Tce Paris gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available"
-  },
-  {
-    "id": "opel-corsa-2016",
-    "folder": "21_opel-corsa-2016",
-    "title": "Opel Corsa E 1.2 Selektion 3-Türig",
-    "price": "7.250 €",
-    "financing": "ab 73 € mtl.",
-    "firstRegistration": "12/2016",
-    "mileage": "64.500 km",
-    "power": "51 kW / 69 PS",
-    "fuel": "Benzin",
-    "mainImage": "/vehicles/21_opel-corsa-2016/portal_1.webp",
-    "gallery": [
-      "/vehicles/21_opel-corsa-2016/portal_1.webp"
-    ],
-    "alt": "Opel Corsa E 1.2 Selektion 3-Türig gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available"
-  },
-  {
-    "id": "opel-corsa-automatik-2023",
-    "folder": "14_opel-corsa-automatik-2023",
-    "title": "Opel Corsa F 1.2 Automatik Elegance",
-    "price": "15.990 €",
-    "financing": "ab 160 € mtl.",
-    "firstRegistration": "09/2023",
-    "mileage": "23.000 km",
+    "id": "opel-corsa-f-2020",
+    "folder": "11_opel-corsa-f-2020",
+    "make": "Opel",
+    "model": "Corsa F",
+    "title": "Opel Corsa F 1.2 Elegance",
+    "price": "12.750 €",
+    "priceValue": 12750,
+    "financing": "ab 128 € mtl.",
+    "firstRegistration": "08/2020",
+    "mileage": "45.000 km",
     "power": "74 kW / 101 PS",
     "fuel": "Benzin",
-    "mainImage": "/vehicles/14_opel-corsa-automatik-2023/01_front.jpg",
+    "mainImage": "/vehicles/11_opel-corsa-f-2020/01_front.jpg",
     "gallery": [
-      "/vehicles/14_opel-corsa-automatik-2023/01_front.jpg",
-      "/vehicles/14_opel-corsa-automatik-2023/02_gallery.webp",
-      "/vehicles/14_opel-corsa-automatik-2023/03_gallery.webp"
+      "/vehicles/11_opel-corsa-f-2020/01_front.jpg",
+      "/vehicles/11_opel-corsa-f-2020/portal_1.webp",
+      "/vehicles/11_opel-corsa-f-2020/02_gallery.webp",
+      "/vehicles/11_opel-corsa-f-2020/portal_2.webp",
+      "/vehicles/11_opel-corsa-f-2020/03_gallery.webp"
     ],
-    "alt": "Opel Corsa F 1.2 Automatik Elegance gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "sold"
+    "alt": "Opel Corsa F 1.2 Elegance gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": false,
+    "listingDate": "2026-05-20T22:00:00.000Z"
+  },
+  {
+    "id": "opel-mokka-gs-line-2022",
+    "folder": "10_opel-mokka-gs-line-2022",
+    "make": "Opel",
+    "model": "Mokka",
+    "title": "Opel Mokka 1.2 GS-Line",
+    "price": "16.990 €",
+    "priceValue": 16990,
+    "financing": "ab 170 € mtl.",
+    "firstRegistration": "03/2022",
+    "mileage": "57.600 km",
+    "power": "96 kW / 131 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/10_opel-mokka-gs-line-2022/01_front.jpg",
+    "gallery": [
+      "/vehicles/10_opel-mokka-gs-line-2022/01_front.jpg",
+      "/vehicles/10_opel-mokka-gs-line-2022/portal_1.webp",
+      "/vehicles/10_opel-mokka-gs-line-2022/02_gallery.webp",
+      "/vehicles/10_opel-mokka-gs-line-2022/portal_2.webp",
+      "/vehicles/10_opel-mokka-gs-line-2022/03_gallery.webp"
+    ],
+    "alt": "Opel Mokka 1.2 GS-Line gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": false,
+    "listingDate": "2026-05-19T22:00:00.000Z"
+  },
+  {
+    "id": "ford-fiesta-2021",
+    "folder": "09_ford-fiesta-2021",
+    "make": "Ford",
+    "model": "Fiesta",
+    "title": "Ford Fiesta 1.0 Trend EcoBoost",
+    "price": "10.990 €",
+    "priceValue": 10990,
+    "financing": "ab 110 € mtl.",
+    "firstRegistration": "03/2021",
+    "mileage": "57.000 km",
+    "power": "70 kW / 95 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/09_ford-fiesta-2021/01_front.jpg",
+    "gallery": [
+      "/vehicles/09_ford-fiesta-2021/01_front.jpg",
+      "/vehicles/09_ford-fiesta-2021/02_gallery.webp",
+      "/vehicles/09_ford-fiesta-2021/03_gallery.webp"
+    ],
+    "alt": "Ford Fiesta 1.0 Trend EcoBoost gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": false,
+    "listingDate": "2026-05-23T22:00:00.000Z"
+  },
+  {
+    "id": "kia-soul-2017",
+    "folder": "08_kia-soul-2017",
+    "make": "Kia",
+    "model": "Soul",
+    "title": "Kia Soul 1.6 GDI Dream Team",
+    "price": "12.990 €",
+    "priceValue": 12990,
+    "financing": "ab 130 € mtl.",
+    "firstRegistration": "06/2017",
+    "mileage": "49.000 km",
+    "power": "97 kW / 132 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/08_kia-soul-2017/01_front.jpg",
+    "gallery": [
+      "/vehicles/08_kia-soul-2017/01_front.jpg",
+      "/vehicles/08_kia-soul-2017/02_gallery.webp",
+      "/vehicles/08_kia-soul-2017/03_gallery.webp"
+    ],
+    "alt": "Kia Soul 1.6 GDI Dream Team gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": false,
+    "listingDate": "2026-05-22T22:00:00.000Z"
+  },
+  {
+    "id": "opel-astra-2017",
+    "folder": "07_opel-astra-2017",
+    "make": "Opel",
+    "model": "Astra",
+    "title": "Opel Astra K 1.0 Active",
+    "price": "10.990 €",
+    "priceValue": 10990,
+    "financing": "ab 110 € mtl.",
+    "firstRegistration": "06/2017",
+    "mileage": "62.600 km",
+    "power": "77 kW / 105 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/07_opel-astra-2017/01_front.jpg",
+    "gallery": [
+      "/vehicles/07_opel-astra-2017/01_front.jpg",
+      "/vehicles/07_opel-astra-2017/02_gallery.webp",
+      "/vehicles/07_opel-astra-2017/03_gallery.webp"
+    ],
+    "alt": "Opel Astra K 1.0 Active gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": false,
+    "listingDate": "2026-05-21T22:00:00.000Z"
+  },
+  {
+    "id": "opel-mokka-2016",
+    "folder": "05_opel-mokka-2016",
+    "make": "Opel",
+    "model": "Mokka",
+    "title": "Opel Mokka 1.4 Turbo Innovation",
+    "price": "11.990 €",
+    "priceValue": 11990,
+    "financing": "ab 120 € mtl.",
+    "firstRegistration": "06/2016",
+    "mileage": "60.800 km",
+    "power": "103 kW / 140 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/05_opel-mokka-2016/01_front.jpg",
+    "gallery": [
+      "/vehicles/05_opel-mokka-2016/01_front.jpg",
+      "/vehicles/05_opel-mokka-2016/02_gallery.webp",
+      "/vehicles/05_opel-mokka-2016/03_gallery.webp"
+    ],
+    "alt": "Opel Mokka 1.4 Turbo Innovation gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": false,
+    "listingDate": "2026-05-19T22:00:00.000Z"
+  },
+  {
+    "id": "citroen-c3-aircross-2017",
+    "folder": "04_citroen-c3-aircross-2017",
+    "make": "Citroen",
+    "model": "C3 Aircross",
+    "title": "Citroen C3 1.2 Aircross",
+    "price": "10.990 €",
+    "priceValue": 10990,
+    "financing": "ab 110 € mtl.",
+    "firstRegistration": "10/2017",
+    "mileage": "81.000 km",
+    "power": "96 kW / 131 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/04_citroen-c3-aircross-2017/01_front.jpg",
+    "gallery": [
+      "/vehicles/04_citroen-c3-aircross-2017/01_front.jpg",
+      "/vehicles/04_citroen-c3-aircross-2017/portal_1.webp",
+      "/vehicles/04_citroen-c3-aircross-2017/02_gallery.webp",
+      "/vehicles/04_citroen-c3-aircross-2017/portal_2.webp",
+      "/vehicles/04_citroen-c3-aircross-2017/03_gallery.webp"
+    ],
+    "alt": "Citroen C3 1.2 Aircross gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": false,
+    "listingDate": "2026-05-23T22:00:00.000Z"
+  },
+  {
+    "id": "opel-mokka-x-2017",
+    "folder": "03_opel-mokka-x-2017",
+    "make": "Opel",
+    "model": "Mokka X",
+    "title": "Opel Mokka X 1.4 Turbo Edition",
+    "price": "11.990 €",
+    "priceValue": 11990,
+    "financing": "ab 120 € mtl.",
+    "firstRegistration": "03/2017",
+    "mileage": "78.100 km",
+    "power": "103 kW / 140 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/03_opel-mokka-x-2017/01_front.jpg",
+    "gallery": [
+      "/vehicles/03_opel-mokka-x-2017/01_front.jpg",
+      "/vehicles/03_opel-mokka-x-2017/portal_1.webp",
+      "/vehicles/03_opel-mokka-x-2017/02_gallery.webp",
+      "/vehicles/03_opel-mokka-x-2017/portal_2.webp",
+      "/vehicles/03_opel-mokka-x-2017/03_gallery.webp",
+      "/vehicles/03_opel-mokka-x-2017/portal_3.webp",
+      "/vehicles/03_opel-mokka-x-2017/04_gallery.jpg",
+      "/vehicles/03_opel-mokka-x-2017/05_gallery.jpg",
+      "/vehicles/03_opel-mokka-x-2017/06_gallery.jpg",
+      "/vehicles/03_opel-mokka-x-2017/07_gallery.jpg",
+      "/vehicles/03_opel-mokka-x-2017/08_gallery.jpg",
+      "/vehicles/03_opel-mokka-x-2017/09_gallery.jpg",
+      "/vehicles/03_opel-mokka-x-2017/10_gallery.jpg",
+      "/vehicles/03_opel-mokka-x-2017/11_gallery.jpg",
+      "/vehicles/03_opel-mokka-x-2017/12_gallery.jpg",
+      "/vehicles/03_opel-mokka-x-2017/13_gallery.jpg",
+      "/vehicles/03_opel-mokka-x-2017/14_gallery.jpg",
+      "/vehicles/03_opel-mokka-x-2017/15_gallery.jpg",
+      "/vehicles/03_opel-mokka-x-2017/16_gallery.jpg",
+      "/vehicles/03_opel-mokka-x-2017/17_gallery.jpg",
+      "/vehicles/03_opel-mokka-x-2017/18_gallery.jpg",
+      "/vehicles/03_opel-mokka-x-2017/19_gallery.jpg",
+      "/vehicles/03_opel-mokka-x-2017/20_gallery.jpg",
+      "/vehicles/03_opel-mokka-x-2017/21_gallery.jpg",
+      "/vehicles/03_opel-mokka-x-2017/22_gallery.jpg",
+      "/vehicles/03_opel-mokka-x-2017/23_gallery.jpg",
+      "/vehicles/03_opel-mokka-x-2017/24_gallery.jpg",
+      "/vehicles/03_opel-mokka-x-2017/25_gallery.jpg"
+    ],
+    "alt": "Opel Mokka X 1.4 Turbo Edition gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": false,
+    "listingDate": "2026-05-22T22:00:00.000Z"
+  },
+  {
+    "id": "opel-mokka-2013",
+    "folder": "02_opel-mokka-2013",
+    "make": "Opel",
+    "model": "Mokka",
+    "title": "Opel Mokka 1.4 Turbo 4x4 Innovation",
+    "price": "10.990 €",
+    "priceValue": 10990,
+    "financing": "ab 110 € mtl.",
+    "firstRegistration": "12/2013",
+    "mileage": "74.800 km",
+    "power": "103 kW / 140 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/02_opel-mokka-2013/01_front.jpg",
+    "gallery": [
+      "/vehicles/02_opel-mokka-2013/01_front.jpg",
+      "/vehicles/02_opel-mokka-2013/portal_1.webp",
+      "/vehicles/02_opel-mokka-2013/02_gallery.webp",
+      "/vehicles/02_opel-mokka-2013/portal_2.webp",
+      "/vehicles/02_opel-mokka-2013/03_gallery.webp",
+      "/vehicles/02_opel-mokka-2013/portal_3.webp",
+      "/vehicles/02_opel-mokka-2013/portal_4.webp",
+      "/vehicles/02_opel-mokka-2013/portal_5.webp",
+      "/vehicles/02_opel-mokka-2013/portal_6.webp",
+      "/vehicles/02_opel-mokka-2013/portal_7.webp",
+      "/vehicles/02_opel-mokka-2013/portal_8.webp",
+      "/vehicles/02_opel-mokka-2013/portal_9.webp",
+      "/vehicles/02_opel-mokka-2013/portal_10.webp"
+    ],
+    "alt": "Opel Mokka 1.4 Turbo 4x4 Innovation gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": false,
+    "listingDate": "2026-05-21T22:00:00.000Z"
+  },
+  {
+    "id": "bmw-x1-2018",
+    "folder": "01_bmw-x1-2018",
+    "make": "BMW",
+    "model": "X1",
+    "title": "BMW X1 sDrive 18 i Advantage",
+    "price": "16.990 €",
+    "priceValue": 16990,
+    "financing": "ab 170 € mtl.",
+    "firstRegistration": "09/2018",
+    "mileage": "68.900 km",
+    "power": "103 kW / 140 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/01_bmw-x1-2018/01_front.jpg",
+    "gallery": [
+      "/vehicles/01_bmw-x1-2018/01_front.jpg",
+      "/vehicles/01_bmw-x1-2018/portal_1.webp",
+      "/vehicles/01_bmw-x1-2018/02_gallery.webp",
+      "/vehicles/01_bmw-x1-2018/portal_2.webp",
+      "/vehicles/01_bmw-x1-2018/03_gallery.webp",
+      "/vehicles/01_bmw-x1-2018/portal_3.webp",
+      "/vehicles/01_bmw-x1-2018/portal_4.webp",
+      "/vehicles/01_bmw-x1-2018/portal_5.webp",
+      "/vehicles/01_bmw-x1-2018/portal_6.webp",
+      "/vehicles/01_bmw-x1-2018/portal_7.webp",
+      "/vehicles/01_bmw-x1-2018/portal_8.webp",
+      "/vehicles/01_bmw-x1-2018/portal_9.webp",
+      "/vehicles/01_bmw-x1-2018/portal_10.webp"
+    ],
+    "alt": "BMW X1 sDrive 18 i Advantage gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": false,
+    "listingDate": "2026-05-20T22:00:00.000Z"
   },
   {
     "id": "opel-corsa-e-edition-2022",
     "folder": "16_opel-corsa-e-edition-2022",
+    "make": "Opel",
+    "model": "Corsa F",
     "title": "Opel Corsa F e Edition",
     "price": "14.750 €",
+    "priceValue": 14750,
     "financing": "ab 148 € mtl.",
     "firstRegistration": "11/2022",
     "mileage": "26.700 km",
@@ -536,13 +620,42 @@ export const vehiclesData: Vehicle[] = [
       "/vehicles/16_opel-corsa-e-edition-2022/41_gallery.jpg"
     ],
     "alt": "Opel Corsa F e Edition gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "sold"
+    "status": "sold",
+    "isNew": false,
+    "listingDate": "2026-05-20T22:00:00.000Z"
+  },
+  {
+    "id": "opel-corsa-automatik-2023",
+    "folder": "14_opel-corsa-automatik-2023",
+    "make": "Opel",
+    "model": "Corsa F",
+    "title": "Opel Corsa F 1.2 Automatik Elegance",
+    "price": "15.990 €",
+    "priceValue": 15990,
+    "financing": "ab 160 € mtl.",
+    "firstRegistration": "09/2023",
+    "mileage": "23.000 km",
+    "power": "74 kW / 101 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/14_opel-corsa-automatik-2023/01_front.jpg",
+    "gallery": [
+      "/vehicles/14_opel-corsa-automatik-2023/01_front.jpg",
+      "/vehicles/14_opel-corsa-automatik-2023/02_gallery.webp",
+      "/vehicles/14_opel-corsa-automatik-2023/03_gallery.webp"
+    ],
+    "alt": "Opel Corsa F 1.2 Automatik Elegance gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "sold",
+    "isNew": false,
+    "listingDate": "2026-05-23T22:00:00.000Z"
   },
   {
     "id": "opel-corsa-f-2023",
     "folder": "13_opel-corsa-f-2023",
+    "make": "Opel",
+    "model": "Corsa F",
     "title": "Opel Corsa F 1.2 Elegance 1.Hand",
     "price": "13.750 €",
+    "priceValue": 13750,
     "financing": "ab 138 € mtl.",
     "firstRegistration": "03/2023",
     "mileage": "24.750 km",
@@ -555,13 +668,18 @@ export const vehiclesData: Vehicle[] = [
       "/vehicles/13_opel-corsa-f-2023/03_gallery.webp"
     ],
     "alt": "Opel Corsa F 1.2 Elegance 1.Hand gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "sold"
+    "status": "sold",
+    "isNew": false,
+    "listingDate": "2026-05-22T22:00:00.000Z"
   },
   {
     "id": "opel-crossland-2017",
     "folder": "06_opel-crossland-2017",
+    "make": "Opel",
+    "model": "Crossland",
     "title": "Opel Crossland 1.2 Innovation",
     "price": "9.450 €",
+    "priceValue": 9450,
     "financing": "ab 95 € mtl.",
     "firstRegistration": "10/2017",
     "mileage": "93.800 km",
@@ -574,6 +692,8 @@ export const vehiclesData: Vehicle[] = [
       "/vehicles/06_opel-crossland-2017/03_gallery.webp"
     ],
     "alt": "Opel Crossland 1.2 Innovation gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "sold"
+    "status": "sold",
+    "isNew": false,
+    "listingDate": "2026-05-20T22:00:00.000Z"
   }
 ];
