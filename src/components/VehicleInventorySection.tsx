@@ -14,10 +14,12 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, index }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    let timeout: NodeJS.Timeout;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setTimeout(() => setIsVisible(true), index * 100);
+          timeout = setTimeout(() => setIsVisible(true), index * 100);
           observer.unobserve(entry.target);
         }
       },
@@ -28,7 +30,10 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, index }) => {
       observer.observe(ref.current);
     }
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      clearTimeout(timeout);
+    };
   }, [index]);
 
   const isNew = vehicle.firstRegistration && new Date(vehicle.firstRegistration).getFullYear() >= 2023;

@@ -22,10 +22,12 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
     const el = ref.current;
     if (!el) return;
 
+    let timeout: NodeJS.Timeout;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setTimeout(() => setIsVisible(true), delay);
+          timeout = setTimeout(() => setIsVisible(true), delay);
           observer.unobserve(el);
         }
       },
@@ -33,7 +35,10 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      clearTimeout(timeout);
+    };
   }, [delay]);
 
   return (
@@ -86,8 +91,6 @@ export default function VehiclePage() {
   const loadVehicle = async () => {
     setIsLoading(true);
     try {
-      // Simulate API latency
-      await new Promise(resolve => setTimeout(resolve, 300));
       let filtered = [...vehiclesData];
 
       if (manufacturer) {
