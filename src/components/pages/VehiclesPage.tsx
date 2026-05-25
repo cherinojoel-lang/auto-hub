@@ -10,15 +10,20 @@ import { PAGE_METADATA, SITE_CONFIG } from '@/lib/seo-config';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
+const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number; priority?: boolean }> = ({
   children, 
   className = '',
-  delay = 0 
+  delay = 0,
+  priority = false
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  // ⚡ Bolt Optimization: If priority is true (above the fold), immediately set to visible
+  // to avoid IntersectionObserver delay and improve LCP metric.
+  const [isVisible, setIsVisible] = useState(priority);
 
   useEffect(() => {
+    if (priority) return; // Skip observer for priority elements
+
     const el = ref.current;
     if (!el) return;
 
@@ -34,7 +39,7 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [delay]);
+  }, [delay, priority]);
 
   return (
     <div
@@ -168,7 +173,7 @@ export default function VehiclePage() {
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary via-primary to-primary/90 text-white py-12 sm:py-16 md:py-20">
         <div className="container mx-auto px-4 max-w-7xl">
-          <AnimatedElement>
+          <AnimatedElement priority={true}>
             <div className="max-w-3xl mx-auto text-center">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-4 sm:mb-6">
                 Aktuelle Gebrauchtwagen in Iserlohn-Letmathe
