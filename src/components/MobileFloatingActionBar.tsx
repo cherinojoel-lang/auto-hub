@@ -9,26 +9,34 @@ export default function MobileFloatingActionBar() {
   const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      const isScrollingDown = currentScrollY > lastScrollY;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          const isScrollingDown = currentScrollY > lastScrollY;
 
-      // Show after 200px scroll
-      if (currentScrollY > 200) {
-        if (isScrollingDown && !isHiding) {
-          setIsHiding(true);
-        } else if (!isScrollingDown && isHiding) {
-          setIsHiding(false);
-        }
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
+          // Show after 200px scroll
+          if (currentScrollY > 200) {
+            if (isScrollingDown && !isHiding) {
+              setIsHiding(true);
+            } else if (!isScrollingDown && isHiding) {
+              setIsHiding(false);
+            }
+            setIsVisible(true);
+          } else {
+            setIsVisible(false);
+          }
+
+          setLastScrollY(currentScrollY);
+          ticking = false;
+        });
+        ticking = true;
       }
-
-      setLastScrollY(currentScrollY);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY, isHiding]);
 
