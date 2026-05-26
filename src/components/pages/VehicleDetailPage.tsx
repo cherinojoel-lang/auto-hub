@@ -111,7 +111,7 @@ export default function VehicleDetailPage() {
   const getGalleryImages = () => {
     if (!vehicle) return [];
     if (!vehicle.gallery || vehicle.gallery.length === 0) return [];
-    return vehicle.gallery.slice(0, 20);
+    return vehicle.gallery;
   };
 
   const galleryImages = getGalleryImages();
