@@ -160,7 +160,7 @@ export default function VehicleDetailPage() {
                       width={1200}
                       height={675}
                     />
-                    {vehicle.gallery && vehicle.gallery.length > 0 && (
+                    {vehicle.gallery && vehicle.gallery.length > 1 && (
                       <div className="grid grid-cols-4 gap-2 p-4 bg-warm-bg overflow-x-auto">
                         {vehicle.gallery.map((img, idx) => (
                           <div key={idx} className="aspect-video relative rounded overflow-hidden flex-shrink-0">
@@ -177,11 +177,9 @@ export default function VehicleDetailPage() {
                     )}
                   </div>
                 ) : (
-                  <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-alt-bg to-border-line">
+                  <div className="w-full h-full flex flex-col items-center justify-center" style={{ backgroundColor: '#F6F1EA' }}>
                     <div className="text-center">
-                      <div className="text-6xl font-bold text-text-secondary mb-4">📷</div>
-                      <p className="text-xl font-bold text-text-secondary">Bild folgt</p>
-                      <p className="text-sm text-text-secondary mt-2">Hochwertige Fotos in Kürze verfügbar</p>
+                      <p className="text-lg font-bold" style={{ color: '#536075' }}>Bild folgt</p>
                     </div>
                   </div>
                 )}
@@ -352,7 +350,7 @@ export default function VehicleDetailPage() {
                         width={1200}
                         height={675}
                       />
-                      {vehicle.gallery && vehicle.gallery.length > 0 && (
+                      {vehicle.gallery && vehicle.gallery.length > 1 && (
                         <div className="grid grid-cols-6 md:grid-cols-8 gap-2 p-4 bg-warm-bg overflow-x-auto">
                           {vehicle.gallery.map((img, idx) => (
                             <div key={idx} className="aspect-video relative rounded overflow-hidden">
@@ -369,11 +367,9 @@ export default function VehicleDetailPage() {
                       )}
                     </div>
                   ) : (
-                    <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-alt-bg to-border-line">
+                    <div className="w-full h-full flex flex-col items-center justify-center" style={{ backgroundColor: '#F6F1EA' }}>
                       <div className="text-center">
-                        <div className="text-6xl font-bold text-text-secondary mb-4">📷</div>
-                        <p className="text-xl font-bold text-text-secondary">Bild folgt</p>
-                        <p className="text-sm text-text-secondary mt-2">Hochwertige Fotos in Kürze verfügbar</p>
+                        <p className="text-xl font-bold" style={{ color: '#536075' }}>Bild folgt</p>
                       </div>
                     </div>
                   )}
@@ -601,7 +597,7 @@ export default function VehicleDetailPage() {
             </div>
 
             {/* Bottom Spacing for Mobile */}
-            <div className="lg:hidden h-24"></div>
+            <div className="lg:hidden h-32"></div>
           </>
         )}
       </div>

@@ -155,7 +155,7 @@ export default function VehiclePage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background pb-24 md:pb-0">
+    <div className="min-h-screen flex flex-col bg-background pb-32 md:pb-0">
       <SeoHead 
         title={PAGE_METADATA.vehicles.title}
         description={PAGE_METADATA.vehicles.description}
@@ -337,8 +337,8 @@ export default function VehiclePage() {
                               height={300}
                             />
                           ) : (
-                            <div className="w-full h-full flex flex-col items-center justify-center bg-border-line">
-                              <span className="text-text-secondary text-sm font-medium">Bild folgt</span>
+                            <div className="w-full h-full flex flex-col items-center justify-center" style={{ backgroundColor: '#F6F1EA' }}>
+                              <span className="text-text-secondary text-sm font-medium" style={{ color: '#536075' }}>Bild folgt</span>
                             </div>
                           )}
                           <div className="absolute top-4 left-4 bg-success text-white px-3 py-1.5 text-xs font-bold rounded-sm shadow-md">
@@ -431,18 +431,20 @@ export default function VehiclePage() {
       </section>
 
       {/* Mobile Sticky Bottom Bar */}
-      <div className="fixed bottom-0 left-0 right-0 md:hidden bg-card-bg border-t border-border-line shadow-2xl z-50 max-h-[84px]">
-        <div className="flex gap-3 p-4 max-w-7xl mx-auto">
+      <div className="fixed bottom-0 left-0 right-0 md:hidden" style={{ backgroundColor: '#FCFCFA', borderTop: '1px solid #D8DEE8', maxHeight: '72px', paddingBottom: 'env(safe-area-inset-bottom)' }}>
+        <div className="flex gap-3 p-4 max-w-7xl mx-auto h-16 items-center">
           <a
-            href="tel:+492374912912"
-            className="flex-1 flex items-center justify-center gap-2 bg-primary text-white px-4 py-3 rounded-sm font-bold text-sm hover:bg-primary/90 transition-all duration-300 shadow-md min-h-[48px]"
+            href="tel:+4923749157-0"
+            className="flex-1 flex items-center justify-center gap-2 text-white px-4 py-3 rounded-sm font-bold text-sm hover:opacity-90 transition-all duration-300 shadow-md min-h-[48px]"
+            style={{ backgroundColor: '#D9431F' }}
           >
             <Phone size={18} />
             Anrufen
           </a>
           <Link
             to="/kontakt"
-            className="flex-1 flex items-center justify-center gap-2 bg-secondary text-white px-4 py-3 rounded-sm font-bold text-sm hover:bg-cta-hover transition-all duration-300 shadow-md min-h-[48px]"
+            className="flex-1 flex items-center justify-center gap-2 text-white px-4 py-3 rounded-sm font-bold text-sm hover:opacity-90 transition-all duration-300 shadow-md min-h-[48px]"
+            style={{ backgroundColor: '#D9431F' }}
           >
             <MessageSquare size={18} />
             Anfrage
