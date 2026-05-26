@@ -158,6 +158,55 @@ export class BaseCrudService {
   }
 
   /**
+   * Retrieves items from the collection filtered by a specific field
+   * @param collectionId - ID of the collection
+   * @param fieldName - Field to filter by
+   * @param value - Value to match
+   * @param includeRefs - { singleRef: [...], multiRef: [...] } or string[] for backward compatibility
+   * @param pagination - Pagination options
+   */
+  static async getByField<T extends WixDataItem>(
+    collectionId: string,
+    fieldName: string,
+    value: any,
+    includeRefs?: { singleRef?: string[]; multiRef?: string[] } | string[],
+    pagination?: PaginationOptions
+  ): Promise<PaginatedResult<T>> {
+    try {
+      const limit = Math.min(pagination?.limit ?? 50, 1000);
+      const skip = pagination?.skip ?? 0;
+
+      // Support both old format (string[]) and new format ({ singleRef, multiRef })
+      const allRefs = Array.isArray(includeRefs)
+        ? includeRefs
+        : [...(includeRefs?.singleRef || []), ...(includeRefs?.multiRef || [])];
+
+      let query = items.query(collectionId).eq(fieldName, value);
+
+      if (allRefs.length > 0) {
+        query = query.include(...allRefs);
+      }
+
+      const result = await query.skip(skip).limit(limit).find({ returnTotalCount: true });
+      const hasNext = result.hasNext();
+
+      return {
+        items: result.items as T[],
+        totalCount: result.totalCount ?? result.items.length,
+        hasNext,
+        currentPage: Math.floor(skip / limit),
+        pageSize: limit,
+        nextSkip: hasNext ? skip + limit : null,
+      };
+    } catch (error) {
+      console.error(`Error fetching ${collectionId} by ${fieldName}:`, error);
+      throw new Error(
+        error instanceof Error ? error.message : `Failed to fetch ${collectionId}`
+      );
+    }
+  }
+
+  /**
    * Retrieves a single item by ID with full reference support
    * Use this for detail pages where you need multi-reference fields populated
    * @param includeRefs - { singleRef: [...], multiRef: [...] } or string[] for backward compatibility

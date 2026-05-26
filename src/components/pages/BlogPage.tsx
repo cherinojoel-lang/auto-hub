@@ -23,8 +23,14 @@ export default function BlogPage() {
 
   useEffect(() => {
     const fetchArticles = async () => {
+      setIsLoading(true);
       try {
-        const result = await BaseCrudService.getAll<BlogArticle>('blogarticles', [], { limit: 50 });
+        let result;
+        if (selectedCategory) {
+          result = await BaseCrudService.getByField<BlogArticle>('blogarticles', 'category', selectedCategory, [], { limit: 50 });
+        } else {
+          result = await BaseCrudService.getAll<BlogArticle>('blogarticles', [], { limit: 50 });
+        }
         setArticles(result.items || []);
       } catch (error) {
         console.error('Error fetching blog articles:', error);
@@ -34,12 +40,10 @@ export default function BlogPage() {
     };
 
     fetchArticles();
-  }, []);
+  }, [selectedCategory]);
 
   const categories = ['Kaufberatung', 'Finanzierung', 'Autopflege'];
-  const filteredArticles = selectedCategory
-    ? articles.filter(article => article.category === selectedCategory)
-    : articles;
+  const filteredArticles = articles;
 
   const formatDate = (date: Date | string | undefined) => {
     if (!date) return '';

@@ -34,11 +34,10 @@ export default function BlogDetailPage() {
           return;
         }
 
-        const result = await BaseCrudService.getAll<BlogArticle>('blogarticles', [], { limit: 1 });
-        const foundArticle = result.items?.find(item => item.slug === slug);
+        const result = await BaseCrudService.getByField<BlogArticle>('blogarticles', 'slug', slug, [], { limit: 1 });
 
-        if (foundArticle) {
-          setArticle(foundArticle);
+        if (result.items && result.items.length > 0) {
+          setArticle(result.items[0]);
         } else {
           setError('Article not found');
         }
