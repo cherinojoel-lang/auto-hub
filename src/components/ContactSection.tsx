@@ -1,3 +1,4 @@
+import { z } from 'zod';
 import { Phone, MessageCircle, Mail, Clock } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
@@ -116,7 +117,7 @@ export default function ContactSection() {
 
     if (!formData.email.trim()) {
       errors.email = 'E-Mail ist erforderlich';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    } else if (!z.string().email().safeParse(formData.email).success) {
       errors.email = 'Bitte geben Sie eine gültige E-Mail-Adresse ein';
     }
 
