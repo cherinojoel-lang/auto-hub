@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Calendar, Gauge, Zap, Fuel, ArrowLeft, Phone, MapPin, Wrench, Check } from 'lucide-react';
+import { Calendar, Gauge, Zap, Fuel, ArrowLeft, Phone, MapPin, Wrench, Check, ChevronLeft, ChevronRight } from 'lucide-react';
 import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
 import { Image } from '@/components/ui/image';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
@@ -63,6 +63,7 @@ export default function VehicleDetailPage() {
   const [vehicle, setVehicle] = useState<Vehicle | null>(null);
   const [similarVehicle, setSimilarVehicle] = useState<Vehicle[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentGalleryIndex, setCurrentGalleryIndex] = useState(0);
 
   useEffect(() => {
     loadVehicle();
@@ -76,6 +77,7 @@ export default function VehicleDetailPage() {
       const safeVehicles = Array.isArray(vehiclesData) ? vehiclesData : []; 
       const data = safeVehicles.find((v: any) => v.id === id) || null;
       setVehicle(data);
+      setCurrentGalleryIndex(0);
       
       // Load similar vehicles
       setSimilarVehicle(safeVehicles.filter((v: any) => v.id !== id).slice(0, 4));
@@ -104,6 +106,24 @@ export default function VehicleDetailPage() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const getGalleryImages = () => {
+    if (!vehicle) return [];
+    if (!vehicle.gallery || vehicle.gallery.length === 0) return [];
+    return vehicle.gallery.slice(0, 20);
+  };
+
+  const galleryImages = getGalleryImages();
+  const hasMultipleImages = galleryImages.length > 1;
+  const currentImage = hasMultipleImages ? galleryImages[currentGalleryIndex] : vehicle?.mainImage;
+
+  const handlePrevImage = () => {
+    setCurrentGalleryIndex(prev => prev === 0 ? galleryImages.length - 1 : prev - 1);
+  };
+
+  const handleNextImage = () => {
+    setCurrentGalleryIndex(prev => prev === galleryImages.length - 1 ? 0 : prev + 1);
   };
 
   const formatPrice = (price?: number) => {
@@ -148,31 +168,68 @@ export default function VehicleDetailPage() {
         ) : (
           <>
             {/* MOBILE LAYOUT */}
-            {/* Mobile: Full-width Image */}
+            {/* Mobile: Full-width Image Gallery */}
             <div className="lg:hidden w-full" id="main-content">
-              <div className="aspect-video bg-alt-bg flex items-center justify-center">
+              <div className="aspect-video bg-alt-bg flex items-center justify-center relative">
                 {vehicle.mainImage ? (
                   <div className="w-full h-full flex flex-col">
-                    <Image
-                      src={vehicle.mainImage}
-                      alt={vehicle.alt || vehicle.title}
-                      className="w-full aspect-video object-cover"
-                      width={1200}
-                      height={675}
-                    />
-                    {vehicle.gallery && vehicle.gallery.length > 1 && (
-                      <div className="grid grid-cols-4 gap-2 p-4 bg-warm-bg overflow-x-auto">
-                        {vehicle.gallery.map((img, idx) => (
-                          <div key={idx} className="aspect-video relative rounded overflow-hidden flex-shrink-0">
-                            <Image
-                              src={img}
-                              alt={`${vehicle.title} Galeriebild ${idx + 1}`}
-                              className="w-full h-full object-cover"
-                              width={150}
-                              height={100}
-                            />
-                          </div>
-                        ))}
+                    {/* Main Image */}
+                    <div className="relative w-full flex-1 overflow-hidden">
+                      <Image
+                        src={currentImage || vehicle.mainImage}
+                        alt={vehicle.alt || vehicle.title}
+                        className="w-full h-full object-cover"
+                        width={1200}
+                        height={675}
+                      />
+                      {/* Image Counter - only show if multiple images */}
+                      {hasMultipleImages && (
+                        <div className="absolute top-4 right-4 bg-primary text-white px-3 py-1.5 text-xs font-bold rounded-sm shadow-md">
+                          {currentGalleryIndex + 1} / {galleryImages.length}
+                        </div>
+                      )}
+                      {/* Navigation Arrows - only show if multiple images */}
+                      {hasMultipleImages && (
+                        <>
+                          <button
+                            onClick={handlePrevImage}
+                            className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-primary p-2 rounded-full shadow-md transition-all"
+                            aria-label="Vorheriges Bild"
+                          >
+                            <ChevronLeft size={24} />
+                          </button>
+                          <button
+                            onClick={handleNextImage}
+                            className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-primary p-2 rounded-full shadow-md transition-all"
+                            aria-label="Nächstes Bild"
+                          >
+                            <ChevronRight size={24} />
+                          </button>
+                        </>
+                      )}
+                    </div>
+                    {/* Thumbnails - only show if multiple images */}
+                    {hasMultipleImages && (
+                      <div className="bg-warm-bg p-3 overflow-x-auto">
+                        <div className="flex gap-2">
+                          {galleryImages.map((img, idx) => (
+                            <button
+                              key={idx}
+                              onClick={() => setCurrentGalleryIndex(idx)}
+                              className={`flex-shrink-0 aspect-video rounded overflow-hidden border-2 transition-all ${
+                                currentGalleryIndex === idx ? 'border-secondary' : 'border-border-line'
+                              }`}
+                            >
+                              <Image
+                                src={img}
+                                alt={`${vehicle.title} Galeriebild ${idx + 1}`}
+                                className="w-full h-full object-cover"
+                                width={80}
+                                height={60}
+                              />
+                            </button>
+                          ))}
+                        </div>
                       </div>
                     )}
                   </div>
@@ -340,20 +397,26 @@ export default function VehicleDetailPage() {
             {/* Desktop: Image Gallery Section */}
             <AnimatedElement className="hidden lg:block container mx-auto px-4 max-w-7xl py-8 sm:py-12">
               <div className="bg-card-bg rounded-lg shadow-lg overflow-hidden border border-border-line">
-                <div className="aspect-video bg-alt-bg flex items-center justify-center">
+                <div className="aspect-video bg-alt-bg flex items-center justify-center relative">
                   {vehicle.mainImage ? (
                     <div className="w-full h-full flex flex-col">
                       <Image
-                        src={vehicle.mainImage}
+                        src={currentImage || vehicle.mainImage}
                         alt={vehicle.alt || vehicle.title}
                         className="w-full aspect-video object-cover"
                         width={1200}
                         height={675}
                       />
-                      {vehicle.gallery && vehicle.gallery.length > 1 && (
+                      {hasMultipleImages && (
                         <div className="grid grid-cols-6 md:grid-cols-8 gap-2 p-4 bg-warm-bg overflow-x-auto">
-                          {vehicle.gallery.map((img, idx) => (
-                            <div key={idx} className="aspect-video relative rounded overflow-hidden">
+                          {galleryImages.map((img, idx) => (
+                            <button
+                              key={idx}
+                              onClick={() => setCurrentGalleryIndex(idx)}
+                              className={`aspect-video relative rounded overflow-hidden border-2 transition-all flex-shrink-0 ${
+                                currentGalleryIndex === idx ? 'border-secondary' : 'border-border-line'
+                              }`}
+                            >
                               <Image
                                 src={img}
                                 alt={`${vehicle.title} Galeriebild ${idx + 1}`}
@@ -361,7 +424,7 @@ export default function VehicleDetailPage() {
                                 width={150}
                                 height={100}
                               />
-                            </div>
+                            </button>
                           ))}
                         </div>
                       )}

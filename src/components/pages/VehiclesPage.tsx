@@ -431,7 +431,7 @@ export default function VehiclePage() {
       </section>
 
       {/* Mobile Sticky Bottom Bar */}
-      <div className="fixed bottom-0 left-0 right-0 md:hidden" style={{ backgroundColor: '#FCFCFA', borderTop: '1px solid #D8DEE8', maxHeight: '72px', paddingBottom: 'env(safe-area-inset-bottom)' }}>
+      <div className="fixed bottom-0 left-0 right-0 md:hidden z-40" style={{ backgroundColor: '#FCFCFA', borderTop: '1px solid #D8DEE8', maxHeight: '72px', paddingBottom: 'env(safe-area-inset-bottom)' }}>
         <div className="flex gap-3 p-4 max-w-7xl mx-auto h-16 items-center">
           <a
             href="tel:+4923749157-0"
