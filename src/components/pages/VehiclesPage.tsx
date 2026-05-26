@@ -88,23 +88,22 @@ export default function VehiclePage() {
     try {
       // Simulate API latency
       await new Promise(resolve => setTimeout(resolve, 300));
-      let filtered = [...vehiclesData];
+      // Optimization: Hoist lowercase and parseInt conversions out of the filter loop
+      const manufacturerLower = manufacturer ? manufacturer.toLowerCase() : null;
+      const driveTypeLower = driveType ? driveType.toLowerCase() : null;
+      const priceMaxInt = priceMax ? parseInt(priceMax, 10) : null;
+      const maxMileageInt = maxMileage ? parseInt(maxMileage, 10) : null;
 
-      if (manufacturer) {
-        filtered = filtered.filter(v => v.title?.toLowerCase().includes(manufacturer.toLowerCase()));
-      }
-      if (priceMax) {
-        filtered = filtered.filter(v => v.price && parseInt(v.price.replace(/[^0-9]/g, '')) <= parseInt(priceMax));
-      }
-      if (driveType) {
-        filtered = filtered.filter(v => v.fuel?.toLowerCase().includes(driveType.toLowerCase()));
-      }
-      if (maxMileage) {
-        filtered = filtered.filter(v => v.mileage && parseInt(v.mileage.replace(/[^0-9]/g, '')) <= parseInt(maxMileage));
-      }
-      if (yearFrom) {
-        filtered = filtered.filter(v => v.firstRegistration && v.firstRegistration.includes(yearFrom));
-      }
+      const filtered = vehiclesData.filter(v => {
+        // Use early returns to skip remaining checks if one fails
+        if (manufacturerLower && (!v.title || !v.title.toLowerCase().includes(manufacturerLower))) return false;
+        if (priceMaxInt && (!v.price || parseInt(v.price.replace(/[^0-9]/g, ''), 10) > priceMaxInt)) return false;
+        if (driveTypeLower && (!v.fuel || !v.fuel.toLowerCase().includes(driveTypeLower))) return false;
+        if (maxMileageInt && (!v.mileage || parseInt(v.mileage.replace(/[^0-9]/g, ''), 10) > maxMileageInt)) return false;
+        if (yearFrom && (!v.firstRegistration || !v.firstRegistration.includes(yearFrom))) return false;
+
+        return true;
+      });
 
       setVehicle(filtered);
       setHasNext(false); // All static items loaded
