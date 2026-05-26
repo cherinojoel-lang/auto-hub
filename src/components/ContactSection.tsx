@@ -138,7 +138,8 @@ export default function ContactSection() {
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       // Here you would normally send the data to your backend
-      console.log('Form submitted:', formData);
+      // SECURITY: Avoiding logging formData directly to prevent exposing Personally Identifiable Information (PII)
+      console.log('Form submitted successfully.');
 
       setSubmitSuccess(true);
       setFormData({ name: '', email: '', phone: '', message: '' });
