@@ -28,8 +28,8 @@ export const SITE_CONFIG = {
 
 export const PAGE_METADATA = {
   home: {
-    title: 'Gebrauchtwagen Iserlohn-Letmathe | Automobile Quick — Seit 1982',
-    description: 'Ihr vertrauensvoller Partner für gepflegte Gebrauchtwagen in Iserlohn-Letmathe. 42 Jahre Erfahrung, 157 Bewertungen. Fahrzeuge entdecken & Probefahrt vereinbaren!',
+    title: 'Automobile Quick | Gebrauchtwagen in Iserlohn-Letmathe',
+    description: 'Automobile Quick in Iserlohn-Letmathe bietet gepflegte Gebrauchtwagen, persönliche Beratung, Fahrzeugankauf und Finanzierung auf Anfrage. Besichtigung vor Ort in der Hagener Str. 126a, 58642 Iserlohn.',
     path: '/',
   },
   vehicles: {

@@ -19,8 +19,8 @@ export interface SEOConfig {
 }
 
 export const DEFAULT_SEO: SEOConfig = {
-  title: 'Automobile Quick - Gebrauchtwagen in Iserlohn-Letmathe | Autohaus seit 1982',
-  description: 'Automobile Quick: Hochwertige Gebrauchtwagen in Iserlohn-Letmathe. Audi, BMW, Mercedes, VW, Porsche - faire Preise, persönliche Beratung, seit 1982. Jetzt Fahrzeug finden!',
+  title: 'Automobile Quick | Gebrauchtwagen in Iserlohn-Letmathe',
+  description: 'Automobile Quick in Iserlohn-Letmathe bietet gepflegte Gebrauchtwagen, persönliche Beratung, Fahrzeugankauf und Finanzierung auf Anfrage. Besichtigung vor Ort in der Hagener Str. 126a, 58642 Iserlohn.',
   keywords: 'Gebrauchtwagen Iserlohn, Gebrauchtwagen Letmathe, Autohaus Iserlohn, Gebrauchtwagen kaufen, Audi Gebrauchtwagen, BMW Gebrauchtwagen, Mercedes Gebrauchtwagen, VW Gebrauchtwagen, Porsche Gebrauchtwagen, Automobile Quick, Fahrzeugbestand, Gebrauchtwagen Hagen',
   ogType: 'website',
   robots: 'index, follow',
