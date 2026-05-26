@@ -63,26 +63,18 @@ export default function VehicleDetailPage() {
   const [vehicle, setVehicle] = useState<Vehicle | null>(null);
   const [similarVehicle, setSimilarVehicle] = useState<Vehicle[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     loadVehicle();
   }, [id]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 300);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const loadVehicle = async () => {
     if (!id) return;
     
     try {
       setIsLoading(true);
-      const safeVehicles = Array.isArray(vehiclesData) ? vehiclesData : []; const data = safeVehicles.find((v: any) => v.id === id) || null;
+      const safeVehicles = Array.isArray(vehiclesData) ? vehiclesData : []; 
+      const data = safeVehicles.find((v: any) => v.id === id) || null;
       setVehicle(data);
       
       // Load similar vehicles
@@ -122,12 +114,6 @@ export default function VehicleDetailPage() {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(price);
-  };
-
-  const calculateFinancing = (price?: number) => {
-    if (!price) return 'auf Anfrage';
-    const monthlyRate = Math.round(price / 100);
-    return `${monthlyRate} EUR`;
   };
 
   return (
@@ -215,7 +201,7 @@ export default function VehicleDetailPage() {
             </AnimatedElement>
 
             {/* Main Content Grid */}
-            <div className="container mx-auto px-4 max-w-7xl pb-24 sm:pb-12">
+            <div className="container mx-auto px-4 max-w-7xl pb-12 lg:pb-12">
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-12">
                 {/* Left Column - Main Content */}
                 <div className="lg:col-span-2 space-y-12">
@@ -380,9 +366,9 @@ export default function VehicleDetailPage() {
                   )}
                 </div>
 
-                {/* Right Column - Sticky Price Box */}
-                <div className="lg:col-span-1">
-                  <div className={`${scrolled ? 'fixed' : 'sticky'} top-24 lg:top-32 right-4 lg:right-auto w-full sm:w-96 lg:w-auto transition-all duration-300`}>
+                {/* Right Column - Desktop Price Box (Hidden on Mobile) */}
+                <div className="lg:col-span-1 hidden lg:block">
+                  <div className="sticky top-32 w-full">
                     <AnimatedElement className="bg-card-bg rounded-lg shadow-xl border border-border-line p-6 sm:p-8">
                       {/* Price */}
                       <div className="mb-8">
@@ -393,12 +379,11 @@ export default function VehicleDetailPage() {
                       </div>
 
                       {/* Financing */}
-                      <div className="mb-8 p-4 bg-warm-bg rounded-lg border border-border-line">
-                        <p className="text-sm text-text-secondary font-medium mb-1">Finanzierung ab</p>
-                        <p className="text-2xl font-bold text-secondary">
-                          {vehicle.financing}
+                      <div className="mb-8 p-4 bg-card-bg rounded-lg border border-border-line">
+                        <p className="text-sm text-text-secondary font-medium mb-3">Finanzierung auf Anfrage</p>
+                        <p className="text-sm text-text-secondary leading-relaxed">
+                          Wir prüfen passende Finanzierungsoptionen gerne persönlich.
                         </p>
-                        <p className="text-xs text-text-secondary mt-2">(unverbindlich)</p>
                       </div>
 
                       {/* CTA Buttons */}
@@ -434,22 +419,52 @@ export default function VehicleDetailPage() {
               </div>
             </div>
 
-            {/* Mobile Sticky Bottom Bar */}
-            <div className="fixed bottom-0 left-0 right-0 lg:hidden bg-card-bg border-t border-border-line shadow-2xl max-h-[84px]">
-              <div className="container mx-auto px-4 max-w-7xl py-3 flex gap-3">
-                <a
-                  href="tel:+4923749157-0"
-                  className="flex-1 flex items-center justify-center gap-2 bg-secondary text-white px-4 py-3 rounded-lg font-bold hover:bg-cta-hover transition-all duration-300 text-sm min-h-[48px]"
-                >
-                  <Phone size={18} />
-                  Anrufen
-                </a>
-                <Link
-                  to="/kontakt"
-                  className="flex-1 bg-primary text-white text-center px-4 py-3 rounded-lg font-bold hover:bg-primary/90 transition-all duration-300 text-sm min-h-[48px] flex items-center justify-center"
-                >
-                  Besichtigung
-                </Link>
+            {/* Mobile Price & CTA Section - Fully Visible, Not Fixed */}
+            <div className="lg:hidden bg-card-bg border-t border-border-line">
+              <div className="container mx-auto px-4 max-w-7xl py-8 space-y-6">
+                {/* Price */}
+                <div>
+                  <p className="text-sm text-text-secondary font-medium mb-2">Verkaufspreis</p>
+                  <p className="text-5xl font-bold text-secondary">
+                    {vehicle.price}
+                  </p>
+                </div>
+
+                {/* Financing */}
+                <div className="p-4 bg-card-bg rounded-lg border border-border-line">
+                  <p className="text-sm text-text-secondary font-medium mb-3">Finanzierung auf Anfrage</p>
+                  <p className="text-sm text-text-secondary leading-relaxed">
+                    Wir prüfen passende Finanzierungsoptionen gerne persönlich.
+                  </p>
+                </div>
+
+                {/* CTA Buttons */}
+                <div className="space-y-3">
+                  <a
+                    href="tel:+4923749157-0"
+                    className="flex items-center justify-center gap-2 w-full bg-secondary text-white px-6 py-4 rounded-lg font-bold hover:bg-cta-hover transition-all duration-300 text-base min-h-[48px]"
+                  >
+                    <Phone size={20} />
+                    Anrufen
+                  </a>
+                  <Link
+                    to="/kontakt"
+                    className="block w-full bg-primary text-white text-center px-6 py-4 rounded-lg font-bold hover:bg-primary/90 transition-all duration-300 text-base min-h-[48px] flex items-center justify-center"
+                  >
+                    Besichtigung anfragen
+                  </Link>
+                  <Link
+                    to="/finanzierung"
+                    className="block w-full bg-white text-primary border-2 border-primary text-center px-6 py-4 rounded-lg font-bold hover:bg-primary/5 transition-all duration-300 text-base min-h-[48px] flex items-center justify-center"
+                  >
+                    Finanzierung anfragen
+                  </Link>
+                </div>
+
+                {/* Info Text */}
+                <p className="text-xs text-text-secondary text-center leading-relaxed">
+                  Alle Angaben ohne Gewähr. Besichtigung und Beratung vor Ort möglich.
+                </p>
               </div>
             </div>
           </>
