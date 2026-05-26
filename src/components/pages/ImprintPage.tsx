@@ -56,7 +56,7 @@ export default function ImprintPage() {
                     <span className="font-medium">Telefax:</span> +49 (0) 2374 / 2813
                   </p>
                   <p>
-                    <span className="font-medium">E-Mail:</span> info@automobilequick.de
+                    <span className="font-medium">E-Mail:</span> auto-quick@t-online.de
                   </p>
                   <p>
                     <span className="font-medium">USt-IdNr.:</span> DE196524275

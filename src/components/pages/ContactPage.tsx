@@ -246,8 +246,8 @@ export default function ContactPage() {
                         </div>
                         <div>
                           <p className="font-medium text-foreground mb-1">Adresse</p>
-                          <p className="text-foreground/70">Delsterner Str. 92</p>
-                          <p className="text-foreground/70">58091 Hagen</p>
+                          <p className="text-foreground/70">Hagener Str. 126a</p>
+                          <p className="text-foreground/70">58642 Iserlohn</p>
                         </div>
                       </div>
 
@@ -302,7 +302,7 @@ export default function ContactPage() {
                       Persönlicher Besuch
                     </h3>
                     <p className="text-foreground/80 leading-relaxed">
-                      Wir laden Sie herzlich ein, uns in unserem Autohaus in Hagen zu besuchen. 
+                      Wir laden Sie herzlich ein, uns in unserem Autohaus in Iserlohn-Letmathe zu besuchen. 
                       Vor Ort können Sie unsere Fahrzeuge in Ruhe besichtigen und eine Probefahrt vereinbaren. 
                       Parkplätze sind direkt vor Ort vorhanden.
                     </p>
@@ -324,7 +324,7 @@ export default function ContactPage() {
                   So finden Sie uns
                 </h2>
                 <p className="text-lg text-foreground/70">
-                  Delsterner Str. 92, 58091 Hagen
+                  Hagener Str. 126a, 58642 Iserlohn
                 </p>
               </div>
               <div className="bg-background rounded-2xl shadow-lg overflow-hidden border border-border/50">

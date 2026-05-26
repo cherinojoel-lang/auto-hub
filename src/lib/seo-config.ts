@@ -8,7 +8,7 @@ export const SITE_CONFIG = {
   url: 'https://automobilequick.de',
   description: 'Ihr vertrauensvoller Partner für gepflegte Gebrauchtwagen in Iserlohn-Letmathe seit 1982.',
   telephone: '+49-2374-912912',
-  email: 'info@automobilequick.de',
+  email: 'auto-quick@t-online.de',
   address: {
     streetAddress: 'Hagener Str. 126a',
     addressLocality: 'Iserlohn',

@@ -119,8 +119,8 @@ export function getStructuredDataOrganization() {
     name: 'Automobile Quick',
     description: 'Hochwertige Gebrauchtwagen mit persönlicher Beratung in Iserlohn-Letmathe seit 1982',
     url: 'https://automobilequick.de',
-    telephone: '+49 (0) 2331 123456',
-    email: 'info@automobilequick.de',
+    telephone: '+49 (0) 2374 / 912912',
+    email: 'auto-quick@t-online.de',
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'Hagener Str. 126a',

@@ -92,7 +92,7 @@ export default function AboutPage() {
                 Über uns
               </h1>
               <p className="text-xl md:text-2xl text-background/90">
-                Ihr vertrauensvoller Partner für hochwertige Gebrauchtwagen in Hagen
+                Ihr vertrauensvoller Partner für hochwertige Gebrauchtwagen in Iserlohn-Letmathe
               </p>
             </div>
           </AnimatedElement>
@@ -203,7 +203,7 @@ export default function AboutPage() {
                   Besuchen Sie uns
                 </h2>
                 <p className="text-lg text-foreground/70">
-                  Wir freuen uns auf Ihren Besuch in Hagen
+                  Wir freuen uns auf Ihren Besuch in Iserlohn-Letmathe
                 </p>
               </div>
             </AnimatedElement>
@@ -219,8 +219,8 @@ export default function AboutPage() {
                       <MapPin className="text-primary flex-shrink-0 mt-1" size={24} />
                       <div>
                         <p className="font-medium text-foreground">Adresse</p>
-                        <p className="text-foreground/70">Delsterner Str. 92</p>
-                        <p className="text-foreground/70">58091 Hagen</p>
+                        <p className="text-foreground/70">Hagener Str. 126a</p>
+                        <p className="text-foreground/70">58642 Iserlohn</p>
                       </div>
                     </div>
 
@@ -229,10 +229,10 @@ export default function AboutPage() {
                       <div>
                         <p className="font-medium text-foreground">Telefon</p>
                         <a 
-                          href="tel:+4923311234567"
+                          href="tel:+492374912912"
                           className="text-foreground/70 hover:text-primary transition-colors"
                         >
-                          +49 (0) 2331 123456
+                          +49 (0) 2374 / 912912
                         </a>
                       </div>
                     </div>
@@ -242,10 +242,10 @@ export default function AboutPage() {
                       <div>
                         <p className="font-medium text-foreground">E-Mail</p>
                         <a 
-                          href="mailto:info@automobilequick.de"
+                          href="mailto:auto-quick@t-online.de"
                           className="text-foreground/70 hover:text-primary transition-colors"
                         >
-                          info@automobilequick.de
+                          auto-quick@t-online.de
                         </a>
                       </div>
                     </div>
@@ -280,7 +280,7 @@ export default function AboutPage() {
                     />
                   </div>
                   <p className="text-foreground/70 mb-4">
-                    Unser Autohaus befindet sich in verkehrsgünstiger Lage in Hagen. 
+                    Unser Autohaus befindet sich in verkehrsgünstiger Lage in Iserlohn-Letmathe. 
                     Parkplätze sind direkt vor Ort vorhanden.
                   </p>
                   <Link

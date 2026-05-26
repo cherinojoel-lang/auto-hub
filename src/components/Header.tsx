@@ -8,7 +8,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-card-bg border-b border-border-line shadow-md" role="banner">
       <div className="container mx-auto px-4 max-w-7xl">
-        <div className="flex items-center justify-between h-16 sm:h-20">
+        <div className="flex items-center justify-between h-20 md:h-22">
           {/* Logo */}
           <Link to="/" className="flex items-center flex-shrink-0" aria-label="Automobile Quick - Startseite">
             <div className="flex flex-col">
