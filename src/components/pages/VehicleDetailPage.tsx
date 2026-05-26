@@ -74,11 +74,11 @@ export default function VehicleDetailPage() {
     try {
       setIsLoading(true);
       const safeVehicles = Array.isArray(vehiclesData) ? vehiclesData : []; 
-      const data = safeVehicles.find((v: any) => v.id === id) || null;
+      const data = safeVehicles.find((v: Vehicle) => v.id === id) || null;
       setVehicle(data);
       
       // Load similar vehicles
-      setSimilarVehicle(safeVehicles.filter((v: any) => v.id !== id).slice(0, 4));
+      setSimilarVehicle(safeVehicles.filter((v: Vehicle) => v.id !== id).slice(0, 4));
       
       // Update SEO for vehicle detail page
       if (data) {
