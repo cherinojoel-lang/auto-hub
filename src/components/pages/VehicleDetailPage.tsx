@@ -174,8 +174,8 @@ export default function VehicleDetailPage() {
 
             {/* Image Gallery Section */}
             <AnimatedElement className="container mx-auto px-4 max-w-7xl py-8 sm:py-12">
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100">
-                <div className="aspect-video bg-gray-100 flex items-center justify-center">
+              <div className="bg-card-bg rounded-lg shadow-lg overflow-hidden border border-border-line">
+                <div className="aspect-video bg-alt-bg flex items-center justify-center">
                   {vehicle.mainImage ? (
                     <div className="w-full h-full flex flex-col">
                       <Image
@@ -186,7 +186,7 @@ export default function VehicleDetailPage() {
                         height={675}
                       />
                       {vehicle.gallery && vehicle.gallery.length > 0 && (
-                        <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2 p-4 bg-gray-50 overflow-x-auto">
+                        <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2 p-4 bg-warm-bg overflow-x-auto">
                           {vehicle.gallery.map((img, idx) => (
                             <div key={idx} className="aspect-video relative rounded overflow-hidden">
                               <Image
@@ -202,11 +202,11 @@ export default function VehicleDetailPage() {
                       )}
                     </div>
                   ) : (
-                    <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">
+                    <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-alt-bg to-border-line">
                       <div className="text-center">
-                        <div className="text-6xl font-bold text-gray-300 mb-4">📷</div>
-                        <p className="text-xl font-bold text-gray-500">Bild folgt</p>
-                        <p className="text-sm text-gray-400 mt-2">Hochwertige Fotos in Kürze verfügbar</p>
+                        <div className="text-6xl font-bold text-text-secondary mb-4">📷</div>
+                        <p className="text-xl font-bold text-text-secondary">Bild folgt</p>
+                        <p className="text-sm text-text-secondary mt-2">Hochwertige Fotos in Kürze verfügbar</p>
                       </div>
                     </div>
                   )}
@@ -225,7 +225,7 @@ export default function VehicleDetailPage() {
                       <h1 className="text-4xl sm:text-5xl md:text-6xl font-heading font-bold text-primary mb-6">
                         {vehicle.title}
                       </h1>
-                      <p className="text-lg text-gray-700 leading-relaxed font-paragraph">
+                      <p className="text-lg text-text-secondary leading-relaxed font-paragraph">
                         Gepflegter Gebrauchtwagen bei Automobile Quick in Iserlohn-Letmathe. Persönliche Beratung, Besichtigung vor Ort und unverbindliche Finanzierungsanfrage möglich.
                       </p>
                     </div>
@@ -239,20 +239,20 @@ export default function VehicleDetailPage() {
                       </h2>
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                         {vehicle.firstRegistration && (
-                          <div className="bg-white p-5 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                          <div className="bg-card-bg p-5 rounded-lg border border-border-line shadow-sm hover:shadow-md transition-shadow">
                             <div className="flex items-center gap-3 mb-2">
                               <Calendar className="text-secondary flex-shrink-0" size={24} />
-                              <p className="text-xs font-bold text-gray-600 uppercase tracking-wide">Erstzulassung</p>
+                              <p className="text-xs font-bold text-text-secondary uppercase tracking-wide">Erstzulassung</p>
                             </div>
                             <p className="font-bold text-lg text-primary">{vehicle.firstRegistration}</p>
                           </div>
                         )}
 
                         {vehicle.mileage && (
-                          <div className="bg-white p-5 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                          <div className="bg-card-bg p-5 rounded-lg border border-border-line shadow-sm hover:shadow-md transition-shadow">
                             <div className="flex items-center gap-3 mb-2">
                               <Gauge className="text-secondary flex-shrink-0" size={24} />
-                              <p className="text-xs font-bold text-gray-600 uppercase tracking-wide">Kilometerstand</p>
+                              <p className="text-xs font-bold text-text-secondary uppercase tracking-wide">Kilometerstand</p>
                             </div>
                             <p className="font-bold text-lg text-primary">
                               {vehicle.mileage}
@@ -261,10 +261,10 @@ export default function VehicleDetailPage() {
                         )}
 
                         {vehicle.power && (
-                          <div className="bg-white p-5 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                          <div className="bg-card-bg p-5 rounded-lg border border-border-line shadow-sm hover:shadow-md transition-shadow">
                             <div className="flex items-center gap-3 mb-2">
                               <Zap className="text-secondary flex-shrink-0" size={24} />
-                              <p className="text-xs font-bold text-gray-600 uppercase tracking-wide">Leistung</p>
+                              <p className="text-xs font-bold text-text-secondary uppercase tracking-wide">Leistung</p>
                             </div>
                             <p className="font-bold text-lg text-primary">
                               {vehicle.power}
@@ -273,27 +273,27 @@ export default function VehicleDetailPage() {
                         )}
 
                         {vehicle.fuel && (
-                          <div className="bg-white p-5 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                          <div className="bg-card-bg p-5 rounded-lg border border-border-line shadow-sm hover:shadow-md transition-shadow">
                             <div className="flex items-center gap-3 mb-2">
                               <Fuel className="text-secondary flex-shrink-0" size={24} />
-                              <p className="text-xs font-bold text-gray-600 uppercase tracking-wide">Kraftstoff</p>
+                              <p className="text-xs font-bold text-text-secondary uppercase tracking-wide">Kraftstoff</p>
                             </div>
                             <p className="font-bold text-lg text-primary">{vehicle.fuel}</p>
                           </div>
                         )}
 
-                        <div className="bg-white p-5 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                        <div className="bg-card-bg p-5 rounded-lg border border-border-line shadow-sm hover:shadow-md transition-shadow">
                           <div className="flex items-center gap-3 mb-2">
                             <Wrench className="text-secondary flex-shrink-0" size={24} />
-                            <p className="text-xs font-bold text-gray-600 uppercase tracking-wide">Getriebe</p>
+                            <p className="text-xs font-bold text-text-secondary uppercase tracking-wide">Getriebe</p>
                           </div>
                           <p className="font-bold text-lg text-primary">Automatik</p>
                         </div>
 
-                        <div className="bg-white p-5 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                        <div className="bg-card-bg p-5 rounded-lg border border-border-line shadow-sm hover:shadow-md transition-shadow">
                           <div className="flex items-center gap-3 mb-2">
                             <MapPin className="text-secondary flex-shrink-0" size={24} />
-                            <p className="text-xs font-bold text-gray-600 uppercase tracking-wide">Standort</p>
+                            <p className="text-xs font-bold text-text-secondary uppercase tracking-wide">Standort</p>
                           </div>
                           <p className="font-bold text-lg text-primary">Iserlohn-Letmathe</p>
                         </div>
@@ -309,9 +309,9 @@ export default function VehicleDetailPage() {
                       </h2>
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                         {DEMO_FEATURES.map((feature, idx) => (
-                          <div key={idx} className="flex items-center gap-3 p-3 bg-neutral-100 rounded-lg border border-gray-200">
+                          <div key={idx} className="flex items-center gap-3 p-3 bg-warm-bg rounded-lg border border-border-line">
                             <div className="w-2 h-2 bg-secondary rounded-full flex-shrink-0"></div>
-                            <span className="font-medium text-gray-700">{feature}</span>
+                            <span className="font-medium text-foreground">{feature}</span>
                           </div>
                         ))}
                       </div>
@@ -325,7 +325,7 @@ export default function VehicleDetailPage() {
                         <h2 className="text-2xl sm:text-3xl font-heading font-bold text-primary mb-4">
                           Beschreibung
                         </h2>
-                        <p className="text-gray-700 leading-relaxed text-base font-paragraph">
+                        <p className="text-text-secondary leading-relaxed text-base font-paragraph">
                           {vehicle.description}
                         </p>
                       </div>
@@ -344,9 +344,9 @@ export default function VehicleDetailPage() {
                             <Link
                               key={v.id}
                               to={`/fahrzeugdetail/${v.id}`}
-                              className="group bg-white rounded-lg overflow-hidden border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300"
+                              className="group bg-card-bg rounded-lg overflow-hidden border border-border-line shadow-sm hover:shadow-lg transition-all duration-300"
                             >
-                              <div className="aspect-video bg-gray-100 overflow-hidden">
+                              <div className="aspect-video bg-alt-bg overflow-hidden">
                                 {v.mainImage ? (
                                   <Image
                                     src={v.mainImage || ""}
@@ -356,8 +356,8 @@ export default function VehicleDetailPage() {
                                     height={225}
                                   />
                                 ) : (
-                                  <div className="w-full h-full flex items-center justify-center bg-gray-200">
-                                    <span className="text-4xl font-bold text-gray-400">📷</span>
+                                  <div className="w-full h-full flex items-center justify-center bg-border-line">
+                                    <span className="text-4xl font-bold text-text-secondary">📷</span>
                                   </div>
                                 )}
                               </div>
@@ -366,7 +366,7 @@ export default function VehicleDetailPage() {
                                   {v.title}
                                 </h3>
                                 <div className="flex justify-between items-center">
-                                  <span className="text-sm text-gray-600">
+                                  <span className="text-sm text-text-secondary">
                                     {v.firstRegistration} • {v.mileage}
                                   </span>
                                   <span className="font-bold text-secondary">{v.price}</span>
@@ -383,49 +383,49 @@ export default function VehicleDetailPage() {
                 {/* Right Column - Sticky Price Box */}
                 <div className="lg:col-span-1">
                   <div className={`${scrolled ? 'fixed' : 'sticky'} top-24 lg:top-32 right-4 lg:right-auto w-full sm:w-96 lg:w-auto transition-all duration-300`}>
-                    <AnimatedElement className="bg-white rounded-lg shadow-xl border border-gray-200 p-6 sm:p-8">
+                    <AnimatedElement className="bg-card-bg rounded-lg shadow-xl border border-border-line p-6 sm:p-8">
                       {/* Price */}
                       <div className="mb-8">
-                        <p className="text-sm text-gray-600 font-medium mb-2">Verkaufspreis</p>
-                        <p className="text-5xl sm:text-6xl font-bold text-primary">
+                        <p className="text-sm text-text-secondary font-medium mb-2">Verkaufspreis</p>
+                        <p className="text-5xl sm:text-6xl font-bold text-secondary">
                           {vehicle.price}
                         </p>
                       </div>
 
                       {/* Financing */}
-                      <div className="mb-8 p-4 bg-neutral-100 rounded-lg border border-gray-200">
-                        <p className="text-sm text-gray-600 font-medium mb-1">Finanzierung ab</p>
+                      <div className="mb-8 p-4 bg-warm-bg rounded-lg border border-border-line">
+                        <p className="text-sm text-text-secondary font-medium mb-1">Finanzierung ab</p>
                         <p className="text-2xl font-bold text-secondary">
                           {vehicle.financing}
                         </p>
-                        <p className="text-xs text-gray-500 mt-2">(unverbindlich)</p>
+                        <p className="text-xs text-text-secondary mt-2">(unverbindlich)</p>
                       </div>
 
                       {/* CTA Buttons */}
                       <div className="space-y-3">
                         <a
                           href="tel:+4923749157-0"
-                          className="flex items-center justify-center gap-2 w-full bg-secondary text-white px-6 py-4 rounded-lg font-bold hover:bg-secondary/90 transition-all duration-300 transform hover:-translate-y-0.5 shadow-md text-base"
+                          className="flex items-center justify-center gap-2 w-full bg-secondary text-white px-6 py-4 rounded-lg font-bold hover:bg-cta-hover transition-all duration-300 transform hover:-translate-y-0.5 shadow-md text-base min-h-[48px]"
                         >
                           <Phone size={20} />
                           Anrufen
                         </a>
                         <Link
                           to="/kontakt"
-                          className="block w-full bg-primary text-white text-center px-6 py-4 rounded-lg font-bold hover:bg-primary/90 transition-all duration-300 transform hover:-translate-y-0.5 shadow-md text-base"
+                          className="block w-full bg-primary text-white text-center px-6 py-4 rounded-lg font-bold hover:bg-primary/90 transition-all duration-300 transform hover:-translate-y-0.5 shadow-md text-base min-h-[48px] flex items-center justify-center"
                         >
                           Besichtigung anfragen
                         </Link>
                         <Link
                           to="/finanzierung"
-                          className="block w-full bg-white text-primary border-2 border-primary text-center px-6 py-4 rounded-lg font-bold hover:bg-primary/5 transition-all duration-300 text-base"
+                          className="block w-full bg-white text-primary border-2 border-primary text-center px-6 py-4 rounded-lg font-bold hover:bg-primary/5 transition-all duration-300 text-base min-h-[48px] flex items-center justify-center"
                         >
                           Finanzierung anfragen
                         </Link>
                       </div>
 
                       {/* Info Text */}
-                      <p className="text-xs text-gray-500 text-center mt-6 leading-relaxed">
+                      <p className="text-xs text-text-secondary text-center mt-6 leading-relaxed">
                         Alle Angaben ohne Gewähr. Besichtigung und Beratung vor Ort möglich.
                       </p>
                     </AnimatedElement>
@@ -435,18 +435,18 @@ export default function VehicleDetailPage() {
             </div>
 
             {/* Mobile Sticky Bottom Bar */}
-            <div className="fixed bottom-0 left-0 right-0 lg:hidden bg-white border-t border-gray-200 shadow-2xl">
+            <div className="fixed bottom-0 left-0 right-0 lg:hidden bg-card-bg border-t border-border-line shadow-2xl max-h-[84px]">
               <div className="container mx-auto px-4 max-w-7xl py-3 flex gap-3">
                 <a
                   href="tel:+4923749157-0"
-                  className="flex-1 flex items-center justify-center gap-2 bg-secondary text-white px-4 py-3 rounded-lg font-bold hover:bg-secondary/90 transition-all duration-300 text-sm"
+                  className="flex-1 flex items-center justify-center gap-2 bg-secondary text-white px-4 py-3 rounded-lg font-bold hover:bg-cta-hover transition-all duration-300 text-sm min-h-[48px]"
                 >
                   <Phone size={18} />
                   Anrufen
                 </a>
                 <Link
                   to="/kontakt"
-                  className="flex-1 bg-primary text-white text-center px-4 py-3 rounded-lg font-bold hover:bg-primary/90 transition-all duration-300 text-sm"
+                  className="flex-1 bg-primary text-white text-center px-4 py-3 rounded-lg font-bold hover:bg-primary/90 transition-all duration-300 text-sm min-h-[48px] flex items-center justify-center"
                 >
                   Besichtigung
                 </Link>

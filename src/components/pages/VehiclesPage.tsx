@@ -155,7 +155,7 @@ export default function VehiclePage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background pb-20 md:pb-0">
+    <div className="min-h-screen flex flex-col bg-background pb-24 md:pb-0">
       <SeoHead 
         title={PAGE_METADATA.vehicles.title}
         description={PAGE_METADATA.vehicles.description}
@@ -166,7 +166,7 @@ export default function VehiclePage() {
       </a>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary via-primary to-primary/90 text-white py-12 sm:py-16 md:py-20">
+      <section className="bg-gradient-to-br from-primary via-accent to-primary/90 text-white py-12 sm:py-16 md:py-20">
         <div className="container mx-auto px-4 max-w-7xl">
           <AnimatedElement>
             <div className="max-w-3xl mx-auto text-center">
@@ -182,7 +182,7 @@ export default function VehiclePage() {
       </section>
 
       {/* Filters Section */}
-      <section className="py-8 sm:py-10 bg-white border-b border-gray-200 sticky top-20 z-40">
+      <section className="py-8 sm:py-10 bg-card-bg border-b border-border-line sticky top-20 z-40">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="flex items-center justify-between mb-4 sm:mb-6">
             <h2 className="text-lg sm:text-xl font-heading font-bold text-foreground">
@@ -200,13 +200,13 @@ export default function VehiclePage() {
           <div className={`${showFilters ? 'block' : 'hidden'} md:block`}>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 mb-6">
               <div>
-                <label className="block text-xs font-bold text-primary mb-2 uppercase tracking-wide">
+                <label className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
                   Marke
                 </label>
                 <select
                   value={manufacturer}
                   onChange={(e) => setManufacturer(e.target.value)}
-                  className="w-full px-4 py-3 rounded-sm border-2 border-gray-200 bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
+                  className="w-full px-4 py-3 rounded-sm border-2 border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
                 >
                   <option value="">Alle Marken</option>
                   <option value="BMW">BMW</option>
@@ -219,13 +219,13 @@ export default function VehiclePage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-primary mb-2 uppercase tracking-wide">
+                <label className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
                   Preis
                 </label>
                 <select
                   value={priceMax}
                   onChange={(e) => setPriceMax(e.target.value)}
-                  className="w-full px-4 py-3 rounded-sm border-2 border-gray-200 bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
+                  className="w-full px-4 py-3 rounded-sm border-2 border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
                 >
                   <option value="">Alle Preise</option>
                   <option value="15000">bis 15.000 €</option>
@@ -237,13 +237,13 @@ export default function VehiclePage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-primary mb-2 uppercase tracking-wide">
+                <label className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
                   Kraftstoff
                 </label>
                 <select
                   value={driveType}
                   onChange={(e) => setDriveType(e.target.value)}
-                  className="w-full px-4 py-3 rounded-sm border-2 border-gray-200 bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
+                  className="w-full px-4 py-3 rounded-sm border-2 border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
                 >
                   <option value="">Alle Kraftstoffe</option>
                   <option value="Benzin">Benzin</option>
@@ -255,13 +255,13 @@ export default function VehiclePage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-primary mb-2 uppercase tracking-wide">
+                <label className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
                   Kilometerstand
                 </label>
                 <select
                   value={maxMileage}
                   onChange={(e) => setMaxMileage(e.target.value)}
-                  className="w-full px-4 py-3 rounded-sm border-2 border-gray-200 bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
+                  className="w-full px-4 py-3 rounded-sm border-2 border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
                 >
                   <option value="">Alle km</option>
                   <option value="20000">bis 20.000</option>
@@ -273,13 +273,13 @@ export default function VehiclePage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-primary mb-2 uppercase tracking-wide">
+                <label className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
                   Erstzulassung
                 </label>
                 <select
                   value={yearFrom}
                   onChange={(e) => setYearFrom(e.target.value)}
-                  className="w-full px-4 py-3 rounded-sm border-2 border-gray-200 bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
+                  className="w-full px-4 py-3 rounded-sm border-2 border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
                 >
                   <option value="">Alle Jahre</option>
                   <option value="2024">ab 2024</option>
@@ -302,7 +302,7 @@ export default function VehiclePage() {
               </button>
               <button
                 onClick={clearFilters}
-                className="bg-gray-100 text-foreground px-6 sm:px-8 py-3 rounded-sm font-bold text-sm sm:text-base hover:bg-gray-200 transition-all duration-300 flex items-center justify-center gap-2"
+                className="bg-alt-bg text-foreground px-6 sm:px-8 py-3 rounded-sm font-bold text-sm sm:text-base hover:bg-border-line transition-all duration-300 flex items-center justify-center gap-2"
               >
                 <X size={18} />
                 Zurücksetzen
@@ -313,7 +313,7 @@ export default function VehiclePage() {
       </section>
 
       {/* Vehicle Grid */}
-      <section className="py-12 sm:py-16 md:py-20 bg-white flex-1" id="main-content">
+      <section className="py-12 sm:py-16 md:py-20 bg-background flex-1" id="main-content">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="min-h-[600px]">
             {isLoading ? (
@@ -325,9 +325,9 @@ export default function VehiclePage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                   {vehicles.map((vehicle, index) => (
                     <AnimatedElement key={vehicle.id} delay={index * 50}>
-                      <div className="group bg-white rounded-sm shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:scale-[1.02] flex flex-col h-full">
+                      <div className="group bg-card-bg rounded-sm shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden border border-border-line hover:scale-[1.02] flex flex-col h-full">
                         {/* Image Section */}
-                        <div className="aspect-[4/3] overflow-hidden bg-gray-100 relative">
+                        <div className="aspect-[4/3] overflow-hidden bg-alt-bg relative">
                           {vehicle.mainImage ? (
                             <Image
                               src={vehicle.mainImage}
@@ -337,8 +337,8 @@ export default function VehiclePage() {
                               height={300}
                             />
                           ) : (
-                            <div className="w-full h-full flex flex-col items-center justify-center bg-gray-200">
-                              <span className="text-gray-400 text-sm font-medium">Bild folgt</span>
+                            <div className="w-full h-full flex flex-col items-center justify-center bg-border-line">
+                              <span className="text-text-secondary text-sm font-medium">Bild folgt</span>
                             </div>
                           )}
                           <div className="absolute top-4 left-4 bg-success text-white px-3 py-1.5 text-xs font-bold rounded-sm shadow-md">
@@ -355,20 +355,20 @@ export default function VehiclePage() {
 
                           {/* Price */}
                           <div className="mb-2">
-                            <span className="text-3xl sm:text-4xl font-bold text-primary">
+                            <span className="text-3xl sm:text-4xl font-bold text-secondary">
                               {vehicle.price}
                             </span>
                           </div>
 
                           {/* Financing */}
                           {vehicle.financing && (
-                            <p className="text-sm text-gray-600 mb-6 font-medium">
+                            <p className="text-sm text-text-secondary mb-6 font-medium">
                               {vehicle.financing}
                             </p>
                           )}
 
                           {/* Details */}
-                          <div className="space-y-2 mb-6 text-sm text-gray-600 flex-1">
+                          <div className="space-y-2 mb-6 text-sm text-text-secondary flex-1">
                             {vehicle.firstRegistration && (
                               <p className="font-medium">Erstzulassung: {vehicle.firstRegistration}</p>
                             )}
@@ -381,20 +381,26 @@ export default function VehiclePage() {
                             {vehicle.fuel && <p className="font-medium">Kraftstoff: {vehicle.fuel}</p>}
                           </div>
 
-                          {/* Buttons */}
-                          <div className="flex gap-3 pt-6 border-t border-gray-100">
+                          {/* Buttons - 3 CTAs */}
+                          <div className="flex flex-col gap-2 pt-6 border-t border-border-line">
                             <Link
                               to={`/fahrzeugdetail/${vehicle.id}`}
-                              className="flex-1 bg-primary text-white px-4 py-3 rounded-sm font-bold text-sm text-center hover:bg-primary/90 transition-all duration-300 shadow-sm hover:shadow-md"
+                              className="w-full bg-primary text-white px-4 py-3 rounded-sm font-bold text-sm text-center hover:bg-primary/90 transition-all duration-300 shadow-sm hover:shadow-md min-h-[48px] flex items-center justify-center"
                             >
-                              Details ansehen
+                              Details anzeigen
                             </Link>
                             <Link
                               to="/kontakt"
-                              className="flex-1 bg-secondary text-white px-4 py-3 rounded-sm font-bold text-sm text-center hover:bg-secondary/90 transition-all duration-300 shadow-sm hover:shadow-md"
+                              className="w-full bg-secondary text-white px-4 py-3 rounded-sm font-bold text-sm text-center hover:bg-cta-hover transition-all duration-300 shadow-sm hover:shadow-md min-h-[48px] flex items-center justify-center"
                             >
-                              Anfragen
+                              Anfrage senden
                             </Link>
+                            <a
+                              href="tel:+492374912912"
+                              className="w-full bg-accent text-white px-4 py-3 rounded-sm font-bold text-sm text-center hover:bg-primary/90 transition-all duration-300 shadow-sm hover:shadow-md min-h-[48px] flex items-center justify-center"
+                            >
+                              Anrufen
+                            </a>
                           </div>
                         </div>
                       </div>
@@ -415,7 +421,7 @@ export default function VehiclePage() {
               </>
             ) : (
               <div className="text-center py-20">
-                <p className="text-lg sm:text-xl text-gray-600">
+                <p className="text-lg sm:text-xl text-text-secondary">
                   Keine Fahrzeuge gefunden. Bitte passen Sie Ihre Filter an.
                 </p>
               </div>
@@ -425,21 +431,21 @@ export default function VehiclePage() {
       </section>
 
       {/* Mobile Sticky Bottom Bar */}
-      <div className="fixed bottom-0 left-0 right-0 md:hidden bg-white border-t border-gray-200 shadow-2xl z-50">
+      <div className="fixed bottom-0 left-0 right-0 md:hidden bg-card-bg border-t border-border-line shadow-2xl z-50 max-h-[84px]">
         <div className="flex gap-3 p-4 max-w-7xl mx-auto">
           <a
             href="tel:+492374912912"
-            className="flex-1 flex items-center justify-center gap-2 bg-primary text-white px-4 py-3 rounded-sm font-bold text-sm hover:bg-primary/90 transition-all duration-300 shadow-md"
+            className="flex-1 flex items-center justify-center gap-2 bg-primary text-white px-4 py-3 rounded-sm font-bold text-sm hover:bg-primary/90 transition-all duration-300 shadow-md min-h-[48px]"
           >
             <Phone size={18} />
             Anrufen
           </a>
           <Link
             to="/kontakt"
-            className="flex-1 flex items-center justify-center gap-2 bg-secondary text-white px-4 py-3 rounded-sm font-bold text-sm hover:bg-secondary/90 transition-all duration-300 shadow-md"
+            className="flex-1 flex items-center justify-center gap-2 bg-secondary text-white px-4 py-3 rounded-sm font-bold text-sm hover:bg-cta-hover transition-all duration-300 shadow-md min-h-[48px]"
           >
             <MessageSquare size={18} />
-            Besichtigung
+            Anfrage
           </Link>
         </div>
       </div>
