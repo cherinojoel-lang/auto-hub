@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { BaseCrudService } from '@/integrations';
 import { Image } from '@/components/ui/image';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 
 interface BlogArticle {
   _id: string;
@@ -49,8 +47,6 @@ export default function BlogPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <Header />
-      
       <main className="flex-1 w-full">
         {/* Hero Section */}
         <section className="w-full bg-gradient-to-r from-primary to-primary/90 py-16 md:py-24">
@@ -166,7 +162,7 @@ export default function BlogPage() {
         </section>
       </main>
 
-      <Footer />
+      
     </div>
   );
 }

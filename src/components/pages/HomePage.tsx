@@ -1,18 +1,15 @@
 // WI-HPI
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Search, ChevronRight, Star, MapPin, Phone, Mail, Clock, Info, Check, Award, Users, Zap, Calendar, Gauge, Fuel } from 'lucide-react';
+import { Search, ChevronRight, MapPin, Phone, Mail, Clock, Info, Check, Award, Users, Zap, Calendar, Gauge, Fuel, ShieldCheck } from 'lucide-react';
 import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
 import { Image } from '@/components/ui/image';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { updateMetaTags, getStructuredDataOrganization } from '@/lib/seo';
 import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, generateBusinessSchema, SITE_CONFIG } from '@/lib/seo-config';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { BaseCrudService } from '@/integrations';
 import VehicleInventorySection from '@/components/VehicleInventorySection';
-import SocialProofSection from '@/components/SocialProofSection';
 import ContactSection from '@/components/ContactSection';
 import HowItWorksSection from '@/components/HowItWorksSection';
 
@@ -169,7 +166,7 @@ export default function HomePage() {
             {/* Subheadline with animation */}
             <AnimatedElement direction="up" delay={200}>
               <p className="text-base sm:text-lg md:text-xl text-white/95 font-paragraph font-normal mb-10 sm:mb-12 leading-relaxed max-w-2xl">
-                Seit 1982 finden wir für jeden das passende Fahrzeug — mit transparenter Beratung, fairen Preisen und einem erstklassigen Service. 157 zufriedene Kunden vertrauen uns.
+                Seit 1982 finden wir für jeden das passende Fahrzeug — mit transparenter Beratung, fairen Preisen und persönlichem Service vor Ort.
               </p>
             </AnimatedElement>
 
@@ -211,18 +208,13 @@ export default function HomePage() {
             {/* Social Proof Strip */}
             <AnimatedElement direction="up" delay={600}>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 pt-8 sm:pt-12 border-t border-white/20">
-                {/* Rating */}
+                {/* Local trust */}
                 <div className="flex items-center gap-4">
                   <div className="flex flex-col">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-2xl sm:text-3xl font-bold text-white">5,0/5,0</span>
-                      <div className="flex gap-0.5">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} size={16} className="fill-yellow-400 text-yellow-400" />
-                        ))}
-                      </div>
+                      <span className="text-2xl sm:text-3xl font-bold text-white">Lokal</span>
                     </div>
-                    <p className="text-xs sm:text-sm text-white/80">157 mobile.de Bewertungen</p>
+                    <p className="text-xs sm:text-sm text-white/80">Iserlohn-Letmathe</p>
                   </div>
                 </div>
 
@@ -235,12 +227,12 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                {/* Recommendation */}
+                {/* Advice */}
                 <div className="flex items-center gap-4">
-                  <Award size={28} className="text-secondary flex-shrink-0" />
+                  <ShieldCheck size={28} className="text-secondary flex-shrink-0" />
                   <div className="flex flex-col">
-                    <p className="text-lg sm:text-xl font-bold text-white">100%</p>
-                    <p className="text-xs sm:text-sm text-white/80">Weiterempfehlung</p>
+                    <p className="text-lg sm:text-xl font-bold text-white">Vor Ort</p>
+                    <p className="text-xs sm:text-sm text-white/80">Persönliche Beratung</p>
                   </div>
                 </div>
               </div>
@@ -257,29 +249,22 @@ export default function HomePage() {
       {/* HOW IT WORKS SECTION */}
       <HowItWorksSection />
 
-      {/* SOCIAL PROOF SECTION - CUSTOMER REVIEWS & TESTIMONIALS */}
-      <SocialProofSection />
-
       {/* TRUST BAR */}
       <section className="bg-white border-b border-gray-200 py-8 sm:py-12">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8 text-center">
             <AnimatedElement delay={0}>
               <div className="flex flex-col items-center">
-                <div className="flex gap-1 mb-3 justify-center">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={20} className="fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-base font-bold text-primary mb-1">5 Sterne</p>
-                <p className="text-xs text-gray-600">auf mobile.de</p>
+                <MapPin size={32} className="text-secondary mb-3" />
+                <p className="text-base font-bold text-primary mb-1">Lokal vor Ort</p>
+                <p className="text-xs text-gray-600">Iserlohn-Letmathe</p>
               </div>
             </AnimatedElement>
             <AnimatedElement delay={100}>
               <div className="flex flex-col items-center">
-                <p className="text-3xl sm:text-4xl font-bold text-primary mb-2">157</p>
-                <p className="text-base font-bold text-primary mb-1">Bewertungen</p>
-                <p className="text-xs text-gray-600">von Kunden</p>
+                <ShieldCheck size={32} className="text-secondary mb-3" />
+                <p className="text-base font-bold text-primary mb-1">Geprüfte</p>
+                <p className="text-xs text-gray-600">Fahrzeuge</p>
               </div>
             </AnimatedElement>
             <AnimatedElement delay={200}>

@@ -7,8 +7,6 @@ import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
 import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, SITE_CONFIG } from '@/lib/seo-config';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 
@@ -46,6 +44,15 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
       {children}
     </div>
   );
+};
+
+const getVehicleImageCount = (vehicle: Vehicle) => {
+  const images: string[] = [];
+  if (vehicle.mainImage) images.push(vehicle.mainImage);
+  if (Array.isArray(vehicle.gallery) && vehicle.gallery.length > 0) {
+    images.push(...vehicle.gallery);
+  }
+  return Array.from(new Set(images)).length;
 };
 
 
@@ -323,29 +330,36 @@ export default function VehiclePage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                   {vehicles.map((vehicle, index) => (
                     <AnimatedElement key={vehicle.id} delay={index * 50}>
-                      <div className="group bg-card-bg rounded-sm shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden border border-border-line hover:scale-[1.02] flex flex-col h-full">
-                        {/* Image Section */}
-                        <div className="aspect-[4/3] overflow-hidden bg-alt-bg relative">
-                          {vehicle.mainImage ? (
-                            <Image
-                              src={vehicle.mainImage}
-                              alt={vehicle.alt || vehicle.title}
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
-                              width={400}
-                              height={300}
-                            />
-                          ) : (
-                            <div className="w-full h-full flex flex-col items-center justify-center" style={{ backgroundColor: '#F6F1EA' }}>
-                              <span className="text-text-secondary text-sm font-medium" style={{ color: '#536075' }}>Bild folgt</span>
-                            </div>
-                          )}
-                          <div className="absolute top-4 left-4 bg-success text-white px-3 py-1.5 text-xs font-bold rounded-sm shadow-md">
-                            Verfügbar
-                          </div>
-                        </div>
+                      {(() => {
+                        const imageCount = getVehicleImageCount(vehicle);
 
-                        {/* Content Section */}
-                        <div className="p-6 sm:p-8 flex flex-col flex-1">
+                        return (
+                          <div className="group bg-card-bg rounded-sm shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden border border-border-line hover:scale-[1.02] flex flex-col h-full">
+                            {/* Image Section */}
+                            <div className="aspect-[4/3] overflow-hidden bg-alt-bg relative">
+                              {vehicle.mainImage ? (
+                                <Image
+                                  src={vehicle.mainImage}
+                                  alt={vehicle.alt || vehicle.title}
+                                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
+                                  width={400}
+                                  height={300}
+                                />
+                              ) : (
+                                <div className="w-full h-full flex flex-col items-center justify-center" style={{ backgroundColor: '#F6F1EA' }}>
+                                  <span className="text-text-secondary text-sm font-medium" style={{ color: '#536075' }}>Bild folgt</span>
+                                </div>
+                              )}
+                              <div className="absolute top-4 left-4 bg-success text-white px-3 py-1.5 text-xs font-bold rounded-sm shadow-md">
+                                {vehicle.status === 'available' ? 'Verfügbar' : 'Archiv'}
+                              </div>
+                              <div className="absolute top-4 right-4 bg-primary text-white px-3 py-1.5 text-xs font-bold rounded-sm shadow-md">
+                                {imageCount} {imageCount === 1 ? 'Bild' : 'Bilder'}
+                              </div>
+                            </div>
+
+                            {/* Content Section */}
+                            <div className="p-6 sm:p-8 flex flex-col flex-1">
                           {/* Title */}
                           <h3 className="text-lg sm:text-xl font-heading font-bold mb-4 text-foreground group-hover:text-primary transition-colors">
                             {vehicle.title}
@@ -402,8 +416,10 @@ export default function VehiclePage() {
                               Anrufen
                             </a>
                           </div>
-                        </div>
-                      </div>
+                            </div>
+                          </div>
+                        );
+                      })()}
                     </AnimatedElement>
                   ))}
                 </div>
@@ -431,7 +447,7 @@ export default function VehiclePage() {
       </section>
 
 
-      <Footer />
+      
     </div>
   );
 }

@@ -3,8 +3,6 @@ import { FileText, CheckCircle, Clock } from 'lucide-react';
 import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
 import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, SITE_CONFIG } from '@/lib/seo-config';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 
@@ -100,8 +98,6 @@ export default function TradeInPage() {
         description={PAGE_METADATA.tradeIn.description}
         url={`${SITE_CONFIG.url}${PAGE_METADATA.tradeIn.path}`}
       />
-      <Header />
-
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary via-primary to-primary/80 text-background py-16 md:py-24 overflow-hidden">
         <div className="absolute inset-0 opacity-5">
@@ -353,7 +349,7 @@ export default function TradeInPage() {
         </div>
       </section>
 
-      <Footer />
+      
     </div>
   );
 }

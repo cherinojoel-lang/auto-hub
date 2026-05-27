@@ -22,8 +22,6 @@ export const SITE_CONFIG = {
   image: 'https://automobilequick.de/images/autohaus-showroom.jpg',
   foundingYear: 1982,
   yearsInBusiness: 42,
-  reviewCount: 157,
-  rating: 5.0,
 };
 
 export const PAGE_METADATA = {
@@ -87,14 +85,6 @@ export const OPENING_HOURS = [
   },
 ];
 
-export const REVIEWS = [
-  {
-    author: 'Detlef Wennemann',
-    rating: 5,
-    text: 'Ich habe 14 Jahre kein Auto gekauft und auf vieles gefasst. Hier lief alles super, da macht der Autokauf Spaß.',
-  },
-];
-
 /**
  * Generate LocalBusiness + AutoDealer Schema.org markup
  */
@@ -127,12 +117,6 @@ export function generateBusinessSchema() {
       '@type': 'City',
       name: SITE_CONFIG.address.addressLocality,
     },
-    review: REVIEWS.map((review) => ({
-      '@type': 'Review',
-      author: { '@type': 'Person', name: review.author },
-      reviewRating: { '@type': 'Rating', ratingValue: review.rating.toString() },
-      reviewBody: review.text,
-    })),
   };
 }
 
