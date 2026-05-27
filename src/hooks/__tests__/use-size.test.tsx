@@ -16,12 +16,18 @@ describe('useSize', () => {
   beforeEach(() => {
     vi.useFakeTimers()
 
-    // Mock requestAnimationFrame and cancelAnimationFrame
+    let nextId = 1
+    const rafMap = new Map<number, FrameRequestCallback>()
+
     vi.spyOn(window, 'requestAnimationFrame').mockImplementation((cb: FrameRequestCallback) => {
-      return setTimeout(() => cb(Date.now()), 0) as unknown as number
+      const id = nextId++
+      rafMap.set(id, cb)
+      // Execute it immediately to avoid async complexity in the hook test
+      cb(Date.now())
+      return id
     })
     vi.spyOn(window, 'cancelAnimationFrame').mockImplementation((id: number) => {
-      clearTimeout(id)
+      rafMap.delete(id)
     })
 
     mockRef = {

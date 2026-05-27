@@ -1,0 +1,89 @@
+<style>
+#aq-sticky-bar {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: #ff6b00;
+  height: 56px;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.2);
+}
+#aq-sticky-bar a {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: sans-serif;
+  letter-spacing: 0.3px;
+}
+#aq-sticky-bar a:hover { opacity: 0.92; }
+@media (max-width: 767px) {
+  #aq-sticky-bar { display: flex; }
+  body { padding-bottom: 56px; }
+}
+#aq-scroll-top {
+  display: none;
+  position: fixed;
+  bottom: 72px; right: 20px;
+  width: 44px; height: 44px;
+  background: #ff6b00;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 9998;
+  box-shadow: 0 4px 12px rgba(255,107,0,0.35);
+  border: none;
+  transition: transform 0.2s ease;
+}
+#aq-scroll-top:hover { transform: scale(1.08); }
+</style>
+
+<div id="aq-sticky-bar">
+  <a href="tel:+492374912912">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.38 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.6 16a2 2 0 0 1 .4.92z"/>
+    </svg>
+    Jetzt anrufen · 02374 912912
+  </a>
+</div>
+
+<button id="aq-scroll-top" aria-label="Nach oben" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18 15l-6-6-6 6"/>
+  </svg>
+</button>
+
+<script>
+(function(){
+  var btn = document.getElementById('aq-scroll-top');
+  if(btn) window.addEventListener('scroll', function(){
+    btn.style.display = window.scrollY > 300 ? 'flex' : 'none';
+  });
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('form').forEach(function(f){
+      f.addEventListener('submit', function(){
+        var b = f.querySelector('button[type=submit],input[type=submit]');
+        if(b){
+          b.disabled = true;
+          b.style.opacity = '0.7';
+          var o = b.textContent || b.value;
+          if(b.tagName === 'BUTTON') b.textContent = 'Wird gesendet...';
+          else b.value = 'Wird gesendet...';
+          setTimeout(function(){
+            b.disabled = false;
+            b.style.opacity = '1';
+            if(b.tagName === 'BUTTON') b.textContent = o;
+            else b.value = o;
+          }, 5000);
+        }
+      });
+    });
+  });
+})();
+</script>

@@ -96,6 +96,7 @@ export default function HomePage() {
       const visibleVehicles = vehiclesData.filter(v => v.status === 'available');
       setVehicle(visibleVehicles);
     } catch (error) {
+      console.error('Error loading vehicles:', error);
       // Silently handle error for now, as proper user-facing error state requires UI changes
     } finally {
       setIsLoading(false);
