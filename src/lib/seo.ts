@@ -1,3 +1,4 @@
+import type { Vehicles } from "../entities";
 /**
  * SEO Utility for managing meta tags and structured data
  */
@@ -156,7 +157,7 @@ export function getStructuredDataOrganization() {
   };
 }
 
-export function getStructuredDataProduct(vehicle: any) {
+export function getStructuredDataProduct(vehicle: Vehicles) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Product',
