@@ -39,6 +39,7 @@ describe('seo-config', () => {
 
       expect(schema).not.toHaveProperty('review');
       expect(schema).not.toHaveProperty('aggregateRating');
+      expect(schema).not.toHaveProperty('reviewCount');
     });
   });
 });
