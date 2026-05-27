@@ -1,14 +1,14 @@
 // WI-HPI
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Search, ChevronRight, MapPin, Phone, Mail, Clock, Info, Check, Award, Users, Zap, Calendar, Gauge, Fuel, ShieldCheck, Car } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ChevronRight, MapPin, Phone, Award, Users, Zap, Calendar, Gauge, Fuel, ShieldCheck, Car } from 'lucide-react';
 import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
 import { Image } from '@/components/ui/image';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { updateMetaTags, getStructuredDataOrganization } from '@/lib/seo';
 import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, generateBusinessSchema, SITE_CONFIG } from '@/lib/seo-config';
-import { BaseCrudService } from '@/integrations';
+
 import VehicleInventorySection from '@/components/VehicleInventorySection';
 import ContactSection from '@/components/ContactSection';
 import HowItWorksSection from '@/components/HowItWorksSection';
@@ -68,15 +68,10 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
 // --- Main Page Component ---
 
 export default function HomePage() {
-  const navigate = useNavigate();
   const [vehicles, setVehicle] = useState<Vehicle[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   
-  // Search State
-  const [manufacturer, setManufacturer] = useState('');
-  const [driveType, setDriveType] = useState('');
-  const [minYear, setMinYear] = useState('');
-  const [maxKm, setMaxKm] = useState('');
+
 
   useEffect(() => {
     // Update SEO for homepage
@@ -107,25 +102,6 @@ export default function HomePage() {
     }
   };
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    const params = new URLSearchParams();
-    if (manufacturer) params.set('manufacturer', manufacturer);
-    if (driveType) params.set('driveType', driveType);
-    if (minYear) params.set('minYear', minYear);
-    if (maxKm) params.set('maxKm', maxKm);
-    navigate(`/vehicles?${params.toString()}`);
-  };
-
-  const formatPrice = (price?: number) => {
-    if (!price) return 'Preis auf Anfrage';
-    return new Intl.NumberFormat('de-DE', {
-      style: 'currency',
-      currency: 'EUR',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(price);
-  };
 
   return (
     <div className="min-h-screen flex flex-col bg-background font-paragraph text-foreground overflow-x-hidden">

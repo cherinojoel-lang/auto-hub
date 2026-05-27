@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { ChevronRight, Filter, X, Phone, MessageSquare } from 'lucide-react';
+import { Filter, X } from 'lucide-react';
 import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
 import { Image } from '@/components/ui/image';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
@@ -63,7 +63,7 @@ export default function VehiclePage() {
   const [hasNext, setHasNext] = useState(false);
   const [skip, setSkip] = useState(0);
   const [showFilters, setShowFilters] = useState(false);
-  const [showMobileBar, setShowMobileBar] = useState(false);
+
 
   const [manufacturer, setManufacturer] = useState(searchParams.get('manufacturer') || '');
   const [priceMax, setPriceMax] = useState(searchParams.get('priceMax') || '');
@@ -145,15 +145,7 @@ export default function VehiclePage() {
     loadVehicle();
   };
 
-  const formatPrice = (price?: number) => {
-    if (!price) return 'Preis auf Anfrage';
-    return new Intl.NumberFormat('de-DE', {
-      style: 'currency',
-      currency: 'EUR',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(price);
-  };
+
 
   const loadMore = () => {
     setSkip(prev => prev + 15);

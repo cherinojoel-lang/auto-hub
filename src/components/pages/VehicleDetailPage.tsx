@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Calendar, Gauge, Zap, Fuel, ArrowLeft, Phone, MapPin, Wrench, Check, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Calendar, Gauge, Zap, Fuel, ArrowLeft, Phone, MapPin, Wrench, ChevronLeft, ChevronRight } from 'lucide-react';
 import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
 import { Image } from '@/components/ui/image';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
@@ -126,15 +126,7 @@ export default function VehicleDetailPage() {
     setCurrentGalleryIndex(prev => prev === galleryImages.length - 1 ? 0 : prev + 1);
   };
 
-  const formatPrice = (price?: number) => {
-    if (!price) return 'Preis auf Anfrage';
-    return new Intl.NumberFormat('de-DE', {
-      style: 'currency',
-      currency: 'EUR',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(price);
-  };
+
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
