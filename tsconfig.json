@@ -1,11 +1,9 @@
 {
   "extends": "astro/tsconfigs/base",
   "compilerOptions": {
-    "jsx": "react-jsx",
     "jsxImportSource": "react",
-    "ignoreDeprecations": "6.0",
-    "rootDir": ".",
     "baseUrl": ".",
+    "rootDir": ".",
     "incremental": true,
     "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo",
     "noUnusedLocals": false,
@@ -18,7 +16,6 @@
     "verbatimModuleSyntax": false,
     "skipLibCheck": true,
     "noUncheckedIndexedAccess": false,
-    "exactOptionalPropertyTypes": false,
     "paths": {
       "@/*": [
         "src/*"

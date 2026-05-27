@@ -110,8 +110,12 @@ export default function VehicleDetailPage() {
 
   const getGalleryImages = () => {
     if (!vehicle) return [];
-    if (!vehicle.gallery || vehicle.gallery.length === 0) return [];
-    return vehicle.gallery;
+    const images: string[] = [];
+    if (vehicle.mainImage) images.push(vehicle.mainImage);
+    if (vehicle.gallery && vehicle.gallery.length > 0) {
+      images.push(...vehicle.gallery);
+    }
+    return Array.from(new Set(images));
   };
 
   const galleryImages = getGalleryImages();
