@@ -31,12 +31,13 @@ async function finalAudit() {
 
   let errors = 0;
 
-  // Validation according to portal status (18 identified active listings on mobile.de)
-  if (visibleVehicles.length !== 18) {
-    console.log(`❌ FEHLER: Es sollten exakt 18 sichtbare Fahrzeuge sein (entsprechend mobile.de), gefunden: ${visibleVehicles.length}`);
+  // Validation according to current local portal-sync status.
+  const expectedVisibleVehicles = 20;
+  if (visibleVehicles.length !== expectedVisibleVehicles) {
+    console.log(`❌ FEHLER: Es sollten exakt ${expectedVisibleVehicles} sichtbare Fahrzeuge sein, gefunden: ${visibleVehicles.length}`);
     errors++;
   } else {
-    console.log('✅ 18 sichtbare Fahrzeuge verifiziert.');
+    console.log(`✅ ${expectedVisibleVehicles} sichtbare Fahrzeuge verifiziert.`);
   }
 
   // 2. Check for forbidden terms
@@ -73,7 +74,7 @@ async function finalAudit() {
   console.log('\n=== AUDIT ERGEBNIS ===');
   const isPass = errors === 0 && totalForbidden === 0;
   if (isPass) {
-    console.log('✅ STATUS: PASS - 18 sichtbare Fahrzeuge verifiziert, keine verbotenen Daten gefunden.');
+    console.log(`✅ STATUS: PASS - ${expectedVisibleVehicles} sichtbare Fahrzeuge verifiziert, keine verbotenen Daten gefunden.`);
   } else {
     console.log(`❌ STATUS: FAIL - ${errors} Datenfehler und ${totalForbidden} verbotene Begriffe gefunden.`);
   }

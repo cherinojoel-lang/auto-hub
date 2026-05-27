@@ -30,6 +30,9 @@ export const DEFAULT_SEO: SEOConfig = {
 
 export function updateMetaTags(config: SEOConfig) {
   document.documentElement.lang = 'de';
+  document
+    .querySelectorAll('[wix-seo-tags="true"]')
+    .forEach((element) => element.remove());
 
   // Update title
   document.title = config.title;

@@ -4,8 +4,6 @@ import { MapPin, Phone, Mail, Clock, ChevronRight, Award, Users, Target } from '
 import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
 import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, SITE_CONFIG } from '@/lib/seo-config';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 

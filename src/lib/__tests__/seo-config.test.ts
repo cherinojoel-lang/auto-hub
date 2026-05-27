@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { generateBusinessSchema, SITE_CONFIG, OPENING_HOURS, REVIEWS } from '../seo-config';
+import { generateBusinessSchema, SITE_CONFIG, OPENING_HOURS } from '../seo-config';
 
 describe('seo-config', () => {
   describe('generateBusinessSchema', () => {
@@ -37,14 +37,8 @@ describe('seo-config', () => {
         name: SITE_CONFIG.address.addressLocality,
       });
 
-      expect(schema.review).toBeDefined();
-      expect(schema.review.length).toBe(REVIEWS.length);
-      expect(schema.review[0]).toEqual({
-        '@type': 'Review',
-        author: { '@type': 'Person', name: REVIEWS[0].author },
-        reviewRating: { '@type': 'Rating', ratingValue: REVIEWS[0].rating.toString() },
-        reviewBody: REVIEWS[0].text,
-      });
+      expect(schema).not.toHaveProperty('review');
+      expect(schema).not.toHaveProperty('aggregateRating');
     });
   });
 });

@@ -11,6 +11,10 @@ interface SeoHeadProps {
 
 export default function SeoHead({ title, description, image, url, schema, schemas }: SeoHeadProps) {
   useEffect(() => {
+    document
+      .querySelectorAll('[wix-seo-tags="true"]')
+      .forEach((element) => element.remove());
+
     // Set title
     if (title) {
       document.title = title;
@@ -34,7 +38,11 @@ export default function SeoHead({ title, description, image, url, schema, schema
 
     if (description) {
       setMetaTag('description', description);
+      setMetaTag('og:title', title || 'Automobile Quick', true);
       setMetaTag('og:description', description, true);
+      setMetaTag('og:site_name', 'Automobile Quick', true);
+      setMetaTag('twitter:title', title || 'Automobile Quick');
+      setMetaTag('twitter:description', description);
     }
 
     if (image) {

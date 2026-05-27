@@ -3,8 +3,6 @@ import { useParams, Link } from 'react-router-dom';
 import { BaseCrudService } from '@/integrations';
 import { Image } from '@/components/ui/image';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 
 interface BlogArticle {
   _id: string;
@@ -170,11 +168,10 @@ export default function BlogDetailPage() {
   if (isLoading) {
     return (
       <div className="min-h-screen flex flex-col bg-white">
-        <Header />
         <main className="flex-1 flex items-center justify-center">
           <LoadingSpinner />
         </main>
-        <Footer />
+        
       </div>
     );
   }
@@ -182,7 +179,6 @@ export default function BlogDetailPage() {
   if (error || !article) {
     return (
       <div className="min-h-screen flex flex-col bg-white">
-        <Header />
         <main className="flex-1 flex items-center justify-center">
           <div className="text-center">
             <h1 className="font-heading text-3xl font-bold text-primary mb-4">Artikel nicht gefunden</h1>
@@ -191,15 +187,13 @@ export default function BlogDetailPage() {
             </Link>
           </div>
         </main>
-        <Footer />
+        
       </div>
     );
   }
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <Header />
-
       <main className="flex-1 w-full">
         {/* Featured Image */}
         {article.featuredImage && (
@@ -255,7 +249,7 @@ export default function BlogDetailPage() {
         </article>
       </main>
 
-      <Footer />
+      
     </div>
   );
 }

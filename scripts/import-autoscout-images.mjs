@@ -60,11 +60,15 @@ function isExactMatch(vehicle, listing) {
   const listingTitle = compact(vehicleTitleFromListing(listing));
   const localTitle = compact(vehicle.title);
   const sameTitle = listingTitle.includes(localTitle) || localTitle.includes(listingTitle);
-  const samePrice = listing.prices?.public?.priceRaw === vehicle.priceValue;
   const sameRegistration = listingVehicle.firstRegistrationDate?.formatted === vehicle.firstRegistration;
   const sameMileage = listingVehicle.mileageInKm?.formatted === vehicle.mileage;
   const samePower = listingVehicle.powerInKw?.formatted === (vehicle.power || '').split('/')[0].trim();
-  return sameTitle && samePrice && sameRegistration && sameMileage && samePower;
+  return sameTitle && sameRegistration && sameMileage && samePower;
+}
+
+function formatPrice(priceRaw) {
+  if (!priceRaw) return undefined;
+  return `${new Intl.NumberFormat('de-DE').format(priceRaw)} €`;
 }
 
 async function download(url, target) {
@@ -87,8 +91,6 @@ async function main() {
   let changed = false;
 
   for (const vehicle of vehicles) {
-    if (vehicle.status !== 'available') continue;
-
     const listing = listings.find((candidate) => isExactMatch(vehicle, candidate));
     if (!listing) {
       importReport.push({ id: vehicle.id, status: 'no-exact-match', downloaded: 0, total: vehicle.gallery.length });
@@ -109,6 +111,12 @@ async function main() {
     const gallery = urls.map((_, index) => publicPathFor(vehicle.folder, index));
     vehicle.mainImage = gallery[0] || vehicle.mainImage;
     vehicle.gallery = gallery;
+    vehicle.status = 'available';
+    vehicle.title = vehicleTitleFromListing(listing) || vehicle.title;
+    if (listing.prices?.public?.priceRaw) {
+      vehicle.priceValue = listing.prices.public.priceRaw;
+      vehicle.price = formatPrice(listing.prices.public.priceRaw);
+    }
     changed = true;
 
     importReport.push({

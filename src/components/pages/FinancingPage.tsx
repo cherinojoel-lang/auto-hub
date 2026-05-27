@@ -3,8 +3,6 @@ import { Zap, Percent, Clock } from 'lucide-react';
 import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
 import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, SITE_CONFIG } from '@/lib/seo-config';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import FinancingCalculatorSection from '@/components/FinancingCalculatorSection';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
@@ -93,8 +91,6 @@ export default function FinancingPage() {
         description={PAGE_METADATA.financing.description}
         url={`${SITE_CONFIG.url}${PAGE_METADATA.financing.path}`}
       />
-      <Header />
-
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary via-primary to-primary/80 text-background py-16 md:py-24 overflow-hidden">
         <div className="absolute inset-0 opacity-5">
@@ -280,7 +276,7 @@ export default function FinancingPage() {
         </div>
       </section>
 
-      <Footer />
+      
     </div>
   );
 }

@@ -7,8 +7,6 @@ import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { updateMetaTags, getStructuredDataProduct } from '@/lib/seo';
 import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, generateProductSchema, SITE_CONFIG } from '@/lib/seo-config';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string }> = ({ 
   children, 
@@ -112,7 +110,7 @@ export default function VehicleDetailPage() {
     if (!vehicle) return [];
     const images: string[] = [];
     if (vehicle.mainImage) images.push(vehicle.mainImage);
-    if (vehicle.gallery && vehicle.gallery.length > 0) {
+    if (Array.isArray(vehicle.gallery) && vehicle.gallery.length > 0) {
       images.push(...vehicle.gallery);
     }
     return Array.from(new Set(images));
@@ -120,7 +118,7 @@ export default function VehicleDetailPage() {
 
   const galleryImages = getGalleryImages();
   const hasMultipleImages = galleryImages.length > 1;
-  const currentImage = hasMultipleImages ? galleryImages[currentGalleryIndex] : vehicle?.mainImage;
+  const currentImage = galleryImages[currentGalleryIndex] || vehicle?.mainImage;
 
   const handlePrevImage = () => {
     setCurrentGalleryIndex(prev => prev === 0 ? galleryImages.length - 1 : prev - 1);
@@ -174,11 +172,11 @@ export default function VehicleDetailPage() {
             {/* MOBILE LAYOUT */}
             {/* Mobile: Full-width Image Gallery */}
             <div className="lg:hidden w-full" id="main-content">
-              <div className="aspect-video bg-alt-bg flex items-center justify-center relative">
+              <div className="bg-card-bg border-b border-border-line">
                 {vehicle.mainImage ? (
-                  <div className="w-full h-full flex flex-col">
+                  <div className="w-full flex flex-col">
                     {/* Main Image */}
-                    <div className="relative w-full flex-1 overflow-hidden">
+                    <div className="relative w-full aspect-video overflow-hidden bg-alt-bg">
                       <Image
                         src={currentImage || vehicle.mainImage}
                         alt={vehicle.alt || vehicle.title}
@@ -223,6 +221,7 @@ export default function VehicleDetailPage() {
                               className={`flex-shrink-0 aspect-video rounded overflow-hidden border-2 transition-all ${
                                 currentGalleryIndex === idx ? 'border-secondary' : 'border-border-line'
                               }`}
+                              style={{ width: '96px' }}
                             >
                               <Image
                                 src={img}
@@ -401,23 +400,46 @@ export default function VehicleDetailPage() {
             {/* Desktop: Image Gallery Section */}
             <AnimatedElement className="hidden lg:block container mx-auto px-4 max-w-7xl py-8 sm:py-12">
               <div className="bg-card-bg rounded-lg shadow-lg overflow-hidden border border-border-line">
-                <div className="aspect-video bg-alt-bg flex items-center justify-center relative">
+                <div className="bg-alt-bg">
                   {vehicle.mainImage ? (
-                    <div className="w-full h-full flex flex-col">
-                      <Image
-                        src={currentImage || vehicle.mainImage}
-                        alt={vehicle.alt || vehicle.title}
-                        className="w-full aspect-video object-cover"
-                        width={1200}
-                        height={675}
-                      />
+                    <div className="w-full flex flex-col">
+                      <div className="relative w-full aspect-video overflow-hidden bg-alt-bg">
+                        <Image
+                          src={currentImage || vehicle.mainImage}
+                          alt={vehicle.alt || vehicle.title}
+                          className="w-full h-full object-cover"
+                          width={1200}
+                          height={675}
+                        />
+                        {hasMultipleImages && (
+                          <>
+                            <div className="absolute top-5 right-5 bg-primary text-white px-4 py-2 text-sm font-bold rounded-sm shadow-md">
+                              {currentGalleryIndex + 1} / {galleryImages.length}
+                            </div>
+                            <button
+                              onClick={handlePrevImage}
+                              className="absolute left-5 top-1/2 -translate-y-1/2 bg-white/85 hover:bg-white text-primary p-3 rounded-full shadow-md transition-all"
+                              aria-label="Vorheriges Bild"
+                            >
+                              <ChevronLeft size={28} />
+                            </button>
+                            <button
+                              onClick={handleNextImage}
+                              className="absolute right-5 top-1/2 -translate-y-1/2 bg-white/85 hover:bg-white text-primary p-3 rounded-full shadow-md transition-all"
+                              aria-label="Nächstes Bild"
+                            >
+                              <ChevronRight size={28} />
+                            </button>
+                          </>
+                        )}
+                      </div>
                       {hasMultipleImages && (
-                        <div className="grid grid-cols-6 md:grid-cols-8 gap-2 p-4 bg-warm-bg overflow-x-auto">
+                        <div className="grid grid-cols-6 md:grid-cols-8 xl:grid-cols-10 gap-2 p-4 bg-warm-bg max-h-52 overflow-y-auto">
                           {galleryImages.map((img, idx) => (
                             <button
                               key={idx}
                               onClick={() => setCurrentGalleryIndex(idx)}
-                              className={`aspect-video relative rounded overflow-hidden border-2 transition-all flex-shrink-0 ${
+                              className={`aspect-video relative rounded overflow-hidden border-2 transition-all ${
                                 currentGalleryIndex === idx ? 'border-secondary' : 'border-border-line'
                               }`}
                             >
@@ -669,7 +691,7 @@ export default function VehicleDetailPage() {
         )}
       </div>
 
-      <Footer />
+      
     </div>
   );
 }
