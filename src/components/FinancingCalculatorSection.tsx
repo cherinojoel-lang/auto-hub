@@ -1,8 +1,10 @@
 import { useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function FinancingCalculatorSection() {
+  const navigate = useNavigate();
   const [purchasePrice, setPurchasePrice] = useState(25000);
   const [downPayment, setDownPayment] = useState(5000);
   const [loanTerm, setLoanTerm] = useState(48);
@@ -32,7 +34,7 @@ export default function FinancingCalculatorSection() {
 
   const handleFinancingRequest = () => {
     // Navigate to financing page or open contact form
-    window.location.href = '/finanzierung';
+    navigate('/finanzierung');
   };
 
   return (
