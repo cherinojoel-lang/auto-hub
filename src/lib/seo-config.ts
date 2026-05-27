@@ -21,7 +21,6 @@ export const SITE_CONFIG = {
   },
   image: 'https://automobilequick.de/images/autohaus-showroom.jpg',
   foundingYear: 1982,
-  yearsInBusiness: 42,
 };
 
 export const PAGE_METADATA = {
@@ -51,7 +50,7 @@ export const PAGE_METADATA = {
     path: '/finanzierung',
   },
   about: {
-    title: 'Über uns | Automobile Quick — 42 Jahre Erfahrung',
+    title: 'Über uns | Automobile Quick — Seit 1982 in Iserlohn',
     description: 'Lernen Sie Automobile Quick kennen. Seit 1982 Ihr zuverlässiger Partner für Gebrauchtwagen in Iserlohn. Unsere Geschichte & Werte.',
     path: '/ueber-uns',
   },

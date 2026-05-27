@@ -3,27 +3,27 @@
 ## Color Palette
 
 ### Primary Colors
-- **--color-primary**: `#16233A` (Dark Blue) - Main brand color for headings and structure
+- **--color-primary**: `#0A1628` (Navy) - Main brand color for headings and structure
 - **--color-accent**: `#213A5C` (Secondary Dark Blue) - Hero sections and emphasis
-- **--color-secondary**: `#D9431F` (CTA Orange) - Primary actions only
+- **--color-secondary**: `#FF6B00` (CTA Orange) - Primary actions only
 
 ### Semantic Colors
 - **--color-success**: `#27AE60` (Green) - Success states, confirmations
 - **--color-warning**: `#F39C12` (Amber) - Warnings, alerts
-- **--color-neutral-100**: `#F3F5F7` (Light Gray) - Page backgrounds
-- **--color-neutral-900**: `#101828` (Near Black) - Main text
+- **--color-neutral-100**: `#F5F5F5` (Light Gray) - Page backgrounds
+- **--color-neutral-900**: `#1A1A1A` (Near Black) - Main text
 
 ### Neutral Colors
-- **background**: `#FCFCFA` (Warm White) - Card backgrounds
-- **foreground**: `#101828` (Near Black) - Text content
+- **background**: `#FFFFFF` (White) - Card backgrounds
+- **foreground**: `#1A1A1A` (Near Black) - Text content
 - **border**: `#D8DEE8` - Subtle borders
 
 ## Typography
 
 ### Font Family
-- **--font-base**: `Source Sans 3, system-ui, sans-serif`
-- **font-heading**: `Roboto` (Bold weights for headings)
-- **font-paragraph**: `Roboto` (Regular weights for body text)
+- **--font-base**: `Aptos`, `Segoe UI`, `Helvetica Neue`, Arial, sans-serif
+- **font-heading**: `Aptos Display`, `Segoe UI`, `Helvetica Neue`, Arial, sans-serif
+- **font-paragraph**: `Aptos`, `Segoe UI`, `Helvetica Neue`, Arial, sans-serif
 
 ### Font Sizes (Tailwind)
 - `xs`: 0.75rem (12px)
@@ -53,15 +53,15 @@
 ## Component Standards
 
 ### Buttons
-- **height**: `2.5rem` (40px) - Standard button height
+- **height**: `3rem` (48px) - Standard button height
 - **border-radius**: `0.5rem` (8px)
 - **padding**: `0.75rem 1.5rem` (12px 24px)
-- **font-weight**: `500` (Medium)
+- **font-weight**: `700` (Bold)
 
 ### Cards
-- **border-radius**: `1rem` (16px)
+- **border-radius**: `0.5rem` (8px)
 - **padding**: `1.5rem` (24px)
-- **box-shadow**: `0 1px 3px rgba(0,0,0,0.1)` - Subtle shadow
+- **box-shadow**: none by default; use borders and spacing for premium structure
 - **border**: `1px solid rgba(26, 43, 76, 0.1)`
 
 ### Touch Targets (Mobile)

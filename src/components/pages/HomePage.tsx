@@ -1,7 +1,7 @@
 // WI-HPI
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Search, ChevronRight, MapPin, Phone, Mail, Clock, Info, Check, Award, Users, Zap, Calendar, Gauge, Fuel, ShieldCheck } from 'lucide-react';
+import { Search, ChevronRight, MapPin, Phone, Mail, Clock, Info, Check, Award, Users, Zap, Calendar, Gauge, Fuel, ShieldCheck, Car } from 'lucide-react';
 import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
 import { Image } from '@/components/ui/image';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
@@ -97,8 +97,8 @@ export default function HomePage() {
   const loadVehicle = async () => {
     try {
       setIsLoading(true);
-      // Use local vehiclesData - filter out hidden_review vehicles
-      const visibleVehicles = vehiclesData.filter(v => v.folder && !v.folder.includes('hidden_review'));
+      // Use only currently available vehicles for visible inventory sections.
+      const visibleVehicles = vehiclesData.filter(v => v.status === 'available');
       setVehicle(visibleVehicles);
     } catch (error) {
       // Silently handle error for now, as proper user-facing error state requires UI changes
@@ -137,8 +137,9 @@ export default function HomePage() {
       />
       <a href="#main-content" className="skip-to-main">
         Zum Hauptinhalt springen
-      </a>{/* HERO SECTION */}
-      <section className="relative w-full min-h-[70vh] md:min-h-[90vh] flex items-center justify-center overflow-hidden" role="banner" aria-label="Automobile Quick - Ihr vertrauensvoller Partner für Gebrauchtwagen">
+      </a>
+      {/* HERO SECTION */}
+      <section className="relative w-full min-h-[calc(100svh-64px)] lg:min-h-[calc(100svh-72px)] flex items-center justify-center overflow-hidden" role="banner" aria-label="Automobile Quick - Gebrauchtwagen in Iserlohn-Letmathe">
         {/* Background Image with Dark Overlay Gradient */}
         <div className="absolute inset-0 z-0">
           <Image 
@@ -150,33 +151,32 @@ export default function HomePage() {
             loading="eager"
             fetchPriority="high"
           />
-          {/* Dark Overlay Gradient: left (rgba(15,23,42,0.85)) to right (rgba(15,23,42,0.4)) */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[rgba(15,23,42,0.85)] via-[rgba(15,23,42,0.65)] to-[rgba(15,23,42,0.4)]"></div>
+          <div className="absolute inset-0 bg-primary/75"></div>
         </div>
 
-        <div className="relative z-10 container mx-auto px-4 max-w-7xl text-left py-12 sm:py-16 md:py-24 w-full">
-          <div className="max-w-2xl">
+        <div className="relative z-10 container mx-auto px-4 max-w-7xl text-left py-10 sm:py-14 lg:py-20 w-full">
+          <div className="max-w-[760px]">
             {/* Headline with animation */}
             <AnimatedElement direction="up" delay={0}>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-bold text-white mb-6 sm:mb-8 tracking-tight leading-[1.1]">
-                Ihr vertrauensvoller Partner für Gebrauchtwagen in Iserlohn-Letmathe
+              <h1 className="text-3xl sm:text-4xl md:text-5xl xl:text-[56px] font-heading font-bold text-white mb-5 sm:mb-6 tracking-normal leading-[1.12]">
+                Gebrauchtwagen in Iserlohn-Letmathe
               </h1>
             </AnimatedElement>
 
             {/* Subheadline with animation */}
             <AnimatedElement direction="up" delay={200}>
-              <p className="text-base sm:text-lg md:text-xl text-white/95 font-paragraph font-normal mb-10 sm:mb-12 leading-relaxed max-w-2xl">
-                Seit 1982 finden wir für jeden das passende Fahrzeug — mit transparenter Beratung, fairen Preisen und persönlichem Service vor Ort.
+              <p className="text-base sm:text-lg md:text-xl text-white/95 font-paragraph font-normal mb-8 sm:mb-10 leading-relaxed max-w-[680px]">
+                Seit 1982 bietet Automobile Quick gepflegte Gebrauchtwagen, echte Fahrzeugbilder und persönliche Beratung direkt vor Ort.
               </p>
             </AnimatedElement>
 
             {/* CTA Buttons with animation */}
             <AnimatedElement direction="up" delay={400}>
-              <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 mb-12 sm:mb-16 flex-wrap">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-8 sm:mb-10 flex-wrap">
                 {/* Primary CTA: Jetzt Fahrzeuge entdecken */}
                 <Link
                   to="/fahrzeugbestand"
-                  className="px-8 sm:px-10 py-4 bg-secondary text-white font-bold rounded-sm hover:bg-[#ef4444] transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-2xl transform hover:-translate-y-0.5 text-base sm:text-lg min-h-[48px] whitespace-nowrap"
+                  className="px-6 sm:px-8 py-3.5 bg-secondary text-white font-bold rounded-md hover:bg-cta-hover transition-colors duration-200 inline-flex items-center justify-center gap-2 text-base min-h-[52px] whitespace-nowrap"
                   aria-label="Fahrzeuge entdecken - Zu unserem Fahrzeugbestand"
                 >
                   Jetzt Fahrzeuge entdecken
@@ -186,17 +186,17 @@ export default function HomePage() {
                 {/* Secondary CTA: Probefahrt vereinbaren */}
                 <Link
                   to="/kontakt"
-                  className="px-8 sm:px-10 py-4 bg-transparent border-2 border-white text-white font-bold rounded-sm hover:bg-white hover:text-primary transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-2xl transform hover:-translate-y-0.5 text-base sm:text-lg min-h-[48px] whitespace-nowrap"
-                  aria-label="Probefahrt vereinbaren - Kontaktformular"
+                  className="px-6 sm:px-8 py-3.5 bg-white/5 border border-white/80 text-white font-bold rounded-md hover:bg-white hover:text-primary transition-colors duration-200 inline-flex items-center justify-center gap-2 text-base min-h-[52px] whitespace-nowrap"
+                  aria-label="Kontakt aufnehmen - Kontaktformular"
                 >
-                  Probefahrt vereinbaren
+                  Kontakt aufnehmen
                   <ChevronRight size={20} />
                 </Link>
 
                 {/* Phone CTA */}
                 <a
-                  href="tel:+4923749157-0"
-                  className="px-6 sm:px-8 py-4 bg-secondary text-white font-bold rounded-sm hover:bg-[#ef4444] transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-2xl transform hover:-translate-y-0.5 text-base sm:text-lg min-h-[48px] whitespace-nowrap"
+                  href="tel:+492374912912"
+                  className="px-5 sm:px-6 py-3.5 bg-transparent border border-white/45 text-white font-bold rounded-md hover:border-white hover:bg-white/10 transition-colors duration-200 inline-flex items-center justify-center gap-2 text-base min-h-[52px] whitespace-nowrap"
                   aria-label="Anrufen: +49 2374 912912"
                 >
                   <Phone size={18} />
@@ -207,32 +207,46 @@ export default function HomePage() {
 
             {/* Social Proof Strip */}
             <AnimatedElement direction="up" delay={600}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 pt-8 sm:pt-12 border-t border-white/20">
-                {/* Local trust */}
-                <div className="flex items-center gap-4">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 pt-6 sm:pt-8 border-t border-white/20">
+                {/* Google trust */}
+                <a
+                  href="https://maps.app.goo.gl/zuvHCS86UcA9VTdv6"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 hover:opacity-90 transition-opacity"
+                  aria-label="Google-Unternehmensprofil von Automobile Quick öffnen"
+                >
                   <div className="flex flex-col">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-2xl sm:text-3xl font-bold text-white">Lokal</span>
+                      <span className="text-2xl sm:text-3xl font-bold text-white">4,9</span>
                     </div>
-                    <p className="text-xs sm:text-sm text-white/80">Iserlohn-Letmathe</p>
+                    <p className="text-xs sm:text-sm text-white/80">Google-Unternehmensprofil</p>
                   </div>
-                </div>
+                </a>
 
                 {/* Experience */}
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3">
                   <Calendar size={28} className="text-secondary flex-shrink-0" />
                   <div className="flex flex-col">
                     <p className="text-lg sm:text-xl font-bold text-white">Seit 1982</p>
-                    <p className="text-xs sm:text-sm text-white/80">42 Jahre Erfahrung</p>
+                    <p className="text-xs sm:text-sm text-white/80">Erfahrung vor Ort</p>
                   </div>
                 </div>
 
                 {/* Advice */}
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3">
                   <ShieldCheck size={28} className="text-secondary flex-shrink-0" />
                   <div className="flex flex-col">
                     <p className="text-lg sm:text-xl font-bold text-white">Vor Ort</p>
                     <p className="text-xs sm:text-sm text-white/80">Persönliche Beratung</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <Car size={28} className="text-secondary flex-shrink-0" />
+                  <div className="flex flex-col">
+                    <p className="text-lg sm:text-xl font-bold text-white">Echt</p>
+                    <p className="text-xs sm:text-sm text-white/80">Fahrzeugbilder</p>
                   </div>
                 </div>
               </div>
@@ -311,7 +325,7 @@ export default function HomePage() {
               {isLoading ? (
                 // Loading Skeletons
                 Array.from({ length: 6 }).map((_, i) => (
-                  <div key={`skeleton-${i}`} className="bg-white rounded-sm shadow-md border border-gray-100 overflow-hidden animate-pulse">
+                  <div key={`skeleton-${i}`} className="bg-white rounded-md border border-border-line overflow-hidden animate-pulse">
                     <div className="aspect-[4/3] bg-gray-200"></div>
                     <div className="p-6 space-y-4">
                       <div className="h-6 bg-gray-200 rounded w-3/4"></div>
@@ -329,7 +343,7 @@ export default function HomePage() {
                   <AnimatedElement key={vehicle.id} delay={index * 100} direction="up">
                     <Link
                       to={`/fahrzeugdetail/${vehicle.id}`}
-                      className="group flex flex-col h-full bg-white rounded-sm shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:scale-[1.02]"
+                      className="group flex flex-col h-full bg-white rounded-md transition-colors duration-200 overflow-hidden border border-border-line hover:border-secondary/70"
                     >
                       {/* Image Container */}
                       <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
@@ -346,8 +360,8 @@ export default function HomePage() {
                             <span className="text-sm font-medium">Bild folgt</span>
                           </div>
                         )}
-                        <div className="absolute top-4 left-4 bg-success text-white px-3 py-1.5 text-xs font-bold rounded-sm shadow-md">
-                          Sofort lieferbar
+                        <div className="absolute top-4 left-4 bg-white/95 text-primary px-3 py-1.5 text-xs font-bold rounded-md border border-border-line">
+                          Verfügbar
                         </div>
                       </div>
 
@@ -422,21 +436,21 @@ export default function HomePage() {
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-10">
             <AnimatedElement direction="left">
-              <div className="bg-white p-8 sm:p-10 rounded-sm shadow-lg border-l-4 border-secondary h-full">
+              <div className="bg-white p-8 sm:p-10 rounded-md border border-border-line border-l-4 border-l-secondary h-full">
                 <Award size={44} className="mb-6 text-secondary" />
                 <h3 className="text-xl sm:text-2xl font-heading font-bold mb-4 text-primary">Geprüfte Fahrzeuge</h3>
                 <p className="text-sm sm:text-base text-gray-600 leading-relaxed">Alle Fahrzeuge werden sorgfältig geprüft und inspiziert, um höchste Qualitätsstandards zu gewährleisten.</p>
               </div>
             </AnimatedElement>
             <AnimatedElement direction="up" delay={100}>
-              <div className="bg-white p-8 sm:p-10 rounded-sm shadow-lg border-l-4 border-secondary h-full">
+              <div className="bg-white p-8 sm:p-10 rounded-md border border-border-line border-l-4 border-l-secondary h-full">
                 <Users size={44} className="mb-6 text-secondary" />
                 <h3 className="text-xl sm:text-2xl font-heading font-bold mb-4 text-primary">Persönliche Beratung</h3>
                 <p className="text-sm sm:text-base text-gray-600 leading-relaxed">Unser erfahrenes Team berät Sie kompetent und fair – ganz nach Ihren individuellen Wünschen und Anforderungen.</p>
               </div>
             </AnimatedElement>
             <AnimatedElement direction="right" delay={200}>
-              <div className="bg-white p-8 sm:p-10 rounded-sm shadow-lg border-l-4 border-secondary h-full">
+              <div className="bg-white p-8 sm:p-10 rounded-md border border-border-line border-l-4 border-l-secondary h-full">
                 <Award size={44} className="mb-6 text-secondary" />
                 <h3 className="text-xl sm:text-2xl font-heading font-bold mb-4 text-primary">Seit 1982</h3>
                 <p className="text-sm sm:text-base text-gray-600 leading-relaxed">Ein verlässlicher Partner für hochwertige Gebrauchtwagen in Iserlohn-Letmathe und der Region.</p>
@@ -450,16 +464,16 @@ export default function HomePage() {
       <section className="py-12 sm:py-16 md:py-20 bg-white">
         <div className="container mx-auto px-4 max-w-7xl">
           <AnimatedElement>
-            <div className="bg-gradient-to-r from-primary to-primary/90 rounded-sm shadow-2xl p-10 sm:p-14 md:p-16 text-center text-white border-b-4 border-secondary">
+            <div className="bg-primary rounded-md p-10 sm:p-14 md:p-16 text-center text-white border-b-4 border-secondary">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold mb-6 sm:mb-8">
                 Sie möchten Ihr Auto verkaufen?
               </h2>
               <p className="text-base sm:text-lg text-white/90 mb-10 sm:mb-12 max-w-2xl mx-auto leading-relaxed">
-                Automobile Quick bietet faire Preise für Ihren Gebrauchtwagen. Kontaktieren Sie uns für eine unverbindliche Bewertung.
+                Automobile Quick prüft Ihr Fahrzeug persönlich vor Ort. Kontaktieren Sie uns für eine unverbindliche Anfrage.
               </p>
               <Link
                 to="/autoankauf"
-                className="inline-flex items-center gap-3 px-10 py-4 bg-secondary text-white font-bold rounded-sm hover:bg-secondary/90 transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:-translate-y-0.5 text-lg"
+                className="inline-flex items-center gap-3 px-10 py-4 bg-secondary text-white font-bold rounded-md hover:bg-cta-hover transition-colors duration-200 text-lg min-h-[52px]"
               >
                 Autoankauf anfragen
                 <ChevronRight size={24} />
@@ -473,7 +487,7 @@ export default function HomePage() {
       <section className="py-12 sm:py-16 md:py-20 bg-gray-50">
         <div className="container mx-auto px-4 max-w-7xl">
           <AnimatedElement>
-            <div className="bg-white rounded-sm shadow-2xl p-10 sm:p-14 md:p-16 text-center border-b-4 border-secondary">
+            <div className="bg-white rounded-md p-10 sm:p-14 md:p-16 text-center border border-border-line border-b-4 border-b-secondary">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-primary mb-6 sm:mb-8">
                 Flexible Finanzierungslösungen
               </h2>
@@ -482,7 +496,7 @@ export default function HomePage() {
               </p>
               <Link
                 to="/finanzierung"
-                className="inline-flex items-center gap-3 px-10 py-4 bg-primary text-white font-bold rounded-sm hover:bg-primary/90 transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:-translate-y-0.5 text-lg"
+                className="inline-flex items-center gap-3 px-10 py-4 bg-primary text-white font-bold rounded-md hover:bg-primary/90 transition-colors duration-200 text-lg min-h-[52px]"
               >
                 Finanzierung anfragen
                 <ChevronRight size={24} />

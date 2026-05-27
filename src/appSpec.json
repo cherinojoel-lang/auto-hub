@@ -52,7 +52,7 @@
     },
     "components": {
       "images": "Layout Role: Full-bleed background for hero sections, or carefully placed within the grid for vehicle listings. | Gallery Type: Standard grid layout for vehicle listings, with larger featured images for specific models. Images should be high-resolution and professionally shot.",
-      "buttons": "Primary: background-color: #D9431F, color: #FFFFFF, border-radius: 4px, padding: 12px 24px, font-weight: 600, transition: background-color 0.3s ease. Secondary: background-color: transparent, color: #16233A, border: 1px solid #D8DEE8, border-radius: 4px, padding: 12px 24px, font-weight: 600, transition: all 0.3s ease. Ghost buttons (text-only with hover effect) can also be used for secondary actions.",
+      "buttons": "Primary: background-color: #FF6B00, color: #FFFFFF, border-radius: 6px, min-height: 48px, padding: 12px 24px, font-weight: 700. Secondary: background-color: transparent, color: #0A1628, border: 1px solid #0A1628, border-radius: 6px, min-height: 48px, padding: 12px 24px, font-weight: 700. No heavy shadows, no bouncing hover effects, no gradients.",
       "containers": "Method: Whitespace, Style: Generous vertical margins (40px-80px) between sections. Content sections are full-bleed but internally padded (40px-80px). Subtle background variations (e.g., very light grey) can be used for distinct sections."
     },
     "palette": {
@@ -71,41 +71,42 @@
             "value": "#FFFFFF"
           }
         ],
-        "background": "#F3F5F7",
-        "secondary": "#D9431F",
-        "foreground": "#101828",
+        "background": "#F5F5F5",
+        "secondary": "#FF6B00",
+        "foreground": "#1A1A1A",
         "secondaryForeground": "#FFFFFF",
         "primaryForeground": "#FFFFFF",
-        "primary": "#16233A"
+        "primary": "#0A1628"
       },
-      "paletteUsageGuide": "The primary color (#16233A) should be used for structure, headings, and premium dark sections. The secondary color (#D9431F) is reserved for primary calls to action. The foreground color (#101828) serves as the primary text color. Page backgrounds should use light grey (#F3F5F7), cards should use warm white (#FCFCFA), and borders should use #D8DEE8.",
+      "paletteUsageGuide": "The primary color (#0A1628) should be used for structure, headings, header, footer and premium dark sections. The secondary color (#FF6B00) is reserved for primary calls to action. The foreground color (#1A1A1A) serves as the primary text color. Page backgrounds should use light grey (#F5F5F5), cards should use white (#FFFFFF), and borders should use #D8DEE8.",
       "paletteAccessibilityNotes": "Ensure sufficient contrast between primary/secondary colors and their foreground counterparts. Text color (#0D1E3C) on white background (#FFFFFF) provides excellent contrast. All interactive elements should meet WCAG AA contrast ratios."
     },
     "typography": {
       "headings": {
         "font": {
-          "fontFamily": "fraunces",
+          "fontFamily": "Aptos Display",
           "role": "headings",
           "fontJustification": ""
         },
         "headingsAccessibilityNotes": "Ensure headings are semantically correct and provide clear structure. Maintain sufficient contrast with the background.",
         "headingsSimilarFonts": [
-          "playfair display",
-          "cormorantgaramond"
+          "Helvetica Neue",
+          "Avenir Next",
+          "Satoshi"
         ],
-        "headingsUsageGuide": "Use for all major headings (H1, H2, H3). The font's high contrast and classic serifs lend an air of sophistication and importance. Ensure adequate line height and letter spacing for readability, especially for longer headings."
+        "headingsUsageGuide": "Use for all major headings (H1, H2, H3). The type should feel precise, modern, premium and highly legible. Avoid decorative serif styling."
       },
       "paragraphs": {
         "font": {
-          "fontFamily": "Cabin",
+          "fontFamily": "Aptos",
           "role": "paragraphs",
           "fontJustification": ""
         },
-        "paragraphsUsageGuide": "Use for all body text, descriptions, and longer content blocks. Its clean, legible sans-serif form ensures readability across various screen sizes and for extended reading. Maintain a comfortable line height and appropriate font size.",
+        "paragraphsUsageGuide": "Use for all body text, descriptions, and longer content blocks. Its clean, legible premium sans form ensures readability across various screen sizes and for extended reading. Maintain a comfortable line height and appropriate font size.",
         "paragraphsSimilarFonts": [
-          "open sans",
-          "nunito sans",
-          "rubik-v2"
+          "Segoe UI",
+          "Helvetica Neue",
+          "Avenir Next"
         ],
         "paragraphsAccessibilityNotes": "Ensure body text is at least 16px for readability. Maintain a minimum contrast ratio of 4.5:1 against the background."
       },
@@ -205,7 +206,7 @@
       ],
       "welcomeSectionTypography": {
         "placement": "Centered, prominent placement on the hero section.",
-        "implementation": "Large, impactful 'fraunces' font for the main headline, potentially with subtle letter spacing adjustments. Sub-headline in 'Cabin' for clarity and contrast."
+        "implementation": "Large, impactful Aptos Display style for the main headline with normal letter spacing. Sub-headline in Aptos for clarity and modern premium readability."
       }
     },
     "originImagesUrls": []
