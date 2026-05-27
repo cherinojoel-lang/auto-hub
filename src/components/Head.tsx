@@ -3,6 +3,7 @@ export const Head = () => {
     <>
       <meta charSet="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Automobile Quick - Gebrauchtwagen in Iserlohn-Letmathe</title>
       
       {/* SEO Meta Tags */}
       <meta name="description" content="Hochwertige Gebrauchtwagen mit persönlicher Beratung. Automobile Quick - Ihr Autohaus seit 1982 in Iserlohn-Letmathe." />

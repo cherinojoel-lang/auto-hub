@@ -127,13 +127,6 @@ export function generateBusinessSchema() {
       '@type': 'City',
       name: SITE_CONFIG.address.addressLocality,
     },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: SITE_CONFIG.rating.toString(),
-      reviewCount: SITE_CONFIG.reviewCount.toString(),
-      bestRating: '5',
-      worstRating: '1',
-    },
     review: REVIEWS.map((review) => ({
       '@type': 'Review',
       author: { '@type': 'Person', name: review.author },
@@ -167,11 +160,6 @@ export function generateProductSchema(vehicle: {
       price: vehicle.price?.toString() || '0',
       priceCurrency: 'EUR',
       availability: 'https://schema.org/InStock',
-    },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: SITE_CONFIG.rating.toString(),
-      reviewCount: SITE_CONFIG.reviewCount.toString(),
     },
   };
 }
