@@ -31,7 +31,7 @@ const router = createBrowserRouter([
             <HomePage />
           </>
         ),
-        routeMetadata: {
+        handle: {
           pageIdentifier: 'home',
         },
       },
@@ -43,7 +43,7 @@ const router = createBrowserRouter([
             <VehiclesPage />
           </Suspense>
         ),
-        routeMetadata: {
+        handle: {
           pageIdentifier: 'vehicles',
         },
       },
@@ -55,7 +55,7 @@ const router = createBrowserRouter([
             <VehicleDetailPage />
           </Suspense>
         ),
-        routeMetadata: {
+        handle: {
           pageIdentifier: 'vehicle-detail',
         },
       },
@@ -67,7 +67,7 @@ const router = createBrowserRouter([
             <AboutPage />
           </Suspense>
         ),
-        routeMetadata: {
+        handle: {
           pageIdentifier: 'about',
         },
       },
@@ -79,7 +79,7 @@ const router = createBrowserRouter([
             <ContactPage />
           </Suspense>
         ),
-        routeMetadata: {
+        handle: {
           pageIdentifier: 'contact',
         },
       },
@@ -91,7 +91,7 @@ const router = createBrowserRouter([
             <TradeInPage />
           </Suspense>
         ),
-        routeMetadata: {
+        handle: {
           pageIdentifier: 'trade-in',
         },
       },
@@ -103,7 +103,7 @@ const router = createBrowserRouter([
             <FinancingPage />
           </Suspense>
         ),
-        routeMetadata: {
+        handle: {
           pageIdentifier: 'financing',
         },
       },
@@ -115,7 +115,7 @@ const router = createBrowserRouter([
             <ImprintPage />
           </Suspense>
         ),
-        routeMetadata: {
+        handle: {
           pageIdentifier: 'imprint',
         },
       },
@@ -127,7 +127,7 @@ const router = createBrowserRouter([
             <PrivacyPage />
           </Suspense>
         ),
-        routeMetadata: {
+        handle: {
           pageIdentifier: 'privacy',
         },
       },
@@ -139,7 +139,7 @@ const router = createBrowserRouter([
             <BlogPage />
           </Suspense>
         ),
-        routeMetadata: {
+        handle: {
           pageIdentifier: 'blog',
         },
       },
@@ -151,7 +151,7 @@ const router = createBrowserRouter([
             <BlogDetailPage />
           </Suspense>
         ),
-        routeMetadata: {
+        handle: {
           pageIdentifier: 'blog-detail',
         },
       },
