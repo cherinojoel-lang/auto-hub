@@ -1,3 +1,4 @@
+import { AnimatedElement } from "@/components/ui/animated-element";
 import { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Calendar, Gauge, Zap, Fuel, ArrowLeft, Phone, MapPin, Wrench, Check, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -10,42 +11,6 @@ import { PAGE_METADATA, generateProductSchema, SITE_CONFIG } from '@/lib/seo-con
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string }> = ({ 
-  children, 
-  className = '' 
-}) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(el);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      className={`transition-all duration-700 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-      } ${className}`}
-    >
-      {children}
-    </div>
-  );
-};
 
 // Mock features for the demo vehicle
 const DEMO_FEATURES = [
@@ -75,12 +40,12 @@ export default function VehicleDetailPage() {
     try {
       setIsLoading(true);
       const safeVehicles = Array.isArray(vehiclesData) ? vehiclesData : []; 
-      const data = safeVehicles.find((v: any) => v.id === id) || null;
+      const data = safeVehicles.find((v: Vehicle) => v.id === id) || null;
       setVehicle(data);
       setCurrentGalleryIndex(0);
       
       // Load similar vehicles
-      setSimilarVehicle(safeVehicles.filter((v: any) => v.id !== id).slice(0, 4));
+      setSimilarVehicle(safeVehicles.filter((v: Vehicle) => v.id !== id).slice(0, 4));
       
       // Update SEO for vehicle detail page
       if (data) {
@@ -403,7 +368,7 @@ export default function VehicleDetailPage() {
                       <Image
                         src={currentImage || vehicle.mainImage}
                         alt={vehicle.alt || vehicle.title}
-                        className="w-full aspect-video object-cover"
+                        className="w-full aspect-video object-cover" loading="eager" fetchPriority="high"
                         width={1200}
                         height={675}
                       />

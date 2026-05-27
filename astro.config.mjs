@@ -78,6 +78,7 @@ export default defineConfig({
     host: true,
   },
   security: {
-    checkOrigin: false
+    // SECURITY: CRITICAL - checkOrigin must be true to enable Astro's built-in CSRF protection for server endpoints
+    checkOrigin: true
   }
 });

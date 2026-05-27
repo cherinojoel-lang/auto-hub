@@ -1,6 +1,7 @@
+import { AnimatedElement } from "@/components/ui/animated-element";
 import { useState, useEffect, useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { ChevronRight, Filter, X, Phone, MessageSquare } from 'lucide-react';
+import { Filter, X, Phone, MessageSquare } from 'lucide-react';
 import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
 import { Image } from '@/components/ui/image';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
@@ -10,43 +11,6 @@ import { PAGE_METADATA, SITE_CONFIG } from '@/lib/seo-config';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
-  children, 
-  className = '',
-  delay = 0 
-}) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => setIsVisible(true), delay);
-          observer.unobserve(el);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [delay]);
-
-  return (
-    <div
-      ref={ref}
-      className={`transition-all duration-700 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-      } ${className}`}
-    >
-      {children}
-    </div>
-  );
-};
 
 
 export default function VehiclePage() {
@@ -88,23 +52,22 @@ export default function VehiclePage() {
     try {
       // Simulate API latency
       await new Promise(resolve => setTimeout(resolve, 300));
-      let filtered = [...vehiclesData];
+      // Optimization: Hoist lowercase and parseInt conversions out of the filter loop
+      const manufacturerLower = manufacturer ? manufacturer.toLowerCase() : null;
+      const driveTypeLower = driveType ? driveType.toLowerCase() : null;
+      const priceMaxInt = priceMax ? parseInt(priceMax, 10) : null;
+      const maxMileageInt = maxMileage ? parseInt(maxMileage, 10) : null;
 
-      if (manufacturer) {
-        filtered = filtered.filter(v => v.title?.toLowerCase().includes(manufacturer.toLowerCase()));
-      }
-      if (priceMax) {
-        filtered = filtered.filter(v => v.price && parseInt(v.price.replace(/[^0-9]/g, '')) <= parseInt(priceMax));
-      }
-      if (driveType) {
-        filtered = filtered.filter(v => v.fuel?.toLowerCase().includes(driveType.toLowerCase()));
-      }
-      if (maxMileage) {
-        filtered = filtered.filter(v => v.mileage && parseInt(v.mileage.replace(/[^0-9]/g, '')) <= parseInt(maxMileage));
-      }
-      if (yearFrom) {
-        filtered = filtered.filter(v => v.firstRegistration && v.firstRegistration.includes(yearFrom));
-      }
+      const filtered = vehiclesData.filter(v => {
+        // Use early returns to skip remaining checks if one fails
+        if (manufacturerLower && (!v.title || !v.title.toLowerCase().includes(manufacturerLower))) return false;
+        if (priceMaxInt && (!v.price || parseInt(v.price.replace(/[^0-9]/g, ''), 10) > priceMaxInt)) return false;
+        if (driveTypeLower && (!v.fuel || !v.fuel.toLowerCase().includes(driveTypeLower))) return false;
+        if (maxMileageInt && (!v.mileage || parseInt(v.mileage.replace(/[^0-9]/g, ''), 10) > maxMileageInt)) return false;
+        if (yearFrom && (!v.firstRegistration || !v.firstRegistration.includes(yearFrom))) return false;
+
+        return true;
+      });
 
       setVehicle(filtered);
       setHasNext(false); // All static items loaded
@@ -190,14 +153,16 @@ export default function VehiclePage() {
             </h2>
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="md:hidden flex items-center gap-2 text-primary font-bold text-sm sm:text-base hover:text-primary/80 transition-colors"
+              aria-expanded={showFilters}
+              aria-controls="filters-container"
+              className="md:hidden flex items-center gap-2 text-primary font-bold text-sm sm:text-base hover:text-primary/80 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm"
             >
               <Filter size={22} />
               {showFilters ? 'Schließen' : 'Filter anzeigen'}
             </button>
           </div>
 
-          <div className={`${showFilters ? 'block' : 'hidden'} md:block`}>
+          <div id="filters-container" className={`${showFilters ? 'block' : 'hidden'} md:block`}>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 mb-6">
               <div>
                 <label className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
@@ -332,7 +297,7 @@ export default function VehiclePage() {
                             <Image
                               src={vehicle.mainImage}
                               alt={vehicle.alt || vehicle.title}
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" loading={index <= 2 ? "eager" : "lazy"} fetchPriority={index <= 2 ? "high" : "auto"}
                               width={400}
                               height={300}
                             />

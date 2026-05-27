@@ -1,3 +1,4 @@
+import { z } from 'zod';
 import { Phone, MessageCircle, Mail, Clock } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
@@ -116,7 +117,7 @@ export default function ContactSection() {
 
     if (!formData.email.trim()) {
       errors.email = 'E-Mail ist erforderlich';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    } else if (!z.string().email().safeParse(formData.email).success) {
       errors.email = 'Bitte geben Sie eine gültige E-Mail-Adresse ein';
     }
 
@@ -138,7 +139,6 @@ export default function ContactSection() {
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       // Here you would normally send the data to your backend
-      console.log('Form submitted:', formData);
 
       setSubmitSuccess(true);
       setFormData({ name: '', email: '', phone: '', message: '' });

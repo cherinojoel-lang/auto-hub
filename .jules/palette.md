@@ -1,0 +1,3 @@
+## 2024-05-26 - Accessible Stateful Toggles
+**Learning:** The application uses a pattern of hiding/showing content via CSS classes (e.g., `hidden` vs `block` for the filters container on mobile) rather than unmounting the React nodes. This means the target ID for `aria-controls` is always present in the DOM, so it's safe to statically assign it.
+**Action:** When adding accessibility to stateful toggle buttons in this app, ensure `aria-expanded` is bound to the state, `aria-controls` is set to the target's ID, and `focus-visible` classes are added to ensure clear keyboard navigation visibility.
