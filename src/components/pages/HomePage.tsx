@@ -271,7 +271,7 @@ export default function HomePage() {
                     <Star key={i} size={20} className="fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
-                <p className="text-base font-bold text-primary mb-1">5 Sterne</p>
+                <p className="text-base font-bold text-primary mb-1">Top bewertet</p>
                 <p className="text-xs text-gray-600">auf mobile.de</p>
               </div>
             </AnimatedElement>
