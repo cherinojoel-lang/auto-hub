@@ -135,6 +135,9 @@ export function getStructuredDataOrganization() {
       postalCode: '58642',
       addressCountry: 'DE',
     },
+    sameAs: [
+      'https://home.mobile.de/AUTOMOBILE-QUICK',
+    ],
     foundingDate: '1982',
     openingHoursSpecification: [
       {
