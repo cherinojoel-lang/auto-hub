@@ -3,6 +3,8 @@ import type { Vehicles } from "../entities";
  * SEO Utility for managing meta tags and structured data
  */
 
+import type { Vehicles } from "../entities";
+
 export interface SEOConfig {
   title: string;
   description: string;
