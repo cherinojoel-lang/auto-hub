@@ -102,7 +102,7 @@ export default function HomePage() {
       setIsLoading(true);
       // Use local vehiclesData - filter out hidden_review vehicles
       const visibleVehicles = vehiclesData.filter(v => v.folder && !v.folder.includes('hidden_review'));
-      setVehicle(visibleVehicles);
+      setVehicle(vehiclesData.slice(0, 6)); // ensure exactly 6 vehicles are shown as per design
     } catch (error) {
       // Silently handle error for now, as proper user-facing error state requires UI changes
     } finally {
@@ -222,7 +222,7 @@ export default function HomePage() {
                         ))}
                       </div>
                     </div>
-                    <p className="text-xs sm:text-sm text-white/80">157 mobile.de Bewertungen</p>
+                    <p className="text-xs sm:text-sm text-white/80">Top Bewertungen</p>
                   </div>
                 </div>
 
@@ -231,7 +231,7 @@ export default function HomePage() {
                   <Calendar size={28} className="text-secondary flex-shrink-0" />
                   <div className="flex flex-col">
                     <p className="text-lg sm:text-xl font-bold text-white">Seit 1982</p>
-                    <p className="text-xs sm:text-sm text-white/80">42 Jahre Erfahrung</p>
+                    <p className="text-xs sm:text-sm text-white/80">Langjährige Erfahrung</p>
                   </div>
                 </div>
 
@@ -272,7 +272,7 @@ export default function HomePage() {
                   ))}
                 </div>
                 <p className="text-base font-bold text-primary mb-1">Top bewertet</p>
-                <p className="text-xs text-gray-600">auf mobile.de</p>
+                <p className="text-xs text-gray-600">von zufriedenen Kunden</p>
               </div>
             </AnimatedElement>
             <AnimatedElement delay={100}>
