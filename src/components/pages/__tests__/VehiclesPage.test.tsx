@@ -1,4 +1,4 @@
-import { render, screen, waitFor, act } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import VehiclesPage from '../VehiclesPage';
 import { BaseCrudService } from '@/integrations';
@@ -31,7 +31,7 @@ window.IntersectionObserver = mockIntersectionObserver;
 describe('VehiclesPage', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    vi.mocked(BaseCrudService.getAll).mockResolvedValue({ items: [], hasNext: false });
+    vi.mocked(BaseCrudService.getAll).mockResolvedValue({ items: [], hasNext: false, totalCount: 0, currentPage: 1, pageSize: 10, nextSkip: 0 } as any);
   });
 
   it('handles error when loading vehicles fails', async () => {

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { ChevronRight, Filter, X, Phone, MessageSquare } from 'lucide-react';
+import { Filter, X } from 'lucide-react';
 import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
 import { Image } from '@/components/ui/image';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
@@ -63,7 +63,7 @@ export default function VehiclePage() {
   const [hasNext, setHasNext] = useState(false);
   const [skip, setSkip] = useState(0);
   const [showFilters, setShowFilters] = useState(false);
-  const [showMobileBar, setShowMobileBar] = useState(false);
+
 
   const [manufacturer, setManufacturer] = useState(searchParams.get('manufacturer') || '');
   const [priceMax, setPriceMax] = useState(searchParams.get('priceMax') || '');
@@ -145,15 +145,7 @@ export default function VehiclePage() {
     loadVehicle();
   };
 
-  const formatPrice = (price?: number) => {
-    if (!price) return 'Preis auf Anfrage';
-    return new Intl.NumberFormat('de-DE', {
-      style: 'currency',
-      currency: 'EUR',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(price);
-  };
+
 
   const loadMore = () => {
     setSkip(prev => prev + 15);
@@ -171,7 +163,7 @@ export default function VehiclePage() {
       </a>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary via-accent to-primary/90 text-white py-12 sm:py-16 md:py-20">
+      <section className="bg-primary text-white py-12 sm:py-16 md:py-20">
         <div className="container mx-auto px-4 max-w-[1400px]">
           <AnimatedElement>
             <div className="max-w-3xl mx-auto text-center">
@@ -187,7 +179,7 @@ export default function VehiclePage() {
       </section>
 
       {/* Filters Section */}
-      <section className="py-6 sm:py-8 bg-white border border-border-line rounded-sm mx-4 sm:mx-auto max-w-[1400px] mt-8 mb-4 shadow-sm relative">
+      <section className="py-6 sm:py-8 bg-white border border-border-line rounded-md mx-4 sm:mx-auto max-w-[1400px] mt-8 mb-4 relative">
         <div className="px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-4 sm:mb-6">
             <h2 className="text-lg sm:text-xl font-heading font-bold text-foreground">
@@ -211,7 +203,7 @@ export default function VehiclePage() {
                 <select
                   value={manufacturer}
                   onChange={(e) => setManufacturer(e.target.value)}
-                  className="w-full px-4 py-3 rounded-sm border-2 border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
+                  className="w-full min-h-12 px-4 py-3 rounded-md border border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
                 >
                   <option value="">Alle Marken</option>
                   <option value="BMW">BMW</option>
@@ -230,7 +222,7 @@ export default function VehiclePage() {
                 <select
                   value={priceMax}
                   onChange={(e) => setPriceMax(e.target.value)}
-                  className="w-full px-4 py-3 rounded-sm border-2 border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
+                  className="w-full min-h-12 px-4 py-3 rounded-md border border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
                 >
                   <option value="">Alle Preise</option>
                   <option value="15000">bis 15.000 €</option>
@@ -248,7 +240,7 @@ export default function VehiclePage() {
                 <select
                   value={driveType}
                   onChange={(e) => setDriveType(e.target.value)}
-                  className="w-full px-4 py-3 rounded-sm border-2 border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
+                  className="w-full min-h-12 px-4 py-3 rounded-md border border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
                 >
                   <option value="">Alle Kraftstoffe</option>
                   <option value="Benzin">Benzin</option>
@@ -266,7 +258,7 @@ export default function VehiclePage() {
                 <select
                   value={maxMileage}
                   onChange={(e) => setMaxMileage(e.target.value)}
-                  className="w-full px-4 py-3 rounded-sm border-2 border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
+                  className="w-full min-h-12 px-4 py-3 rounded-md border border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
                 >
                   <option value="">Alle km</option>
                   <option value="20000">bis 20.000</option>
@@ -284,7 +276,7 @@ export default function VehiclePage() {
                 <select
                   value={yearFrom}
                   onChange={(e) => setYearFrom(e.target.value)}
-                  className="w-full px-4 py-3 rounded-sm border-2 border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
+                  className="w-full min-h-12 px-4 py-3 rounded-md border border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
                 >
                   <option value="">Alle Jahre</option>
                   <option value="2024">ab 2024</option>
@@ -301,13 +293,13 @@ export default function VehiclePage() {
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <button
                 onClick={applyFilters}
-                className="bg-primary text-white px-6 sm:px-8 py-3 rounded-sm font-bold text-sm sm:text-base hover:bg-primary/90 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                className="bg-primary text-white px-6 sm:px-8 py-3 rounded-md font-bold text-sm sm:text-base hover:bg-primary/90 transition-colors duration-200 min-h-12"
               >
                 Filter anwenden
               </button>
               <button
                 onClick={clearFilters}
-                className="bg-alt-bg text-foreground px-6 sm:px-8 py-3 rounded-sm font-bold text-sm sm:text-base hover:bg-border-line transition-all duration-300 flex items-center justify-center gap-2"
+                className="bg-alt-bg text-foreground px-6 sm:px-8 py-3 rounded-md font-bold text-sm sm:text-base hover:bg-border-line transition-colors duration-200 flex items-center justify-center gap-2 min-h-12"
               >
                 <X size={18} />
                 Zurücksetzen
@@ -334,26 +326,28 @@ export default function VehiclePage() {
                         const imageCount = getVehicleImageCount(vehicle);
 
                         return (
-                          <div className="group bg-card-bg rounded-sm shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden border border-border-line hover:scale-[1.02] flex flex-col h-full">
+                          <div className="group bg-card-bg rounded-md transition-colors duration-200 overflow-hidden border border-border-line hover:border-secondary/70 flex flex-col h-full">
                             {/* Image Section */}
                             <div className="aspect-[4/3] overflow-hidden bg-alt-bg relative">
                               {vehicle.mainImage ? (
                                 <Image
                                   src={vehicle.mainImage}
                                   alt={vehicle.alt || vehicle.title}
-                                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
+                                  className="w-full h-full object-cover"
                                   width={400}
                                   height={300}
+                                  loading={index < 6 ? "eager" : "lazy"}
+                                  decoding="async"
                                 />
                               ) : (
-                                <div className="w-full h-full flex flex-col items-center justify-center" style={{ backgroundColor: '#F6F1EA' }}>
-                                  <span className="text-text-secondary text-sm font-medium" style={{ color: '#536075' }}>Bild folgt</span>
+                                <div className="w-full h-full flex flex-col items-center justify-center bg-alt-bg">
+                                  <span className="text-text-secondary text-sm font-medium">Bild folgt</span>
                                 </div>
                               )}
-                              <div className="absolute top-4 left-4 bg-success text-white px-3 py-1.5 text-xs font-bold rounded-sm shadow-md">
+                              <div className="absolute top-4 left-4 bg-white/95 text-primary px-3 py-1.5 text-xs font-bold rounded-md border border-border-line">
                                 {vehicle.status === 'available' ? 'Verfügbar' : 'Archiv'}
                               </div>
-                              <div className="absolute top-4 right-4 bg-primary text-white px-3 py-1.5 text-xs font-bold rounded-sm shadow-md">
+                              <div className="absolute top-4 right-4 bg-primary text-white px-3 py-1.5 text-xs font-bold rounded-md">
                                 {imageCount} {imageCount === 1 ? 'Bild' : 'Bilder'}
                               </div>
                             </div>
@@ -361,7 +355,7 @@ export default function VehiclePage() {
                             {/* Content Section */}
                             <div className="p-6 sm:p-8 flex flex-col flex-1">
                           {/* Title */}
-                          <h3 className="text-lg sm:text-xl font-heading font-bold mb-4 text-foreground group-hover:text-primary transition-colors">
+                          <h3 className="text-lg sm:text-xl font-heading font-bold mb-4 text-foreground group-hover:text-primary transition-colors leading-snug">
                             {vehicle.title}
                           </h3>
 
@@ -397,21 +391,19 @@ export default function VehiclePage() {
                           <div className="flex flex-col gap-2 pt-6 border-t border-border-line">
                             <Link
                               to={`/fahrzeugdetail/${vehicle.id}`}
-                              className="w-full text-white px-4 py-3 rounded-sm font-bold text-sm text-center hover:opacity-90 transition-all duration-300 shadow-sm hover:shadow-md min-h-[48px] flex items-center justify-center"
-                              style={{ backgroundColor: '#16233A' }}
+                              className="w-full bg-primary text-white px-4 py-3 rounded-md font-bold text-sm text-center hover:bg-primary/90 transition-colors duration-200 min-h-[48px] flex items-center justify-center"
                             >
                               Details anzeigen
                             </Link>
                             <Link
                               to="/kontakt"
-                              className="w-full text-white px-4 py-3 rounded-sm font-bold text-sm text-center hover:opacity-90 transition-all duration-300 shadow-sm hover:shadow-md min-h-[48px] flex items-center justify-center"
-                              style={{ backgroundColor: '#D9431F' }}
+                              className="w-full bg-secondary text-white px-4 py-3 rounded-md font-bold text-sm text-center hover:bg-cta-hover transition-colors duration-200 min-h-[48px] flex items-center justify-center"
                             >
                               Anfrage senden
                             </Link>
                             <a
                               href="tel:+492374912912"
-                              className="w-full bg-white text-text px-4 py-3 rounded-sm font-bold text-sm text-center border-2 border-border-line hover:border-text transition-all duration-300 min-h-[48px] flex items-center justify-center"
+                              className="w-full bg-white text-primary px-4 py-3 rounded-md font-bold text-sm text-center border border-primary hover:bg-primary/5 transition-colors duration-200 min-h-[48px] flex items-center justify-center"
                             >
                               Anrufen
                             </a>
@@ -428,7 +420,7 @@ export default function VehiclePage() {
                   <div className="text-center mt-12 sm:mt-16">
                     <button
                       onClick={loadMore}
-                      className="bg-primary text-white px-10 sm:px-14 py-4 rounded-sm font-bold text-base sm:text-lg hover:bg-primary/90 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 shadow-md"
+                      className="bg-primary text-white px-10 sm:px-14 py-4 rounded-md font-bold text-base sm:text-lg hover:bg-primary/90 transition-colors duration-200 min-h-[52px]"
                     >
                       Mehr Fahrzeuge laden
                     </button>
