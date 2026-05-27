@@ -18,16 +18,19 @@ import HowItWorksSection from '@/components/HowItWorksSection';
 
 // --- Animation Components ---
 
-const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number; direction?: 'up' | 'left' | 'right' | 'none' }> = ({ 
+const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number; direction?: 'up' | 'left' | 'right' | 'none'; priority?: boolean }> = ({
   children, 
   className = '',
   delay = 0,
-  direction = 'up'
+  direction = 'up',
+  priority = false
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(priority || false);
 
   useEffect(() => {
+    if (priority) return;
+
     const el = ref.current;
     if (!el) return;
 
@@ -43,7 +46,7 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [delay]);
+  }, [delay, priority]);
 
   const getTransform = () => {
     if (isVisible) return 'translate-x-0 translate-y-0 scale-100';
@@ -160,21 +163,21 @@ export default function HomePage() {
         <div className="relative z-10 container mx-auto px-4 max-w-7xl text-left py-12 sm:py-16 md:py-24 w-full">
           <div className="max-w-2xl">
             {/* Headline with animation */}
-            <AnimatedElement direction="up" delay={0}>
+            <AnimatedElement direction="up" delay={0} priority={true}>
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-bold text-white mb-6 sm:mb-8 tracking-tight leading-[1.1]">
                 Ihr vertrauensvoller Partner für Gebrauchtwagen in Iserlohn-Letmathe
               </h1>
             </AnimatedElement>
 
             {/* Subheadline with animation */}
-            <AnimatedElement direction="up" delay={200}>
+            <AnimatedElement direction="up" delay={200} priority={true}>
               <p className="text-base sm:text-lg md:text-xl text-white/95 font-paragraph font-normal mb-10 sm:mb-12 leading-relaxed max-w-2xl">
                 Seit 1982 finden wir für jeden das passende Fahrzeug — mit transparenter Beratung, fairen Preisen und einem erstklassigen Service. 157 zufriedene Kunden vertrauen uns.
               </p>
             </AnimatedElement>
 
             {/* CTA Buttons with animation */}
-            <AnimatedElement direction="up" delay={400}>
+            <AnimatedElement direction="up" delay={400} priority={true}>
               <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 mb-12 sm:mb-16 flex-wrap">
                 {/* Primary CTA: Jetzt Fahrzeuge entdecken */}
                 <Link
