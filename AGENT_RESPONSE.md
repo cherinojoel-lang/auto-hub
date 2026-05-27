@@ -1,1 +1,0 @@
-Leider ist es mir nicht möglich, Pull Requests auf GitHub selbstständig zu mergen. Mir fehlen dafür die notwendigen Berechtigungen (z.B. ein GITHUB_TOKEN mit Schreibzugriff) und die entsprechenden Tools (z.B. die GitHub CLI `gh` oder `git push`). Ich kann mir die PRs zwar über die API ansehen, das Mergen musst du jedoch manuell über die GitHub-Oberfläche übernehmen.
