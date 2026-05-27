@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useMember } from '@/integrations';
 
 interface SignInProps {
   title?: string;
@@ -12,15 +11,13 @@ interface SignInProps {
 }
 
 export function SignIn({
-  title = "Sign In Required",
-  message = "Please sign in to access this content.",
+  title = "Kontakt erforderlich",
+  message = "Dieser Bereich ist nicht für einen Login vorgesehen. Bitte nehmen Sie direkt Kontakt mit Automobile Quick auf.",
   className = "min-h-screen flex items-center justify-center px-4 ",
   cardClassName = "w-fit max-w-xl mx-auto text-foreground",
   buttonClassName = "w-full h-10 max-w-sm mx-auto",
-  buttonText = "Sign In"
+  buttonText = "Kontakt aufnehmen"
 }: SignInProps) {
-  const { actions } = useMember();
-
   return (
     <div className={className}>
       <Card className={cardClassName}>
@@ -29,8 +26,10 @@ export function SignIn({
           <CardDescription className="">{message}</CardDescription>
         </CardHeader>
         <CardContent className="text-center px-10 pb-10">
-          <Button onClick={actions.login} className={buttonClassName}>
+          <Button asChild className={buttonClassName}>
+            <a href="/kontakt">
             {buttonText}
+            </a>
           </Button>
         </CardContent>
       </Card>

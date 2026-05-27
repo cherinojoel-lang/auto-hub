@@ -1,9 +1,6 @@
-import type { Vehicles } from "../entities";
 /**
  * SEO Utility for managing meta tags and structured data
  */
-
-import type { Vehicles } from "../entities";
 
 export interface SEOConfig {
   title: string;
@@ -22,9 +19,9 @@ export interface SEOConfig {
 }
 
 export const DEFAULT_SEO: SEOConfig = {
-  title: 'Automobile Quick | Gebrauchtwagen in Iserlohn-Letmathe',
-  description: 'Automobile Quick in Iserlohn-Letmathe bietet gepflegte Gebrauchtwagen, persönliche Beratung, Fahrzeugankauf und Finanzierung auf Anfrage. Besichtigung vor Ort in der Hagener Str. 126a, 58642 Iserlohn.',
-  keywords: 'Gebrauchtwagen Iserlohn, Gebrauchtwagen Letmathe, Autohaus Iserlohn, Gebrauchtwagen kaufen, Audi Gebrauchtwagen, BMW Gebrauchtwagen, Mercedes Gebrauchtwagen, VW Gebrauchtwagen, Porsche Gebrauchtwagen, Automobile Quick, Fahrzeugbestand, Gebrauchtwagen Hagen',
+  title: 'Automobile Quick - Gebrauchtwagen in Iserlohn-Letmathe | Autohaus seit 1982',
+  description: 'Automobile Quick: Hochwertige Gebrauchtwagen in Iserlohn-Letmathe. Audi, BMW, Mercedes, VW, Porsche - faire Preise, persönliche Beratung, seit 1982. Jetzt Fahrzeug finden!',
+  keywords: 'Gebrauchtwagen Iserlohn, Gebrauchtwagen Letmathe, Autohaus Iserlohn, Automobile Quick, Fahrzeugbestand, Autoankauf Iserlohn, Finanzierung auf Anfrage, Gebrauchtwagen Iserlohn-Letmathe',
   ogType: 'website',
   robots: 'index, follow',
   author: 'Automobile Quick',
@@ -32,6 +29,8 @@ export const DEFAULT_SEO: SEOConfig = {
 };
 
 export function updateMetaTags(config: SEOConfig) {
+  document.documentElement.lang = 'de';
+
   // Update title
   document.title = config.title;
 
@@ -53,6 +52,7 @@ export function updateMetaTags(config: SEOConfig) {
   // Open Graph tags
   updateMetaTag('og:title', config.ogTitle || config.title, 'property');
   updateMetaTag('og:description', config.ogDescription || config.description, 'property');
+  updateMetaTag('og:site_name', 'Automobile Quick', 'property');
   updateMetaTag('og:type', config.ogType || 'website', 'property');
   
   if (config.ogImage) {
@@ -61,6 +61,8 @@ export function updateMetaTags(config: SEOConfig) {
 
   // Twitter Card tags
   updateMetaTag('twitter:card', config.twitterCard || 'summary_large_image', 'name');
+  updateMetaTag('twitter:title', config.ogTitle || config.title, 'name');
+  updateMetaTag('twitter:description', config.ogDescription || config.description, 'name');
   
   if (config.twitterCreator) {
     updateMetaTag('twitter:creator', config.twitterCreator, 'name');
@@ -118,29 +120,24 @@ function updateStructuredData(data: Record<string, any>) {
 export function getStructuredDataOrganization() {
   return {
     '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
+    '@type': 'AutoDealer',
     name: 'Automobile Quick',
-    description: 'Hochwertige Gebrauchtwagen mit persönlicher Beratung in Iserlohn-Letmathe seit 1982',
+    description: 'Gepflegte Gebrauchtwagen in Iserlohn-Letmathe seit 1982. Persönliche Beratung, Fahrzeugankauf und Finanzierung auf Anfrage.',
     url: 'https://automobilequick.de',
-    telephone: '+49 (0) 2374 / 912912',
+    telephone: '+49-2374-912912',
     email: 'auto-quick@t-online.de',
+    priceRange: '€',
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'Hagener Str. 126a',
       addressLocality: 'Iserlohn',
+      addressRegion: 'NW',
       postalCode: '58642',
       addressCountry: 'DE',
     },
     sameAs: [
-      'https://www.google.com/maps/place/Automobile+Quick',
+      'https://home.mobile.de/AUTOMOBILE-QUICK',
     ],
-    image: 'https://static.wixstatic.com/media/32e7c0_d28732f69d9643a7ada1b1be4890a422~mv2.png',
-    priceRange: '€€',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '157',
-    },
     foundingDate: '1982',
     openingHoursSpecification: [
       {
@@ -152,47 +149,55 @@ export function getStructuredDataOrganization() {
       {
         '@type': 'OpeningHoursSpecification',
         dayOfWeek: 'Saturday',
-        opens: '10:00',
-        closes: '16:00',
+        opens: '09:00',
+        closes: '13:00',
       },
     ],
   };
 }
 
-export function getStructuredDataProduct(vehicle: Vehicles) {
+export function getStructuredDataProduct(vehicle: any) {
+  const priceValue = parseInt(vehicle.price?.replace(/[^0-9]/g, '')) || 0;
+  
   return {
     '@context': 'https://schema.org',
-    '@type': 'Product',
-    name: `${vehicle.manufacturer} ${vehicle.model}`,
-    description: vehicle.description || `${vehicle.manufacturer} ${vehicle.model} - Hochwertiger Gebrauchtwagen bei Automobile Quick in Iserlohn-Letmathe`,
-    image: vehicle.mainImage,
-    offers: {
+    '@type': 'Car',
+    'name': vehicle.title,
+    'description': `${vehicle.title} gebraucht kaufen in Iserlohn-Letmathe. EZ ${vehicle.firstRegistration}, ${vehicle.mileage}, ${vehicle.power}. Top Zustand bei Automobile Quick.`,
+    'image': [
+      `https://automobilequick.de${vehicle.mainImage}`,
+      ...(vehicle.gallery || []).slice(1, 5).map((img: string) => `https://automobilequick.de${img}`)
+    ],
+    'brand': {
+      '@type': 'Brand',
+      'name': vehicle.make
+    },
+    'model': vehicle.model,
+    'vehicleModelDate': vehicle.firstRegistration,
+    'mileageFromOdometer': {
+      '@type': 'QuantitativeValue',
+      'value': vehicle.mileage?.replace(/[^0-9]/g, ''),
+      'unitCode': 'KMT'
+    },
+    'fuelType': vehicle.fuel,
+    'offers': {
       '@type': 'Offer',
-      price: vehicle.price,
-      priceCurrency: 'EUR',
-      availability: 'https://schema.org/InStock',
-      seller: {
+      'price': priceValue,
+      'priceCurrency': 'EUR',
+      'availability': 'https://schema.org/InStock',
+      'url': `https://automobilequick.de/fahrzeugdetail/${vehicle.id}`,
+      'seller': {
         '@type': 'LocalBusiness',
-        name: 'Automobile Quick',
-        url: 'https://automobilequick.de',
-      },
-    },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '157',
-    },
-    vehicleSpecializations: {
-      '@type': 'Vehicle',
-      manufacturer: vehicle.manufacturer,
-      model: vehicle.model,
-      productionDate: vehicle.firstRegistrationYear,
-      mileageFromOdometer: {
-        '@type': 'QuantitativeValue',
-        value: vehicle.mileage,
-        unitCode: 'KMT',
-      },
-    },
+        'name': 'Automobile Quick',
+        'address': {
+          '@type': 'PostalAddress',
+          'streetAddress': 'Hagener Str. 126a',
+          'addressLocality': 'Iserlohn',
+          'postalCode': '58642',
+          'addressCountry': 'DE'
+        }
+      }
+    }
   };
 }
 

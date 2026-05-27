@@ -1,7 +1,4 @@
 import { ReactNode } from 'react';
-import { useMember } from '@/integrations';
-import { SignIn } from '@/components/ui/sign-in';
-import { LoadingSpinner } from '@/components/ui/loading-spinner';
 
 interface SignInProps {
   title?: string;
@@ -35,40 +32,20 @@ interface MemberProtectedRouteProps {
 
 export function MemberProtectedRoute({
   children,
-  messageToSignIn = "Please sign in to access this page.",
-  messageToLoading = "Loading page...",
-  signInTitle = "Sign In Required",
+  messageToSignIn = "Dieser Bereich ist ohne Login erreichbar.",
+  messageToLoading = "Seite wird geladen...",
+  signInTitle = "Kein Login erforderlich",
   signInClassName = "",
   loadingClassName = "",
   signInProps = {},
   loadingSpinnerProps = {}
 }: MemberProtectedRouteProps) {
-  const { isAuthenticated, isLoading } = useMember();
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center p-4">
-        <LoadingSpinner
-          message={messageToLoading}
-          className={loadingClassName}
-          {...loadingSpinnerProps}
-        />
-      </div>
-    );
-  }
-
-  if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen flex items-center justify-center p-4">
-        <SignIn
-          title={signInTitle}
-          message={messageToSignIn}
-          className={signInClassName}
-          {...signInProps}
-        />
-      </div>
-    );
-  }
-
+  void messageToSignIn;
+  void messageToLoading;
+  void signInTitle;
+  void signInClassName;
+  void loadingClassName;
+  void signInProps;
+  void loadingSpinnerProps;
   return <>{children}</>;
 }

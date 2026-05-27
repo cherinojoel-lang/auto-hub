@@ -86,7 +86,7 @@ export default function VehicleDetailPage() {
       if (data) {
         const title = PAGE_METADATA.vehicleDetail.title
           .replace('{title}', data.title || 'Fahrzeug')
-          .replace('{manufacturer}', data.manufacturer || '')
+          .replace('{manufacturer}', data.make || '')
           .replace('{model}', data.model || '')
           .replace('{year}', data.firstRegistration?.toString() || '');
         

@@ -1,4 +1,4 @@
-import { MapPin, Phone, Mail, Clock } from 'lucide-react';
+import { MapPin, Phone, Mail, CalendarClock } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function Footer() {
@@ -44,10 +44,11 @@ export default function Footer() {
                 </a>
               </div>
               <div className="flex items-center gap-3">
-                <Clock size={18} className="flex-shrink-0 text-secondary" />
+                <CalendarClock size={18} className="flex-shrink-0 text-secondary" />
                 <div className="text-sm text-white/80">
-                  <p>Mo-Fr: 09:00 - 18:00</p>
-                  <p>Sa: 10:00 - 16:00</p>
+                  <p>Mo-Fr: 09:00 - 18:00 Uhr</p>
+                  <p>Sa: 09:00 - 13:00 Uhr</p>
+                  <p>Besichtigung jederzeit möglich</p>
                 </div>
               </div>
             </div>

@@ -3,6 +3,7 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "react",
+    "ignoreDeprecations": "6.0",
     "rootDir": ".",
     "baseUrl": ".",
     "incremental": true,
@@ -26,19 +27,23 @@
         "src/components/*"
       ],
       "@/integrations/*": [
-        "integrations/*",
+        "integrations/*"
       ],
       "@/integrations": [
         "integrations"
       ],
       "@wix/codegen-framework-packages": [
         "integrations"
-      ],
+      ]
     }
   },
   "include": [
     "src",
     "integrations",
     ".astro/types.d.ts"
+  ],
+  "exclude": [
+    "integrations/cms/cms-ecom",
+    "integrations/members"
   ]
 }
