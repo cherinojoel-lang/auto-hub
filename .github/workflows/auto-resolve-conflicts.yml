@@ -1,0 +1,19 @@
+name: Auto-Resolve Conflicts
+on:
+  pull_request:
+    types: [opened, synchronize]
+jobs:
+  resolve:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.head_ref }}
+      - name: Git Config & Merge
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          git merge origin/main -X ours -m "chore: auto-resolved conflicts favoring PR" || true
+          git push origin HEAD:${{ github.head_ref }}
