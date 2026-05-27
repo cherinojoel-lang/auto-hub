@@ -16,20 +16,21 @@ export default function PrivacyPage() {
     <div className="min-h-screen flex flex-col">
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-accent via-accent to-primary/20 text-background py-20 md:py-28 overflow-hidden">
+      <section className="relative bg-primary text-white py-16 md:py-20 overflow-hidden">
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-4">
               Datenschutzerklärung
             </h1>
+            <p className="text-white/80 text-sm">Stand: Mai 2026</p>
           </div>
         </div>
       </section>
 
       {/* Content Section */}
-      <section className="py-20 bg-gradient-to-b from-background to-secondary/5">
+      <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto bg-background rounded-2xl p-8 shadow-lg border border-border/50">
+          <div className="max-w-3xl mx-auto bg-white rounded-md p-8 border border-border-line">
             <div className="space-y-8">
               {/* Status Notice */}
               <div className="bg-primary/5 rounded-lg p-6 border border-primary/20">
@@ -114,6 +115,42 @@ export default function PrivacyPage() {
                 </div>
               </div>
 
+              {/* Legal Basis */}
+              <div>
+                <h2 className="text-2xl font-heading font-bold text-foreground mb-4">
+                  Rechtsgrundlagen
+                </h2>
+                <div className="space-y-4 text-foreground/80">
+                  <p>
+                    Die Verarbeitung erfolgt im Rahmen vorvertraglicher Maßnahmen und zur Vertragsanbahnung gemäß Art. 6 Abs. 1 lit. b DSGVO, aufgrund berechtigter Interessen gemäß Art. 6 Abs. 1 lit. f DSGVO (z. B. zur Bereitstellung und Sicherheit der Website) sowie, soweit erforderlich, auf Grundlage Ihrer Einwilligung gemäß Art. 6 Abs. 1 lit. a DSGVO.
+                  </p>
+                </div>
+              </div>
+
+              {/* Hosting */}
+              <div>
+                <h2 className="text-2xl font-heading font-bold text-foreground mb-4">
+                  Hosting der Website
+                </h2>
+                <div className="space-y-4 text-foreground/80">
+                  <p>
+                    Diese Website wird über die Plattform Wix.com (Wix.com Ltd., Tel Aviv, Israel; in der EU vertreten durch Wix Online Platform Limited, Dublin, Irland) bereitgestellt. Beim Aufruf der Website können technische Verbindungsdaten verarbeitet werden, die zur Auslieferung der Website notwendig sind (z. B. IP-Adresse, Browser-Typ, Zeitstempel). Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer sicheren Bereitstellung).
+                  </p>
+                </div>
+              </div>
+
+              {/* Storage Duration */}
+              <div>
+                <h2 className="text-2xl font-heading font-bold text-foreground mb-4">
+                  Speicherdauer
+                </h2>
+                <div className="space-y-4 text-foreground/80">
+                  <p>
+                    Personenbezogene Daten werden nur so lange gespeichert, wie es für die jeweiligen Zwecke erforderlich ist oder gesetzliche Aufbewahrungsfristen dies vorschreiben (z. B. handels- und steuerrechtliche Pflichten gemäß § 257 HGB, § 147 AO). Nach Wegfall des Zwecks werden Daten gelöscht oder eingeschränkt.
+                  </p>
+                </div>
+              </div>
+
               {/* Rights of Data Subjects */}
               <div>
                 <h2 className="text-2xl font-heading font-bold text-foreground mb-4">
@@ -121,7 +158,68 @@ export default function PrivacyPage() {
                 </h2>
                 <div className="space-y-4 text-foreground/80">
                   <p>
-                    Betroffene Personen haben im Rahmen der gesetzlichen Vorgaben Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch.
+                    Betroffene Personen haben im Rahmen der gesetzlichen Vorgaben das Recht auf:
+                  </p>
+                  <ul className="list-disc pl-6 space-y-1">
+                    <li>Auskunft über die verarbeiteten Daten (Art. 15 DSGVO)</li>
+                    <li>Berichtigung unrichtiger Daten (Art. 16 DSGVO)</li>
+                    <li>Löschung (Art. 17 DSGVO)</li>
+                    <li>Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>
+                    <li>Datenübertragbarkeit (Art. 20 DSGVO)</li>
+                    <li>Widerspruch gegen die Verarbeitung (Art. 21 DSGVO)</li>
+                    <li>Widerruf einer erteilten Einwilligung mit Wirkung für die Zukunft (Art. 7 Abs. 3 DSGVO)</li>
+                  </ul>
+                  <p>
+                    Zur Ausübung dieser Rechte genügt eine formlose Nachricht an die oben genannte Adresse oder per Telefon.
+                  </p>
+                </div>
+              </div>
+
+              {/* Right of Complaint */}
+              <div>
+                <h2 className="text-2xl font-heading font-bold text-foreground mb-4">
+                  Beschwerderecht bei der Aufsichtsbehörde
+                </h2>
+                <div className="space-y-4 text-foreground/80">
+                  <p>
+                    Betroffene Personen haben das Recht, Beschwerde bei einer Datenschutz-Aufsichtsbehörde einzulegen. Zuständig für Nordrhein-Westfalen ist:
+                  </p>
+                  <p>
+                    Landesbeauftragte für Datenschutz und Informationsfreiheit Nordrhein-Westfalen<br />
+                    Kavalleriestraße 2–4, 40213 Düsseldorf<br />
+                    Web:{' '}
+                    <a
+                      href="https://www.ldi.nrw.de"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                      className="text-primary underline hover:text-secondary"
+                    >
+                      www.ldi.nrw.de
+                    </a>
+                  </p>
+                </div>
+              </div>
+
+              {/* SSL */}
+              <div>
+                <h2 className="text-2xl font-heading font-bold text-foreground mb-4">
+                  SSL/TLS-Verschlüsselung
+                </h2>
+                <div className="space-y-4 text-foreground/80">
+                  <p>
+                    Diese Website nutzt aus Sicherheitsgründen eine SSL/TLS-Verschlüsselung. Eine verschlüsselte Verbindung ist erkennbar an der Adresszeile des Browsers (https) und am Schloss-Symbol.
+                  </p>
+                </div>
+              </div>
+
+              {/* Changes */}
+              <div>
+                <h2 className="text-2xl font-heading font-bold text-foreground mb-4">
+                  Änderungen dieser Datenschutzerklärung
+                </h2>
+                <div className="space-y-4 text-foreground/80">
+                  <p>
+                    Diese Datenschutzerklärung wird bei Änderungen der Rechtslage oder der angebotenen Funktionen angepasst. Die jeweils aktuelle Fassung ist auf dieser Seite abrufbar.
                   </p>
                 </div>
               </div>
@@ -130,7 +228,7 @@ export default function PrivacyPage() {
         </div>
       </section>
 
-      
+
     </div>
   );
 }
