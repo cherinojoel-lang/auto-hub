@@ -141,33 +141,36 @@ WixImage.displayName = 'WixImage'
 
 export const Image = forwardRef<HTMLImageElement, ImageProps>(
   ({ src, fittingType, originWidth, originHeight, focalPointX, focalPointY, ...props }, ref) => {
-    const [imgSrc, setImgSrc] = useState<string | undefined>(src)
+    const [hasError, setHasError] = useState(false)
     const additionalImgProps = { fittingType, originWidth, originHeight, focalPointX, focalPointY }
 
     useEffect(() => {
-      // If src prop changes, update the imgSrc state
-      setImgSrc(prev => {
-        if (prev !== src) {
-          return src
-        }
-        return prev
-      })
+      // If src prop changes, reset the error state
+      setHasError(false)
     }, [src])
 
     if (!src) {
       return <div data-empty-image ref={ref} {...props} />
     }
 
-    const imageProps = { ...props, onError: () => {
-      if (imgSrc !== FALLBACK_IMAGE_URL) {
-        setImgSrc(FALLBACK_IMAGE_URL);
-      }
-    }}
+    const imgSrc = hasError ? FALLBACK_IMAGE_URL : src;
+
+    // Completely omit onError when fallback is active to prevent infinite loop
+    const { onError, ...restProps } = props;
+    const imageProps = hasError
+      ? restProps
+      : {
+          ...props,
+          onError: (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+            setHasError(true);
+            if (props.onError) props.onError(e);
+          }
+        };
+
     const imageData = getImageData(imgSrc, additionalImgProps)
 
     if (!imageData) {
-      const isErrorUrl = imgSrc === FALLBACK_IMAGE_URL
-      return <img ref={ref} src={imgSrc} {...imageProps} data-error-image={isErrorUrl} />
+      return <img ref={ref} src={imgSrc} {...imageProps} data-error-image={hasError} />
     }
 
     return <WixImage ref={ref} data={imageData} {...imageProps} />
