@@ -2,6 +2,8 @@ name: Auto-Resolve Conflicts
 on:
   pull_request:
     types: [opened, synchronize]
+permissions:
+  contents: write
 jobs:
   resolve:
     runs-on: ubuntu-latest
