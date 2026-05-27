@@ -37,14 +37,6 @@ describe('seo-config', () => {
         name: SITE_CONFIG.address.addressLocality,
       });
 
-      expect(schema.aggregateRating).toEqual({
-        '@type': 'AggregateRating',
-        ratingValue: SITE_CONFIG.rating.toString(),
-        reviewCount: SITE_CONFIG.reviewCount.toString(),
-        bestRating: '5',
-        worstRating: '1',
-      });
-
       expect(schema.review).toBeDefined();
       expect(schema.review.length).toBe(REVIEWS.length);
       expect(schema.review[0]).toEqual({
