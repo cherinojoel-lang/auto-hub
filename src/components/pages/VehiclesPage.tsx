@@ -344,6 +344,8 @@ export default function VehiclePage() {
                                   className="w-full h-full object-cover"
                                   width={400}
                                   height={300}
+                                  loading={index < 6 ? "eager" : "lazy"}
+                                  decoding="async"
                                 />
                               ) : (
                                 <div className="w-full h-full flex flex-col items-center justify-center bg-alt-bg">

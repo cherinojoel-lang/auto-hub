@@ -181,6 +181,9 @@ export default function VehicleDetailPage() {
                         className="w-full h-full object-cover"
                         width={1200}
                         height={675}
+                        fetchPriority="high"
+                        loading="eager"
+                        decoding="async"
                       />
                       {/* Image Counter - only show if multiple images */}
                       {hasMultipleImages && (
@@ -227,6 +230,8 @@ export default function VehicleDetailPage() {
                                 className="w-full h-full object-cover"
                                 width={80}
                                 height={60}
+                                loading="lazy"
+                                decoding="async"
                               />
                             </button>
                           ))}
@@ -408,6 +413,9 @@ export default function VehicleDetailPage() {
                           className="w-full h-full object-cover"
                           width={1200}
                           height={675}
+                          fetchPriority="high"
+                          loading="eager"
+                          decoding="async"
                         />
                         {hasMultipleImages && (
                           <>
@@ -447,6 +455,8 @@ export default function VehicleDetailPage() {
                                 className="w-full h-full object-cover"
                                 width={150}
                                 height={100}
+                                loading="lazy"
+                                decoding="async"
                               />
                             </button>
                           ))}
@@ -604,6 +614,8 @@ export default function VehicleDetailPage() {
                                     className="w-full h-full object-cover"
                                     width={400}
                                     height={225}
+                                    loading="lazy"
+                                    decoding="async"
                                   />
                                 ) : (
                                   <div className="w-full h-full flex items-center justify-center bg-border-line">

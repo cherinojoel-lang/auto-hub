@@ -1,18 +1,21 @@
+import React, { Suspense } from 'react';
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 import { ScrollToTop } from '@/lib/scroll-to-top';
 import ErrorPage from '@/integrations/errorHandlers/ErrorPage';
 import Layout from '@/components/Layout';
 import HomePage from '@/components/pages/HomePage';
-import VehiclesPage from '@/components/pages/VehiclesPage';
-import VehicleDetailPage from '@/components/pages/VehicleDetailPage';
-import AboutPage from '@/components/pages/AboutPage';
-import ContactPage from '@/components/pages/ContactPage';
-import TradeInPage from '@/components/pages/TradeInPage';
-import FinancingPage from '@/components/pages/FinancingPage';
-import ImprintPage from '@/components/pages/ImprintPage';
-import PrivacyPage from '@/components/pages/PrivacyPage';
-import BlogPage from '@/components/pages/BlogPage';
-import BlogDetailPage from '@/components/pages/BlogDetailPage';
+import RouteLoader from '@/components/RouteLoader';
+
+const VehiclesPage = React.lazy(() => import('@/components/pages/VehiclesPage'));
+const VehicleDetailPage = React.lazy(() => import('@/components/pages/VehicleDetailPage'));
+const AboutPage = React.lazy(() => import('@/components/pages/AboutPage'));
+const ContactPage = React.lazy(() => import('@/components/pages/ContactPage'));
+const TradeInPage = React.lazy(() => import('@/components/pages/TradeInPage'));
+const FinancingPage = React.lazy(() => import('@/components/pages/FinancingPage'));
+const ImprintPage = React.lazy(() => import('@/components/pages/ImprintPage'));
+const PrivacyPage = React.lazy(() => import('@/components/pages/PrivacyPage'));
+const BlogPage = React.lazy(() => import('@/components/pages/BlogPage'));
+const BlogDetailPage = React.lazy(() => import('@/components/pages/BlogDetailPage'));
 
 const router = createBrowserRouter([
   {
@@ -35,10 +38,10 @@ const router = createBrowserRouter([
       {
         path: "fahrzeugbestand",
         element: (
-          <>
+          <Suspense fallback={<RouteLoader />}>
             <ScrollToTop />
             <VehiclesPage />
-          </>
+          </Suspense>
         ),
         routeMetadata: {
           pageIdentifier: 'vehicles',
@@ -47,10 +50,10 @@ const router = createBrowserRouter([
       {
         path: "fahrzeugdetail/:id",
         element: (
-          <>
+          <Suspense fallback={<RouteLoader />}>
             <ScrollToTop />
             <VehicleDetailPage />
-          </>
+          </Suspense>
         ),
         routeMetadata: {
           pageIdentifier: 'vehicle-detail',
@@ -59,10 +62,10 @@ const router = createBrowserRouter([
       {
         path: "ueber-uns",
         element: (
-          <>
+          <Suspense fallback={<RouteLoader />}>
             <ScrollToTop />
             <AboutPage />
-          </>
+          </Suspense>
         ),
         routeMetadata: {
           pageIdentifier: 'about',
@@ -71,10 +74,10 @@ const router = createBrowserRouter([
       {
         path: "kontakt",
         element: (
-          <>
+          <Suspense fallback={<RouteLoader />}>
             <ScrollToTop />
             <ContactPage />
-          </>
+          </Suspense>
         ),
         routeMetadata: {
           pageIdentifier: 'contact',
@@ -83,10 +86,10 @@ const router = createBrowserRouter([
       {
         path: "autoankauf",
         element: (
-          <>
+          <Suspense fallback={<RouteLoader />}>
             <ScrollToTop />
             <TradeInPage />
-          </>
+          </Suspense>
         ),
         routeMetadata: {
           pageIdentifier: 'trade-in',
@@ -95,10 +98,10 @@ const router = createBrowserRouter([
       {
         path: "finanzierung",
         element: (
-          <>
+          <Suspense fallback={<RouteLoader />}>
             <ScrollToTop />
             <FinancingPage />
-          </>
+          </Suspense>
         ),
         routeMetadata: {
           pageIdentifier: 'financing',
@@ -107,10 +110,10 @@ const router = createBrowserRouter([
       {
         path: "impressum",
         element: (
-          <>
+          <Suspense fallback={<RouteLoader />}>
             <ScrollToTop />
             <ImprintPage />
-          </>
+          </Suspense>
         ),
         routeMetadata: {
           pageIdentifier: 'imprint',
@@ -119,10 +122,10 @@ const router = createBrowserRouter([
       {
         path: "datenschutz",
         element: (
-          <>
+          <Suspense fallback={<RouteLoader />}>
             <ScrollToTop />
             <PrivacyPage />
-          </>
+          </Suspense>
         ),
         routeMetadata: {
           pageIdentifier: 'privacy',
@@ -131,10 +134,10 @@ const router = createBrowserRouter([
       {
         path: "blog",
         element: (
-          <>
+          <Suspense fallback={<RouteLoader />}>
             <ScrollToTop />
             <BlogPage />
-          </>
+          </Suspense>
         ),
         routeMetadata: {
           pageIdentifier: 'blog',
@@ -143,10 +146,10 @@ const router = createBrowserRouter([
       {
         path: "blog/:slug",
         element: (
-          <>
+          <Suspense fallback={<RouteLoader />}>
             <ScrollToTop />
             <BlogDetailPage />
-          </>
+          </Suspense>
         ),
         routeMetadata: {
           pageIdentifier: 'blog-detail',
