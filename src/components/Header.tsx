@@ -59,12 +59,6 @@ export default function Header() {
             >
               Kontakt
             </Link>
-            <Link
-              to="/blog"
-              className="px-3 lg:px-4 py-2 text-sm lg:text-base text-foreground hover:text-primary hover:bg-alt-bg transition-all duration-200 font-medium rounded-sm"
-            >
-              Blog
-            </Link>
           </nav>
 
           {/* CTA Button - Desktop */}
@@ -133,13 +127,6 @@ export default function Header() {
                 className="px-4 py-3 text-sm text-foreground hover:text-primary hover:bg-card-bg transition-all duration-200 font-medium"
               >
                 Kontakt & Anfahrt
-              </Link>
-              <Link
-                to="/blog"
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-4 py-3 text-sm text-foreground hover:text-primary hover:bg-card-bg transition-all duration-200 font-medium"
-              >
-                Blog
               </Link>
               <div className="border-t border-border-line mt-3 pt-3">
                 <a

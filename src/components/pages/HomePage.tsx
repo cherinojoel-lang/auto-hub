@@ -140,9 +140,7 @@ export default function HomePage() {
       />
       <a href="#main-content" className="skip-to-main">
         Zum Hauptinhalt springen
-      </a>
-
-      {/* HERO SECTION */}
+      </a>{/* HERO SECTION */}
       <section className="relative w-full min-h-[70vh] md:min-h-[90vh] flex items-center justify-center overflow-hidden" role="banner" aria-label="Automobile Quick - Ihr vertrauensvoller Partner für Gebrauchtwagen">
         {/* Background Image with Dark Overlay Gradient */}
         <div className="absolute inset-0 z-0">
@@ -514,7 +512,6 @@ export default function HomePage() {
 
       {/* ... keep existing code (old CONTACT & LOCATION SECTION removed) ... */}
 
-       <Footer />
-    </div>
+     </div>
   );
 }

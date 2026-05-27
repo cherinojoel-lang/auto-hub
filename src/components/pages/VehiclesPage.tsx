@@ -165,7 +165,7 @@ export default function VehiclePage() {
 
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary via-accent to-primary/90 text-white py-12 sm:py-16 md:py-20">
-        <div className="container mx-auto px-4 max-w-7xl">
+        <div className="container mx-auto px-4 max-w-[1400px]">
           <AnimatedElement>
             <div className="max-w-3xl mx-auto text-center">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-4 sm:mb-6">
@@ -180,8 +180,8 @@ export default function VehiclePage() {
       </section>
 
       {/* Filters Section */}
-      <section className="py-8 sm:py-10 bg-card-bg border-b border-border-line sticky top-20 z-40">
-        <div className="container mx-auto px-4 max-w-7xl">
+      <section className="py-6 sm:py-8 bg-white border border-border-line rounded-sm mx-4 sm:mx-auto max-w-[1400px] mt-8 mb-4 shadow-sm relative">
+        <div className="px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-4 sm:mb-6">
             <h2 className="text-lg sm:text-xl font-heading font-bold text-foreground">
               Filter
@@ -311,8 +311,8 @@ export default function VehiclePage() {
       </section>
 
       {/* Vehicle Grid */}
-      <section className="py-12 sm:py-16 md:py-20 bg-background flex-1" id="main-content">
-        <div className="container mx-auto px-4 max-w-7xl">
+      <section className="py-8 sm:py-12 md:py-16 bg-background flex-1" id="main-content">
+        <div className="container mx-auto px-4 max-w-[1400px]">
           <div className="min-h-[600px]">
             {isLoading ? (
               <div className="flex justify-center items-center py-20">
@@ -383,19 +383,21 @@ export default function VehiclePage() {
                           <div className="flex flex-col gap-2 pt-6 border-t border-border-line">
                             <Link
                               to={`/fahrzeugdetail/${vehicle.id}`}
-                              className="w-full bg-primary text-white px-4 py-3 rounded-sm font-bold text-sm text-center hover:bg-primary/90 transition-all duration-300 shadow-sm hover:shadow-md min-h-[48px] flex items-center justify-center"
+                              className="w-full text-white px-4 py-3 rounded-sm font-bold text-sm text-center hover:opacity-90 transition-all duration-300 shadow-sm hover:shadow-md min-h-[48px] flex items-center justify-center"
+                              style={{ backgroundColor: '#16233A' }}
                             >
                               Details anzeigen
                             </Link>
                             <Link
                               to="/kontakt"
-                              className="w-full bg-secondary text-white px-4 py-3 rounded-sm font-bold text-sm text-center hover:bg-cta-hover transition-all duration-300 shadow-sm hover:shadow-md min-h-[48px] flex items-center justify-center"
+                              className="w-full text-white px-4 py-3 rounded-sm font-bold text-sm text-center hover:opacity-90 transition-all duration-300 shadow-sm hover:shadow-md min-h-[48px] flex items-center justify-center"
+                              style={{ backgroundColor: '#D9431F' }}
                             >
                               Anfrage senden
                             </Link>
                             <a
                               href="tel:+492374912912"
-                              className="w-full bg-accent text-white px-4 py-3 rounded-sm font-bold text-sm text-center hover:bg-primary/90 transition-all duration-300 shadow-sm hover:shadow-md min-h-[48px] flex items-center justify-center"
+                              className="w-full bg-white text-text px-4 py-3 rounded-sm font-bold text-sm text-center border-2 border-border-line hover:border-text transition-all duration-300 min-h-[48px] flex items-center justify-center"
                             >
                               Anrufen
                             </a>
@@ -428,27 +430,6 @@ export default function VehiclePage() {
         </div>
       </section>
 
-      {/* Mobile Sticky Bottom Bar */}
-      <div className="fixed bottom-0 left-0 right-0 md:hidden z-40" style={{ backgroundColor: '#FCFCFA', borderTop: '1px solid #D8DEE8', maxHeight: '72px', paddingBottom: 'env(safe-area-inset-bottom)' }}>
-        <div className="flex gap-3 p-4 max-w-7xl mx-auto h-16 items-center">
-          <a
-            href="tel:+4923749157-0"
-            className="flex-1 flex items-center justify-center gap-2 text-white px-4 py-3 rounded-sm font-bold text-sm hover:opacity-90 transition-all duration-300 shadow-md min-h-[48px]"
-            style={{ backgroundColor: '#D9431F' }}
-          >
-            <Phone size={18} />
-            Anrufen
-          </a>
-          <Link
-            to="/kontakt"
-            className="flex-1 flex items-center justify-center gap-2 text-white px-4 py-3 rounded-sm font-bold text-sm hover:opacity-90 transition-all duration-300 shadow-md min-h-[48px]"
-            style={{ backgroundColor: '#D9431F' }}
-          >
-            <MessageSquare size={18} />
-            Anfrage
-          </Link>
-        </div>
-      </div>
 
       <Footer />
     </div>

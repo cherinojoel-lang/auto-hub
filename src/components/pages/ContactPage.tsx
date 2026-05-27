@@ -103,7 +103,6 @@ export default function ContactPage() {
       <a href="#main-content" className="skip-to-main">
         Zum Hauptinhalt springen
       </a>
-      <Header />
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-accent via-accent to-primary/20 text-background py-20 md:py-28 overflow-hidden">
@@ -346,7 +345,6 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <Footer />
     </div>
   );
 }
