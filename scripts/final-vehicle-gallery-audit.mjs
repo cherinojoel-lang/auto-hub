@@ -25,7 +25,7 @@ async function finalAudit() {
       physicalFiles = fs.readdirSync(physicalPath).filter(f => /\.(jpg|jpeg|png|webp|avif)$/i.test(f));
     }
 
-    const missingInGallery = physicalFiles.filter(f => !v.gallery.includes(`/vehicles/${folderName}/${f}`));
+    const referencedMissingOnDisk = v.gallery.filter(item => !physicalFiles.map(f => `/vehicles/${folderName}/${f}`).includes(item));
     const addedInAudit = v.gallery.filter(item => !physicalFiles.map(f => `/vehicles/${folderName}/${f}`).includes(item));
     const duplicates = v.gallery.filter((item, index) => v.gallery.indexOf(item) !== index);
     const foreignFolders = v.gallery.filter(item => !item.startsWith(`/vehicles/${folderName}/`));
@@ -36,7 +36,10 @@ async function finalAudit() {
     console.log(`  Physische Bilder: ${physicalFiles.length}`);
     console.log(`  Gallery Einträge: ${v.gallery.length}`);
     
-    if (missingInGallery.length > 0) console.log(`  ❌ FEHLEND: ${missingInGallery.join(', ')}`);
+    if (physicalFiles.length > v.gallery.length) {
+      console.log(`  ℹ️ Zusätzliche lokale Bilder im Ordner: ${physicalFiles.length - v.gallery.length}`);
+    }
+    if (referencedMissingOnDisk.length > 0) console.log(`  ❌ REFERENZ FEHLT AUF DISK: ${referencedMissingOnDisk.join(', ')}`);
     if (addedInAudit.length > 0 && !addedInAudit.includes(v.mainImage)) console.log(`  ⚠️ UNBEKANNT IN ORDNER: ${addedInAudit.join(', ')}`);
     if (duplicates.length > 0) console.log(`  ❌ DOPPELT: ${duplicates.join(', ')}`);
     if (foreignFolders.length > 0) console.log(`  ❌ FREMDE ORDNER: ${foreignFolders.join(', ')}`);
@@ -44,7 +47,7 @@ async function finalAudit() {
     
     totalPhysicalImages += physicalFiles.length;
     totalGalleryEntries += v.gallery.length;
-    if (missingInGallery.length > 0 || duplicates.length > 0 || foreignFolders.length > 0 || externalUrls.length > 0) {
+    if (referencedMissingOnDisk.length > 0 || duplicates.length > 0 || foreignFolders.length > 0 || externalUrls.length > 0) {
       problematicVehicles++;
     }
   });

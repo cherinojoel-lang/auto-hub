@@ -1,8 +1,10 @@
 import { useRef, useState, useEffect } from 'react';
 import { FileText, CheckCircle, Clock } from 'lucide-react';
+import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
+import SeoHead from '@/components/SeoHead';
+import { PAGE_METADATA, SITE_CONFIG } from '@/lib/seo-config';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 
@@ -58,15 +60,15 @@ export default function TradeInPage() {
 
   useEffect(() => {
     updateMetaTags({
-      title: 'Auto verkaufen in Iserlohn - Automobile Quick | Autoankauf',
-      description: 'Verkaufen Sie Ihr Auto an Automobile Quick in Iserlohn. Faire Preise, schnelle Abwicklung, kostenlose Bewertung. Jetzt Ihr Fahrzeug bewerten lassen!',
+      title: PAGE_METADATA.tradeIn.title,
+      description: PAGE_METADATA.tradeIn.description,
       keywords: 'Auto verkaufen Iserlohn, Autoankauf, Gebrauchtwagen verkaufen, Auto bewertung, Fahrzeug verkaufen',
       ogTitle: 'Auto verkaufen - Automobile Quick',
-      ogDescription: 'Verkaufen Sie Ihr Auto mit fairen Preisen und schneller Abwicklung.',
-      canonicalUrl: 'https://automobilequick.de/autoankauf',
+      ogDescription: PAGE_METADATA.tradeIn.description,
+      canonicalUrl: `${SITE_CONFIG.url}${PAGE_METADATA.tradeIn.path}`,
       structuredData: getStructuredDataBreadcrumb([
-        { name: 'Home', url: 'https://automobilequick.de/' },
-        { name: 'Autoankauf', url: 'https://automobilequick.de/autoankauf' },
+        { name: 'Home', url: `${SITE_CONFIG.url}/` },
+        { name: 'Autoankauf', url: `${SITE_CONFIG.url}${PAGE_METADATA.tradeIn.path}` },
       ]),
     });
   }, []);
@@ -93,6 +95,11 @@ export default function TradeInPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SeoHead 
+        title={PAGE_METADATA.tradeIn.title}
+        description={PAGE_METADATA.tradeIn.description}
+        url={`${SITE_CONFIG.url}${PAGE_METADATA.tradeIn.path}`}
+      />
       <Header />
 
       {/* Hero Section */}

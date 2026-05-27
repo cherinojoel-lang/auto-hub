@@ -4,9 +4,11 @@ import { ChevronRight, Filter, X, Phone, MessageSquare } from 'lucide-react';
 import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
 import { Image } from '@/components/ui/image';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
+import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
+import SeoHead from '@/components/SeoHead';
+import { PAGE_METADATA, SITE_CONFIG } from '@/lib/seo-config';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 
@@ -65,15 +67,15 @@ export default function VehiclePage() {
   useEffect(() => {
     // Update SEO for vehicles page
     updateMetaTags({
-      title: 'Aktuelle Gebrauchtwagen in Iserlohn-Letmathe | Automobile Quick Fahrzeugbestand',
-      description: 'Entdecken Sie den aktuellen Fahrzeugbestand von Automobile Quick. Alle Fahrzeuge mit Preis, Finanzierung, Erstzulassung, Kilometerstand, Leistung und Kraftstoff.',
+      title: PAGE_METADATA.vehicles.title,
+      description: PAGE_METADATA.vehicles.description,
       keywords: 'Fahrzeugbestand, Gebrauchtwagen kaufen, Gebrauchtwagen Iserlohn, Gebrauchtwagen Letmathe, Audi Gebrauchtwagen, BMW Gebrauchtwagen, Mercedes Gebrauchtwagen, VW Gebrauchtwagen, Porsche Gebrauchtwagen, Automobile Quick Fahrzeuge',
       ogTitle: 'Fahrzeugbestand - Automobile Quick',
-      ogDescription: 'Entdecken Sie den aktuellen Fahrzeugbestand von Automobile Quick. Alle Fahrzeuge mit Preis, Finanzierung, Erstzulassung, Kilometerstand, Leistung und Kraftstoff.',
-      canonicalUrl: 'https://automobilequick.de/fahrzeugbestand',
+      ogDescription: PAGE_METADATA.vehicles.description,
+      canonicalUrl: `${SITE_CONFIG.url}${PAGE_METADATA.vehicles.path}`,
       structuredData: getStructuredDataBreadcrumb([
-        { name: 'Home', url: 'https://automobilequick.de/' },
-        { name: 'Fahrzeugbestand', url: 'https://automobilequick.de/fahrzeugbestand' },
+        { name: 'Home', url: `${SITE_CONFIG.url}/` },
+        { name: 'Fahrzeugbestand', url: `${SITE_CONFIG.url}${PAGE_METADATA.vehicles.path}` },
       ]),
     });
     
@@ -84,9 +86,7 @@ export default function VehiclePage() {
   const loadVehicle = async () => {
     setIsLoading(true);
     try {
-      // Simulate API latency
-      await new Promise(resolve => setTimeout(resolve, 300));
-      let filtered = [...vehiclesData].filter(v => v.status === 'available');
+      let filtered = [...vehiclesData];
 
       if (manufacturer) {
         filtered = filtered.filter(v => v.title?.toLowerCase().includes(manufacturer.toLowerCase()));
@@ -153,54 +153,58 @@ export default function VehiclePage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background pb-20 md:pb-0">
+    <div className="min-h-screen flex flex-col bg-background pb-32 md:pb-0">
+      <SeoHead 
+        title={PAGE_METADATA.vehicles.title}
+        description={PAGE_METADATA.vehicles.description}
+        url={`${SITE_CONFIG.url}${PAGE_METADATA.vehicles.path}`}
+      />
       <a href="#main-content" className="skip-to-main">
         Zum Hauptinhalt springen
       </a>
-      <Header />
 
-      {/* Hero Section - Compact for Demo */}
-      <section className="bg-gradient-to-br from-primary via-primary to-primary/90 text-white py-8 sm:py-10 md:py-12">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-br from-primary via-accent to-primary/90 text-white py-12 sm:py-16 md:py-20">
         <div className="container mx-auto px-4 max-w-7xl">
           <AnimatedElement>
             <div className="max-w-3xl mx-auto text-center">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-3 sm:mb-4 tracking-tight">
-                Fahrzeugbestand Automobile Quick
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-4 sm:mb-6">
+                Aktuelle Gebrauchtwagen in Iserlohn-Letmathe
               </h1>
-              <p className="text-sm sm:text-base md:text-lg text-white/80 leading-relaxed font-light">
-                Entdecken Sie unsere aktuellen Gebrauchtwagen in Iserlohn-Letmathe. Geprüfte Qualität seit 1982.
+              <p className="text-base sm:text-lg md:text-xl text-white/90 leading-relaxed">
+                Entdecken Sie den aktuellen Fahrzeugbestand von Automobile Quick. Alle Fahrzeuge mit Preis, Finanzierung, Erstzulassung, Kilometerstand, Leistung und Kraftstoff.
               </p>
             </div>
           </AnimatedElement>
         </div>
       </section>
 
-      {/* Filters Section - Non-sticky, compact for world-class demo */}
-      <section className="py-6 bg-gray-50 border-b border-gray-200">
+      {/* Filters Section */}
+      <section className="py-8 sm:py-10 bg-card-bg border-b border-border-line sticky top-20 z-40">
         <div className="container mx-auto px-4 max-w-7xl">
-          <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
-            <h2 className="text-sm font-heading font-bold text-foreground uppercase tracking-[0.2em] opacity-60">
-              Fahrzeugbestand filtern
+          <div className="flex items-center justify-between mb-4 sm:mb-6">
+            <h2 className="text-lg sm:text-xl font-heading font-bold text-foreground">
+              Filter
             </h2>
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="md:hidden flex items-center justify-center gap-2 text-primary font-bold text-xs hover:text-primary/80 transition-colors bg-white px-4 py-2 rounded border border-gray-200 shadow-sm"
+              className="md:hidden flex items-center gap-2 text-primary font-bold text-sm sm:text-base hover:text-primary/80 transition-colors"
             >
-              <Filter size={16} />
-              {showFilters ? 'Schließen' : 'Filter anpassen'}
+              <Filter size={22} />
+              {showFilters ? 'Schließen' : 'Filter anzeigen'}
             </button>
           </div>
 
-          <div className={`${showFilters ? 'block' : 'hidden'} md:block transition-all duration-500`}>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-6">
-              <div className="space-y-1.5">
-                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-0.5">
+          <div className={`${showFilters ? 'block' : 'hidden'} md:block`}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 mb-6">
+              <div>
+                <label className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
                   Marke
                 </label>
                 <select
                   value={manufacturer}
                   onChange={(e) => setManufacturer(e.target.value)}
-                  className="w-full px-3 py-2 rounded-sm border border-gray-200 bg-white text-foreground text-xs focus:outline-none focus:border-secondary transition-all appearance-none cursor-pointer shadow-sm hover:border-gray-300"
+                  className="w-full px-4 py-3 rounded-sm border-2 border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
                 >
                   <option value="">Alle Marken</option>
                   <option value="BMW">BMW</option>
@@ -212,84 +216,93 @@ export default function VehiclePage() {
                 </select>
               </div>
 
-              <div className="space-y-1.5">
-                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-0.5">
-                  Preis bis
+              <div>
+                <label className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
+                  Preis
                 </label>
                 <select
                   value={priceMax}
                   onChange={(e) => setPriceMax(e.target.value)}
-                  className="w-full px-3 py-2 rounded-sm border border-gray-200 bg-white text-foreground text-xs focus:outline-none focus:border-secondary transition-all appearance-none cursor-pointer shadow-sm hover:border-gray-300"
+                  className="w-full px-4 py-3 rounded-sm border-2 border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
                 >
                   <option value="">Alle Preise</option>
                   <option value="15000">bis 15.000 €</option>
                   <option value="25000">bis 25.000 €</option>
                   <option value="40000">bis 40.000 €</option>
+                  <option value="60000">bis 60.000 €</option>
+                  <option value="100000">bis 100.000 €</option>
                 </select>
               </div>
 
-              <div className="space-y-1.5">
-                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-0.5">
+              <div>
+                <label className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
                   Kraftstoff
                 </label>
                 <select
                   value={driveType}
                   onChange={(e) => setDriveType(e.target.value)}
-                  className="w-full px-3 py-2 rounded-sm border border-gray-200 bg-white text-foreground text-xs focus:outline-none focus:border-secondary transition-all appearance-none cursor-pointer shadow-sm hover:border-gray-300"
+                  className="w-full px-4 py-3 rounded-sm border-2 border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
                 >
                   <option value="">Alle Kraftstoffe</option>
                   <option value="Benzin">Benzin</option>
                   <option value="Diesel">Diesel</option>
                   <option value="Elektro">Elektro</option>
-                  <option value="Hybrid">Hybrid</option>
+                  <option value="Hybrid Benzin">Hybrid Benzin</option>
+                  <option value="Plug-in Hybrid">Plug-in Hybrid</option>
                 </select>
               </div>
 
-              <div className="space-y-1.5">
-                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-0.5">
-                  Kilometer
+              <div>
+                <label className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
+                  Kilometerstand
                 </label>
                 <select
                   value={maxMileage}
                   onChange={(e) => setMaxMileage(e.target.value)}
-                  className="w-full px-3 py-2 rounded-sm border border-gray-200 bg-white text-foreground text-xs focus:outline-none focus:border-secondary transition-all appearance-none cursor-pointer shadow-sm hover:border-gray-300"
+                  className="w-full px-4 py-3 rounded-sm border-2 border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
                 >
                   <option value="">Alle km</option>
+                  <option value="20000">bis 20.000</option>
                   <option value="50000">bis 50.000</option>
                   <option value="100000">bis 100.000</option>
                   <option value="150000">bis 150.000</option>
+                  <option value="200000">bis 200.000</option>
                 </select>
               </div>
 
-              <div className="space-y-1.5">
-                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-0.5">
-                  EZ ab
+              <div>
+                <label className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
+                  Erstzulassung
                 </label>
                 <select
                   value={yearFrom}
                   onChange={(e) => setYearFrom(e.target.value)}
-                  className="w-full px-3 py-2 rounded-sm border border-gray-200 bg-white text-foreground text-xs focus:outline-none focus:border-secondary transition-all appearance-none cursor-pointer shadow-sm hover:border-gray-300"
+                  className="w-full px-4 py-3 rounded-sm border-2 border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
                 >
                   <option value="">Alle Jahre</option>
+                  <option value="2024">ab 2024</option>
+                  <option value="2023">ab 2023</option>
                   <option value="2022">ab 2022</option>
+                  <option value="2021">ab 2021</option>
                   <option value="2020">ab 2020</option>
+                  <option value="2019">ab 2019</option>
                   <option value="2018">ab 2018</option>
                 </select>
               </div>
             </div>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <button
                 onClick={applyFilters}
-                className="bg-primary text-white px-8 py-2.5 rounded-sm font-bold text-xs hover:bg-primary/90 transition-all shadow-md active:scale-95"
+                className="bg-primary text-white px-6 sm:px-8 py-3 rounded-sm font-bold text-sm sm:text-base hover:bg-primary/90 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
               >
-                Ergebnisse anzeigen
+                Filter anwenden
               </button>
               <button
                 onClick={clearFilters}
-                className="bg-white text-gray-500 px-8 py-2.5 rounded-sm border border-gray-200 font-bold text-xs hover:bg-gray-50 transition-all flex items-center justify-center gap-2 active:scale-95"
+                className="bg-alt-bg text-foreground px-6 sm:px-8 py-3 rounded-sm font-bold text-sm sm:text-base hover:bg-border-line transition-all duration-300 flex items-center justify-center gap-2"
               >
-                <X size={14} />
+                <X size={18} />
                 Zurücksetzen
               </button>
             </div>
@@ -298,7 +311,7 @@ export default function VehiclePage() {
       </section>
 
       {/* Vehicle Grid */}
-      <section className="py-12 sm:py-16 bg-white flex-1" id="main-content">
+      <section className="py-12 sm:py-16 md:py-20 bg-background flex-1" id="main-content">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="min-h-[600px]">
             {isLoading ? (
@@ -307,92 +320,85 @@ export default function VehiclePage() {
               </div>
             ) : vehicles.length > 0 ? (
               <>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                   {vehicles.map((vehicle, index) => (
                     <AnimatedElement key={vehicle.id} delay={index * 50}>
-                      <div className="group bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 flex flex-col h-full transform hover:-translate-y-1">
+                      <div className="group bg-card-bg rounded-sm shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden border border-border-line hover:scale-[1.02] flex flex-col h-full">
                         {/* Image Section */}
-                        <div className="aspect-[16/10] overflow-hidden bg-gray-50 relative">
+                        <div className="aspect-[4/3] overflow-hidden bg-alt-bg relative">
                           {vehicle.mainImage ? (
                             <Image
                               src={vehicle.mainImage}
                               alt={vehicle.alt || vehicle.title}
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
-                              width={600}
-                              height={375}
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
+                              width={400}
+                              height={300}
                             />
                           ) : (
-                            <div className="w-full h-full flex flex-col items-center justify-center bg-gray-100 text-gray-400">
-                              <span className="text-xs font-bold uppercase tracking-widest">Bild folgt</span>
+                            <div className="w-full h-full flex flex-col items-center justify-center" style={{ backgroundColor: '#F6F1EA' }}>
+                              <span className="text-text-secondary text-sm font-medium" style={{ color: '#536075' }}>Bild folgt</span>
                             </div>
                           )}
-                          <div className="absolute top-4 left-4 flex flex-col gap-2">
-                            <div className="bg-success/95 text-white px-3 py-1.5 text-[10px] font-bold rounded-sm shadow-sm backdrop-blur-md uppercase tracking-wider">
-                              Verfügbar
-                            </div>
-                            {vehicle.isNew && (
-                              <div className="bg-secondary text-white px-3 py-1.5 text-[10px] font-bold rounded-sm shadow-sm backdrop-blur-md uppercase tracking-wider animate-pulse">
-                                NEU EINGETROFFEN
-                              </div>
-                            )}
+                          <div className="absolute top-4 left-4 bg-success text-white px-3 py-1.5 text-xs font-bold rounded-sm shadow-md">
+                            Verfügbar
                           </div>
                         </div>
 
                         {/* Content Section */}
-                        <div className="p-6 sm:p-7 flex flex-col flex-1">
-                          <h3 className="text-xl font-heading font-bold mb-4 text-primary line-clamp-1 group-hover:text-secondary transition-colors">
+                        <div className="p-6 sm:p-8 flex flex-col flex-1">
+                          {/* Title */}
+                          <h3 className="text-lg sm:text-xl font-heading font-bold mb-4 text-foreground group-hover:text-primary transition-colors">
                             {vehicle.title}
                           </h3>
 
-                          <div className="mb-6">
-                            <div className="flex items-baseline gap-2">
-                              <span className="text-3xl font-extrabold text-primary tracking-tight">
-                                {vehicle.price}
-                              </span>
-                              <span className="text-[10px] text-gray-400 font-bold uppercase">Endpreis</span>
-                            </div>
-                            {vehicle.financing && (
-                              <p className="text-xs text-secondary font-bold mt-1.5 flex items-center gap-1.5">
-                                <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
-                                {vehicle.financing}
-                              </p>
+                          {/* Price */}
+                          <div className="mb-2">
+                            <span className="text-3xl sm:text-4xl font-bold text-secondary">
+                              {vehicle.price}
+                            </span>
+                          </div>
+
+                          {/* Financing */}
+                          {vehicle.financing && (
+                            <p className="text-sm text-text-secondary mb-6 font-medium">
+                              {vehicle.financing}
+                            </p>
+                          )}
+
+                          {/* Details */}
+                          <div className="space-y-2 mb-6 text-sm text-text-secondary flex-1">
+                            {vehicle.firstRegistration && (
+                              <p className="font-medium">Erstzulassung: {vehicle.firstRegistration}</p>
                             )}
+                            {vehicle.mileage && (
+                              <p className="font-medium">Kilometerstand: {vehicle.mileage}</p>
+                            )}
+                            {vehicle.power && (
+                              <p className="font-medium">Leistung: {vehicle.power}</p>
+                            )}
+                            {vehicle.fuel && <p className="font-medium">Kraftstoff: {vehicle.fuel}</p>}
                           </div>
 
-                          {/* Details Grid */}
-                          <div className="grid grid-cols-2 gap-y-4 gap-x-6 mb-8 pt-6 border-t border-gray-100">
-                            <div className="flex flex-col">
-                              <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1">Erstzulassung</span>
-                              <span className="text-sm text-gray-700 font-bold">{vehicle.firstRegistration}</span>
-                            </div>
-                            <div className="flex flex-col">
-                              <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1">Kilometer</span>
-                              <span className="text-sm text-gray-700 font-bold">{vehicle.mileage}</span>
-                            </div>
-                            <div className="flex flex-col">
-                              <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1">Leistung</span>
-                              <span className="text-sm text-gray-700 font-bold">{vehicle.power}</span>
-                            </div>
-                            <div className="flex flex-col">
-                              <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1">Kraftstoff</span>
-                              <span className="text-sm text-gray-700 font-bold">{vehicle.fuel}</span>
-                            </div>
-                          </div>
-
-                          {/* Buttons */}
-                          <div className="flex gap-3 mt-auto">
+                          {/* Buttons - 3 CTAs */}
+                          <div className="flex flex-col gap-2 pt-6 border-t border-border-line">
                             <Link
                               to={`/fahrzeugdetail/${vehicle.id}`}
-                              className="flex-[1.5] bg-primary text-white px-4 py-3.5 rounded-sm font-bold text-xs text-center hover:bg-primary/90 transition-all shadow-md active:scale-95"
+                              className="w-full bg-primary text-white px-4 py-3 rounded-sm font-bold text-sm text-center hover:bg-primary/90 transition-all duration-300 shadow-sm hover:shadow-md min-h-[48px] flex items-center justify-center"
                             >
-                              Details ansehen
+                              Details anzeigen
                             </Link>
                             <Link
                               to="/kontakt"
-                              className="flex-1 bg-white text-primary border-2 border-primary/10 px-4 py-3.5 rounded-sm font-bold text-xs text-center hover:bg-gray-50 transition-all active:scale-95"
+                              className="w-full bg-secondary text-white px-4 py-3 rounded-sm font-bold text-sm text-center hover:bg-cta-hover transition-all duration-300 shadow-sm hover:shadow-md min-h-[48px] flex items-center justify-center"
                             >
-                              Anfragen
+                              Anfrage senden
                             </Link>
+                            <a
+                              href="tel:+492374912912"
+                              className="w-full bg-accent text-white px-4 py-3 rounded-sm font-bold text-sm text-center hover:bg-primary/90 transition-all duration-300 shadow-sm hover:shadow-md min-h-[48px] flex items-center justify-center"
+                            >
+                              Anrufen
+                            </a>
                           </div>
                         </div>
                       </div>
@@ -413,7 +419,7 @@ export default function VehiclePage() {
               </>
             ) : (
               <div className="text-center py-20">
-                <p className="text-lg sm:text-xl text-gray-600">
+                <p className="text-lg sm:text-xl text-text-secondary">
                   Keine Fahrzeuge gefunden. Bitte passen Sie Ihre Filter an.
                 </p>
               </div>
@@ -423,21 +429,23 @@ export default function VehiclePage() {
       </section>
 
       {/* Mobile Sticky Bottom Bar */}
-      <div className="fixed bottom-0 left-0 right-0 md:hidden bg-white border-t border-gray-200 shadow-2xl z-50">
-        <div className="flex gap-3 p-4 max-w-7xl mx-auto">
+      <div className="fixed bottom-0 left-0 right-0 md:hidden z-40" style={{ backgroundColor: '#FCFCFA', borderTop: '1px solid #D8DEE8', maxHeight: '72px', paddingBottom: 'env(safe-area-inset-bottom)' }}>
+        <div className="flex gap-3 p-4 max-w-7xl mx-auto h-16 items-center">
           <a
-            href="tel:+492374912912"
-            className="flex-1 flex items-center justify-center gap-2 bg-primary text-white px-4 py-3 rounded-sm font-bold text-sm hover:bg-primary/90 transition-all duration-300 shadow-md"
+            href="tel:+4923749157-0"
+            className="flex-1 flex items-center justify-center gap-2 text-white px-4 py-3 rounded-sm font-bold text-sm hover:opacity-90 transition-all duration-300 shadow-md min-h-[48px]"
+            style={{ backgroundColor: '#D9431F' }}
           >
             <Phone size={18} />
             Anrufen
           </a>
           <Link
             to="/kontakt"
-            className="flex-1 flex items-center justify-center gap-2 bg-secondary text-white px-4 py-3 rounded-sm font-bold text-sm hover:bg-secondary/90 transition-all duration-300 shadow-md"
+            className="flex-1 flex items-center justify-center gap-2 text-white px-4 py-3 rounded-sm font-bold text-sm hover:opacity-90 transition-all duration-300 shadow-md min-h-[48px]"
+            style={{ backgroundColor: '#D9431F' }}
           >
             <MessageSquare size={18} />
-            Besichtigung
+            Anfrage
           </Link>
         </div>
       </div>

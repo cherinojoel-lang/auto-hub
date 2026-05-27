@@ -15,6 +15,7 @@ export const Head = () => {
       {/* Open Graph Tags */}
       <meta property="og:title" content="Automobile Quick - Gebrauchtwagen in Iserlohn-Letmathe" />
       <meta property="og:description" content="Hochwertige Gebrauchtwagen mit persönlicher Beratung. Automobile Quick - Ihr Autohaus seit 1982." />
+      <meta property="og:site_name" content="Automobile Quick" />
       <meta property="og:type" content="website" />
       <meta property="og:image" content="https://static.wixstatic.com/media/32e7c0_d28732f69d9643a7ada1b1be4890a422~mv2.png" />
       <meta property="og:image:width" content="1200" />
@@ -28,7 +29,7 @@ export const Head = () => {
       <meta name="twitter:image" content="https://static.wixstatic.com/media/32e7c0_d28732f69d9643a7ada1b1be4890a422~mv2.png" />
       
       {/* Additional SEO Tags */}
-      <meta name="theme-color" content="#096A8A" />
+      <meta name="theme-color" content="#16233A" />
       <meta name="apple-mobile-web-app-capable" content="yes" />
       <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
       

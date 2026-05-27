@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
+import { updateMetaTags } from '@/lib/seo';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { updateMetaTags } from '@/lib/seo';
 
 export default function ImprintPage() {
   useEffect(() => {
@@ -14,7 +14,6 @@ export default function ImprintPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-accent via-accent to-primary/20 text-background py-20 md:py-28 overflow-hidden">
@@ -57,7 +56,7 @@ export default function ImprintPage() {
                     <span className="font-medium">Telefax:</span> +49 (0) 2374 / 2813
                   </p>
                   <p>
-                    <span className="font-medium">E-Mail:</span> info@automobilequick.de
+                    <span className="font-medium">E-Mail:</span> auto-quick@t-online.de
                   </p>
                   <p>
                     <span className="font-medium">USt-IdNr.:</span> DE196524275

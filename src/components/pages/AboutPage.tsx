@@ -1,9 +1,11 @@
 import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Phone, Mail, Clock, ChevronRight, Award, Users, Target } from 'lucide-react';
+import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
+import SeoHead from '@/components/SeoHead';
+import { PAGE_METADATA, SITE_CONFIG } from '@/lib/seo-config';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 
@@ -47,21 +49,26 @@ export default function AboutPage() {
   useEffect(() => {
     // Update SEO for about page
     updateMetaTags({
-      title: 'Über uns - Automobile Quick | Autohaus seit 1982 in Iserlohn-Letmathe',
-      description: 'Automobile Quick: Seit 1982 Ihr vertrauensvoller Partner für hochwertige Gebrauchtwagen in Iserlohn-Letmathe. Faire Preise, persönliche Beratung, langfristige Partnerschaft. Erfahren Sie mehr über uns!',
+      title: PAGE_METADATA.about.title,
+      description: PAGE_METADATA.about.description,
       keywords: 'Über Automobile Quick, Autohaus Geschichte, Gebrauchtwagen Händler, Iserlohn, Letmathe, seit 1982, vertrauensvoller Partner',
       ogTitle: 'Über uns - Automobile Quick',
-      ogDescription: 'Seit 1982 Ihr vertrauensvoller Partner für hochwertige Gebrauchtwagen mit fairen Preisen.',
-      canonicalUrl: 'https://automobilequick.de/about',
+      ogDescription: PAGE_METADATA.about.description,
+      canonicalUrl: `${SITE_CONFIG.url}${PAGE_METADATA.about.path}`,
       structuredData: getStructuredDataBreadcrumb([
-        { name: 'Home', url: 'https://automobilequick.de/' },
-        { name: 'Über uns', url: 'https://automobilequick.de/about' },
+        { name: 'Home', url: `${SITE_CONFIG.url}/` },
+        { name: 'Über uns', url: `${SITE_CONFIG.url}${PAGE_METADATA.about.path}` },
       ]),
     });
   }, []);
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SeoHead 
+        title={PAGE_METADATA.about.title}
+        description={PAGE_METADATA.about.description}
+        url={`${SITE_CONFIG.url}${PAGE_METADATA.about.path}`}
+      />
       <a href="#main-content" className="skip-to-main">
         Zum Hauptinhalt springen
       </a>
@@ -85,7 +92,7 @@ export default function AboutPage() {
                 Über uns
               </h1>
               <p className="text-xl md:text-2xl text-background/90">
-                Ihr vertrauensvoller Partner für hochwertige Gebrauchtwagen in Hagen
+                Ihr vertrauensvoller Partner für hochwertige Gebrauchtwagen in Iserlohn-Letmathe
               </p>
             </div>
           </AnimatedElement>
@@ -196,7 +203,7 @@ export default function AboutPage() {
                   Besuchen Sie uns
                 </h2>
                 <p className="text-lg text-foreground/70">
-                  Wir freuen uns auf Ihren Besuch in Hagen
+                  Wir freuen uns auf Ihren Besuch in Iserlohn-Letmathe
                 </p>
               </div>
             </AnimatedElement>
@@ -212,8 +219,8 @@ export default function AboutPage() {
                       <MapPin className="text-primary flex-shrink-0 mt-1" size={24} />
                       <div>
                         <p className="font-medium text-foreground">Adresse</p>
-                        <p className="text-foreground/70">Delsterner Str. 92</p>
-                        <p className="text-foreground/70">58091 Hagen</p>
+                        <p className="text-foreground/70">Hagener Str. 126a</p>
+                        <p className="text-foreground/70">58642 Iserlohn</p>
                       </div>
                     </div>
 
@@ -222,10 +229,10 @@ export default function AboutPage() {
                       <div>
                         <p className="font-medium text-foreground">Telefon</p>
                         <a 
-                          href="tel:+4923311234567"
+                          href="tel:+492374912912"
                           className="text-foreground/70 hover:text-primary transition-colors"
                         >
-                          +49 (0) 2331 123456
+                          +49 (0) 2374 / 912912
                         </a>
                       </div>
                     </div>
@@ -235,10 +242,10 @@ export default function AboutPage() {
                       <div>
                         <p className="font-medium text-foreground">E-Mail</p>
                         <a 
-                          href="mailto:info@automobilequick.de"
+                          href="mailto:auto-quick@t-online.de"
                           className="text-foreground/70 hover:text-primary transition-colors"
                         >
-                          info@automobilequick.de
+                          auto-quick@t-online.de
                         </a>
                       </div>
                     </div>
@@ -323,6 +330,4 @@ export default function AboutPage() {
       <Footer />
     </div>
   );
-}
-
 }

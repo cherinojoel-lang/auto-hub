@@ -21,7 +21,7 @@ export interface SEOConfig {
 export const DEFAULT_SEO: SEOConfig = {
   title: 'Automobile Quick - Gebrauchtwagen in Iserlohn-Letmathe | Autohaus seit 1982',
   description: 'Automobile Quick: Hochwertige Gebrauchtwagen in Iserlohn-Letmathe. Audi, BMW, Mercedes, VW, Porsche - faire Preise, persönliche Beratung, seit 1982. Jetzt Fahrzeug finden!',
-  keywords: 'Gebrauchtwagen Iserlohn, Gebrauchtwagen Letmathe, Autohaus Iserlohn, Gebrauchtwagen kaufen, Audi Gebrauchtwagen, BMW Gebrauchtwagen, Mercedes Gebrauchtwagen, VW Gebrauchtwagen, Porsche Gebrauchtwagen, Automobile Quick, Fahrzeugbestand, Gebrauchtwagen Hagen',
+  keywords: 'Gebrauchtwagen Iserlohn, Gebrauchtwagen Letmathe, Autohaus Iserlohn, Automobile Quick, Fahrzeugbestand, Autoankauf Iserlohn, Finanzierung auf Anfrage, Gebrauchtwagen Iserlohn-Letmathe',
   ogType: 'website',
   robots: 'index, follow',
   author: 'Automobile Quick',
@@ -29,6 +29,8 @@ export const DEFAULT_SEO: SEOConfig = {
 };
 
 export function updateMetaTags(config: SEOConfig) {
+  document.documentElement.lang = 'de';
+
   // Update title
   document.title = config.title;
 
@@ -50,6 +52,7 @@ export function updateMetaTags(config: SEOConfig) {
   // Open Graph tags
   updateMetaTag('og:title', config.ogTitle || config.title, 'property');
   updateMetaTag('og:description', config.ogDescription || config.description, 'property');
+  updateMetaTag('og:site_name', 'Automobile Quick', 'property');
   updateMetaTag('og:type', config.ogType || 'website', 'property');
   
   if (config.ogImage) {
@@ -58,6 +61,8 @@ export function updateMetaTags(config: SEOConfig) {
 
   // Twitter Card tags
   updateMetaTag('twitter:card', config.twitterCard || 'summary_large_image', 'name');
+  updateMetaTag('twitter:title', config.ogTitle || config.title, 'name');
+  updateMetaTag('twitter:description', config.ogDescription || config.description, 'name');
   
   if (config.twitterCreator) {
     updateMetaTag('twitter:creator', config.twitterCreator, 'name');
@@ -115,24 +120,24 @@ function updateStructuredData(data: Record<string, any>) {
 export function getStructuredDataOrganization() {
   return {
     '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
+    '@type': 'AutoDealer',
     name: 'Automobile Quick',
-    description: 'Hochwertige Gebrauchtwagen mit persönlicher Beratung in Iserlohn-Letmathe seit 1982',
+    description: 'Gepflegte Gebrauchtwagen in Iserlohn-Letmathe seit 1982. Persönliche Beratung, Fahrzeugankauf und Finanzierung auf Anfrage.',
     url: 'https://automobilequick.de',
-    telephone: '+49 (0) 2331 123456',
-    email: 'info@automobilequick.de',
+    telephone: '+49-2374-912912',
+    email: 'auto-quick@t-online.de',
+    priceRange: '€',
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'Hagener Str. 126a',
       addressLocality: 'Iserlohn',
+      addressRegion: 'NW',
       postalCode: '58642',
       addressCountry: 'DE',
     },
     sameAs: [
-      'https://www.google.com/maps/place/Automobile+Quick',
+      'https://home.mobile.de/AUTOMOBILE-QUICK',
     ],
-    image: 'https://static.wixstatic.com/media/32e7c0_d28732f69d9643a7ada1b1be4890a422~mv2.png',
-    priceRange: '€€',
     foundingDate: '1982',
     openingHoursSpecification: [
       {
@@ -144,8 +149,8 @@ export function getStructuredDataOrganization() {
       {
         '@type': 'OpeningHoursSpecification',
         dayOfWeek: 'Saturday',
-        opens: '10:00',
-        closes: '16:00',
+        opens: '09:00',
+        closes: '13:00',
       },
     ],
   };

@@ -16,8 +16,8 @@
 
 ### 3. Vehicle Display
 - ✓ Vehicle cards display properly
-- ✓ Links to detail pages: `/vehicles/:id`
-- ✓ Links to contact form: `/contact`
+- ✓ Links to detail pages: `/fahrzeugdetail/:id`
+- ✓ Links to contact form: `/kontakt`
 - ✓ Missing images handled gracefully with placeholder
 
 ### 4. Page Loading
@@ -63,7 +63,7 @@
 
 #### Sticky Mobile CTA Bar
 - ✓ Vehicle detail page: Fixed bottom bar on mobile
-- ✓ Actions: "Anrufen" | "Besichtigung anfragen"
+- ✓ Actions: "Anrufen" | "Anfrage" | "Fahrzeuge"
 - ✓ Hidden on desktop (md and above)
 
 ### SEO Structure
@@ -90,11 +90,11 @@
 
 #### Main Navigation
 - ✓ Start (/)
-- ✓ Fahrzeugbestand (/vehicles)
+- ✓ Fahrzeugbestand (/fahrzeugbestand)
 - ✓ Autoankauf (/autoankauf)
 - ✓ Finanzierung (/finanzierung)
-- ✓ Über uns (/about)
-- ✓ Kontakt & Anfahrt (/contact)
+- ✓ Über uns (/ueber-uns)
+- ✓ Kontakt & Anfahrt (/kontakt)
 
 #### Footer Links
 - ✓ All main navigation links
@@ -126,12 +126,12 @@
 
 ### Routes Verified
 - ✓ `/` - Homepage
-- ✓ `/vehicles` - Vehicle list
-- ✓ `/vehicles/:id` - Vehicle detail
+- ✓ `/fahrzeugbestand` - Vehicle list
+- ✓ `/fahrzeugdetail/:id` - Vehicle detail
 - ✓ `/autoankauf` - Trade-in page
 - ✓ `/finanzierung` - Financing page
-- ✓ `/about` - About page
-- ✓ `/contact` - Contact page
+- ✓ `/ueber-uns` - About page
+- ✓ `/kontakt` - Contact page
 - ✓ `/impressum` - Imprint page
 - ✓ `/datenschutz` - Privacy page
 
@@ -234,9 +234,9 @@
 ## Contact Information
 
 **Automobile Quick**
-- Address: Delsterner Str. 92, 58091 Hagen
-- Phone: +49 (0) 2331 123456
-- Email: info@automobilequick.de
+- Address: Hagener Str. 126a, 58642 Iserlohn
+- Phone: +49 (0) 2374 / 912912
+- Email: auto-quick@t-online.de
 
 ---
 

@@ -3,20 +3,20 @@
 ## Color Palette
 
 ### Primary Colors
-- **--color-primary**: `#1A2B4C` (Dark Blue) - Main brand color for CTAs, links, accents
-- **--color-accent**: `#1A2B4C` (Dark Blue) - Hero sections, headings, emphasis
-- **--color-secondary**: `#E8421A` (Orange-Red) - Highlights, secondary CTAs, warnings
+- **--color-primary**: `#16233A` (Dark Blue) - Main brand color for headings and structure
+- **--color-accent**: `#213A5C` (Secondary Dark Blue) - Hero sections and emphasis
+- **--color-secondary**: `#D9431F` (CTA Orange) - Primary actions only
 
 ### Semantic Colors
 - **--color-success**: `#27AE60` (Green) - Success states, confirmations
 - **--color-warning**: `#F39C12` (Amber) - Warnings, alerts
-- **--color-neutral-100**: `#F8F9FA` (Light Gray) - Backgrounds, subtle elements
-- **--color-neutral-900**: `#1A1A1A` (Near Black) - Text, dark elements
+- **--color-neutral-100**: `#F3F5F7` (Light Gray) - Page backgrounds
+- **--color-neutral-900**: `#101828` (Near Black) - Main text
 
 ### Neutral Colors
-- **background**: `#FFFFFF` (White) - Page backgrounds
-- **foreground**: `#1A2B4C` (Dark Blue) - Text content
-- **border**: `rgba(26, 43, 76, 0.1)` - Subtle borders
+- **background**: `#FCFCFA` (Warm White) - Card backgrounds
+- **foreground**: `#101828` (Near Black) - Text content
+- **border**: `#D8DEE8` - Subtle borders
 
 ## Typography
 
@@ -98,11 +98,11 @@
 
 ### Main Navigation
 1. Start (/)
-2. Fahrzeugbestand (/vehicles)
+2. Fahrzeugbestand (/fahrzeugbestand)
 3. Autoankauf (/autoankauf)
 4. Finanzierung (/finanzierung)
-5. Über uns (/about)
-6. Kontakt & Anfahrt (/contact)
+5. Über uns (/ueber-uns)
+6. Kontakt & Anfahrt (/kontakt)
 
 ### Footer Links
 - Start
@@ -135,9 +135,9 @@
 ### Company Name
 - **Official**: Automobile Quick
 - **Location**: Iserlohn-Letmathe
-- **Address**: Delsterner Str. 92, 58091 Hagen
-- **Phone**: +49 (0) 2331 123456
-- **Email**: info@automobilequick.de
+- **Address**: Hagener Str. 126a, 58642 Iserlohn
+- **Phone**: +49 (0) 2374 / 912912
+- **Email**: auto-quick@t-online.de
 
 ### Removed Branding
 - ✓ Reinhardt (removed)

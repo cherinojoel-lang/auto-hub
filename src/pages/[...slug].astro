@@ -7,18 +7,23 @@ import "@wix/wix-vibe-plugins/plugins-vars.css";
 import "@wix/wix-vibe-plugins/plugins-theme.css";
 import "@/styles/global.css";
 
-const seoTagsServiceConfig = await loadSEOTagsServiceConfig({
-  pageUrl: Astro.url.href,
-  itemData: {
-    pageName: 'Home',
-  },
-});
+let seoTagsServiceConfig = null;
+try {
+  seoTagsServiceConfig = await loadSEOTagsServiceConfig({
+    pageUrl: Astro.url.href,
+    itemData: {
+      pageName: 'Home',
+    },
+  });
+} catch (error) {
+  console.error('Error loading SEO tags config:', error);
+}
 ---
 
-<html lang="en" class="w-full h-full">
+<html lang="de" class="w-full h-full">
   <head>
     <Head />
-    <SEO.Tags seoTagsServiceConfig={seoTagsServiceConfig} slot="seo-tags" />
+    {seoTagsServiceConfig && <SEO.Tags seoTagsServiceConfig={seoTagsServiceConfig} slot="seo-tags" />}
   </head>
   <body class="w-full h-full">
     <div id="root" class="w-full h-full">

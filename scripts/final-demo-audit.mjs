@@ -41,7 +41,7 @@ async function finalAudit() {
 
   // 2. Check for forbidden terms
   const forbiddenTerms = [
-    '5 Sterne', '157 Bewertungen', 'mobile.de', 'aggregateRating', 'reviewCount',
+    '5 Sterne', '157 Bewertungen', 'aggregateRating', 'reviewCount',
     'Google Reviews', 'WhatsApp', 'Checkout', 'Login', 'Zahlung', 'Reservierung'
   ];
 

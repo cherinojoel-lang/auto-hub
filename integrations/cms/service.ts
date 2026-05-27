@@ -5,6 +5,8 @@ import { WixDataItem } from ".";
  * Pagination options for querying collections
  */
 export interface PaginationOptions {
+  /** Optional filters to apply to the query */
+  filters?: Record<string, any>;
   /** Number of items per page (default: 50, max: 1000) */
   limit?: number;
   /** Number of items to skip (for offset-based pagination) */
@@ -134,6 +136,11 @@ export class BaseCrudService {
         : [...(includeRefs?.singleRef || []), ...(includeRefs?.multiRef || [])];
 
       let query = items.query(collectionId);
+      if (pagination?.filters) {
+        for (const [key, value] of Object.entries(pagination.filters)) {
+          query = query.eq(key, value);
+        }
+      }
       if (allRefs.length > 0) {
         query = query.include(...allRefs);
       }

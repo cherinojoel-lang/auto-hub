@@ -1,12 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Calendar, Gauge, Zap, Fuel, ArrowLeft, Phone, MapPin, Wrench, Check } from 'lucide-react';
+import { Calendar, Gauge, Zap, Fuel, ArrowLeft, Phone, MapPin, Wrench, Check, ChevronLeft, ChevronRight } from 'lucide-react';
 import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
 import { Image } from '@/components/ui/image';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
+import { updateMetaTags, getStructuredDataProduct } from '@/lib/seo';
+import SeoHead from '@/components/SeoHead';
+import { PAGE_METADATA, generateProductSchema, SITE_CONFIG } from '@/lib/seo-config';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { updateMetaTags, getStructuredDataProduct } from '@/lib/seo';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string }> = ({ 
   children, 
@@ -45,8 +47,8 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string 
   );
 };
 
-// Features for the demo vehicle
-const VEHICLE_FEATURES = [
+// Mock features for the demo vehicle
+const DEMO_FEATURES = [
   'Klimaanlage',
   'Einparkhilfe hinten',
   'Apple CarPlay',
@@ -61,47 +63,41 @@ export default function VehicleDetailPage() {
   const [vehicle, setVehicle] = useState<Vehicle | null>(null);
   const [similarVehicle, setSimilarVehicle] = useState<Vehicle[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [scrolled, setScrolled] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [currentGalleryIndex, setCurrentGalleryIndex] = useState(0);
 
   useEffect(() => {
     loadVehicle();
   }, [id]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 300);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const loadVehicle = async () => {
     if (!id) return;
     
     try {
       setIsLoading(true);
-      const safeVehicles = Array.isArray(vehiclesData) ? vehiclesData : [];
-      const data = safeVehicles.find((v: any) => v.id === id) || null;
+      const safeVehicles = Array.isArray(vehiclesData) ? vehiclesData : []; 
+      const data = safeVehicles.find((v: Vehicle) => v.id === id) || null;
       setVehicle(data);
-      
-      if (data) {
-        setSelectedImage(data.mainImage);
-      }
+      setCurrentGalleryIndex(0);
       
       // Load similar vehicles
-      setSimilarVehicle(safeVehicles.filter((v: any) => v.id !== id).slice(0, 4));
+      setSimilarVehicle(safeVehicles.filter((v: Vehicle) => v.id !== id).slice(0, 4));
       
-      // Update SEO for vehicle detail page - Maximum Supra-regional reach
+      // Update SEO for vehicle detail page
       if (data) {
+        const title = PAGE_METADATA.vehicleDetail.title
+          .replace('{title}', data.title || 'Fahrzeug')
+          .replace('{manufacturer}', data.make || '')
+          .replace('{model}', data.model || '')
+          .replace('{year}', data.firstRegistration?.toString() || '');
+        
         updateMetaTags({
-          title: `${data.title} kaufen | Iserlohn-Letmathe | Automobile Quick`,
-          description: `${data.title} gebraucht bei Automobile Quick. EZ ${data.firstRegistration}, ${data.mileage}, ${data.power}. Top gepflegt in Iserlohn. Jetzt Besichtigung anfragen!`,
-          keywords: `${data.make} ${data.model} kaufen, ${data.title} Gebrauchtwagen, ${data.make} Iserlohn, Auto kaufen Letmathe, ${data.fuel} Gebrauchtwagen NRW`,
-          ogTitle: `${data.title} - Automobile Quick Iserlohn`,
-          ogDescription: `${data.title} in Top-Zustand. EZ ${data.firstRegistration}, ${data.mileage}. Besichtigen Sie uns in Iserlohn-Letmathe.`,
+          title: title,
+          description: data.description || `${data.title} - Hochwertiger Gebrauchtwagen bei Automobile Quick in Iserlohn-Letmathe. Faire Preise und persönliche Beratung.`,
+          keywords: `${data.title}, Gebrauchtwagen, ${data.fuel}, Iserlohn, Letmathe`,
+          ogTitle: `${data.title} - Automobile Quick`,
+          ogDescription: data.description || `${data.title} - Hochwertiger Gebrauchtwagen`,
           ogImage: data.mainImage,
-          canonicalUrl: `https://automobilequick.de/fahrzeugdetail/${id}`,
+          canonicalUrl: `${SITE_CONFIG.url}/fahrzeugdetail/${id}`,
           structuredData: getStructuredDataProduct(data),
         });
       }
@@ -110,6 +106,24 @@ export default function VehicleDetailPage() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const getGalleryImages = () => {
+    if (!vehicle) return [];
+    if (!vehicle.gallery || vehicle.gallery.length === 0) return [];
+    return vehicle.gallery;
+  };
+
+  const galleryImages = getGalleryImages();
+  const hasMultipleImages = galleryImages.length > 1;
+  const currentImage = hasMultipleImages ? galleryImages[currentGalleryIndex] : vehicle?.mainImage;
+
+  const handlePrevImage = () => {
+    setCurrentGalleryIndex(prev => prev === 0 ? galleryImages.length - 1 : prev - 1);
+  };
+
+  const handleNextImage = () => {
+    setCurrentGalleryIndex(prev => prev === galleryImages.length - 1 ? 0 : prev + 1);
   };
 
   const formatPrice = (price?: number) => {
@@ -122,18 +136,17 @@ export default function VehicleDetailPage() {
     }).format(price);
   };
 
-  const calculateFinancing = (price?: number) => {
-    if (!price) return 'auf Anfrage';
-    const monthlyRate = Math.round(price / 100);
-    return `${monthlyRate} EUR`;
-  };
-
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <SeoHead 
+        title={vehicle ? `${vehicle.title} - Gebrauchtwagen bei Automobile Quick` : 'Fahrzeug nicht gefunden'}
+        description={vehicle?.description || 'Hochwertiger Gebrauchtwagen bei Automobile Quick in Iserlohn-Letmathe'}
+        url={`${SITE_CONFIG.url}/fahrzeugdetail/${id}`}
+        schema={vehicle ? generateProductSchema(vehicle) : undefined}
+      />
       <a href="#main-content" className="skip-to-main">
         Zum Hauptinhalt springen
       </a>
-      <Header />
 
       <div className="flex-1">
         {isLoading ? (
@@ -154,8 +167,224 @@ export default function VehicleDetailPage() {
           </div>
         ) : (
           <>
-            {/* Back Link */}
-            <div className="container mx-auto px-4 max-w-7xl pt-6 sm:pt-8" id="main-content">
+            {/* MOBILE LAYOUT */}
+            {/* Mobile: Full-width Image Gallery */}
+            <div className="lg:hidden w-full" id="main-content">
+              <div className="aspect-video bg-alt-bg flex items-center justify-center relative">
+                {vehicle.mainImage ? (
+                  <div className="w-full h-full flex flex-col">
+                    {/* Main Image */}
+                    <div className="relative w-full flex-1 overflow-hidden">
+                      <Image
+                        src={currentImage || vehicle.mainImage}
+                        alt={vehicle.alt || vehicle.title}
+                        className="w-full h-full object-cover"
+                        width={1200}
+                        height={675}
+                      />
+                      {/* Image Counter - only show if multiple images */}
+                      {hasMultipleImages && (
+                        <div className="absolute top-4 right-4 bg-primary text-white px-3 py-1.5 text-xs font-bold rounded-sm shadow-md">
+                          {currentGalleryIndex + 1} / {galleryImages.length}
+                        </div>
+                      )}
+                      {/* Navigation Arrows - only show if multiple images */}
+                      {hasMultipleImages && (
+                        <>
+                          <button
+                            onClick={handlePrevImage}
+                            className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-primary p-2 rounded-full shadow-md transition-all"
+                            aria-label="Vorheriges Bild"
+                          >
+                            <ChevronLeft size={24} />
+                          </button>
+                          <button
+                            onClick={handleNextImage}
+                            className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-primary p-2 rounded-full shadow-md transition-all"
+                            aria-label="Nächstes Bild"
+                          >
+                            <ChevronRight size={24} />
+                          </button>
+                        </>
+                      )}
+                    </div>
+                    {/* Thumbnails - only show if multiple images */}
+                    {hasMultipleImages && (
+                      <div className="bg-warm-bg p-3 overflow-x-auto">
+                        <div className="flex gap-2">
+                          {galleryImages.map((img, idx) => (
+                            <button
+                              key={idx}
+                              onClick={() => setCurrentGalleryIndex(idx)}
+                              className={`flex-shrink-0 aspect-video rounded overflow-hidden border-2 transition-all ${
+                                currentGalleryIndex === idx ? 'border-secondary' : 'border-border-line'
+                              }`}
+                            >
+                              <Image
+                                src={img}
+                                alt={`${vehicle.title} Galeriebild ${idx + 1}`}
+                                className="w-full h-full object-cover"
+                                width={80}
+                                height={60}
+                              />
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <div className="w-full h-full flex flex-col items-center justify-center" style={{ backgroundColor: '#F6F1EA' }}>
+                    <div className="text-center">
+                      <p className="text-lg font-bold" style={{ color: '#536075' }}>Bild folgt</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Mobile: Title Section */}
+            <div className="lg:hidden container mx-auto px-4 max-w-7xl py-6">
+              <h1 className="text-3xl sm:text-4xl font-heading font-bold text-primary mb-3">
+                {vehicle.title}
+              </h1>
+              <p className="text-base text-text-secondary leading-relaxed font-paragraph">
+                Gebrauchtwagen bei Automobile Quick in Iserlohn-Letmathe
+              </p>
+            </div>
+
+            {/* Mobile: Price Section */}
+            <div className="lg:hidden bg-card-bg border-t border-border-line">
+              <div className="container mx-auto px-4 max-w-7xl py-6">
+                <p className="text-sm text-text-secondary font-medium mb-2">Verkaufspreis</p>
+                <p className="text-4xl font-bold text-secondary mb-6">
+                  {vehicle.price}
+                </p>
+                <p className="text-sm text-success font-bold mb-4">✓ Verfügbar</p>
+              </div>
+            </div>
+
+            {/* Mobile: Financing Box */}
+            <div className="lg:hidden bg-card-bg border-t border-border-line">
+              <div className="container mx-auto px-4 max-w-7xl py-6">
+                <div className="p-4 rounded-lg border" style={{ backgroundColor: '#FCFCFA', borderColor: '#D8DEE8' }}>
+                  <p className="text-sm font-bold mb-3" style={{ color: '#101828' }}>Finanzierung auf Anfrage</p>
+                  <p className="text-sm leading-relaxed" style={{ color: '#536075' }}>
+                    Wir prüfen passende Finanzierungsoptionen gerne persönlich.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Mobile: CTA Buttons */}
+            <div className="lg:hidden bg-background border-t border-border-line">
+              <div className="container mx-auto px-4 max-w-7xl py-6 space-y-3">
+                <a
+                  href="tel:+4923749157-0"
+                  className="flex items-center justify-center gap-2 w-full bg-secondary text-white px-6 py-4 rounded-lg font-bold hover:bg-cta-hover transition-all duration-300 text-base min-h-[48px]"
+                >
+                  <Phone size={20} />
+                  Anrufen
+                </a>
+                <Link
+                  to="/kontakt"
+                  className="block w-full bg-primary text-white text-center px-6 py-4 rounded-lg font-bold hover:bg-primary/90 transition-all duration-300 text-base min-h-[48px] flex items-center justify-center"
+                >
+                  Anfrage senden
+                </Link>
+                <Link
+                  to="/finanzierung"
+                  className="block w-full bg-white text-primary border-2 border-primary text-center px-6 py-4 rounded-lg font-bold hover:bg-primary/5 transition-all duration-300 text-base min-h-[48px] flex items-center justify-center"
+                >
+                  Finanzierung anfragen
+                </Link>
+                <Link
+                  to="/fahrzeugbestand"
+                  className="block w-full bg-neutral-100 text-foreground text-center px-6 py-4 rounded-lg font-bold hover:bg-neutral-100/80 transition-all duration-300 text-base min-h-[48px] flex items-center justify-center"
+                >
+                  Zurück zum Fahrzeugbestand
+                </Link>
+              </div>
+            </div>
+
+            {/* Mobile: Core Data Section */}
+            <div className="lg:hidden bg-card-bg border-t border-border-line">
+              <div className="container mx-auto px-4 max-w-7xl py-8">
+                <h2 className="text-xl font-heading font-bold text-primary mb-6">Kerndaten</h2>
+                <div className="grid grid-cols-1 gap-4">
+                  {vehicle.firstRegistration && (
+                    <div className="flex justify-between items-center pb-4 border-b border-border-line">
+                      <p className="text-sm text-text-secondary font-medium">Erstzulassung</p>
+                      <p className="font-bold text-primary">{vehicle.firstRegistration}</p>
+                    </div>
+                  )}
+                  {vehicle.mileage && (
+                    <div className="flex justify-between items-center pb-4 border-b border-border-line">
+                      <p className="text-sm text-text-secondary font-medium">Kilometerstand</p>
+                      <p className="font-bold text-primary">{vehicle.mileage}</p>
+                    </div>
+                  )}
+                  {vehicle.power && (
+                    <div className="flex justify-between items-center pb-4 border-b border-border-line">
+                      <p className="text-sm text-text-secondary font-medium">Leistung</p>
+                      <p className="font-bold text-primary">{vehicle.power}</p>
+                    </div>
+                  )}
+                  {vehicle.fuel && (
+                    <div className="flex justify-between items-center pb-4 border-b border-border-line">
+                      <p className="text-sm text-text-secondary font-medium">Kraftstoff</p>
+                      <p className="font-bold text-primary">{vehicle.fuel}</p>
+                    </div>
+                  )}
+                  <div className="flex justify-between items-center pb-4 border-b border-border-line">
+                    <p className="text-sm text-text-secondary font-medium">Getriebe</p>
+                    <p className="font-bold text-primary">Automatik</p>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <p className="text-sm text-text-secondary font-medium">Standort</p>
+                    <p className="font-bold text-primary">Iserlohn-Letmathe</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Mobile: Trust Section */}
+            <div className="lg:hidden bg-warm-bg border-t border-border-line">
+              <div className="container mx-auto px-4 max-w-7xl py-8">
+                <h2 className="text-xl font-heading font-bold text-primary mb-6">Warum Automobile Quick?</h2>
+                <div className="space-y-4">
+                  <div className="flex gap-3">
+                    <div className="w-6 h-6 rounded-full bg-secondary text-white flex items-center justify-center flex-shrink-0 text-sm font-bold">✓</div>
+                    <div>
+                      <p className="font-bold text-foreground">Persönliche Beratung</p>
+                      <p className="text-sm text-text-secondary">Fachkundige Unterstützung vor Ort</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <div className="w-6 h-6 rounded-full bg-secondary text-white flex items-center justify-center flex-shrink-0 text-sm font-bold">✓</div>
+                    <div>
+                      <p className="font-bold text-foreground">Besichtigung vor Ort</p>
+                      <p className="text-sm text-text-secondary">Fahrzeug gründlich inspizieren</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <div className="w-6 h-6 rounded-full bg-secondary text-white flex items-center justify-center flex-shrink-0 text-sm font-bold">✓</div>
+                    <div>
+                      <p className="font-bold text-foreground">Unverbindliche Anfrage</p>
+                      <p className="text-sm text-text-secondary">Keine versteckten Gebühren</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-6 p-4 bg-card-bg rounded-lg border border-border-line">
+                  <p className="text-sm font-bold text-foreground mb-2">Automobile Quick</p>
+                  <p className="text-sm text-text-secondary">Hagener Str. 126a<br />58642 Iserlohn</p>
+                </div>
+              </div>
+            </div>
+
+            {/* DESKTOP LAYOUT */}
+            {/* Desktop: Back Link */}
+            <div className="hidden lg:block container mx-auto px-4 max-w-7xl pt-6 sm:pt-8" id="main-content">
               <Link
                 to="/fahrzeugbestand"
                 className="inline-flex items-center gap-2 text-primary font-bold hover:gap-3 transition-all duration-200 text-base sm:text-lg"
@@ -165,82 +394,55 @@ export default function VehicleDetailPage() {
               </Link>
             </div>
 
-            {/* Image Gallery Section - Premium Automotive Experience */}
-            <AnimatedElement className="container mx-auto px-4 max-w-7xl py-6 sm:py-10">
-              {(() => {
-                const galleryImages = vehicle ? [vehicle.mainImage, ...(vehicle.gallery || [])].filter((v, i, a) => a.indexOf(v) === i && v) : [];
-                const currentIdx = selectedImage ? galleryImages.indexOf(selectedImage) : 0;
-                const totalImages = galleryImages.length;
-
-                return (
-                  <div className="bg-white rounded-xl shadow-2xl overflow-hidden border border-gray-100 flex flex-col group/gallery">
-                    {/* Main Image Viewport */}
-                    <div className="relative aspect-[16/9] sm:aspect-video bg-gray-100 overflow-hidden">
-                      {selectedImage ? (
-                        <Image
-                          src={selectedImage}
-                          alt={vehicle.alt || vehicle.title}
-                          className="w-full h-full object-cover transition-all duration-700 ease-in-out"
-                          width={1920}
-                          height={1080}
-                        />
-                      ) : (
-                        <div className="w-full h-full flex flex-col items-center justify-center bg-gray-100">
-                          <div className="text-center opacity-20">
-                            <div className="text-8xl mb-4">📸</div>
-                            <p className="text-xl font-bold uppercase tracking-[0.3em]">Bilder folgen</p>
-                          </div>
+            {/* Desktop: Image Gallery Section */}
+            <AnimatedElement className="hidden lg:block container mx-auto px-4 max-w-7xl py-8 sm:py-12">
+              <div className="bg-card-bg rounded-lg shadow-lg overflow-hidden border border-border-line">
+                <div className="aspect-video bg-alt-bg flex items-center justify-center relative">
+                  {vehicle.mainImage ? (
+                    <div className="w-full h-full flex flex-col">
+                      <Image
+                        src={currentImage || vehicle.mainImage}
+                        alt={vehicle.alt || vehicle.title}
+                        className="w-full aspect-video object-cover"
+                        width={1200}
+                        height={675}
+                      />
+                      {hasMultipleImages && (
+                        <div className="grid grid-cols-6 md:grid-cols-8 gap-2 p-4 bg-warm-bg overflow-x-auto">
+                          {galleryImages.map((img, idx) => (
+                            <button
+                              key={idx}
+                              onClick={() => setCurrentGalleryIndex(idx)}
+                              className={`aspect-video relative rounded overflow-hidden border-2 transition-all flex-shrink-0 ${
+                                currentGalleryIndex === idx ? 'border-secondary' : 'border-border-line'
+                              }`}
+                            >
+                              <Image
+                                src={img}
+                                alt={`${vehicle.title} Galeriebild ${idx + 1}`}
+                                className="w-full h-full object-cover"
+                                width={150}
+                                height={100}
+                              />
+                            </button>
+                          ))}
                         </div>
                       )}
-                      
-                      {/* Image Counter Badge */}
-                      {totalImages > 0 && (
-                        <div className="absolute bottom-6 left-6 z-20 bg-primary/90 text-white text-[10px] font-bold px-4 py-2 rounded-sm pointer-events-none backdrop-blur-md border border-white/10 uppercase tracking-widest shadow-2xl">
-                          {currentIdx + 1} / {totalImages} Bilder
-                        </div>
-                      )}
-
-                      {/* Top Status Badge */}
-                      <div className="absolute top-6 left-6 bg-success/95 text-white px-4 py-2 text-[10px] font-bold rounded-sm shadow-xl backdrop-blur-md uppercase tracking-widest">
-                        Sofort verfügbar
+                    </div>
+                  ) : (
+                    <div className="w-full h-full flex flex-col items-center justify-center" style={{ backgroundColor: '#F6F1EA' }}>
+                      <div className="text-center">
+                        <p className="text-xl font-bold" style={{ color: '#536075' }}>Bild folgt</p>
                       </div>
                     </div>
-
-                    {/* High-End Thumbnail Scroller */}
-                    {totalImages > 1 && (
-                      <div className="flex gap-2 p-4 bg-white overflow-x-auto snap-x no-scrollbar border-t border-gray-50">
-                        {galleryImages.map((img, idx) => (
-                          <button 
-                            key={idx} 
-                            onClick={() => setSelectedImage(img)}
-                            className={`flex-shrink-0 w-24 sm:w-40 aspect-video relative rounded-sm overflow-hidden cursor-pointer transition-all duration-300 snap-start border-2 ${
-                              selectedImage === img 
-                                ? 'border-secondary ring-4 ring-secondary/10 scale-[0.98]' 
-                                : 'border-transparent opacity-50 hover:opacity-100 hover:border-gray-200'
-                            }`}
-                          >
-                            <Image
-                              src={img}
-                              alt={`${vehicle.title} Miniaturansicht ${idx + 1}`}
-                              className="w-full h-full object-cover"
-                              width={200}
-                              height={120}
-                            />
-                            {selectedImage === img && (
-                              <div className="absolute inset-0 bg-secondary/5 pointer-events-none"></div>
-                            )}
-                          </button>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                );
-              })()}
+                  )}
+                </div>
+              </div>
             </AnimatedElement>
 
-            {/* Main Content Grid with extended padding for mobile safety */}
-            <div className="container mx-auto px-4 max-w-7xl pb-40 lg:pb-24">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 sm:gap-16">
+            {/* Desktop: Main Content Grid */}
+            <div className="hidden lg:block container mx-auto px-4 max-w-7xl pb-12 lg:pb-12">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-12">
                 {/* Left Column - Main Content */}
                 <div className="lg:col-span-2 space-y-12">
                   {/* Title & Intro */}
@@ -249,7 +451,7 @@ export default function VehicleDetailPage() {
                       <h1 className="text-4xl sm:text-5xl md:text-6xl font-heading font-bold text-primary mb-6">
                         {vehicle.title}
                       </h1>
-                      <p className="text-lg text-gray-700 leading-relaxed font-paragraph">
+                      <p className="text-lg text-text-secondary leading-relaxed font-paragraph">
                         Gepflegter Gebrauchtwagen bei Automobile Quick in Iserlohn-Letmathe. Persönliche Beratung, Besichtigung vor Ort und unverbindliche Finanzierungsanfrage möglich.
                       </p>
                     </div>
@@ -263,20 +465,20 @@ export default function VehicleDetailPage() {
                       </h2>
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                         {vehicle.firstRegistration && (
-                          <div className="bg-white p-5 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                          <div className="bg-card-bg p-5 rounded-lg border border-border-line shadow-sm hover:shadow-md transition-shadow">
                             <div className="flex items-center gap-3 mb-2">
                               <Calendar className="text-secondary flex-shrink-0" size={24} />
-                              <p className="text-xs font-bold text-gray-600 uppercase tracking-wide">Erstzulassung</p>
+                              <p className="text-xs font-bold text-text-secondary uppercase tracking-wide">Erstzulassung</p>
                             </div>
                             <p className="font-bold text-lg text-primary">{vehicle.firstRegistration}</p>
                           </div>
                         )}
 
                         {vehicle.mileage && (
-                          <div className="bg-white p-5 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                          <div className="bg-card-bg p-5 rounded-lg border border-border-line shadow-sm hover:shadow-md transition-shadow">
                             <div className="flex items-center gap-3 mb-2">
                               <Gauge className="text-secondary flex-shrink-0" size={24} />
-                              <p className="text-xs font-bold text-gray-600 uppercase tracking-wide">Kilometerstand</p>
+                              <p className="text-xs font-bold text-text-secondary uppercase tracking-wide">Kilometerstand</p>
                             </div>
                             <p className="font-bold text-lg text-primary">
                               {vehicle.mileage}
@@ -285,10 +487,10 @@ export default function VehicleDetailPage() {
                         )}
 
                         {vehicle.power && (
-                          <div className="bg-white p-5 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                          <div className="bg-card-bg p-5 rounded-lg border border-border-line shadow-sm hover:shadow-md transition-shadow">
                             <div className="flex items-center gap-3 mb-2">
                               <Zap className="text-secondary flex-shrink-0" size={24} />
-                              <p className="text-xs font-bold text-gray-600 uppercase tracking-wide">Leistung</p>
+                              <p className="text-xs font-bold text-text-secondary uppercase tracking-wide">Leistung</p>
                             </div>
                             <p className="font-bold text-lg text-primary">
                               {vehicle.power}
@@ -297,27 +499,27 @@ export default function VehicleDetailPage() {
                         )}
 
                         {vehicle.fuel && (
-                          <div className="bg-white p-5 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                          <div className="bg-card-bg p-5 rounded-lg border border-border-line shadow-sm hover:shadow-md transition-shadow">
                             <div className="flex items-center gap-3 mb-2">
                               <Fuel className="text-secondary flex-shrink-0" size={24} />
-                              <p className="text-xs font-bold text-gray-600 uppercase tracking-wide">Kraftstoff</p>
+                              <p className="text-xs font-bold text-text-secondary uppercase tracking-wide">Kraftstoff</p>
                             </div>
                             <p className="font-bold text-lg text-primary">{vehicle.fuel}</p>
                           </div>
                         )}
 
-                        <div className="bg-white p-5 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                        <div className="bg-card-bg p-5 rounded-lg border border-border-line shadow-sm hover:shadow-md transition-shadow">
                           <div className="flex items-center gap-3 mb-2">
                             <Wrench className="text-secondary flex-shrink-0" size={24} />
-                            <p className="text-xs font-bold text-gray-600 uppercase tracking-wide">Getriebe</p>
+                            <p className="text-xs font-bold text-text-secondary uppercase tracking-wide">Getriebe</p>
                           </div>
                           <p className="font-bold text-lg text-primary">Automatik</p>
                         </div>
 
-                        <div className="bg-white p-5 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                        <div className="bg-card-bg p-5 rounded-lg border border-border-line shadow-sm hover:shadow-md transition-shadow">
                           <div className="flex items-center gap-3 mb-2">
                             <MapPin className="text-secondary flex-shrink-0" size={24} />
-                            <p className="text-xs font-bold text-gray-600 uppercase tracking-wide">Standort</p>
+                            <p className="text-xs font-bold text-text-secondary uppercase tracking-wide">Standort</p>
                           </div>
                           <p className="font-bold text-lg text-primary">Iserlohn-Letmathe</p>
                         </div>
@@ -332,10 +534,10 @@ export default function VehicleDetailPage() {
                         Ausstattung
                       </h2>
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                        {VEHICLE_FEATURES.map((feature, idx) => (
-                          <div key={idx} className="flex items-center gap-3 p-3 bg-neutral-100 rounded-lg border border-gray-200">
+                        {DEMO_FEATURES.map((feature, idx) => (
+                          <div key={idx} className="flex items-center gap-3 p-3 bg-warm-bg rounded-lg border border-border-line">
                             <div className="w-2 h-2 bg-secondary rounded-full flex-shrink-0"></div>
-                            <span className="font-medium text-gray-700">{feature}</span>
+                            <span className="font-medium text-foreground">{feature}</span>
                           </div>
                         ))}
                       </div>
@@ -349,7 +551,7 @@ export default function VehicleDetailPage() {
                         <h2 className="text-2xl sm:text-3xl font-heading font-bold text-primary mb-4">
                           Beschreibung
                         </h2>
-                        <p className="text-gray-700 leading-relaxed text-base font-paragraph">
+                        <p className="text-text-secondary leading-relaxed text-base font-paragraph">
                           {vehicle.description}
                         </p>
                       </div>
@@ -368,9 +570,9 @@ export default function VehicleDetailPage() {
                             <Link
                               key={v.id}
                               to={`/fahrzeugdetail/${v.id}`}
-                              className="group bg-white rounded-lg overflow-hidden border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300"
+                              className="group bg-card-bg rounded-lg overflow-hidden border border-border-line shadow-sm hover:shadow-lg transition-all duration-300"
                             >
-                              <div className="aspect-video bg-gray-100 overflow-hidden">
+                              <div className="aspect-video bg-alt-bg overflow-hidden">
                                 {v.mainImage ? (
                                   <Image
                                     src={v.mainImage || ""}
@@ -380,8 +582,8 @@ export default function VehicleDetailPage() {
                                     height={225}
                                   />
                                 ) : (
-                                  <div className="w-full h-full flex items-center justify-center bg-gray-200">
-                                    <span className="text-4xl font-bold text-gray-400">📷</span>
+                                  <div className="w-full h-full flex items-center justify-center bg-border-line">
+                                    <span className="text-4xl font-bold text-text-secondary">📷</span>
                                   </div>
                                 )}
                               </div>
@@ -390,7 +592,7 @@ export default function VehicleDetailPage() {
                                   {v.title}
                                 </h3>
                                 <div className="flex justify-between items-center">
-                                  <span className="text-sm text-gray-600">
+                                  <span className="text-sm text-text-secondary">
                                     {v.firstRegistration} • {v.mileage}
                                   </span>
                                   <span className="font-bold text-secondary">{v.price}</span>
@@ -404,52 +606,51 @@ export default function VehicleDetailPage() {
                   )}
                 </div>
 
-                {/* Right Column - Sticky Price Box (Desktop Only) */}
+                {/* Right Column - Desktop Price Box */}
                 <div className="lg:col-span-1">
-                  <div className="lg:sticky lg:top-32 w-full transition-all duration-300">
-                    <AnimatedElement className="bg-white rounded-lg shadow-xl border border-gray-200 p-6 sm:p-8">
+                  <div className="sticky top-32 w-full">
+                    <AnimatedElement className="bg-card-bg rounded-lg shadow-xl border border-border-line p-6 sm:p-8">
                       {/* Price */}
                       <div className="mb-8">
-                        <p className="text-sm text-gray-600 font-medium mb-2">Verkaufspreis</p>
-                        <p className="text-5xl sm:text-6xl font-bold text-primary">
+                        <p className="text-sm text-text-secondary font-medium mb-2">Verkaufspreis</p>
+                        <p className="text-5xl sm:text-6xl font-bold text-secondary">
                           {vehicle.price}
                         </p>
                       </div>
 
                       {/* Financing */}
-                      <div className="mb-8 p-4 bg-neutral-100 rounded-lg border border-gray-200">
-                        <p className="text-sm text-gray-600 font-medium mb-1">Finanzierung ab</p>
-                        <p className="text-2xl font-bold text-secondary">
-                          {vehicle.financing}
+                      <div className="mb-8 p-4 rounded-lg border" style={{ backgroundColor: '#FCFCFA', borderColor: '#D8DEE8' }}>
+                        <p className="text-sm font-bold mb-3" style={{ color: '#101828' }}>Finanzierung auf Anfrage</p>
+                        <p className="text-sm leading-relaxed" style={{ color: '#536075' }}>
+                          Wir prüfen passende Finanzierungsoptionen gerne persönlich.
                         </p>
-                        <p className="text-xs text-gray-500 mt-2">(unverbindlich)</p>
                       </div>
 
                       {/* CTA Buttons */}
                       <div className="space-y-3">
                         <a
                           href="tel:+4923749157-0"
-                          className="flex items-center justify-center gap-2 w-full bg-secondary text-white px-6 py-4 rounded-lg font-bold hover:bg-secondary/90 transition-all duration-300 transform hover:-translate-y-0.5 shadow-md text-base"
+                          className="flex items-center justify-center gap-2 w-full bg-secondary text-white px-6 py-4 rounded-lg font-bold hover:bg-cta-hover transition-all duration-300 transform hover:-translate-y-0.5 shadow-md text-base min-h-[48px]"
                         >
                           <Phone size={20} />
                           Anrufen
                         </a>
                         <Link
                           to="/kontakt"
-                          className="block w-full bg-primary text-white text-center px-6 py-4 rounded-lg font-bold hover:bg-primary/90 transition-all duration-300 transform hover:-translate-y-0.5 shadow-md text-base"
+                          className="block w-full bg-primary text-white text-center px-6 py-4 rounded-lg font-bold hover:bg-primary/90 transition-all duration-300 transform hover:-translate-y-0.5 shadow-md text-base min-h-[48px] flex items-center justify-center"
                         >
-                          Besichtigung anfragen
+                          Anfrage senden
                         </Link>
                         <Link
                           to="/finanzierung"
-                          className="block w-full bg-white text-primary border-2 border-primary text-center px-6 py-4 rounded-lg font-bold hover:bg-primary/5 transition-all duration-300 text-base"
+                          className="block w-full bg-white text-primary border-2 border-primary text-center px-6 py-4 rounded-lg font-bold hover:bg-primary/5 transition-all duration-300 text-base min-h-[48px] flex items-center justify-center"
                         >
                           Finanzierung anfragen
                         </Link>
                       </div>
 
                       {/* Info Text */}
-                      <p className="text-xs text-gray-500 text-center mt-6 leading-relaxed">
+                      <p className="text-xs text-text-secondary text-center mt-6 leading-relaxed">
                         Alle Angaben ohne Gewähr. Besichtigung und Beratung vor Ort möglich.
                       </p>
                     </AnimatedElement>
@@ -458,24 +659,8 @@ export default function VehicleDetailPage() {
               </div>
             </div>
 
-            {/* Mobile Sticky Bottom Bar */}
-            <div className="fixed bottom-0 left-0 right-0 lg:hidden bg-white border-t border-gray-200 shadow-2xl z-50">
-              <div className="container mx-auto px-4 max-w-7xl py-3 flex gap-3">
-                <a
-                  href="tel:+4923749157-0"
-                  className="flex-1 flex items-center justify-center gap-2 bg-secondary text-white px-4 py-3 rounded-lg font-bold hover:bg-secondary/90 transition-all duration-300 text-sm"
-                >
-                  <Phone size={18} />
-                  Anrufen
-                </a>
-                <Link
-                  to="/kontakt"
-                  className="flex-1 bg-primary text-white text-center px-4 py-3 rounded-lg font-bold hover:bg-primary/90 transition-all duration-300 text-sm"
-                >
-                  Besichtigung
-                </Link>
-              </div>
-            </div>
+            {/* Bottom Spacing for Mobile */}
+            <div className="lg:hidden h-32"></div>
           </>
         )}
       </div>

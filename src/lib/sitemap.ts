@@ -42,18 +42,48 @@ export const defaultSitemapEntries: SitemapEntry[] = [
     priority: 1.0,
   },
   {
-    url: '/vehicles',
+    url: '/fahrzeugbestand',
     changefreq: 'daily',
     priority: 0.9,
   },
   {
-    url: '/about',
+    url: '/ueber-uns',
     changefreq: 'monthly',
     priority: 0.7,
   },
   {
-    url: '/contact',
+    url: '/kontakt',
+    changefreq: 'monthly',
+    priority: 0.7,
+  },
+  {
+    url: '/autoankauf',
+    changefreq: 'monthly',
+    priority: 0.7,
+  },
+  {
+    url: '/finanzierung',
     changefreq: 'monthly',
     priority: 0.7,
   },
 ];
+
+interface VehicleSitemapItem {
+  id: string;
+  status: string;
+  listingDate?: string;
+}
+
+export function generateFullSitemap(vehicles: VehicleSitemapItem[]): string {
+  const today = new Date().toISOString().slice(0, 10);
+  const vehicleEntries: SitemapEntry[] = vehicles
+    .filter((v) => v.status === 'available')
+    .map((v) => ({
+      url: `/fahrzeugdetail/${v.id}`,
+      lastmod: (v.listingDate || today).slice(0, 10),
+      changefreq: 'weekly' as const,
+      priority: 0.8,
+    }));
+
+  return generateSitemap([...defaultSitemapEntries, ...vehicleEntries]);
+}

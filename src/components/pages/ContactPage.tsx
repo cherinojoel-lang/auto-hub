@@ -1,8 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
 import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react';
+import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
+import SeoHead from '@/components/SeoHead';
+import { PAGE_METADATA, SITE_CONFIG } from '@/lib/seo-config';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 
@@ -55,15 +57,15 @@ export default function ContactPage() {
   useEffect(() => {
     // Update SEO for contact page
     updateMetaTags({
-      title: 'Kontakt & Anfahrt - Automobile Quick in Iserlohn-Letmathe | Gebrauchtwagen Autohaus',
-      description: 'Kontaktieren Sie Automobile Quick in Iserlohn-Letmathe. Telefon: +49 (0) 2374 / 912912, E-Mail: info@automobilequick.de. Öffnungszeiten, Anfahrt und Kontaktformular. Wir freuen uns auf Ihren Besuch!',
+      title: PAGE_METADATA.contact.title,
+      description: PAGE_METADATA.contact.description,
       keywords: 'Kontakt Automobile Quick, Anfahrt, Telefon, E-Mail, Iserlohn, Letmathe, Öffnungszeiten, Autohaus',
       ogTitle: 'Kontakt & Anfahrt - Automobile Quick',
-      ogDescription: 'Kontaktieren Sie uns in Iserlohn-Letmathe. Wir freuen uns auf Ihren Besuch!',
-      canonicalUrl: 'https://automobilequick.de/contact',
+      ogDescription: PAGE_METADATA.contact.description,
+      canonicalUrl: `${SITE_CONFIG.url}${PAGE_METADATA.contact.path}`,
       structuredData: getStructuredDataBreadcrumb([
-        { name: 'Home', url: 'https://automobilequick.de/' },
-        { name: 'Kontakt', url: 'https://automobilequick.de/contact' },
+        { name: 'Home', url: `${SITE_CONFIG.url}/` },
+        { name: 'Kontakt', url: `${SITE_CONFIG.url}${PAGE_METADATA.contact.path}` },
       ]),
     });
   }, []);
@@ -93,6 +95,11 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SeoHead 
+        title={PAGE_METADATA.contact.title}
+        description={PAGE_METADATA.contact.description}
+        url={`${SITE_CONFIG.url}${PAGE_METADATA.contact.path}`}
+      />
       <a href="#main-content" className="skip-to-main">
         Zum Hauptinhalt springen
       </a>
@@ -240,7 +247,7 @@ export default function ContactPage() {
                         <div>
                           <p className="font-medium text-foreground mb-1">Adresse</p>
                           <p className="text-foreground/70">Hagener Str. 126a</p>
-                          <p className="text-foreground/70">58642 Iserlohn-Letmathe</p>
+                          <p className="text-foreground/70">58642 Iserlohn</p>
                         </div>
                       </div>
 
@@ -341,8 +348,5 @@ export default function ContactPage() {
 
       <Footer />
     </div>
-  );
-}
-v>
   );
 }

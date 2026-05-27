@@ -2,6 +2,7 @@ import { render, screen, waitFor, act } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import VehiclesPage from '../VehiclesPage';
 import { BaseCrudService } from '@/integrations';
+import * as vehiclesDataModule from '@/data/vehiclesData.generated';
 import { vi } from 'vitest';
 
 vi.mock('@/integrations', () => ({
@@ -54,6 +55,34 @@ describe('VehiclesPage', () => {
       expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
     });
 
+    consoleSpy.mockRestore();
+  });
+
+  it('handles error when loading static vehicles fails', async () => {
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const error = new Error('Simulated data loading error');
+
+    // Spy on the imported module to throw an error when accessing vehiclesData
+    const spy = vi.spyOn(vehiclesDataModule, 'vehiclesData', 'get').mockImplementation(() => {
+      throw error;
+    });
+
+    render(
+      <BrowserRouter>
+        <VehiclesPage />
+      </BrowserRouter>
+    );
+
+    await waitFor(() => {
+      expect(consoleSpy).toHaveBeenCalledWith('Error loading static vehicles:', error);
+    });
+
+    // Check if the loading spinner is eventually removed
+    await waitFor(() => {
+      expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+    });
+
+    spy.mockRestore();
     consoleSpy.mockRestore();
   });
 });

@@ -4,7 +4,7 @@ import { useSize } from '@/hooks/use-size'
 import './image.css'
 import { cn } from '@/lib/utils';
 
-const FALLBACK_IMAGE_URL = "https://static.wixstatic.com/media/12d367_4f26ccd17f8f4e3a8958306ea08c2332~mv2.png";
+const FALLBACK_IMAGE_URL = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
 type ImageData = {
   id: string
@@ -158,7 +158,11 @@ export const Image = forwardRef<HTMLImageElement, ImageProps>(
       return <div data-empty-image ref={ref} {...props} />
     }
 
-    const imageProps = { ...props, onError: () => setImgSrc(FALLBACK_IMAGE_URL) }
+    const imageProps = { ...props, onError: () => {
+      if (imgSrc !== FALLBACK_IMAGE_URL) {
+        setImgSrc(FALLBACK_IMAGE_URL);
+      }
+    }}
     const imageData = getImageData(imgSrc, additionalImgProps)
 
     if (!imageData) {

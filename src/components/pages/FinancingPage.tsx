@@ -1,8 +1,11 @@
 import { useRef, useState, useEffect } from 'react';
 import { Zap, Percent, Clock } from 'lucide-react';
+import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
+import SeoHead from '@/components/SeoHead';
+import { PAGE_METADATA, SITE_CONFIG } from '@/lib/seo-config';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
+import FinancingCalculatorSection from '@/components/FinancingCalculatorSection';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 
@@ -54,15 +57,15 @@ export default function FinancingPage() {
 
   useEffect(() => {
     updateMetaTags({
-      title: 'Gebrauchtwagen-Finanzierung in Iserlohn-Letmathe | Automobile Quick',
-      description: 'Flexible Finanzierungslösungen für Gebrauchtwagen bei Automobile Quick. Faire Konditionen, schnelle Abwicklung, persönliche Beratung. Jetzt Finanzierung anfragen!',
+      title: PAGE_METADATA.financing.title,
+      description: PAGE_METADATA.financing.description,
       keywords: 'Gebrauchtwagen Finanzierung, Autofinanzierung Iserlohn, Kredit Auto, Finanzierungsangebot, Automobile Quick',
       ogTitle: 'Gebrauchtwagen-Finanzierung - Automobile Quick',
-      ogDescription: 'Flexible Finanzierungslösungen mit fairen Konditionen für Ihr Fahrzeug.',
-      canonicalUrl: 'https://automobilequick.de/finanzierung',
+      ogDescription: PAGE_METADATA.financing.description,
+      canonicalUrl: `${SITE_CONFIG.url}${PAGE_METADATA.financing.path}`,
       structuredData: getStructuredDataBreadcrumb([
-        { name: 'Home', url: 'https://automobilequick.de/' },
-        { name: 'Finanzierung', url: 'https://automobilequick.de/finanzierung' },
+        { name: 'Home', url: `${SITE_CONFIG.url}/` },
+        { name: 'Finanzierung', url: `${SITE_CONFIG.url}${PAGE_METADATA.financing.path}` },
       ]),
     });
   }, []);
@@ -85,6 +88,11 @@ export default function FinancingPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SeoHead 
+        title={PAGE_METADATA.financing.title}
+        description={PAGE_METADATA.financing.description}
+        url={`${SITE_CONFIG.url}${PAGE_METADATA.financing.path}`}
+      />
       <Header />
 
       {/* Hero Section */}
@@ -111,6 +119,9 @@ export default function FinancingPage() {
           </AnimatedElement>
         </div>
       </section>
+
+      {/* Financing Calculator Section */}
+      <FinancingCalculatorSection />
 
       {/* Info Cards Section */}
       <section className="py-16 md:py-20 bg-background">
