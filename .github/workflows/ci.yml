@@ -9,6 +9,8 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    env:
+      WIX_CLIENT_ID: ci_dummy_client_id
     steps:
     - uses: actions/checkout@v4
 
