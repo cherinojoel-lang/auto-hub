@@ -1,5 +1,77 @@
 # Changelog
 
+## [Unreleased] - 2026-05-22 to 2026-05-28
+
+### 🚀 Features & Enhancements
+- feat: integrate Google Analytics (gtag.js) (`5388901`)
+- fix: resolve PR blockers regarding phone numbers and merge conflicts (`22633ec`)
+- fix: unblock Wix Vibe build and restore Automobile Quick phase A (`537a146`)
+- feat: add getByField to BaseCrudService for server-side filtering (`81968b5`)
+
+### ⚡ Performance (Bolt)
+- ⚡ Optimize redundant array filtering in VehiclesPage (`87820db`)
+- ⚡ perf: optimize similar vehicle filtering (`92eb3f2`)
+- ⚡ Bolt: [performance improvement] optimize filter array looping and mock API fix (`3c2a77a`)
+- ⚡ Bolt: Optimize LCP on Vehicles and VehicleDetailPage (`3b13372`)
+- ⚡ Bolt: [performance improvement] Optimize vehicle filtering with single iteration (`2a06103`)
+- ⚡ Bolt: Throttle scroll event listeners with requestAnimationFrame (`eec6255`)
+- ⚡ Bolt: LCP Optimization for Hero Section (`8b91254`)
+- feat: Optimize LCP for Hero section animated elements (`4bfc156`)
+- ⚡ Bolt: Remove artificial network latency for static data (`9c16fd7`)
+- perf: throttle scroll event listeners using requestAnimationFrame (`16274a2`)
+- ⚡ Bolt: Optimize Hero Animation for Faster LCP (`5e3c2a2`)
+- perf: fix top 3 performance bottlenecks (`d26cd03`)
+- ⚡ Bolt: optimize LCP image on VehicleDetailPage (`ce9dd9d`)
+- ⚡ Bolt: Remove simulated API latency for instant data loading (`28c1689`)
+- ⚡ Remove artificial delay from vehicle loading (`59869d5`)
+- ⚡ perf: optimize BlogDetailPage data fetching via server-side getByField (`f00dd7a`)
+- ⚡ Remove artificial API latency to improve load times (`0c38ca4`)
+- Optimize vehicle filtering (`43edbaa`)
+- ⚡ Bolt: Remove JS animations from above-the-fold content to improve LCP (`5b15f3f`)
+- ⚡ Bolt: Optimize LCP on VehicleDetailPage (`5983140`)
+- perf: eager load LCP main image on vehicle detail page (`30d5483`)
+
+### 🛡️ Security (Sentinel)
+- 🔒 fix: add noopener noreferrer to window.open (`62c7b10`)
+- 🛡️ Sentinel: [HIGH] Fix CSRF vulnerability by enabling checkOrigin (#85) (`2626ac7`)
+- 🛡️ Sentinel: [HIGH] Fix CSRF misconfiguration and PII exposure (`6b9e2c8`)
+- 🛡️ Sentinel: [HIGH] Fix CSRF vulnerability in Astro config (`645e556`)
+- 🔒 Security fix: Remove PII exposure in console (`e40ed86`)
+- 🛡️ Sentinel: [HIGH] Fix CSRF missing protection (`005aa30`)
+- 🛡️ Sentinel: [CRITICAL] Fix CSRF protection disabled in Astro config (`5cf6db1`)
+
+### 🎨 Accessibility & UI (Palette)
+- 🎨 Palette: Enhance mobile menu accessibility (`ab6ca92`)
+- 🎨 Palette: [UX improvement] Add accessibility attributes to filter toggle button (`a8f9e30`)
+- 🎨 Palette: Improve mobile menu button accessibility (`6944deb`)
+- feat(ux): improve mobile menu toggle accessibility (`cf00a63`)
+- 🎨 Palette: Improve mobile menu toggle accessibility (`6c859d0`)
+- 🎨 Palette: Enhance mobile menu toggle accessibility (`57df72c`)
+
+### 🧪 Testing
+- 🧪 Add tests for getStructuredDataProduct (`31dbcbf`)
+- 🧪 Add tests for cn utility function (`4e31cec`)
+- 🧪 Add tests for getStructuredDataOrganization in seo.ts (`fe37e1c`)
+- 🧪 Add error path test for HomePage (`e27919b`)
+- 🧪 Add tests for SEO Schema generators (`cff6ef8`)
+- test: add tests for SEO utility functions (`3d877e1`)
+- 🧪 Add tests for sitemap generator (`6d9bb8d`)
+- 🧹 Remove unused 'act' import in test (`56e8b91`)
+- 🧪 Add unit tests for cn utility classname merging function (`e176364`)
+
+### 🧹 Code Health
+- 🧹 Use explicit Vehicle type instead of any in Array.prototype methods (`84f7c90`)
+- 🧹 [code health] Use explicit Vehicle type instead of 'any' (`ebe25c5`)
+- 🧹 Remove unused console.error in production code (`32594ea`)
+- 🧹 Remove unused console.error in production code (`9e36f1e`)
+- 🧹 Remove unused SEO imports from PrivacyPage (`26e118d`)
+- 🧹 Remove unused lucide-react icons from HomePage (`1ffc8f6`)
+- 🧹 Remove unused ChevronRight import in VehiclesPage.tsx (`051c4d2`)
+- 🧹 Remove unused ChevronRight import in VehiclesPage.tsx (`a0439ff`)
+- Remove unused Check import (`997a80a`)
+
+
+
 ## [Unreleased] - 2026-05-15 to 2026-05-21
 
 ### 🚀 Features & Enhancements
