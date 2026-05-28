@@ -9,12 +9,16 @@ import "@/styles/global.css";
 
 let seoTagsServiceConfig = null;
 try {
-  seoTagsServiceConfig = await loadSEOTagsServiceConfig({
-    pageUrl: Astro.url.href,
-    itemData: {
-      pageName: 'Home',
-    },
-  });
+  const loadSeoWithTimeout = Promise.race([
+    loadSEOTagsServiceConfig({
+      pageUrl: Astro.url.href,
+      itemData: {
+        pageName: 'Home',
+      },
+    }),
+    new Promise((_, reject) => setTimeout(() => reject(new Error('SEO service timeout')), 3000))
+  ]);
+  seoTagsServiceConfig = await loadSeoWithTimeout;
 } catch (error) {
   console.error('Error loading SEO tags config:', error);
 }
