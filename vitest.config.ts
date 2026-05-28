@@ -11,5 +11,6 @@ export default defineConfig({
   },
   esbuild: {
     target: 'node20',
+    jsxInject: `import React from 'react'`,
   },
 })

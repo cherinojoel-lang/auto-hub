@@ -1,0 +1,137 @@
+- generic "Google Maps" [ref=e2]:
+  - generic [ref=e3]:
+    - application "Karte·Mit den Pfeiltasten kannst du die Karte schwenken.·Details zu einem Ort kannst du durch Drücken der entsprechenden Zifferntaste aufrufen." [ref=e8]
+    - search [ref=e14]:
+      - generic [ref=e15]:
+        - combobox [ref=e17]: Automobile Quick
+        - button "Suchen" [ref=e19] [cursor=pointer]:
+          - generic [ref=e20]: 
+        - button "Schließen" [ref=e22] [cursor=pointer]:
+          - generic [ref=e23]: 
+    - generic [ref=e24]:
+      - generic [ref=e25]:
+        - list [ref=e27]:
+          - listitem [ref=e28]:
+            - button "Menü" [ref=e29] [cursor=pointer]:
+              - generic [ref=e31]: 
+          - listitem [ref=e32]:
+            - button "Gespeichert" [ref=e33] [cursor=pointer]:
+              - generic [ref=e35]: 
+              - generic [ref=e37]: Gespeichert
+          - listitem [ref=e38]:
+            - button "Zuletzt verwendet" [disabled] [ref=e39]:
+              - generic [ref=e41]: 
+              - generic [ref=e43]: Zuletzt verwendet
+          - listitem [ref=e45]:
+            - button "App herunterladen" [ref=e46] [cursor=pointer]:
+              - generic [ref=e48]: 
+              - generic [ref=e50]: App herunterladen
+        - main "Automobile Quick" [ref=e55]:
+          - generic [ref=e56]:
+            - 'button "Foto von: Automobile Quick" [active] [ref=e58] [cursor=pointer]':
+              - img [ref=e59]
+            - button "Fotos ansehen" [ref=e60] [cursor=pointer]:
+              - generic [ref=e61]: 
+              - generic [ref=e62]: Fotos ansehen
+          - generic [ref=e65]:
+            - heading "Automobile Quick" [level=1] [ref=e67]: Automobile Quick
+            - generic [ref=e69]:
+              - generic [ref=e70]:
+                - generic [ref=e72]:
+                  - text: 4,9
+                  - img "4,9 Sterne" [ref=e73]
+                - button "Weitere Informationen zur gesetzlichen Offenlegung bei öffentlichen Rezensionen auf Google Maps" [ref=e84]:
+                  - generic [ref=e88]: 
+              - button "Autohändler" [ref=e92]
+          - region "Aktionen für „Automobile Quick“" [ref=e95]:
+            - button "Routenplaner" [ref=e97] [cursor=pointer]:
+              - generic [ref=e99]: 
+              - generic [ref=e100]: Routenplaner
+            - button "Speichern" [ref=e102] [cursor=pointer]:
+              - generic [ref=e104]: 
+              - generic [ref=e105]: Speichern
+            - button "In der Nähe" [ref=e107] [cursor=pointer]:
+              - generic [ref=e109]: 
+              - generic [ref=e110]: In der Nähe
+            - button "An Smartphone senden" [ref=e112] [cursor=pointer]:
+              - generic [ref=e114]: 
+              - generic [ref=e115]: An Smartphone senden
+            - button "Teilen" [ref=e117] [cursor=pointer]:
+              - generic [ref=e119]: 
+              - generic [ref=e120]: Teilen
+          - region "Informationen zu „Automobile Quick“" [ref=e123]:
+            - generic [ref=e124]:
+              - 'button "Adresse: Hagener Str. 126 a, 58642 Iserlohn" [ref=e125] [cursor=pointer]':
+                - generic [ref=e126]:
+                  - generic [ref=e128]: 
+                  - generic [ref=e130]: Hagener Str. 126 a, 58642 Iserlohn
+              - button "Adresse kopieren" [ref=e133] [cursor=pointer]:
+                - generic [ref=e135]: 
+            - button "Öffnungszeiten Geöffnet · Schließt um 18:00 Öffnungszeiten für die Woche anzeigen" [ref=e137] [cursor=pointer]:
+              - img "Öffnungszeiten" [ref=e138]: 
+              - generic [ref=e140]:
+                - generic [ref=e142]: Geöffnet · Schließt um 18:00
+                - img "Öffnungszeiten für die Woche anzeigen" [ref=e143]: 
+            - generic [ref=e144]:
+              - 'link "Website: mobile.de" [ref=e145] [cursor=pointer]':
+                - /url: https://home.mobile.de/AUTOMOBILE-QUICK
+                - generic [ref=e146]:
+                  - generic [ref=e148]: 
+                  - generic [ref=e150]: mobile.de
+              - generic [ref=e151]:
+                - link "Website öffnen" [ref=e153] [cursor=pointer]:
+                  - /url: https://home.mobile.de/AUTOMOBILE-QUICK
+                  - generic [ref=e155]: 
+                - button "URL der Website kopieren" [ref=e157] [cursor=pointer]:
+                  - generic [ref=e159]: 
+            - generic [ref=e160]:
+              - 'button "Telefon: 02374 912912" [ref=e161] [cursor=pointer]':
+                - generic [ref=e162]:
+                  - generic [ref=e164]: 
+                  - generic [ref=e166]: 02374 912912
+              - generic [ref=e167]:
+                - button "Telefonnummer kopieren" [ref=e169] [cursor=pointer]:
+                  - generic [ref=e171]: 
+                - link "Telefonnummer anrufen" [ref=e173] [cursor=pointer]:
+                  - /url: tel:02374912912
+                  - generic [ref=e175]: 
+            - generic [ref=e176]:
+              - 'button "Plus Code: 9H7X+VX Iserlohn" [ref=e177] [cursor=pointer]':
+                - generic [ref=e178]:
+                  - generic [ref=e180]: 
+                  - generic [ref=e182]: 9H7X+VX Iserlohn
+              - generic [ref=e183]:
+                - button "Plus Code kopieren" [ref=e185] [cursor=pointer]:
+                  - generic [ref=e187]: 
+                - button "Weitere Informationen zu Plus Codes" [ref=e189] [cursor=pointer]:
+                  - generic [ref=e191]: 
+          - button "Änderung vorschlagen" [ref=e195] [cursor=pointer]:
+            - generic [ref=e196]:
+              - generic [ref=e197]: 
+              - generic [ref=e198]: Änderung vorschlagen
+          - heading "Fotos" [level=2] [ref=e202]
+          - button "Street View" [ref=e205] [cursor=pointer]
+          - button "Fotos und Videos hinzufügen" [ref=e213] [cursor=pointer]:
+            - generic [ref=e214]:
+              - generic [ref=e215]: 
+              - generic [ref=e216]: Fotos und Videos hinzufügen
+          - button "Rezension schreiben" [ref=e222] [cursor=pointer]:
+            - generic [ref=e223]:
+              - generic [ref=e224]: 
+              - generic [ref=e225]: Rezension schreiben
+          - link "Erläuterungen zu diesen Daten" [ref=e230] [cursor=pointer]:
+            - /url: https://support.google.com/local-listings?p=how_google_sources&authuser=0&hl=de
+            - generic [ref=e232]: Erläuterungen zu diesen Daten
+          - generic [ref=e235]:
+            - generic [ref=e237]: 
+            - generic [ref=e238]:
+              - text: Die Ansicht ist beschränkt und du siehst nur einen Teil der Google Maps-Daten.
+              - button "Weitere Informationen zur beschränkten Ansicht" [ref=e239] [cursor=pointer]: Weitere Informationen
+          - heading "Die Möglichkeiten von Google Maps voll ausschöpfen Anmelden" [level=2] [ref=e243]:
+            - generic [ref=e244]: Die Möglichkeiten von Google Maps voll ausschöpfen
+            - button "Anmelden" [ref=e247] [cursor=pointer]:
+              - generic [ref=e249]: Anmelden
+      - generic [ref=e250]:
+        - button "Seitenleiste ausblenden" [ref=e251] [cursor=pointer]:
+          - generic [ref=e252]: 
+        - generic [ref=e253]: Seitenleiste ausblenden

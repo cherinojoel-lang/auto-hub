@@ -24,7 +24,7 @@ export default {
             },
             colors: {
                 primary: '#0A1628',
-                secondary: '#FF6B00',
+                secondary: '#CC4A00',
                 accent: '#213A5C',
                 background: '#F5F5F5',
                 foreground: '#1A1A1A',
@@ -36,13 +36,27 @@ export default {
                 'card-bg': '#FFFFFF',
                 'alt-bg': '#F5F5F5',
                 'warm-bg': '#F5F5F5',
-                'text-secondary': '#6B7280',
+                'text-secondary': '#4B5563',
                 'border-line': '#D8DEE8',
-                'cta-hover': '#E65F00',
+                'cta-hover': '#A83C00',
                 'reserved': '#F39C12',
             },
             zIndex: {
                 '1000': '1000',
+            },
+            keyframes: {
+                'wa-pulse': {
+                    '0%, 100%': { transform: 'scale(1)' },
+                    '50%': { transform: 'scale(1.15)' },
+                },
+                'fade-in': {
+                    '0%': { opacity: '0', transform: 'translateY(-10px)' },
+                    '100%': { opacity: '1', transform: 'translateY(0)' },
+                },
+            },
+            animation: {
+                'wa-pulse': 'wa-pulse 2s ease-in-out 2',
+                'fade-in': 'fade-in 0.3s ease-out',
             },
         },
     },

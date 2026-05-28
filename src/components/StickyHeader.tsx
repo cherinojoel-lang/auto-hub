@@ -1,7 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Phone, Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 
 export default function StickyHeader() {
   const [isVisible, setIsVisible] = useState(false);
@@ -29,22 +28,18 @@ export default function StickyHeader() {
   ];
 
   return (
-    <AnimatePresence>
-      {isVisible && (
-        <motion.header
-          initial={{ y: -80, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -80, opacity: 0 }}
-          transition={{ duration: 0.3 }}
-          className="fixed top-0 left-0 right-0 z-1000 h-16 bg-white/95 backdrop-blur-md border-b border-gray-100"
+        <header
+          className={`fixed top-0 left-0 right-0 z-1000 h-16 bg-white/95 backdrop-blur-md border-b border-gray-100 transition-all duration-300 ${
+            isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'
+          }`}
           role="banner"
+          aria-hidden={!isVisible}
         >
           <div className="container mx-auto px-4 max-w-[100rem] h-full flex items-center justify-between">
             {/* Logo - Hidden on mobile, visible on tablet+ */}
             <Link
               to="/"
               className="hidden sm:flex items-center flex-shrink-0"
-              aria-label="Automobile Quick - Startseite"
             >
               <div className="flex flex-col">
                 <span className="text-sm font-heading font-bold text-primary leading-tight">
@@ -114,36 +109,29 @@ export default function StickyHeader() {
           </div>
 
           {/* Mobile/Tablet Slide-in Menu */}
-          <AnimatePresence>
-            {mobileMenuOpen && (
-              <motion.div
-                initial={{ x: '100%', opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                exit={{ x: '100%', opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="absolute top-16 right-0 w-full md:w-80 bg-white border-b border-gray-100 shadow-lg"
-              >
-                <nav className="flex flex-col" role="navigation" aria-label="Mobile Navigation">
-                  {navLinks.map((link) => (
-                    <Link
-                      key={link.path}
-                      to={link.path}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={`px-6 py-4 text-sm font-medium border-b border-gray-100 transition-all duration-200 ${
-                        isActive(link.path)
-                          ? 'text-secondary bg-gray-50 border-l-4 border-l-secondary'
-                          : 'text-foreground hover:bg-gray-50'
-                      }`}
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
-                </nav>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </motion.header>
-      )}
-    </AnimatePresence>
+          <div
+            className={`absolute top-16 right-0 w-full md:w-80 bg-white border-b border-gray-100 shadow-lg transition-transform duration-300 ${
+              mobileMenuOpen ? 'translate-x-0' : 'translate-x-full pointer-events-none'
+            }`}
+            aria-hidden={!mobileMenuOpen}
+          >
+            <nav className="flex flex-col" role="navigation" aria-label="Mobile Navigation">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`px-6 py-4 text-sm font-medium border-b border-gray-100 transition-all duration-200 ${
+                    isActive(link.path)
+                      ? 'text-secondary bg-gray-50 border-l-4 border-l-secondary'
+                      : 'text-foreground hover:bg-gray-50'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+        </header>
   );
 }

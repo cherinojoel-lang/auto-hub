@@ -10,7 +10,7 @@ export default function Header() {
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="flex items-center justify-between h-16 lg:h-[72px]">
           {/* Logo */}
-          <Link to="/" className="flex items-center flex-shrink-0" aria-label="Automobile Quick - Startseite">
+          <Link to="/" className="flex items-center flex-shrink-0">
             <div className="flex flex-col">
               <span className="text-base sm:text-lg font-heading font-bold text-primary leading-tight">
                 Automobile Quick

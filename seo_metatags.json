@@ -1,0 +1,54 @@
+{
+  "projekt": "Automobile Quick",
+  "domain": "https://automobilequick.de",
+  "seiten": [
+    {
+      "seite": "Startseite",
+      "url": "/",
+      "title": "Gebrauchtwagen Iserlohn-Letmathe | Automobile Quick — Seit 1982",
+      "description": "Automobile Quick in Iserlohn-Letmathe bietet gepflegte Gebrauchtwagen, echte Fahrzeugbilder und persönliche Beratung seit 1982. Besichtigung vor Ort vereinbaren."
+    },
+    {
+      "seite": "Fahrzeugbestand",
+      "url": "/fahrzeugbestand",
+      "title": "Fahrzeugbestand | Automobile Quick — Gebrauchtwagen Iserlohn",
+      "description": "Aktuelle Gebrauchtwagen von Automobile Quick in Iserlohn-Letmathe mit echten Fahrzeugbildern, Preis, Kerndaten und unverbindlicher Anfrage."
+    },
+    {
+      "seite": "Kontakt",
+      "url": "/kontakt",
+      "title": "Kontakt & Anfahrt | Automobile Quick — Iserlohn-Letmathe",
+      "description": "Besuchen Sie Automobile Quick: Hagener Str. 126a, 58642 Iserlohn-Letmathe. Telefon +49 2374 912912. Termin oder Besichtigung vereinbaren."
+    },
+    {
+      "seite": "Autoankauf",
+      "url": "/autoankauf",
+      "title": "Autoankauf Iserlohn | Faire Preise bei Automobile Quick",
+      "description": "Wir kaufen Ihren Gebrauchtwagen zu fairen Preisen. Unverbindliche Bewertung in Iserlohn-Letmathe. Jetzt Angebot anfordern!"
+    },
+    {
+      "seite": "Finanzierung",
+      "url": "/finanzierung",
+      "title": "Finanzierung & Leasing | Automobile Quick — Iserlohn",
+      "description": "Flexible Kfz-Finanzierung für Ihren Traumwagen. Persönliche Beratung in Iserlohn-Letmathe. Monatsrate berechnen!"
+    },
+    {
+      "seite": "Über uns",
+      "url": "/ueber-uns",
+      "title": "Über uns | Automobile Quick — Ihr Autohaus seit 1982",
+      "description": "Automobile Quick in Iserlohn-Letmathe: seit 1982 vor Ort, persönliche Beratung und gepflegte Gebrauchtwagen mit echten Fahrzeugbildern."
+    },
+    {
+      "seite": "Impressum",
+      "url": "/impressum",
+      "title": "Impressum | Automobile Quick",
+      "description": "Impressum von Automobile Quick, Hagener Str. 126a, 58642 Iserlohn."
+    },
+    {
+      "seite": "Datenschutz",
+      "url": "/datenschutz",
+      "title": "Datenschutz | Automobile Quick",
+      "description": "Datenschutzerklärung von Automobile Quick gemäß DSGVO."
+    }
+  ]
+}

@@ -32,8 +32,7 @@ export default function MobileFloatingActionBar() {
         {/* Call Button */}
         <a
           href="tel:+492374912912"
-          className="flex flex-col items-center justify-center flex-1 h-full gap-1 transition-colors"
-          style={{ color: '#FF6B00' }}
+          className="flex flex-col items-center justify-center flex-1 h-full gap-1 transition-colors text-secondary"
           aria-label="Anrufen"
         >
           <Phone size={20} />

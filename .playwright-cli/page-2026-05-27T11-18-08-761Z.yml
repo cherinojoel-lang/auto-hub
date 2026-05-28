@@ -1,0 +1,6 @@
+- link "Built on Close banner" [ref=e3] [cursor=pointer]:
+  - /url: https://vibe.wix.com/?origin=site_banner
+  - generic [ref=e4]: Built on
+  - img [ref=e5]
+  - button "Close banner" [ref=e11]:
+    - img [ref=e12]
