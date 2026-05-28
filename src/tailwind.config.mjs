@@ -24,7 +24,7 @@ export default {
             },
             colors: {
                 primary: '#0A1628',
-                secondary: '#FF6B00',
+                secondary: '#CC4A00',
                 accent: '#213A5C',
                 background: '#F5F5F5',
                 foreground: '#1A1A1A',
@@ -38,7 +38,7 @@ export default {
                 'warm-bg': '#F5F5F5',
                 'text-secondary': '#6B7280',
                 'border-line': '#D8DEE8',
-                'cta-hover': '#E65F00',
+                'cta-hover': '#A83C00',
                 'reserved': '#F39C12',
             },
             zIndex: {
