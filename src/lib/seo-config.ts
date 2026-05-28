@@ -21,7 +21,6 @@ export const SITE_CONFIG = {
   },
   image: 'https://automobilequick.de/images/autohaus-showroom.jpg',
   foundingYear: 1982,
-  yearsInBusiness: 42,
 };
 
 export const PAGE_METADATA = {
@@ -51,7 +50,7 @@ export const PAGE_METADATA = {
     path: '/finanzierung',
   },
   about: {
-    title: 'Über uns | Automobile Quick — 42 Jahre Erfahrung',
+    title: 'Über uns | Automobile Quick — Seit 1982 in Iserlohn',
     description: 'Lernen Sie Automobile Quick kennen. Seit 1982 Ihr zuverlässiger Partner für Gebrauchtwagen in Iserlohn. Unsere Geschichte & Werte.',
     path: '/ueber-uns',
   },
@@ -123,25 +122,18 @@ export function generateBusinessSchema() {
 /**
  * Generate Product Schema for vehicle detail pages
  */
-export function generateProductSchema(vehicle: {
-  title?: string;
-  manufacturer?: string;
-  model?: string;
-  firstRegistrationYear?: number;
-  price?: number;
-  mileage?: number;
-  mainImage?: string;
-  description?: string;
-}) {
+import type { Vehicle } from '@/data/vehiclesData.generated';
+
+export function generateProductSchema(vehicle: Partial<Vehicle>) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: vehicle.title || `${vehicle.manufacturer} ${vehicle.model}`,
+    name: vehicle.title || `${vehicle.make} ${vehicle.model}`,
     description: vehicle.description,
     image: vehicle.mainImage,
     offers: {
       '@type': 'Offer',
-      price: vehicle.price?.toString() || '0',
+      price: vehicle.priceValue?.toString() || (vehicle.price ? vehicle.price.replace(/[^\d]/g, '') : '0'),
       priceCurrency: 'EUR',
       availability: 'https://schema.org/InStock',
     },

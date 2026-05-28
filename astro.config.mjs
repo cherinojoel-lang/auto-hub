@@ -42,6 +42,17 @@ export default defineConfig({
   ],
   vite: {
     plugins: [customErrorOverlayPlugin()],
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules/framer-motion')) return 'vendor-framer';
+            if (id.includes('node_modules/lucide-react')) return 'vendor-lucide';
+            if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/') || id.includes('node_modules/react-router')) return 'vendor-react';
+          }
+        }
+      }
+    },
     cacheDir: 'node_modules/.cache/.vite',
     optimizeDeps: {
       include: [

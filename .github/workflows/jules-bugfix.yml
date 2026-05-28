@@ -1,0 +1,20 @@
+name: Jules Bug Fixer
+on:
+  issues:
+    types: [labeled]
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+jobs:
+  fix:
+    if: github.event.label.name == 'bug'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-labs-code/jules-invoke@v1
+        with:
+          prompt: |
+            Fix the bug described in this issue.
+            Reproduce, write failing test, fix, verify, create PR.
+          jules_api_key: ${{ secrets.JULES_API_KEY }}
+          include_last_commit: true

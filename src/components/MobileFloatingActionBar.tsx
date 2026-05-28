@@ -22,7 +22,7 @@ export default function MobileFloatingActionBar() {
     <div
       className="fixed bottom-0 left-0 right-0 z-50 md:hidden"
       style={{
-        backgroundColor: '#FCFCFA',
+        backgroundColor: '#FFFFFF',
         borderTop: '1px solid #D8DEE8',
         maxHeight: '72px',
         paddingBottom: 'env(safe-area-inset-bottom)',
@@ -31,9 +31,9 @@ export default function MobileFloatingActionBar() {
       <div className="flex h-16 items-center justify-around max-w-7xl mx-auto px-4">
         {/* Call Button */}
         <a
-          href="tel:+4923749157-0"
+          href="tel:+492374912912"
           className="flex flex-col items-center justify-center flex-1 h-full gap-1 transition-colors"
-          style={{ color: '#D9431F' }}
+          style={{ color: '#FF6B00' }}
           aria-label="Anrufen"
         >
           <Phone size={20} />
@@ -44,7 +44,7 @@ export default function MobileFloatingActionBar() {
         <Link
           to="/kontakt"
           className="flex flex-col items-center justify-center flex-1 h-full gap-1 transition-colors"
-          style={{ color: '#101828' }}
+          style={{ color: '#1A1A1A' }}
           aria-label="Anfrage"
         >
           <MessageSquare size={20} />
@@ -55,7 +55,7 @@ export default function MobileFloatingActionBar() {
         <Link
           to="/fahrzeugbestand"
           className="flex flex-col items-center justify-center flex-1 h-full gap-1 transition-colors"
-          style={{ color: '#101828' }}
+          style={{ color: '#1A1A1A' }}
           aria-label="Fahrzeuge"
         >
           <Car size={20} />

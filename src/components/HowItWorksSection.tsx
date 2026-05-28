@@ -9,10 +9,9 @@ interface StepProps {
   description: string;
   isVisible: boolean;
   delay: number;
-  isLast: boolean;
 }
 
-const Step: React.FC<StepProps> = ({ number, icon, title, description, isVisible, delay, isLast }) => {
+const Step: React.FC<StepProps> = ({ number, icon, title, description, isVisible, delay }) => {
   return (
     <div
       className={`transition-all duration-1000 ease-out ${
@@ -166,7 +165,6 @@ export default function HowItWorksSection() {
                 description={step.description}
                 isVisible={isVisible}
                 delay={index * 150}
-                isLast={index === steps.length - 1}
               />
             ))}
           </div>
@@ -188,7 +186,6 @@ export default function HowItWorksSection() {
                 description={step.description}
                 isVisible={isVisible}
                 delay={index * 150}
-                isLast={index === steps.length - 1}
               />
             ))}
           </div>

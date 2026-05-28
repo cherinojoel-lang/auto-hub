@@ -30,7 +30,7 @@ export const Head = () => {
       <meta name="twitter:image" content="https://static.wixstatic.com/media/32e7c0_d28732f69d9643a7ada1b1be4890a422~mv2.png" />
       
       {/* Additional SEO Tags */}
-      <meta name="theme-color" content="#16233A" />
+      <meta name="theme-color" content="#0A1628" />
       <meta name="apple-mobile-web-app-capable" content="yes" />
       <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
       

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Calendar, Gauge, Zap, Fuel, ArrowLeft, Phone, MapPin, Wrench, Check, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Calendar, Gauge, Zap, Fuel, ArrowLeft, Phone, MapPin, Wrench, ChevronLeft, ChevronRight } from 'lucide-react';
 import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
 import { Image } from '@/components/ui/image';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
@@ -45,15 +45,13 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string 
   );
 };
 
-// Mock features for the demo vehicle
-const DEMO_FEATURES = [
-  'Klimaanlage',
-  'Einparkhilfe hinten',
-  'Apple CarPlay',
-  'Android Auto',
-  'Sitzheizung',
-  'Tempomat',
-  'Alu 16"',
+const SAFE_SERVICE_POINTS = [
+  'Persönliche Beratung vor Ort',
+  'Besichtigung nach Vereinbarung',
+  'Unverbindliche Fahrzeuganfrage',
+  'Echte Fahrzeugbilder',
+  'Finanzierung auf Anfrage',
+  'Seit 1982 in Iserlohn-Letmathe',
 ];
 
 export default function VehicleDetailPage() {
@@ -128,15 +126,7 @@ export default function VehicleDetailPage() {
     setCurrentGalleryIndex(prev => prev === galleryImages.length - 1 ? 0 : prev + 1);
   };
 
-  const formatPrice = (price?: number) => {
-    if (!price) return 'Preis auf Anfrage';
-    return new Intl.NumberFormat('de-DE', {
-      style: 'currency',
-      currency: 'EUR',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(price);
-  };
+
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -183,6 +173,9 @@ export default function VehicleDetailPage() {
                         className="w-full h-full object-cover"
                         width={1200}
                         height={675}
+                        fetchPriority="high"
+                        loading="eager"
+                        decoding="async"
                       />
                       {/* Image Counter - only show if multiple images */}
                       {hasMultipleImages && (
@@ -229,6 +222,8 @@ export default function VehicleDetailPage() {
                                 className="w-full h-full object-cover"
                                 width={80}
                                 height={60}
+                                loading="lazy"
+                                decoding="async"
                               />
                             </button>
                           ))}
@@ -237,9 +232,9 @@ export default function VehicleDetailPage() {
                     )}
                   </div>
                 ) : (
-                  <div className="w-full h-full flex flex-col items-center justify-center" style={{ backgroundColor: '#F6F1EA' }}>
+                  <div className="w-full h-full flex flex-col items-center justify-center bg-alt-bg">
                     <div className="text-center">
-                      <p className="text-lg font-bold" style={{ color: '#536075' }}>Bild folgt</p>
+                      <p className="text-lg font-bold text-text-secondary">Bild folgt</p>
                     </div>
                   </div>
                 )}
@@ -263,16 +258,16 @@ export default function VehicleDetailPage() {
                 <p className="text-4xl font-bold text-secondary mb-6">
                   {vehicle.price}
                 </p>
-                <p className="text-sm text-success font-bold mb-4">✓ Verfügbar</p>
+                <p className="text-sm text-primary font-bold mb-4">Verfügbar</p>
               </div>
             </div>
 
             {/* Mobile: Financing Box */}
             <div className="lg:hidden bg-card-bg border-t border-border-line">
               <div className="container mx-auto px-4 max-w-7xl py-6">
-                <div className="p-4 rounded-lg border" style={{ backgroundColor: '#FCFCFA', borderColor: '#D8DEE8' }}>
-                  <p className="text-sm font-bold mb-3" style={{ color: '#101828' }}>Finanzierung auf Anfrage</p>
-                  <p className="text-sm leading-relaxed" style={{ color: '#536075' }}>
+                <div className="p-4 rounded-lg border border-border-line bg-card-bg">
+                  <p className="text-sm font-bold mb-3 text-foreground">Finanzierung auf Anfrage</p>
+                  <p className="text-sm leading-relaxed text-text-secondary">
                     Wir prüfen passende Finanzierungsoptionen gerne persönlich.
                   </p>
                 </div>
@@ -283,7 +278,7 @@ export default function VehicleDetailPage() {
             <div className="lg:hidden bg-background border-t border-border-line">
               <div className="container mx-auto px-4 max-w-7xl py-6 space-y-3">
                 <a
-                  href="tel:+4923749157-0"
+                  href="tel:+492374912912"
                   className="flex items-center justify-center gap-2 w-full bg-secondary text-white px-6 py-4 rounded-lg font-bold hover:bg-cta-hover transition-all duration-300 text-base min-h-[48px]"
                 >
                   <Phone size={20} />
@@ -410,6 +405,9 @@ export default function VehicleDetailPage() {
                           className="w-full h-full object-cover"
                           width={1200}
                           height={675}
+                          fetchPriority="high"
+                          loading="eager"
+                          decoding="async"
                         />
                         {hasMultipleImages && (
                           <>
@@ -449,6 +447,8 @@ export default function VehicleDetailPage() {
                                 className="w-full h-full object-cover"
                                 width={150}
                                 height={100}
+                                loading="lazy"
+                                decoding="async"
                               />
                             </button>
                           ))}
@@ -456,9 +456,9 @@ export default function VehicleDetailPage() {
                       )}
                     </div>
                   ) : (
-                    <div className="w-full h-full flex flex-col items-center justify-center" style={{ backgroundColor: '#F6F1EA' }}>
+                    <div className="w-full h-full flex flex-col items-center justify-center bg-alt-bg">
                       <div className="text-center">
-                        <p className="text-xl font-bold" style={{ color: '#536075' }}>Bild folgt</p>
+                        <p className="text-xl font-bold text-text-secondary">Bild folgt</p>
                       </div>
                     </div>
                   )}
@@ -474,9 +474,9 @@ export default function VehicleDetailPage() {
                   {/* Title & Intro */}
                   <AnimatedElement>
                     <div>
-                      <h1 className="text-4xl sm:text-5xl md:text-6xl font-heading font-bold text-primary mb-6">
+                      <h2 className="text-4xl sm:text-5xl md:text-6xl font-heading font-bold text-primary mb-6">
                         {vehicle.title}
-                      </h1>
+                      </h2>
                       <p className="text-lg text-text-secondary leading-relaxed font-paragraph">
                         Gepflegter Gebrauchtwagen bei Automobile Quick in Iserlohn-Letmathe. Persönliche Beratung, Besichtigung vor Ort und unverbindliche Finanzierungsanfrage möglich.
                       </p>
@@ -491,7 +491,7 @@ export default function VehicleDetailPage() {
                       </h2>
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                         {vehicle.firstRegistration && (
-                          <div className="bg-card-bg p-5 rounded-lg border border-border-line shadow-sm hover:shadow-md transition-shadow">
+                          <div className="bg-card-bg p-5 rounded-lg border border-border-line">
                             <div className="flex items-center gap-3 mb-2">
                               <Calendar className="text-secondary flex-shrink-0" size={24} />
                               <p className="text-xs font-bold text-text-secondary uppercase tracking-wide">Erstzulassung</p>
@@ -501,7 +501,7 @@ export default function VehicleDetailPage() {
                         )}
 
                         {vehicle.mileage && (
-                          <div className="bg-card-bg p-5 rounded-lg border border-border-line shadow-sm hover:shadow-md transition-shadow">
+                          <div className="bg-card-bg p-5 rounded-lg border border-border-line">
                             <div className="flex items-center gap-3 mb-2">
                               <Gauge className="text-secondary flex-shrink-0" size={24} />
                               <p className="text-xs font-bold text-text-secondary uppercase tracking-wide">Kilometerstand</p>
@@ -513,7 +513,7 @@ export default function VehicleDetailPage() {
                         )}
 
                         {vehicle.power && (
-                          <div className="bg-card-bg p-5 rounded-lg border border-border-line shadow-sm hover:shadow-md transition-shadow">
+                          <div className="bg-card-bg p-5 rounded-lg border border-border-line">
                             <div className="flex items-center gap-3 mb-2">
                               <Zap className="text-secondary flex-shrink-0" size={24} />
                               <p className="text-xs font-bold text-text-secondary uppercase tracking-wide">Leistung</p>
@@ -525,7 +525,7 @@ export default function VehicleDetailPage() {
                         )}
 
                         {vehicle.fuel && (
-                          <div className="bg-card-bg p-5 rounded-lg border border-border-line shadow-sm hover:shadow-md transition-shadow">
+                          <div className="bg-card-bg p-5 rounded-lg border border-border-line">
                             <div className="flex items-center gap-3 mb-2">
                               <Fuel className="text-secondary flex-shrink-0" size={24} />
                               <p className="text-xs font-bold text-text-secondary uppercase tracking-wide">Kraftstoff</p>
@@ -534,7 +534,7 @@ export default function VehicleDetailPage() {
                           </div>
                         )}
 
-                        <div className="bg-card-bg p-5 rounded-lg border border-border-line shadow-sm hover:shadow-md transition-shadow">
+                        <div className="bg-card-bg p-5 rounded-lg border border-border-line">
                           <div className="flex items-center gap-3 mb-2">
                             <Wrench className="text-secondary flex-shrink-0" size={24} />
                             <p className="text-xs font-bold text-text-secondary uppercase tracking-wide">Getriebe</p>
@@ -542,7 +542,7 @@ export default function VehicleDetailPage() {
                           <p className="font-bold text-lg text-primary">Automatik</p>
                         </div>
 
-                        <div className="bg-card-bg p-5 rounded-lg border border-border-line shadow-sm hover:shadow-md transition-shadow">
+                        <div className="bg-card-bg p-5 rounded-lg border border-border-line">
                           <div className="flex items-center gap-3 mb-2">
                             <MapPin className="text-secondary flex-shrink-0" size={24} />
                             <p className="text-xs font-bold text-text-secondary uppercase tracking-wide">Standort</p>
@@ -560,7 +560,7 @@ export default function VehicleDetailPage() {
                         Ausstattung
                       </h2>
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                        {DEMO_FEATURES.map((feature, idx) => (
+                        {SAFE_SERVICE_POINTS.map((feature, idx) => (
                           <div key={idx} className="flex items-center gap-3 p-3 bg-warm-bg rounded-lg border border-border-line">
                             <div className="w-2 h-2 bg-secondary rounded-full flex-shrink-0"></div>
                             <span className="font-medium text-foreground">{feature}</span>
@@ -596,16 +596,18 @@ export default function VehicleDetailPage() {
                             <Link
                               key={v.id}
                               to={`/fahrzeugdetail/${v.id}`}
-                              className="group bg-card-bg rounded-lg overflow-hidden border border-border-line shadow-sm hover:shadow-lg transition-all duration-300"
+                              className="group bg-card-bg rounded-lg overflow-hidden border border-border-line hover:border-secondary/70 transition-colors duration-200"
                             >
                               <div className="aspect-video bg-alt-bg overflow-hidden">
                                 {v.mainImage ? (
                                   <Image
                                     src={v.mainImage || ""}
                                     alt={v.alt || v.title}
-                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                    className="w-full h-full object-cover"
                                     width={400}
                                     height={225}
+                                    loading="lazy"
+                                    decoding="async"
                                   />
                                 ) : (
                                   <div className="w-full h-full flex items-center justify-center bg-border-line">
@@ -635,7 +637,7 @@ export default function VehicleDetailPage() {
                 {/* Right Column - Desktop Price Box */}
                 <div className="lg:col-span-1">
                   <div className="sticky top-32 w-full">
-                    <AnimatedElement className="bg-card-bg rounded-lg shadow-xl border border-border-line p-6 sm:p-8">
+                    <AnimatedElement className="bg-card-bg rounded-lg border border-border-line p-6 sm:p-8">
                       {/* Price */}
                       <div className="mb-8">
                         <p className="text-sm text-text-secondary font-medium mb-2">Verkaufspreis</p>
@@ -645,9 +647,9 @@ export default function VehicleDetailPage() {
                       </div>
 
                       {/* Financing */}
-                      <div className="mb-8 p-4 rounded-lg border" style={{ backgroundColor: '#FCFCFA', borderColor: '#D8DEE8' }}>
-                        <p className="text-sm font-bold mb-3" style={{ color: '#101828' }}>Finanzierung auf Anfrage</p>
-                        <p className="text-sm leading-relaxed" style={{ color: '#536075' }}>
+                      <div className="mb-8 p-4 rounded-lg border border-border-line bg-card-bg">
+                        <p className="text-sm font-bold mb-3 text-foreground">Finanzierung auf Anfrage</p>
+                        <p className="text-sm leading-relaxed text-text-secondary">
                           Wir prüfen passende Finanzierungsoptionen gerne persönlich.
                         </p>
                       </div>
@@ -655,21 +657,21 @@ export default function VehicleDetailPage() {
                       {/* CTA Buttons */}
                       <div className="space-y-3">
                         <a
-                          href="tel:+4923749157-0"
-                          className="flex items-center justify-center gap-2 w-full bg-secondary text-white px-6 py-4 rounded-lg font-bold hover:bg-cta-hover transition-all duration-300 transform hover:-translate-y-0.5 shadow-md text-base min-h-[48px]"
+                          href="tel:+492374912912"
+                          className="flex items-center justify-center gap-2 w-full bg-secondary text-white px-6 py-4 rounded-md font-bold hover:bg-cta-hover transition-colors duration-200 text-base min-h-[48px]"
                         >
                           <Phone size={20} />
                           Anrufen
                         </a>
                         <Link
                           to="/kontakt"
-                          className="block w-full bg-primary text-white text-center px-6 py-4 rounded-lg font-bold hover:bg-primary/90 transition-all duration-300 transform hover:-translate-y-0.5 shadow-md text-base min-h-[48px] flex items-center justify-center"
+                          className="block w-full bg-primary text-white text-center px-6 py-4 rounded-md font-bold hover:bg-primary/90 transition-colors duration-200 text-base min-h-[48px] flex items-center justify-center"
                         >
                           Anfrage senden
                         </Link>
                         <Link
                           to="/finanzierung"
-                          className="block w-full bg-white text-primary border-2 border-primary text-center px-6 py-4 rounded-lg font-bold hover:bg-primary/5 transition-all duration-300 text-base min-h-[48px] flex items-center justify-center"
+                          className="block w-full bg-white text-primary border-2 border-primary text-center px-6 py-4 rounded-md font-bold hover:bg-primary/5 transition-colors duration-200 text-base min-h-[48px] flex items-center justify-center"
                         >
                           Finanzierung anfragen
                         </Link>
@@ -686,7 +688,7 @@ export default function VehicleDetailPage() {
             </div>
 
             {/* Bottom Spacing for Mobile */}
-            <div className="lg:hidden h-32"></div>
+            <div className="lg:hidden pb-40"></div>
           </>
         )}
       </div>

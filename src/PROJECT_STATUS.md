@@ -45,8 +45,8 @@
 ```
 
 #### Typography
-- Heading Font: Roboto (Bold)
-- Paragraph Font: Roboto (Regular)
+- Heading Font: Aptos Display / Segoe UI / Helvetica Neue
+- Paragraph Font: Aptos / Segoe UI / Helvetica Neue
 - Font sizes: xs (12px) to 9xl (96px)
 
 ### Mobile UX Implementation
