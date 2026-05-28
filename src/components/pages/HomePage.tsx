@@ -154,7 +154,6 @@ export default function HomePage() {
                 <Link
                   to="/fahrzeugbestand"
                   className="px-6 sm:px-8 py-3.5 bg-secondary text-white font-bold rounded-md hover:bg-cta-hover transition-colors duration-200 inline-flex items-center justify-center gap-2 text-base min-h-[52px] whitespace-nowrap"
-                  aria-label="Fahrzeuge entdecken - Zu unserem Fahrzeugbestand"
                 >
                   Jetzt Fahrzeuge entdecken
                   <ChevronRight size={20} />
@@ -174,7 +173,6 @@ export default function HomePage() {
                 <a
                   href="tel:+492374912912"
                   className="px-5 sm:px-6 py-3.5 bg-transparent border border-white/45 text-white font-bold rounded-md hover:border-white hover:bg-white/10 transition-colors duration-200 inline-flex items-center justify-center gap-2 text-base min-h-[52px] whitespace-nowrap"
-                  aria-label="Anrufen: +49 2374 912912"
                 >
                   <Phone size={18} />
                   +49 (0) 2374 / 912912

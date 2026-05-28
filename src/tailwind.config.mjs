@@ -44,6 +44,20 @@ export default {
             zIndex: {
                 '1000': '1000',
             },
+            keyframes: {
+                'wa-pulse': {
+                    '0%, 100%': { transform: 'scale(1)' },
+                    '50%': { transform: 'scale(1.15)' },
+                },
+                'fade-in': {
+                    '0%': { opacity: '0', transform: 'translateY(-10px)' },
+                    '100%': { opacity: '1', transform: 'translateY(0)' },
+                },
+            },
+            animation: {
+                'wa-pulse': 'wa-pulse 2s ease-in-out 2',
+                'fade-in': 'fade-in 0.3s ease-out',
+            },
         },
     },
     future: {

@@ -1,7 +1,6 @@
 import { z } from 'zod';
 import { Phone, MessageCircle, Mail, Clock } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
 
 function isBusinessOpen() {
   const now = new Date();
@@ -171,12 +170,7 @@ export default function ContactSection() {
         {/* Two Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Left Column - Contact Information */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
+          <div>
             <h2 className="text-4xl font-bold text-slate-900 mb-4">
               Kontaktieren Sie uns
             </h2>
@@ -188,11 +182,7 @@ export default function ContactSection() {
             {/* Contact Cards */}
             <div className="space-y-4">
               {/* Phone Card */}
-              <motion.div
-                className="bg-slate-50 rounded-3xl p-5 flex items-start gap-4"
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.2 }}
-              >
+              <div className="bg-slate-50 rounded-3xl p-5 flex items-start gap-4 transition-transform duration-200 hover:-translate-y-1">
                 <div className="flex-shrink-0">
                   <Phone size={24} className="text-red-600" />
                 </div>
@@ -208,14 +198,10 @@ export default function ContactSection() {
                     Jetzt anrufen
                   </a>
                 </div>
-              </motion.div>
+              </div>
 
               {/* WhatsApp Card */}
-              <motion.div
-                className="bg-green-50 rounded-3xl p-5 flex items-start gap-4"
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.2 }}
-              >
+              <div className="bg-green-50 rounded-3xl p-5 flex items-start gap-4 transition-transform duration-200 hover:-translate-y-1">
                 <div className="flex-shrink-0">
                   <MessageCircle size={24} className="text-green-600" />
                 </div>
@@ -233,14 +219,10 @@ export default function ContactSection() {
                     Nachricht senden
                   </a>
                 </div>
-              </motion.div>
+              </div>
 
               {/* Email Card */}
-              <motion.div
-                className="bg-slate-50 rounded-3xl p-5 flex items-start gap-4"
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.2 }}
-              >
+              <div className="bg-slate-50 rounded-3xl p-5 flex items-start gap-4 transition-transform duration-200 hover:-translate-y-1">
                 <div className="flex-shrink-0">
                   <Mail size={24} className="text-slate-900" />
                 </div>
@@ -256,14 +238,10 @@ export default function ContactSection() {
                     E-Mail schreiben
                   </a>
                 </div>
-              </motion.div>
+              </div>
 
               {/* Opening Hours Card */}
-              <motion.div
-                className="bg-slate-50 rounded-3xl p-5 flex items-start gap-4"
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.2 }}
-              >
+              <div className="bg-slate-50 rounded-3xl p-5 flex items-start gap-4 transition-transform duration-200 hover:-translate-y-1">
                 <div className="flex-shrink-0">
                   <Clock size={24} className="text-slate-900" />
                 </div>
@@ -282,17 +260,12 @@ export default function ContactSection() {
                     </span>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Right Column - Map and Form */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
+          <div>
             {/* Google Maps */}
             <div ref={mapRef} className="mb-6 rounded-3xl overflow-hidden h-80">
               {mapLoaded && (
@@ -323,13 +296,9 @@ export default function ContactSection() {
               <h3 className="text-2xl font-semibold text-slate-900 mb-6">Schnellanfrage</h3>
 
               {submitSuccess && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="p-4 bg-green-50 border border-green-200 rounded-lg text-green-800 text-sm"
-                >
+                <div className="p-4 bg-green-50 border border-green-200 rounded-lg text-green-800 text-sm animate-fade-in">
                   Vielen Dank! Wir werden uns in Kürze bei Ihnen melden.
-                </motion.div>
+                </div>
               )}
 
               {/* Name Field */}
@@ -424,7 +393,7 @@ export default function ContactSection() {
                 zu.
               </p>
             </form>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
