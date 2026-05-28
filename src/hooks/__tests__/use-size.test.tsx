@@ -17,14 +17,6 @@ describe('useSize', () => {
   beforeEach(() => {
     vi.useFakeTimers()
 
-    // Mock requestAnimationFrame and cancelAnimationFrame
-    vi.spyOn(window, 'requestAnimationFrame').mockImplementation((cb: FrameRequestCallback) => {
-      return setTimeout(() => cb(Date.now()), 0) as unknown as number
-    })
-    vi.spyOn(window, 'cancelAnimationFrame').mockImplementation((id: number) => {
-      clearTimeout(id)
-    })
-
     mockRef = {
       current: document.createElement('div')
     }
@@ -64,11 +56,8 @@ describe('useSize', () => {
       })
     })
 
-    // Advance 3 "frames" (mocked as setTimeout 0)
     act(() => {
-      vi.advanceTimersByTime(0)
-      vi.advanceTimersByTime(0)
-      vi.advanceTimersByTime(0)
+      vi.advanceTimersByTime(50)
     })
 
     expect(result.current).toEqual({ width: 200, height: 200 })
@@ -85,16 +74,14 @@ describe('useSize', () => {
     })
 
     act(() => {
-      vi.advanceTimersByTime(0)
-      vi.advanceTimersByTime(0)
-      vi.advanceTimersByTime(0)
+      vi.advanceTimersByTime(50)
     })
 
     expect(result.current).toEqual({ width: 100, height: 100 })
   })
 
   it('cleans up RAFs on unmount', () => {
-    const cancelAnimationFrameSpy = vi.spyOn(window, 'cancelAnimationFrame')
+    const clearTimeoutSpy = vi.spyOn(global, 'clearTimeout')
     const { unmount } = renderHook(() => useSize(mockRef as React.RefObject<HTMLElement>))
 
     act(() => {
@@ -104,6 +91,6 @@ describe('useSize', () => {
     })
 
     unmount()
-    expect(cancelAnimationFrameSpy).toHaveBeenCalled()
+    expect(clearTimeoutSpy).toHaveBeenCalled()
   })
 })

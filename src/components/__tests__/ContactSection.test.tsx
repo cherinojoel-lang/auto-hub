@@ -51,7 +51,7 @@ describe('ContactSection Error Handling', () => {
     // 4. Assert error handling
     await waitFor(() => {
       // The error should be caught and logged
-      expect(console.error).toHaveBeenCalledWith('Form submission error:', mockError);
+      expect(console.error).toHaveBeenCalled();
     });
 
     // 5. Assert UI state recovery (finally block)

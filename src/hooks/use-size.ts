@@ -10,7 +10,7 @@ type Size = {
 export const useSize = (ref: React.RefObject<HTMLElement>, threshold: number = 50): Size | null => {
   const [size, setSize] = useState<Size | null>(null)
   // Reference to the request animation frame numbers
-  const rafNumbers = useRef<number[]>([])
+  const timerIds = useRef<NodeJS.Timeout[]>([])
   // Store the size from the first animation frame
   const pendingSize = useRef<Size | null>(null)
 
@@ -49,29 +49,27 @@ export const useSize = (ref: React.RefObject<HTMLElement>, threshold: number = 5
     }
 
     // Size was changed, cancel any pending animation frames that are waiting for the size to stabilize
-    rafNumbers.current.forEach(rafNumber => {
-      cancelAnimationFrame(rafNumber)
+    timerIds.current.forEach(timerId => {
+      clearTimeout(timerId)
     })
 
-    rafNumbers.current = []
+    timerIds.current = []
     pendingSize.current = { width, height }
-    // Wait for 3 animation frames to ensure the size is stable
-    rafNumbers.current.push(requestAnimationFrame(() => {
-      rafNumbers.current.push(requestAnimationFrame(() => {
-        rafNumbers.current.push(requestAnimationFrame(() => {
-          // If no resize changed observed after 3 animation frames, update the size
+    // Wait to ensure the size is stable
+    timerIds.current.push(setTimeout(() => {
+        // If no resize changed observed after timeout, update the size
+        if (pendingSize.current) {
           updateSize(pendingSize.current)
           pendingSize.current = null
-        }))
-      }))
-    }))
+        }
+    }, 50))
   })
 
-  // Cleanup RAF on unmount
+  // Cleanup on unmount
   useEffect(() => {
     return () => {
-      rafNumbers.current.forEach(rafNumber => {
-        cancelAnimationFrame(rafNumber)
+      timerIds.current.forEach(timerId => {
+        clearTimeout(timerId)
       })
     }
   }, [])
