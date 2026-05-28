@@ -189,7 +189,6 @@ export default function HomePage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-4 hover:opacity-90 transition-opacity"
-                  aria-label="Google-Unternehmensprofil von Automobile Quick öffnen"
                 >
                   <div className="flex flex-col">
                     <div className="flex items-center gap-2 mb-1">

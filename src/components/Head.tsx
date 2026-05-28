@@ -39,7 +39,7 @@ export const Head = () => {
       
       {/* Preconnect to external resources */}
       <link rel="preconnect" href="https://static.parastorage.com" />
-      <link rel="dns-prefetch" href="https://static.wixstatic.com" />
+      <link rel="preconnect" href="https://static.wixstatic.com" crossOrigin="anonymous" />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       
       {/* Alternate language versions */}
