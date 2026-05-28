@@ -6,13 +6,24 @@ export default function MobileFloatingActionBar() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
+
+    // Performance optimization: Throttle scroll event using requestAnimationFrame
+    // to prevent excessive re-renders and use passive listener to avoid blocking
+    // the compositor thread.
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      // Show after 300px scroll
-      setIsVisible(currentScrollY > 300);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          // Show after 300px scroll
+          setIsVisible(currentScrollY > 300);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
