@@ -1,3 +1,4 @@
+import React from "react";
 import { render, fireEvent } from '@testing-library/react';
 import { MemoryRouter, useNavigate } from 'react-router-dom';
 import { ScrollToTop } from '../scroll-to-top';

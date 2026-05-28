@@ -1,3 +1,4 @@
+import React from "react";
 import { z } from 'zod';
 import { Phone, MessageCircle, Mail, Clock } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
