@@ -36,7 +36,7 @@ export default {
                 'card-bg': '#FFFFFF',
                 'alt-bg': '#F5F5F5',
                 'warm-bg': '#F5F5F5',
-                'text-secondary': '#6B7280',
+                'text-secondary': '#4B5563',
                 'border-line': '#D8DEE8',
                 'cta-hover': '#A83C00',
                 'reserved': '#F39C12',

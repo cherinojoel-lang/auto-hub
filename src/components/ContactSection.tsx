@@ -214,7 +214,7 @@ export default function ContactSection() {
                     href="https://wa.me/492374912912?text=Hallo%20Automobile%20Quick,%20ich%20interessiere%20mich%20für%20ein%20Fahrzeug."
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm font-medium text-green-600 hover:text-green-700 transition-colors"
+                    className="text-sm font-medium text-green-700 hover:text-green-800 transition-colors"
                   >
                     Nachricht senden
                   </a>
