@@ -96,9 +96,9 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, index }) => {
           <p className="text-xs text-text-secondary mb-4">{vehicle.financing}</p>
 
           {/* CTA Button */}
-          <button className="w-full bg-primary text-white py-3 rounded-md font-bold text-sm hover:bg-primary/90 transition-colors mt-auto min-h-[48px]">
+          <span className="w-full flex items-center justify-center bg-primary text-white py-3 rounded-md font-bold text-sm hover:bg-primary/90 transition-colors mt-auto min-h-[48px]">
             Details ansehen
-          </button>
+          </span>
         </div>
       </Link>
     </div>
