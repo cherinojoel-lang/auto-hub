@@ -4,3 +4,4 @@
 ## 2024-05-15 - [LCP Optimization]
 **Learning:** The custom `<Image>` component implicitly defaults to `loading="lazy"` via browser defaults unless overridden. This delays rendering for critical above-the-fold assets, negatively impacting LCP (Largest Contentful Paint).
 **Action:** Always add `loading="eager"` and `fetchPriority="high"` to hero images and other above-the-fold images to optimize LCP.
+* When optimizing large array filter operations, hoist static transformations (like string lowercasing or parseInt conversions) outside the `.filter` callback, and use a single `.filter` iteration with early returns instead of multiple chained `.filter` calls to prevent redundant iterations and re-evaluations.
