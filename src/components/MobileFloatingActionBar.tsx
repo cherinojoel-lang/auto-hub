@@ -1,6 +1,7 @@
 import { Phone, MessageSquare, Car } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { trackEvent } from '@/lib/analytics';
 
 export default function MobileFloatingActionBar() {
   const [isVisible, setIsVisible] = useState(false);
@@ -42,7 +43,7 @@ export default function MobileFloatingActionBar() {
       <div className="flex h-16 items-center justify-around max-w-7xl mx-auto px-4">
         {/* Call Button */}
         <a
-          href="tel:+492374912912"
+          onClick={() => trackEvent({ action: 'click_phone', category: 'Contact', label: 'Phone Link' })} href="tel:+492374912912"
           className="flex flex-col items-center justify-center flex-1 h-full gap-1 transition-colors text-secondary"
           aria-label="Anrufen"
         >

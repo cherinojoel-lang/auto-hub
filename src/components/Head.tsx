@@ -35,7 +35,7 @@ export const Head = () => {
       <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
       
       {/* Canonical URL */}
-      <link rel="canonical" href="https://automobilequick.de/" />
+      <link rel="canonical" href="https://sldwrd-my-site-wgayakj9-energievergleich.wix-vibe-site.com/" />
       
       {/* Preconnect to external resources */}
       <link rel="preconnect" href="https://static.parastorage.com" />
@@ -43,8 +43,8 @@ export const Head = () => {
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       
       {/* Alternate language versions */}
-      <link rel="alternate" hrefLang="de" href="https://automobilequick.de/" />
-      <link rel="alternate" hrefLang="x-default" href="https://automobilequick.de/" />
+      <link rel="alternate" hrefLang="de" href="https://sldwrd-my-site-wgayakj9-energievergleich.wix-vibe-site.com/" />
+      <link rel="alternate" hrefLang="x-default" href="https://sldwrd-my-site-wgayakj9-energievergleich.wix-vibe-site.com/" />
     </>
   );
 };

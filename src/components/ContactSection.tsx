@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { Phone, MessageCircle, Mail, Clock } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
+import { trackEvent } from '@/lib/analytics';
 
 function isBusinessOpen() {
   const now = new Date();
@@ -140,6 +141,7 @@ export default function ContactSection() {
       // Here you would normally send the data to your backend
 
       setSubmitSuccess(true);
+      trackEvent({ action: 'submit_form', category: 'Lead', label: 'ContactSection' });
       setFormData({ name: '', email: '', phone: '', message: '' });
 
       // Reset success message after 3 seconds
@@ -192,7 +194,7 @@ export default function ContactSection() {
                     +49 (0) 2374 / 912912
                   </p>
                   <a
-                    href="tel:+492374912912"
+                    onClick={() => trackEvent({ action: 'click_phone', category: 'Contact', label: 'Phone Link' })} href="tel:+492374912912"
                     className="text-sm font-medium text-red-600 hover:text-red-700 transition-colors"
                   >
                     Jetzt anrufen
@@ -211,7 +213,7 @@ export default function ContactSection() {
                     Schnelle Antwort garantiert
                   </p>
                   <a
-                    href="https://wa.me/492374912912?text=Hallo%20Automobile%20Quick,%20ich%20interessiere%20mich%20für%20ein%20Fahrzeug."
+                    onClick={() => trackEvent({ action: 'click_whatsapp', category: 'Contact', label: 'WhatsApp Link' })} href="https://wa.me/492374912912?text=Hallo%20Automobile%20Quick,%20ich%20interessiere%20mich%20für%20ein%20Fahrzeug."
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm font-medium text-green-700 hover:text-green-800 transition-colors"
@@ -232,7 +234,7 @@ export default function ContactSection() {
                     info@automobilequick.de
                   </p>
                   <a
-                    href="mailto:info@automobilequick.de"
+                    onClick={() => trackEvent({ action: 'click_email', category: 'Contact', label: 'Email Link' })} href="mailto:info@automobilequick.de"
                     className="text-sm font-medium text-slate-900 hover:text-slate-700 transition-colors"
                   >
                     E-Mail schreiben

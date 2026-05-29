@@ -1,5 +1,6 @@
 import { MessageCircle } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { trackEvent } from '@/lib/analytics';
 
 export default function WhatsAppButton() {
   const [shouldPulse, setShouldPulse] = useState(true);
@@ -12,7 +13,7 @@ export default function WhatsAppButton() {
 
   return (
     <a
-      href="https://wa.me/492374912912?text=Hallo%20Automobile%20Quick,%20ich%20interessiere%20mich%20für%20ein%20Fahrzeug."
+      onClick={() => trackEvent({ action: 'click_whatsapp', category: 'Contact', label: 'WhatsApp Link' })} href="https://wa.me/492374912912?text=Hallo%20Automobile%20Quick,%20ich%20interessiere%20mich%20für%20ein%20Fahrzeug."
       target="_blank"
       rel="noopener noreferrer"
       aria-label="WhatsApp Kontakt"

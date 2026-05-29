@@ -21,6 +21,15 @@ function writeConsent(value: 'accepted' | 'rejected') {
   try {
     window.localStorage.setItem(STORAGE_KEY, value);
     window.dispatchEvent(new CustomEvent('aq:consent-changed', { detail: { value } }));
+
+    if (typeof window.gtag === 'function') {
+      window.gtag('consent', 'update', {
+        'analytics_storage': value === 'accepted' ? 'granted' : 'denied',
+        'ad_storage': value === 'accepted' ? 'granted' : 'denied',
+        'ad_user_data': value === 'accepted' ? 'granted' : 'denied',
+        'ad_personalization': value === 'accepted' ? 'granted' : 'denied'
+      });
+    }
   } catch {
     /* ignore */
   }

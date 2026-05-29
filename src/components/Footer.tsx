@@ -1,5 +1,6 @@
 import { MapPin, Phone, Mail, CalendarClock } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { trackEvent } from '@/lib/analytics';
 
 export default function Footer() {
   return (
@@ -33,13 +34,13 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-3">
                 <Phone size={18} className="flex-shrink-0 text-secondary" />
-                <a href="tel:+492374912912" className="text-sm text-white/80 hover:text-white transition-colors">
+                <a onClick={() => trackEvent({ action: 'click_phone', category: 'Contact', label: 'Phone Link' })} href="tel:+492374912912" className="text-sm text-white/80 hover:text-white transition-colors">
                   +49 (0) 2374 / 912912
                 </a>
               </div>
               <div className="flex items-center gap-3">
                 <Mail size={18} className="flex-shrink-0 text-secondary" />
-                <a href="mailto:auto-quick@t-online.de" className="text-sm text-white/80 hover:text-white transition-colors">
+                <a onClick={() => trackEvent({ action: 'click_email', category: 'Contact', label: 'Email Link' })} href="mailto:auto-quick@t-online.de" className="text-sm text-white/80 hover:text-white transition-colors">
                   auto-quick@t-online.de
                 </a>
               </div>

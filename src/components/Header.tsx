@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Menu, X, Phone } from 'lucide-react';
 import { useState } from 'react';
+import { trackEvent } from '@/lib/analytics';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -64,7 +65,7 @@ export default function Header() {
           {/* CTA Button - Desktop */}
           <div className="hidden lg:flex items-center gap-4">
             <a
-              href="tel:+492374912912"
+              onClick={() => trackEvent({ action: 'click_phone', category: 'Contact', label: 'Phone Link' })} href="tel:+492374912912"
               className="flex items-center gap-2 px-4 py-2 bg-secondary text-white text-sm font-bold rounded-md hover:bg-cta-hover transition-all duration-200"
             >
               <Phone size={16} />
@@ -131,7 +132,7 @@ export default function Header() {
               </Link>
               <div className="border-t border-border-line mt-3 pt-3">
                 <a
-                  href="tel:+492374912912"
+                  onClick={() => trackEvent({ action: 'click_phone', category: 'Contact', label: 'Phone Link' })} href="tel:+492374912912"
                   className="flex items-center justify-center gap-2 mx-4 px-4 py-3 min-h-12 bg-secondary text-white text-sm font-medium rounded-sm hover:bg-cta-hover transition-all duration-200"
                 >
                   <Phone size={16} />

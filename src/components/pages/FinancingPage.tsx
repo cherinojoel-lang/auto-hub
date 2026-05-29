@@ -4,6 +4,7 @@ import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
 import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, SITE_CONFIG } from '@/lib/seo-config';
 import FinancingCalculatorSection from '@/components/FinancingCalculatorSection';
+import { trackEvent } from '@/lib/analytics';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 
@@ -74,6 +75,7 @@ export default function FinancingPage() {
     // Simulate form submission
     setTimeout(() => {
       setIsSubmitting(false);
+      trackEvent({ action: 'submit_form', category: 'Lead', label: 'FinancingPage' });
       setFormData({
         name: '',
         phone: '',

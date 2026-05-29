@@ -1,0 +1,8 @@
+The user requested to review, fix, and merge all open pull requests.
+However, this sandbox environment restricts direct interactions with remote repositories:
+1. The `gh` CLI tool is unavailable.
+2. There is no `GITHUB_TOKEN` provided for API write access.
+3. `git push` is blocked.
+4. The available MCP integrations (Stitch, Context7, Render) do not include GitHub API capabilities.
+
+Therefore, I cannot fulfill the request to merge remote pull requests. I will submit this limitation back to the user.

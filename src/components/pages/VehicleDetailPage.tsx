@@ -7,6 +7,7 @@ import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { updateMetaTags, getStructuredDataProduct } from '@/lib/seo';
 import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, generateProductSchema, SITE_CONFIG } from '@/lib/seo-config';
+import { trackEvent } from '@/lib/analytics';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string }> = ({ 
   children, 
@@ -278,7 +279,7 @@ export default function VehicleDetailPage() {
             <div className="lg:hidden bg-background border-t border-border-line">
               <div className="container mx-auto px-4 max-w-7xl py-6 space-y-3">
                 <a
-                  href="tel:+492374912912"
+                  onClick={() => trackEvent({ action: 'click_phone', category: 'Contact', label: 'Phone Link' })} href="tel:+492374912912"
                   className="flex items-center justify-center gap-2 w-full bg-secondary text-white px-6 py-4 rounded-lg font-bold hover:bg-cta-hover transition-all duration-300 text-base min-h-[48px]"
                 >
                   <Phone size={20} />
@@ -657,7 +658,7 @@ export default function VehicleDetailPage() {
                       {/* CTA Buttons */}
                       <div className="space-y-3">
                         <a
-                          href="tel:+492374912912"
+                          onClick={() => trackEvent({ action: 'click_phone', category: 'Contact', label: 'Phone Link' })} href="tel:+492374912912"
                           className="flex items-center justify-center gap-2 w-full bg-secondary text-white px-6 py-4 rounded-md font-bold hover:bg-cta-hover transition-colors duration-200 text-base min-h-[48px]"
                         >
                           <Phone size={20} />

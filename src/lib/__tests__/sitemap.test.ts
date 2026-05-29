@@ -11,7 +11,7 @@ describe('generateSitemap', () => {
 
     expect(result).toContain('<?xml version="1.0" encoding="UTF-8"?>');
     expect(result).toContain('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
-    expect(result).toContain('<loc>https://automobilequick.de/</loc>');
+    expect(result).toContain('<loc>https://sldwrd-my-site-wgayakj9-energievergleich.wix-vibe-site.com/</loc>');
     expect(result).not.toContain('<lastmod>');
     expect(result).not.toContain('<changefreq>');
     expect(result).not.toContain('<priority>');
@@ -29,7 +29,7 @@ describe('generateSitemap', () => {
 
     const result = generateSitemap(entries);
 
-    expect(result).toContain('<loc>https://automobilequick.de/vehicles</loc>');
+    expect(result).toContain('<loc>https://sldwrd-my-site-wgayakj9-energievergleich.wix-vibe-site.com/vehicles</loc>');
     expect(result).toContain('<lastmod>2023-10-27</lastmod>');
     expect(result).toContain('<changefreq>daily</changefreq>');
     expect(result).toContain('<priority>0.9</priority>');
@@ -43,20 +43,20 @@ describe('generateSitemap', () => {
 
     const result = generateSitemap(entries);
 
-    expect(result).toContain('<loc>https://automobilequick.de/about</loc>');
-    expect(result).toContain('<loc>https://automobilequick.decontact</loc>'); // This is how the current implementation works for 'contact'
+    expect(result).toContain('<loc>https://sldwrd-my-site-wgayakj9-energievergleich.wix-vibe-site.com/about</loc>');
+    expect(result).toContain('<loc>https://sldwrd-my-site-wgayakj9-energievergleich.wix-vibe-site.comcontact</loc>'); // This is how the current implementation works for 'contact'
   });
 
   it('should not modify absolute URLs', () => {
     const entries: SitemapEntry[] = [
       { url: 'http://example.com/other' },
-      { url: 'https://automobilequick.de/specific' }
+      { url: 'https://sldwrd-my-site-wgayakj9-energievergleich.wix-vibe-site.com/specific' }
     ];
 
     const result = generateSitemap(entries);
 
     expect(result).toContain('<loc>http://example.com/other</loc>');
-    expect(result).toContain('<loc>https://automobilequick.de/specific</loc>');
+    expect(result).toContain('<loc>https://sldwrd-my-site-wgayakj9-energievergleich.wix-vibe-site.com/specific</loc>');
   });
 
   it('should correctly escape special XML characters in URLs', () => {
@@ -72,6 +72,6 @@ describe('generateSitemap', () => {
     // > -> &gt;
     // " -> &quot;
     // ' -> &apos;
-    expect(result).toContain('<loc>https://automobilequick.de/search?q=cars&amp;sort=price&lt;10000&gt;5000&quot;model&apos;s&quot;</loc>');
+    expect(result).toContain('<loc>https://sldwrd-my-site-wgayakj9-energievergleich.wix-vibe-site.com/search?q=cars&amp;sort=price&lt;10000&gt;5000&quot;model&apos;s&quot;</loc>');
   });
 });
