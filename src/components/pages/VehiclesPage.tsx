@@ -8,15 +8,17 @@ import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
 import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, SITE_CONFIG } from '@/lib/seo-config';
 
-const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
+const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number ; priority?: boolean }> = ({
   children, 
   className = '',
-  delay = 0 
+  delay = 0,
+  priority = false
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(priority);
 
   useEffect(() => {
+    if (priority) return;
     const el = ref.current;
     if (!el) return;
 
@@ -32,7 +34,7 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [delay]);
+  }, [delay, priority]);
 
   return (
     <div
