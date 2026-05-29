@@ -63,10 +63,10 @@ export default function TradeInPage() {
       keywords: 'Auto verkaufen Iserlohn, Autoankauf, Gebrauchtwagen verkaufen, Auto bewertung, Fahrzeug verkaufen',
       ogTitle: 'Auto verkaufen - Automobile Quick',
       ogDescription: 'Verkaufen Sie Ihr Auto mit fairen Preisen und schneller Abwicklung.',
-      canonicalUrl: 'https://automobilequick.de/autoankauf',
+      canonicalUrl: 'https://sldwrd-my-site-wgayakj9-energievergleich.wix-vibe-site.com/autoankauf',
       structuredData: getStructuredDataBreadcrumb([
-        { name: 'Home', url: 'https://automobilequick.de/' },
-        { name: 'Autoankauf', url: 'https://automobilequick.de/autoankauf' },
+        { name: 'Home', url: 'https://sldwrd-my-site-wgayakj9-energievergleich.wix-vibe-site.com/' },
+        { name: 'Autoankauf', url: 'https://sldwrd-my-site-wgayakj9-energievergleich.wix-vibe-site.com/autoankauf' },
       ]),
     });
   }, []);

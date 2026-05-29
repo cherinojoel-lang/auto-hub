@@ -118,7 +118,7 @@ export function getStructuredDataOrganization() {
     '@type': 'LocalBusiness',
     name: 'Automobile Quick',
     description: 'Hochwertige Gebrauchtwagen mit persönlicher Beratung in Iserlohn-Letmathe seit 1982',
-    url: 'https://automobilequick.de',
+    url: 'https://sldwrd-my-site-wgayakj9-energievergleich.wix-vibe-site.com',
     telephone: '+49 (0) 2331 123456',
     email: 'info@automobilequick.de',
     address: {
@@ -171,7 +171,7 @@ export function getStructuredDataProduct(vehicle: any) {
       seller: {
         '@type': 'LocalBusiness',
         name: 'Automobile Quick',
-        url: 'https://automobilequick.de',
+        url: 'https://sldwrd-my-site-wgayakj9-energievergleich.wix-vibe-site.com',
       },
     },
     aggregateRating: {

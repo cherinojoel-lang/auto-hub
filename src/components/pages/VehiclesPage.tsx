@@ -70,10 +70,10 @@ export default function VehiclePage() {
       keywords: 'Fahrzeugbestand, Gebrauchtwagen kaufen, Gebrauchtwagen Iserlohn, Gebrauchtwagen Letmathe, Audi Gebrauchtwagen, BMW Gebrauchtwagen, Mercedes Gebrauchtwagen, VW Gebrauchtwagen, Porsche Gebrauchtwagen, Automobile Quick Fahrzeuge',
       ogTitle: 'Fahrzeugbestand - Automobile Quick',
       ogDescription: 'Entdecken Sie den aktuellen Fahrzeugbestand von Automobile Quick. Alle Fahrzeuge mit Preis, Finanzierung, Erstzulassung, Kilometerstand, Leistung und Kraftstoff.',
-      canonicalUrl: 'https://automobilequick.de/fahrzeugbestand',
+      canonicalUrl: 'https://sldwrd-my-site-wgayakj9-energievergleich.wix-vibe-site.com/fahrzeugbestand',
       structuredData: getStructuredDataBreadcrumb([
-        { name: 'Home', url: 'https://automobilequick.de/' },
-        { name: 'Fahrzeugbestand', url: 'https://automobilequick.de/fahrzeugbestand' },
+        { name: 'Home', url: 'https://sldwrd-my-site-wgayakj9-energievergleich.wix-vibe-site.com/' },
+        { name: 'Fahrzeugbestand', url: 'https://sldwrd-my-site-wgayakj9-energievergleich.wix-vibe-site.com/fahrzeugbestand' },
       ]),
     });
     

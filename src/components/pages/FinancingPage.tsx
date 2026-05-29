@@ -59,10 +59,10 @@ export default function FinancingPage() {
       keywords: 'Gebrauchtwagen Finanzierung, Autofinanzierung Iserlohn, Kredit Auto, Finanzierungsangebot, Automobile Quick',
       ogTitle: 'Gebrauchtwagen-Finanzierung - Automobile Quick',
       ogDescription: 'Flexible Finanzierungslösungen mit fairen Konditionen für Ihr Fahrzeug.',
-      canonicalUrl: 'https://automobilequick.de/finanzierung',
+      canonicalUrl: 'https://sldwrd-my-site-wgayakj9-energievergleich.wix-vibe-site.com/finanzierung',
       structuredData: getStructuredDataBreadcrumb([
-        { name: 'Home', url: 'https://automobilequick.de/' },
-        { name: 'Finanzierung', url: 'https://automobilequick.de/finanzierung' },
+        { name: 'Home', url: 'https://sldwrd-my-site-wgayakj9-energievergleich.wix-vibe-site.com/' },
+        { name: 'Finanzierung', url: 'https://sldwrd-my-site-wgayakj9-energievergleich.wix-vibe-site.com/finanzierung' },
       ]),
     });
   }, []);

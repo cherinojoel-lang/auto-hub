@@ -83,7 +83,7 @@ export default function HomePage() {
       ogTitle: 'Automobile Quick - Gebrauchtwagen in Iserlohn-Letmathe',
       ogDescription: 'Hochwertige Gebrauchtwagen mit persönlicher Beratung. Automobile Quick - Ihr Autohaus seit 1982 in Iserlohn-Letmathe.',
       ogImage: 'https://static.wixstatic.com/media/32e7c0_d28732f69d9643a7ada1b1be4890a422~mv2.png',
-      canonicalUrl: 'https://automobilequick.de/',
+      canonicalUrl: 'https://sldwrd-my-site-wgayakj9-energievergleich.wix-vibe-site.com/',
       structuredData: getStructuredDataOrganization(),
     });
     

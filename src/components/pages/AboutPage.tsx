@@ -52,10 +52,10 @@ export default function AboutPage() {
       keywords: 'Über Automobile Quick, Autohaus Geschichte, Gebrauchtwagen Händler, Iserlohn, Letmathe, seit 1982, vertrauensvoller Partner',
       ogTitle: 'Über uns - Automobile Quick',
       ogDescription: 'Seit 1982 Ihr vertrauensvoller Partner für hochwertige Gebrauchtwagen mit fairen Preisen.',
-      canonicalUrl: 'https://automobilequick.de/about',
+      canonicalUrl: 'https://sldwrd-my-site-wgayakj9-energievergleich.wix-vibe-site.com/about',
       structuredData: getStructuredDataBreadcrumb([
-        { name: 'Home', url: 'https://automobilequick.de/' },
-        { name: 'Über uns', url: 'https://automobilequick.de/about' },
+        { name: 'Home', url: 'https://sldwrd-my-site-wgayakj9-energievergleich.wix-vibe-site.com/' },
+        { name: 'Über uns', url: 'https://sldwrd-my-site-wgayakj9-energievergleich.wix-vibe-site.com/about' },
       ]),
     });
   }, []);

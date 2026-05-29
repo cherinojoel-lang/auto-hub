@@ -60,10 +60,10 @@ export default function ContactPage() {
       keywords: 'Kontakt Automobile Quick, Anfahrt, Telefon, E-Mail, Iserlohn, Letmathe, Öffnungszeiten, Autohaus',
       ogTitle: 'Kontakt & Anfahrt - Automobile Quick',
       ogDescription: 'Kontaktieren Sie uns in Iserlohn-Letmathe. Wir freuen uns auf Ihren Besuch!',
-      canonicalUrl: 'https://automobilequick.de/contact',
+      canonicalUrl: 'https://sldwrd-my-site-wgayakj9-energievergleich.wix-vibe-site.com/contact',
       structuredData: getStructuredDataBreadcrumb([
-        { name: 'Home', url: 'https://automobilequick.de/' },
-        { name: 'Kontakt', url: 'https://automobilequick.de/contact' },
+        { name: 'Home', url: 'https://sldwrd-my-site-wgayakj9-energievergleich.wix-vibe-site.com/' },
+        { name: 'Kontakt', url: 'https://sldwrd-my-site-wgayakj9-energievergleich.wix-vibe-site.com/contact' },
       ]),
     });
   }, []);

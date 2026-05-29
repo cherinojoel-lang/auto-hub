@@ -242,3 +242,14 @@
 
 **Project Status**: ✓ COMPLETE - Ready for Review
 **Last Updated**: May 16, 2026
+
+## DOMAIN & DEPLOYMENT STRATEGY (UPDATED)
+
+**Status:** URL-/Domain-Referenzen im Repository wurden für den aktuellen Wix-Vibe-/Preview-Kontext bereinigt. Keine Go-Live-Freigabe. Finale Domainstrategie noch offen.
+
+### Wichtige Richtlinien:
+- **Arbeits-URL:** Die aktuelle Wix-Vibe-URL (`https://sldwrd-my-site-wgayakj9-energievergleich.wix-vibe-site.com/`) ist die aktuelle Arbeits-/Preview-URL.
+- **Ziel-Domain:** `automobilequick.de` darf nicht dauerhaft als Ziel-Domain ausgeschlossen werden.
+- **Go-Live Checkliste:** Vor dem finalen Livegang müssen Canonical URLs, Sitemap, `robots.txt`, Structured Data und Open Graph Tags auf die finale Live-Domain umgestellt werden.
+- **Restriktionen:** `energievergleich.shop` darf nicht als sichtbare oder SEO-relevante Automobile-Quick-Referenz verwendet werden.
+- **Publishing:** Nicht publishen (No Go-Live clearance yet).

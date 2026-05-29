@@ -39,8 +39,8 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-3">
                 <Mail size={18} className="flex-shrink-0 text-secondary" />
-                <a href="mailto:info@automobile-quick.de" className="text-sm text-white/80 hover:text-white transition-colors">
-                  info@automobile-quick.de
+                <a href="mailto:info@automobilequick.de" className="text-sm text-white/80 hover:text-white transition-colors">
+                  info@automobilequick.de
                 </a>
               </div>
               <div className="flex items-center gap-3">
