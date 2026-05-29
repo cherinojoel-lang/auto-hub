@@ -310,6 +310,7 @@ export default function ContactSection() {
                   type="text"
                   id="name"
                   name="name"
+                  maxLength={100}
                   value={formData.name}
                   onChange={handleInputChange}
                   className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-red-600 transition-colors ${
@@ -331,6 +332,7 @@ export default function ContactSection() {
                   type="email"
                   id="email"
                   name="email"
+                  maxLength={254}
                   value={formData.email}
                   onChange={handleInputChange}
                   className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-red-600 transition-colors ${
@@ -352,6 +354,7 @@ export default function ContactSection() {
                   type="tel"
                   id="phone"
                   name="phone"
+                  maxLength={30}
                   value={formData.phone}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:border-red-600 transition-colors"
@@ -367,6 +370,7 @@ export default function ContactSection() {
                 <textarea
                   id="message"
                   name="message"
+                  maxLength={1000}
                   value={formData.message}
                   onChange={handleInputChange}
                   rows={4}
