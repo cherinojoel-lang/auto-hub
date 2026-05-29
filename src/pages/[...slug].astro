@@ -26,6 +26,33 @@ try {
 
 <html lang="de" class="w-full h-full">
   <head>
+        <!-- Google Consent Mode v2 setup -->
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+
+      // Default to denied for GDPR compliance
+      gtag('consent', 'default', {
+        'analytics_storage': 'denied',
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'wait_for_update': 500
+      });
+
+      // If user previously accepted, update immediately
+      try {
+        if (localStorage.getItem('aq_cookie_consent_v1') === 'accepted') {
+          gtag('consent', 'update', {
+            'analytics_storage': 'granted',
+            'ad_storage': 'granted',
+            'ad_user_data': 'granted',
+            'ad_personalization': 'granted'
+          });
+        }
+      } catch (e) {}
+    </script>
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-VXQH8F5D33" is:inline></script>
     <script is:inline>
@@ -33,7 +60,7 @@ try {
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'G-VXQH8F5D33');
+      gtag('config', 'G-VXQH8F5D33', { send_page_view: false }); // Prevent double tracking since React router tracker will fire on mount
     </script>
 
     <Head />
