@@ -12,39 +12,6 @@ permissions:
   contents: read
 
 jobs:
-  scan-docker-image:
-    permissions:
-      contents: read
-      security-events: write
-      actions: read
-    name: Scan Docker Image
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Build Docker image
-        run: docker build -t auto-hub:${{ github.sha }} .
-        continue-on-error: true
-
-      - name: Run Trivy vulnerability scanner on Docker image
-        uses: aquasecurity/trivy-action@0.29.0
-        with:
-          image-ref: 'auto-hub:${{ github.sha }}'
-          format: 'sarif'
-          output: 'trivy-docker.sarif'
-          exit-code: '0'
-          severity: 'CRITICAL,HIGH,MEDIUM'
-          scanners: 'vuln,secret,config'
-        continue-on-error: true
-
-      - name: Upload Trivy Docker scan results to GitHub Security
-        uses: github/codeql-action/upload-sarif@v3
-        if: always()
-        with:
-          sarif_file: 'trivy-docker.sarif'
-          category: 'trivy-docker'
-
   scan-filesystem:
     permissions:
       contents: read
