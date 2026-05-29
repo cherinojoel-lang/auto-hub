@@ -14,6 +14,7 @@ export default function Layout() {
       <Footer />
       <WhatsAppButton />
       <CookieConsentBanner />
+      <AnalyticsRouteTracker />
     </div>
   );
 }

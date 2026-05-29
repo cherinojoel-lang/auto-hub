@@ -5,6 +5,11 @@ import type { PageMetadata } from "@wix/astro-pages";
 declare const Astro: Readonly<import("astro").AstroGlobal>;
 
 declare global {
+  interface Window {
+    gtag: (...args: any[]) => void;
+    dataLayer: any[];
+  }
+
   interface SDKTypeMode {
     strict: true;
   }
