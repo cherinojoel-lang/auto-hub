@@ -1,0 +1,63 @@
+# Auto-Hub Python Security Scanner (Bandit)
+# Scannt Python-Code auf haufige Sicherheitsluecken
+# Bandit erkennt: hardcoded secrets, eval usage, command injection, SSL issues, u.v.m.
+
+name: "Bandit - Python Security Scan"
+
+on:
+  push:
+    branches: ["main", "develop"]
+    paths:
+      - "**/*.py"
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "**/*.py"
+
+permissions:
+  security-events: write
+  contents: read
+  actions: read
+
+jobs:
+  bandit-scan:
+    name: Bandit Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Bandit
+        run: pip install bandit
+
+      - name: Run Bandit Scan
+        run: |
+          bandit -r . -f json -o bandit-report.json -ll -ii
+          bandit -r . -f html -o bandit-report.html -ll -ii
+        continue-on-error: true
+
+      - name: Upload Bandit JSON Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: bandit-json-report
+          path: bandit-report.json
+          if-no-files-found: ignore
+
+      - name: Upload Bandit HTML Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: bandit-html-report
+          path: bandit-report.html
+          if-no-files-found: ignore
+
+      - name: Upload SARIF Report
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: bandit-report.json
+          wait-for-processing: true
+        continue-on-error: true
