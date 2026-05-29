@@ -1,0 +1,54 @@
+# Auto-Hub Code Quality & Security Analysis (Semgrep)
+# Multi-Language Static Analysis: Python, JS, TS, Shell, JSON
+# Open-Source Modus mit Standard-Regeln (kein Semgrep.dev Account notwendig)
+
+name: "Semgrep - Code Quality & Security"
+
+on:
+  push:
+    branches: ["main", "develop"]
+  pull_request:
+    branches: ["main"]
+  schedule:
+    - cron: '0 3 * * *'
+
+permissions:
+  security-events: write
+  contents: read
+  actions: read
+
+jobs:
+  semgrep:
+    name: Semgrep Scan
+    runs-on: ubuntu-latest
+    container:
+      image: returntocorp/semgrep
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Semgrep (Open Source Rules)
+        run: |
+          semgrep --config auto --json --output semgrep-results.json \
+            --error --metrics off || semgrep --config auto --json --output semgrep-results.json --metrics off
+        continue-on-error: true
+
+      - name: Run Semgrep (SARIF Output)
+        run: |
+          semgrep --config auto --sarif --output semgrep-results.sarif \
+            --metrics off || semgrep --config auto --sarif --output semgrep-results.sarif --metrics off
+        continue-on-error: true
+
+      - name: Upload SARIF to GitHub
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: semgrep-results.sarif
+          wait-for-processing: true
+        continue-on-error: true
+
+      - name: Upload JSON Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: semgrep-json-report
+          path: semgrep-results.json
+          if-no-files-found: ignore
