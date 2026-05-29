@@ -3,6 +3,7 @@ import { FileText, CheckCircle, Clock } from 'lucide-react';
 import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
 import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, SITE_CONFIG } from '@/lib/seo-config';
+import { trackEvent } from '@/lib/analytics';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 
@@ -77,6 +78,7 @@ export default function TradeInPage() {
     // Simulate form submission
     setTimeout(() => {
       setIsSubmitting(false);
+      trackEvent({ action: 'submit_form', category: 'Lead', label: 'TradeInPage' });
       setFormData({
         name: '',
         phone: '',

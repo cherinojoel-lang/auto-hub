@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Phone, Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { trackEvent } from '@/lib/analytics';
 
 export default function StickyHeader() {
   const [isVisible, setIsVisible] = useState(false);
@@ -81,7 +82,7 @@ export default function StickyHeader() {
 
             {/* Desktop Phone Button */}
             <a
-              href="tel:+492374912912"
+              onClick={() => trackEvent({ action: 'click_phone', category: 'Contact', label: 'Phone Link' })} href="tel:+492374912912"
               className="hidden lg:flex items-center gap-2 px-4 py-2 bg-secondary text-white text-sm font-medium rounded-lg hover:bg-secondary/90 transition-all duration-200"
             >
               <Phone size={16} />
@@ -92,7 +93,7 @@ export default function StickyHeader() {
             <div className="lg:hidden flex items-center gap-3">
               {/* Phone Icon - Mobile only */}
               <a
-                href="tel:+492374912912"
+                onClick={() => trackEvent({ action: 'click_phone', category: 'Contact', label: 'Phone Link' })} href="tel:+492374912912"
                 className="md:hidden p-2 text-secondary hover:bg-gray-100 rounded-lg transition-colors"
                 aria-label="Anrufen"
               >
@@ -101,7 +102,7 @@ export default function StickyHeader() {
 
               {/* Phone Button - Tablet only */}
               <a
-                href="tel:+492374912912"
+                onClick={() => trackEvent({ action: 'click_phone', category: 'Contact', label: 'Phone Link' })} href="tel:+492374912912"
                 className="hidden md:flex lg:hidden items-center gap-2 px-3 py-2 bg-secondary text-white text-xs font-medium rounded-lg hover:bg-secondary/90 transition-all duration-200"
               >
                 <Phone size={14} />

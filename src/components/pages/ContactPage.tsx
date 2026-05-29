@@ -3,6 +3,7 @@ import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react';
 import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
 import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, SITE_CONFIG } from '@/lib/seo-config';
+import { trackEvent } from '@/lib/analytics';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 
@@ -255,7 +256,7 @@ export default function ContactPage() {
                         <div>
                           <p className="font-medium text-foreground mb-1">Telefon</p>
                           <a 
-                            href="tel:+492374912912"
+                            onClick={() => trackEvent({ action: 'click_phone', category: 'Contact', label: 'Phone Link' })} href="tel:+492374912912"
                             className="text-foreground/70 hover:text-primary transition-colors"
                           >
                             +49 (0) 2374 / 912912
@@ -270,7 +271,7 @@ export default function ContactPage() {
                         <div>
                           <p className="font-medium text-foreground mb-1">E-Mail</p>
                           <a 
-                            href="mailto:info@automobilequick.de"
+                            onClick={() => trackEvent({ action: 'click_email', category: 'Contact', label: 'Email Link' })} href="mailto:info@automobilequick.de"
                             className="text-foreground/70 hover:text-primary transition-colors"
                           >
                             info@automobilequick.de
