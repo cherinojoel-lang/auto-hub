@@ -1,0 +1,72 @@
+# Auto-Hub Node.js Security Scanner (njsscan)
+# Statischer Security-Scanner fuer Node.js Projekte
+# Erkennt: SQL Injection, XSS, Path Traversal, Insecure Deserialization u.a.
+
+name: "njsscan - Node.js Security Scan"
+
+on:
+  push:
+    branches: ["main", "develop"]
+    paths:
+      - "**/*.js"
+      - "**/*.jsx"
+      - "**/*.ts"
+      - "**/*.tsx"
+      - "**/package.json"
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "**/*.js"
+      - "**/*.jsx"
+      - "**/*.ts"
+      - "**/*.tsx"
+
+permissions:
+  security-events: write
+  contents: read
+  actions: read
+
+jobs:
+  njsscan:
+    name: njsscan Security Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install npm dependencies
+        run: npm install --ignore-scripts || true
+
+      - name: Install njsscan
+        run: npm install -g @ibm/nodejs-icsa || pip install njsscan || true
+
+      - name: Run njsscan
+        run: |
+          if command -v njsscan &> /dev/null; then
+            njsscan . --sarif -o njsscan-results.sarif
+            njsscan . --json -o njsscan-results.json
+          else
+            echo "njsscan not available, skipping"
+          fi
+        continue-on-error: true
+
+      - name: Upload SARIF Report
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: njsscan-results.sarif
+          wait-for-processing: true
+        if: always()
+        continue-on-error: true
+
+      - name: Upload JSON Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: njsscan-json-report
+          path: njsscan-results.json
+          if-no-files-found: ignore
