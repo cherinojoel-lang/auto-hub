@@ -15,18 +15,21 @@ import HowItWorksSection from '@/components/HowItWorksSection';
 
 // --- Animation Components ---
 
-const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number; direction?: 'up' | 'left' | 'right' | 'none' }> = ({ 
+const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number; direction?: 'up' | 'left' | 'right' | 'none'; priority?: boolean }> = ({
   children, 
   className = '',
   delay = 0,
+  priority = false,
   direction = 'up'
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(priority);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    if (priority) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -134,21 +137,21 @@ export default function HomePage() {
         <div className="relative z-10 container mx-auto px-4 max-w-7xl text-left py-10 sm:py-14 lg:py-20 w-full">
           <div className="max-w-[760px]">
             {/* Headline with animation */}
-            <AnimatedElement direction="up" delay={0}>
+            <AnimatedElement direction="up" delay={0} priority={true}>
               <h1 className="text-3xl sm:text-4xl md:text-5xl xl:text-[56px] font-heading font-bold text-white mb-5 sm:mb-6 tracking-normal leading-[1.12]">
                 Gebrauchtwagen in Iserlohn-Letmathe
               </h1>
             </AnimatedElement>
 
             {/* Subheadline with animation */}
-            <AnimatedElement direction="up" delay={200}>
+            <AnimatedElement direction="up" delay={200} priority={true}>
               <p className="text-base sm:text-lg md:text-xl text-white/95 font-paragraph font-normal mb-8 sm:mb-10 leading-relaxed max-w-[680px]">
                 Seit 1982 bietet Automobile Quick gepflegte Gebrauchtwagen, echte Fahrzeugbilder und persönliche Beratung direkt vor Ort.
               </p>
             </AnimatedElement>
 
             {/* CTA Buttons with animation */}
-            <AnimatedElement direction="up" delay={400}>
+            <AnimatedElement direction="up" delay={400} priority={true}>
               <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-8 sm:mb-10 flex-wrap">
                 {/* Primary CTA: Jetzt Fahrzeuge entdecken */}
                 <Link

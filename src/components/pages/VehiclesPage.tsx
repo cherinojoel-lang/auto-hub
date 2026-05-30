@@ -8,17 +8,20 @@ import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
 import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, SITE_CONFIG } from '@/lib/seo-config';
 
-const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
+const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number; priority?: boolean }> = ({
   children, 
   className = '',
-  delay = 0 
+  delay = 0,
+  priority = false
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(priority);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    if (priority) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -165,7 +168,7 @@ export default function VehiclePage() {
       {/* Hero Section */}
       <section className="bg-primary text-white py-12 sm:py-16 md:py-20">
         <div className="container mx-auto px-4 max-w-[1400px]">
-          <AnimatedElement>
+          <AnimatedElement priority={true}>
             <div className="max-w-3xl mx-auto text-center">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-4 sm:mb-6">
                 Aktuelle Gebrauchtwagen in Iserlohn-Letmathe

@@ -8,3 +8,7 @@
 ## 2026-05-27 - [Remove Artificial Latency]
 **Learning:** Components sometimes use `await new Promise(resolve => setTimeout(resolve, 300))` to simulate API loading times. While intended for UX, this blocks LCP and significantly impacts perceived performance when loading static local data.
 **Action:** Always verify that 'simulated latency' or artificial delays are completely removed when switching to local static data to ensure immediate rendering.
+
+## 2024-05-15 - [Anti-Pattern: IntersectionObserver Delaying LCP]
+**Learning:** The `AnimatedElement` component, heavily used across the site, relies on an `IntersectionObserver` to trigger fade-in animations. Wrapping above-the-fold content (like hero sections) within it delays the Largest Contentful Paint (LCP) because rendering depends on JavaScript execution and the observer callback, creating an architectural bottleneck for critical path rendering.
+**Action:** When working with scroll-based animation wrappers like `AnimatedElement`, implement and utilize a bypass mechanism (e.g., a `priority={true}` prop) for above-the-fold content. This ensures the content renders immediately (initializing visible state to true and skipping the observer) while preserving the animation structure.
