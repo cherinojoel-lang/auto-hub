@@ -14,10 +14,11 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, index }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    let timeoutId: ReturnType<typeof setTimeout>;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setTimeout(() => setIsVisible(true), index * 100);
+          timeoutId = setTimeout(() => setIsVisible(true), index * 100);
           observer.unobserve(entry.target);
         }
       },
@@ -28,7 +29,10 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, index }) => {
       observer.observe(ref.current);
     }
 
-    return () => observer.disconnect();
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+      observer.disconnect();
+    };
   }, [index]);
 
   return (

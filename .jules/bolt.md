@@ -8,3 +8,7 @@
 ## 2026-05-27 - [Remove Artificial Latency]
 **Learning:** Components sometimes use `await new Promise(resolve => setTimeout(resolve, 300))` to simulate API loading times. While intended for UX, this blocks LCP and significantly impacts perceived performance when loading static local data.
 **Action:** Always verify that 'simulated latency' or artificial delays are completely removed when switching to local static data to ensure immediate rendering.
+
+## 2026-05-30 - [IntersectionObserver Timeouts Memory Leaks]
+**Learning:** Using `setTimeout` inside of `IntersectionObserver` callbacks within a React `useEffect` without clearing the timeout in the cleanup return block causes memory leaks and React warnings about setting state on unmounted components.
+**Action:** Always store the timeout reference using `let timeoutId = setTimeout(...)` and explicitly call `clearTimeout(timeoutId)` inside the `useEffect`'s cleanup return function to prevent memory leaks and unexpected re-renders when utilizing staggered element animations.
