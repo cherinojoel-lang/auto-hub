@@ -17,6 +17,30 @@ const PrivacyPage = React.lazy(() => import('@/components/pages/PrivacyPage'));
 const BlogPage = React.lazy(() => import('@/components/pages/BlogPage'));
 const BlogDetailPage = React.lazy(() => import('@/components/pages/BlogDetailPage'));
 
+const getBasename = () => {
+  const baseName = import.meta.env.BASE_NAME;
+  if (!baseName) return '/';
+
+  // If it's a full URL, extract the pathname
+  if (baseName.startsWith('http://') || baseName.startsWith('https://')) {
+    try {
+      const url = new URL(baseName);
+      const pathname = url.pathname;
+      return (pathname.endsWith('/') && pathname.length > 1) ? pathname.slice(0, -1) : pathname;
+    } catch (e) {
+      return '/';
+    }
+  }
+
+  // If it's just a domain name or something that doesn't start with '/', default to '/'
+  // React Router expects basename to start with '/' (e.g. '/subpath')
+  if (!baseName.startsWith('/')) {
+    return '/';
+  }
+
+  return baseName;
+};
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -162,7 +186,7 @@ const router = createBrowserRouter([
     ],
   },
 ], {
-  basename: import.meta.env.BASE_NAME,
+  basename: getBasename(),
 });
 
 export default function AppRouter() {
