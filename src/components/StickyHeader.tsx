@@ -111,8 +111,10 @@ export default function StickyHeader() {
               {/* Hamburger Menu Button */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 text-foreground hover:text-secondary transition-colors"
-                aria-label="Toggle menu"
+                className="p-2 text-foreground hover:text-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-md"
+                aria-label={mobileMenuOpen ? 'Menü schließen' : 'Menü öffnen'}
+                aria-expanded={mobileMenuOpen}
+                aria-controls="sticky-mobile-menu"
               >
                 {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
@@ -121,6 +123,7 @@ export default function StickyHeader() {
 
           {/* Mobile/Tablet Slide-in Menu */}
           <div
+            id="sticky-mobile-menu"
             className={`absolute top-16 right-0 w-full md:w-80 bg-white border-b border-gray-100 shadow-lg transition-transform duration-300 ${
               mobileMenuOpen ? 'translate-x-0' : 'translate-x-full pointer-events-none'
             }`}
