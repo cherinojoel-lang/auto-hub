@@ -1,0 +1,184 @@
+---
+// SSR preview of the vehicle listing using the new filter domain module.
+// Lives alongside the CSR /fahrzeugbestand route for A/B comparison.
+// Routes: /fahrzeugbestand-ssr[?manufacturer=...&priceMax=...&fuel=...&yearFrom=...&maxMileage=...]
+import { vehiclesData } from '@/data/vehiclesData.generated';
+import {
+  filterVehicles,
+  FilterCriteriaSchema,
+  deriveManufacturerOptions,
+  deriveFuelOptions,
+} from '@/lib/domain/vehicleFilter';
+import '@/styles/global.css';
+
+const url = new URL(Astro.request.url);
+
+const parseResult = FilterCriteriaSchema.safeParse(
+  Object.fromEntries(url.searchParams),
+);
+const criteria = parseResult.success
+  ? parseResult.data
+  : FilterCriteriaSchema.parse({});
+
+const filtered = filterVehicles(vehiclesData, criteria);
+const manufacturerOptions = deriveManufacturerOptions(vehiclesData);
+const fuelOptions = deriveFuelOptions(vehiclesData);
+---
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>SSR Preview — Fahrzeugbestand | Automobile Quick</title>
+    <link rel="canonical" href={`${url.origin}/fahrzeugbestand`} />
+  </head>
+  <body class="bg-background text-foreground">
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-primary text-white px-3 py-2 rounded">
+      Zum Hauptinhalt springen
+    </a>
+
+    <header class="bg-primary text-white py-8">
+      <div class="mx-auto max-w-[1400px] px-4">
+        <p class="text-xs uppercase tracking-wide opacity-75 mb-2">SSR Preview · noindex</p>
+        <h1 class="text-2xl sm:text-4xl font-bold">Fahrzeugbestand (Server-Side)</h1>
+        <p class="text-sm sm:text-base mt-2 opacity-90">
+          Diese Seite wird vollständig serverseitig gerendert. Filter via URL-Parameter.
+        </p>
+      </div>
+    </header>
+
+    <main id="main" class="mx-auto max-w-[1400px] px-4 py-8">
+      <form
+        method="GET"
+        action="/fahrzeugbestand-ssr"
+        aria-label="Fahrzeuge filtern"
+        class="bg-white border border-border-line rounded-md p-4 sm:p-6 mb-6"
+      >
+        <h2 class="text-lg font-bold mb-4">Filter</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          <div>
+            <label for="f-manufacturer" class="block text-xs font-bold uppercase mb-2">Marke</label>
+            <select id="f-manufacturer" name="manufacturer" class="w-full min-h-12 px-3 border border-border-line rounded-md">
+              <option value="">Alle Marken</option>
+              {manufacturerOptions.map((m) => (
+                <option value={m} selected={criteria.manufacturer === m}>{m}</option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label for="f-priceMax" class="block text-xs font-bold uppercase mb-2">Preis bis</label>
+            <select id="f-priceMax" name="priceMax" class="w-full min-h-12 px-3 border border-border-line rounded-md">
+              <option value="">Alle Preise</option>
+              {['15000', '25000', '40000', '60000', '100000'].map((p) => (
+                <option value={p} selected={criteria.priceMax === p}>{`bis ${Number(p).toLocaleString('de-DE')} €`}</option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label for="f-fuel" class="block text-xs font-bold uppercase mb-2">Kraftstoff</label>
+            <select id="f-fuel" name="fuel" class="w-full min-h-12 px-3 border border-border-line rounded-md">
+              <option value="">Alle Kraftstoffe</option>
+              {fuelOptions.map((f) => (
+                <option value={f} selected={criteria.fuel === f}>{f}</option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label for="f-maxMileage" class="block text-xs font-bold uppercase mb-2">Kilometer bis</label>
+            <select id="f-maxMileage" name="maxMileage" class="w-full min-h-12 px-3 border border-border-line rounded-md">
+              <option value="">Alle</option>
+              {['50000', '100000', '150000', '200000'].map((km) => (
+                <option value={km} selected={criteria.maxMileage === km}>{`bis ${Number(km).toLocaleString('de-DE')} km`}</option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label for="f-yearFrom" class="block text-xs font-bold uppercase mb-2">Ab Baujahr</label>
+            <select id="f-yearFrom" name="yearFrom" class="w-full min-h-12 px-3 border border-border-line rounded-md">
+              <option value="">Egal</option>
+              {['2010', '2015', '2018', '2020', '2022'].map((y) => (
+                <option value={y} selected={criteria.yearFrom === y}>{`ab ${y}`}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <div class="flex gap-3 mt-4">
+          <button type="submit" class="bg-primary text-white px-6 py-3 rounded-md font-bold">
+            Filter anwenden
+          </button>
+          <a
+            href="/fahrzeugbestand-ssr"
+            class="border border-border-line text-foreground px-6 py-3 rounded-md font-bold"
+          >
+            Zurücksetzen
+          </a>
+        </div>
+      </form>
+
+      <p role="status" aria-live="polite" class="text-sm text-text-secondary mb-4">
+        {filtered.length} Fahrzeuge gefunden
+      </p>
+
+      <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 list-none p-0">
+        {filtered.map((vehicle, index) => (
+          <li>
+            <a
+              href={`/fahrzeugdetail/${vehicle.id}`}
+              class="block bg-white border border-border-line rounded-md overflow-hidden hover:border-secondary/70"
+            >
+              <img
+                src={vehicle.mainImage}
+                alt={vehicle.alt || vehicle.title}
+                width="400"
+                height="250"
+                loading={index < 4 ? 'eager' : 'lazy'}
+                fetchpriority={index === 0 ? 'high' : 'auto'}
+                class="w-full aspect-video object-cover bg-alt-bg"
+              />
+              <div class="p-4">
+                <h3 class="text-base font-bold line-clamp-2 mb-2">{vehicle.title}</h3>
+                <p class="text-sm text-text-secondary mb-3">{vehicle.fuel} · {vehicle.power}</p>
+                <dl class="grid grid-cols-3 gap-2 text-xs text-text-secondary mb-3">
+                  <div>
+                    <dt class="sr-only">Erstzulassung</dt>
+                    <dd>{vehicle.firstRegistration}</dd>
+                  </div>
+                  <div>
+                    <dt class="sr-only">Kilometerstand</dt>
+                    <dd>{vehicle.mileage}</dd>
+                  </div>
+                  <div>
+                    <dt class="sr-only">Leistung</dt>
+                    <dd>{vehicle.power}</dd>
+                  </div>
+                </dl>
+                <p class="text-lg font-bold text-primary">{vehicle.price}</p>
+                {vehicle.financing && (
+                  <p class="text-xs text-text-secondary mt-1">{vehicle.financing}</p>
+                )}
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      {filtered.length === 0 && (
+        <p class="text-center py-12 text-text-secondary">
+          Keine Fahrzeuge entsprechen den gewählten Kriterien.
+          <br />
+          <a href="/fahrzeugbestand-ssr" class="text-primary underline">Filter zurücksetzen</a>
+        </p>
+      )}
+    </main>
+
+    <footer class="mx-auto max-w-[1400px] px-4 py-6 text-xs text-text-secondary border-t border-border-line mt-12">
+      SSR Preview · 0 KB JavaScript · Production-Route bleibt /fahrzeugbestand (CSR).
+    </footer>
+  </body>
+</html>
