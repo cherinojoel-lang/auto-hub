@@ -53,3 +53,6 @@ VEHICLE_DISPLAY_FIX_REPORT.md
 pr_desc*.txt
 pr_description.*
 scripts/
+
+# Vitest coverage output
+coverage/
