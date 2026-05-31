@@ -9,14 +9,16 @@ import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, generateProductSchema, SITE_CONFIG } from '@/lib/seo-config';
 import CarSchema from '@/components/schemas/CarSchema';
 
-const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string }> = ({ 
+const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; priority?: boolean }> = ({
   children, 
-  className = '' 
+  className = '',
+  priority = false
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(priority || false);
 
   useEffect(() => {
+    if (priority) return;
     const el = ref.current;
     if (!el) return;
 
@@ -405,7 +407,7 @@ export default function VehicleDetailPage() {
             </div>
 
             {/* Desktop: Image Gallery Section */}
-            <AnimatedElement className="hidden lg:block container mx-auto px-4 max-w-7xl py-8 sm:py-12">
+            <AnimatedElement className="hidden lg:block container mx-auto px-4 max-w-7xl py-8 sm:py-12" priority={true}>
               <div className="bg-card-bg rounded-lg shadow-lg overflow-hidden border border-border-line">
                 <div className="bg-alt-bg">
                   {vehicle.mainImage ? (
@@ -484,7 +486,7 @@ export default function VehicleDetailPage() {
                 {/* Left Column - Main Content */}
                 <div className="lg:col-span-2 space-y-12">
                   {/* Title & Intro */}
-                  <AnimatedElement>
+                  <AnimatedElement priority={true}>
                     <div>
                       <h2 className="text-4xl sm:text-5xl md:text-6xl font-heading font-bold text-primary mb-6">
                         {vehicle.title}
@@ -649,7 +651,7 @@ export default function VehicleDetailPage() {
                 {/* Right Column - Desktop Price Box */}
                 <div className="lg:col-span-1">
                   <div className="sticky top-32 w-full">
-                    <AnimatedElement className="bg-card-bg rounded-lg border border-border-line p-6 sm:p-8">
+                    <AnimatedElement className="bg-card-bg rounded-lg border border-border-line p-6 sm:p-8" priority={true}>
                       {/* Price */}
                       <div className="mb-8">
                         <p className="text-sm text-text-secondary font-medium mb-2">Verkaufspreis</p>
