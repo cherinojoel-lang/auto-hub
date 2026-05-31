@@ -169,13 +169,13 @@ export default function VehiclePage() {
 
       {/* Hero Section */}
       <section className="bg-primary text-white py-12 sm:py-16 md:py-20">
-        <div className="container mx-auto px-4 max-w-[1400px]">
+        <div className="mx-auto w-full max-w-[22rem] px-4 sm:max-w-[1400px]">
           <AnimatedElement>
-            <div className="max-w-3xl mx-auto text-center">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-4 sm:mb-6">
+            <div className="w-full max-w-3xl mx-auto text-center min-w-0">
+              <h1 className="mx-auto max-w-[17rem] sm:max-w-none text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-4 sm:mb-6 leading-tight break-words">
                 Aktuelle Gebrauchtwagen in Iserlohn-Letmathe
               </h1>
-              <p className="text-base sm:text-lg md:text-xl text-white/90 leading-relaxed">
+              <p className="mx-auto max-w-[17rem] sm:max-w-3xl text-sm sm:text-lg md:text-xl text-white/90 leading-relaxed">
                 Entdecken Sie den aktuellen Fahrzeugbestand von Automobile Quick. Alle Fahrzeuge mit Preis, Finanzierung, Erstzulassung, Kilometerstand, Leistung und Kraftstoff.
               </p>
             </div>
@@ -186,16 +186,16 @@ export default function VehiclePage() {
       {/* Filters Section */}
       <section className="py-6 sm:py-8 bg-white border border-border-line rounded-md mx-4 sm:mx-auto max-w-[1400px] mt-8 mb-4 relative">
         <div className="px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-4 sm:mb-6">
-            <h2 className="text-lg sm:text-xl font-heading font-bold text-foreground">
+          <div className="flex items-center justify-between gap-3 mb-4 sm:mb-6">
+            <h2 className="text-lg sm:text-xl font-heading font-bold text-foreground flex-shrink-0">
               Filter
             </h2>
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="md:hidden flex items-center gap-2 text-primary font-bold text-sm sm:text-base hover:text-primary/80 transition-colors"
+              className="md:hidden flex min-w-0 max-w-[70%] items-center justify-end gap-2 text-primary font-bold text-sm sm:text-base hover:text-primary/80 transition-colors"
             >
               <Filter size={22} />
-              {showFilters ? 'Schließen' : 'Filter anzeigen'}
+              <span className="truncate">{showFilters ? 'Schließen' : 'Filter'}</span>
             </button>
           </div>
 
