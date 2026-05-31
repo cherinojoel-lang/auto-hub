@@ -1,3 +1,8 @@
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -57,6 +62,41 @@
 footer + footer,
 header + header {
   display: none;
+}
+
+@media (max-width: 640px) {
+  html,
+  body,
+  #root {
+    width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+  }
+
+  section,
+  header,
+  footer,
+  main,
+  nav,
+  article,
+  aside,
+  div {
+    max-width: 100%;
+  }
+
+  h1,
+  h2,
+  h3,
+  p,
+  a,
+  button {
+    overflow-wrap: break-word;
+  }
+
+  button,
+  a {
+    white-space: normal;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
