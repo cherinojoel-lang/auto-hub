@@ -1,0 +1,9 @@
+🎯 **What:** Extracted the duplicated `AnimatedElement` component from `FinancingPage.tsx`, `TradeInPage.tsx`, `AboutPage.tsx`, `VehicleDetailPage.tsx`, `VehiclesPage.tsx`, `HomePage.tsx`, and `ContactPage.tsx` into a reusable UI component at `src/components/ui/animated-element.tsx`.
+
+💡 **Why:** The exact same intersection observer logic was duplicated 7 times across different page components. By consolidating this into a single `AnimatedElement` component, the codebase becomes much cleaner, more maintainable, and prevents future duplicated fixes. It also implements proper timeout clearing during the `useEffect` cleanup (resolving a memory leak edge case for delayed animations) centrally so all instances benefit from the fix.
+
+✅ **Verification:**
+- Ran the full test suite with `npm run test:run`, all tests passed successfully.
+- Ran type checking via `npm run check` safely using dummy variables.
+
+✨ **Result:** Improved maintainability and DRY compliance by converting seven duplicate component definitions into single centralized UI utility, fixing memory leaks across the codebase.
