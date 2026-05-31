@@ -53,14 +53,14 @@ export default function CookieConsentBanner() {
       role="dialog"
       aria-modal="false"
       aria-label="Cookie-Einstellungen"
-      className="fixed inset-x-2 bottom-2 sm:inset-x-4 sm:bottom-4 lg:left-auto lg:right-6 lg:bottom-6 lg:max-w-[420px] z-[60]"
+      className="fixed inset-x-2 bottom-2 w-[calc(100vw-1rem)] max-w-[calc(100vw-1rem)] sm:inset-x-4 sm:bottom-4 sm:w-auto lg:left-auto lg:right-6 lg:bottom-6 lg:max-w-[420px] z-[60]"
     >
       <div className="bg-white border border-border-line rounded-md shadow-xl p-4 sm:p-5">
         <div className="flex items-start gap-3 mb-3">
           <Cookie size={22} className="text-secondary flex-shrink-0 mt-0.5" aria-hidden="true" />
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             <p className="text-sm font-bold text-foreground mb-1">Cookies & Datenschutz</p>
-            <p className="text-xs sm:text-sm text-text-secondary leading-relaxed">
+            <p className="max-w-[17rem] sm:max-w-none text-xs sm:text-sm text-text-secondary leading-relaxed break-words">
               Wir verwenden nur technisch notwendige Cookies. Optionale Analyse-Cookies setzen wir
               nur mit Ihrer Zustimmung ein. Details in unserer{' '}
               <Link to="/datenschutz" className="underline text-primary hover:text-secondary">
