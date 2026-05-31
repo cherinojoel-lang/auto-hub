@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { updateMetaTags, SEOConfig } from '../seo';
+import { updateMetaTags, SEOConfig, getStructuredDataBreadcrumb } from '../seo';
 
 describe('seo utility', () => {
   describe('updateMetaTags', () => {
@@ -218,6 +218,67 @@ describe('seo utility', () => {
       const links = document.querySelectorAll('link[rel="canonical"]');
       expect(links.length).toBe(1);
       expect((links[0] as HTMLLinkElement).href).toBe('https://example.com/new');
+    });
+  });
+
+  describe('getStructuredDataBreadcrumb', () => {
+    it('returns structured data for empty items', () => {
+      const result = getStructuredDataBreadcrumb([]);
+      expect(result).toEqual({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [],
+      });
+    });
+
+    it('returns structured data for a single item', () => {
+      const items = [{ name: 'Home', url: 'https://example.com' }];
+      const result = getStructuredDataBreadcrumb(items);
+      expect(result).toEqual({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://example.com',
+          },
+        ],
+      });
+    });
+
+    it('returns structured data for multiple items', () => {
+      const items = [
+        { name: 'Home', url: 'https://example.com' },
+        { name: 'Category', url: 'https://example.com/category' },
+        { name: 'Product', url: 'https://example.com/category/product' },
+      ];
+      const result = getStructuredDataBreadcrumb(items);
+      expect(result).toEqual({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://example.com',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Category',
+            item: 'https://example.com/category',
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: 'Product',
+            item: 'https://example.com/category/product',
+          },
+        ],
+      });
     });
   });
 });
