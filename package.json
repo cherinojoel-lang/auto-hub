@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "deploy:preview": "wrangler pages deploy dist --project-name automobile-quick",
+    "deploy": "wrangler deploy",
+    "deploy:preview": "wrangler deploy",
     "check": "npx astro check --js-only",
     "test:run": "vitest run"
   },

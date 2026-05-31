@@ -8,6 +8,7 @@ import customErrorOverlayPlugin from "./vite-error-overlay-plugin.js";
 // https://astro.build/config
 export default defineConfig({
   output: "server",
+  base: "/",
   adapter: cloudflare({
     platformProxy: { enabled: true },
     imageService: "passthrough",
