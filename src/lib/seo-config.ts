@@ -19,7 +19,7 @@ export const SITE_CONFIG = {
     latitude: '51.4043',
     longitude: '7.6745',
   },
-  image: 'https://automobilequick.de/images/autohaus-showroom.jpg',
+  image: 'https://automobilequick.de/images/logo-og.png',
   foundingYear: 1982,
 };
 

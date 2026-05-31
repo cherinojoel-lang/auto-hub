@@ -1,15 +1,16 @@
 {
-  "name": "wixstro",
+  "name": "automobile-quick",
   "type": "module",
   "version": "1.0.0",
   "scripts": {
-    "dev": "wix dev",
-    "build": "wix build",
-    "preview": "wix preview",
-    "release": "wix release",
-    "env": "wix env pull",
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "deploy": "wrangler deploy",
+    "deploy:preview": "wrangler deploy",
     "check": "npx astro check --js-only",
-    "test:run": "vitest run"
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@astrojs/check": "0.9.4",
@@ -48,16 +49,6 @@
     "@react-hook/resize-observer": "2.0.2",
     "@tailwindcss/container-queries": "0.1.1",
     "@tailwindcss/typography": "0.5.16",
-    "@wix/astro": "^2.49.0",
-    "@wix/astro-pages": "^2.0.3",
-    "@wix/babel-plugin-jsx-dynamic-data": "1.0.17",
-    "@wix/babel-plugin-jsx-source-attrs": "^1.1.0",
-    "@wix/cloud-provider-fetch-adapter": "^1.0.4",
-    "@wix/image-kit": "^1.0.0",
-    "@wix/monitoring-astro": "^2.7.0",
-    "@wix/postcss-pseudo-to-data": "^1.0.0",
-    "@wix/seo": "^1.0.39",
-    "@wix/wix-vibe-plugins": "^0.0.9",
     "astro": "^5.16.5",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -81,11 +72,12 @@
     "@testing-library/user-event": "^14.6.1",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
-    "@wix/cli": "^1.1.204",
+    "@vitest/coverage-v8": "^3.1.4",
     "jsdom": "^20.0.0",
     "typescript": "^5.8.3",
     "vite": "^6.4.1",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "3.1.4"
+    "vitest": "3.1.4",
+    "wrangler": "^4.95.0"
   }
 }
