@@ -35,6 +35,7 @@ export default defineConfig({
     plugins: [customErrorOverlayPlugin()],
     build: {
       rollupOptions: {
+        external: ['@wix/data'],
         output: {
           manualChunks(id) {
             if (id.includes('node_modules/framer-motion')) return 'vendor-framer';
@@ -43,6 +44,9 @@ export default defineConfig({
           }
         }
       }
+    },
+    ssr: {
+      external: ['@wix/data'],
     },
     cacheDir: 'node_modules/.cache/.vite',
     optimizeDeps: {
