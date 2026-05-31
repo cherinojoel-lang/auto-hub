@@ -9,6 +9,8 @@ import {
   deriveManufacturerOptions,
   deriveFuelOptions,
 } from '@/lib/domain/vehicleFilter';
+import { buildItemListJsonLd } from '@/lib/seo/vehicles-jsonld';
+import { criteriaToCanonicalUrl } from '@/lib/seo/vehicles-canonical';
 import '@/styles/global.css';
 
 const url = new URL(Astro.request.url);
@@ -23,6 +25,10 @@ const criteria = parseResult.success
 const filtered = filterVehicles(vehiclesData, criteria);
 const manufacturerOptions = deriveManufacturerOptions(vehiclesData);
 const fuelOptions = deriveFuelOptions(vehiclesData);
+
+const canonicalPath = criteriaToCanonicalUrl(criteria);
+const canonicalUrl = `${url.origin}${canonicalPath}`;
+const itemListJsonLd = buildItemListJsonLd(filtered, canonicalUrl);
 ---
 <!doctype html>
 <html lang="de">
@@ -31,7 +37,8 @@ const fuelOptions = deriveFuelOptions(vehiclesData);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex,nofollow" />
     <title>SSR Preview — Fahrzeugbestand | Automobile Quick</title>
-    <link rel="canonical" href={`${url.origin}/fahrzeugbestand`} />
+    <link rel="canonical" href={canonicalUrl} />
+    <script type="application/ld+json" set:html={itemListJsonLd} />
   </head>
   <body class="bg-background text-foreground">
     <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-primary text-white px-3 py-2 rounded">
