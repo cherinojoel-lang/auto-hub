@@ -7,6 +7,15 @@ import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
 import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, SITE_CONFIG } from '@/lib/seo-config';
+import {
+  filterVehicles,
+  FilterCriteriaSchema,
+  deriveManufacturerOptions,
+  deriveFuelOptions,
+} from '@/lib/domain/vehicleFilter';
+
+const MANUFACTURER_OPTIONS = deriveManufacturerOptions(vehiclesData);
+const FUEL_OPTIONS = deriveFuelOptions(vehiclesData);
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
   children, 
@@ -98,28 +107,18 @@ export default function VehiclePage() {
   const loadVehicle = async () => {
     setIsLoading(true);
     try {
-      let filtered = [...vehiclesData];
-
-      if (manufacturer) {
-        filtered = filtered.filter(v => v.title?.toLowerCase().includes(manufacturer.toLowerCase()));
-      }
-      if (priceMax) {
-        filtered = filtered.filter(v => v.price && parseInt(v.price.replace(/[^0-9]/g, '')) <= parseInt(priceMax));
-      }
-      if (driveType) {
-        filtered = filtered.filter(v => v.fuel?.toLowerCase().includes(driveType.toLowerCase()));
-      }
-      if (maxMileage) {
-        filtered = filtered.filter(v => v.mileage && parseInt(v.mileage.replace(/[^0-9]/g, '')) <= parseInt(maxMileage));
-      }
-      if (yearFrom) {
-        filtered = filtered.filter(v => v.firstRegistration && v.firstRegistration.includes(yearFrom));
-      }
-
-      setVehicle(filtered);
-      setHasNext(false); // All static items loaded
+      const criteria = FilterCriteriaSchema.parse({
+        manufacturer,
+        priceMax,
+        fuel: driveType,
+        maxMileage,
+        yearFrom,
+      });
+      setVehicle(filterVehicles(vehiclesData, criteria));
+      setHasNext(false);
     } catch (error) {
-      console.error('Error loading static vehicles:', error);
+      console.error('Error filtering vehicles:', error);
+      setVehicle([]);
     } finally {
       setIsLoading(false);
     }
@@ -211,12 +210,9 @@ export default function VehiclePage() {
                   className="w-full min-h-12 px-4 py-3 rounded-md border border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
                 >
                   <option value="">Alle Marken</option>
-                  <option value="BMW">BMW</option>
-                  <option value="Opel">Opel</option>
-                  <option value="Citroën">Citroën</option>
-                  <option value="Kia">Kia</option>
-                  <option value="Ford">Ford</option>
-                  <option value="Fiat">Fiat</option>
+                  {MANUFACTURER_OPTIONS.map((m) => (
+                    <option key={m} value={m}>{m}</option>
+                  ))}
                 </select>
               </div>
 
@@ -248,11 +244,9 @@ export default function VehiclePage() {
                   className="w-full min-h-12 px-4 py-3 rounded-md border border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
                 >
                   <option value="">Alle Kraftstoffe</option>
-                  <option value="Benzin">Benzin</option>
-                  <option value="Diesel">Diesel</option>
-                  <option value="Elektro">Elektro</option>
-                  <option value="Hybrid Benzin">Hybrid Benzin</option>
-                  <option value="Plug-in Hybrid">Plug-in Hybrid</option>
+                  {FUEL_OPTIONS.map((f) => (
+                    <option key={f} value={f}>{f}</option>
+                  ))}
                 </select>
               </div>
 
