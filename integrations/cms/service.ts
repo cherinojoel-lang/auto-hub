@@ -63,25 +63,27 @@ export class BaseCrudService {
     const itemWithRefs = { ...item } as any;
     itemWithRefs._refMeta = {};
 
-    for (const refField of multiRefs) {
-      try {
-        // Fetch up to 1000 referenced items with total count
-        const result = await items.queryReferenced(collectionId, item._id, refField, {
-          limit: 1000,
-          returnTotalCount: true
-        });
+    await Promise.all(
+      multiRefs.map(async (refField) => {
+        try {
+          // Fetch up to 1000 referenced items with total count
+          const result = await items.queryReferenced(collectionId, item._id, refField, {
+            limit: 1000,
+            returnTotalCount: true
+          });
 
-        itemWithRefs[refField] = result.items;
-        itemWithRefs._refMeta[refField] = {
-          totalCount: result.totalCount ?? result.items.length,
-          returnedCount: result.items.length,
-          hasMore: result.hasNext()
-        };
-      } catch {
-        itemWithRefs[refField] = [];
-        itemWithRefs._refMeta[refField] = { totalCount: 0, returnedCount: 0, hasMore: false };
-      }
-    }
+          itemWithRefs[refField] = result.items;
+          itemWithRefs._refMeta[refField] = {
+            totalCount: result.totalCount ?? result.items.length,
+            returnedCount: result.items.length,
+            hasMore: result.hasNext()
+          };
+        } catch {
+          itemWithRefs[refField] = [];
+          itemWithRefs._refMeta[refField] = { totalCount: 0, returnedCount: 0, hasMore: false };
+        }
+      })
+    );
     return itemWithRefs as T;
   }
 
