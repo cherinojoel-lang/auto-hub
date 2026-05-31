@@ -12,58 +12,9 @@ import { PAGE_METADATA, generateBusinessSchema, SITE_CONFIG } from '@/lib/seo-co
 import VehicleInventorySection from '@/components/VehicleInventorySection';
 import ContactSection from '@/components/ContactSection';
 import HowItWorksSection from '@/components/HowItWorksSection';
+import { AnimatedElement } from '@/components/ui/animated-element';
 
-// --- Animation Components ---
 
-const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number; direction?: 'up' | 'left' | 'right' | 'none' }> = ({ 
-  children, 
-  className = '',
-  delay = 0,
-  direction = 'up'
-}) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => setIsVisible(true), delay);
-          observer.unobserve(el);
-        }
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [delay]);
-
-  const getTransform = () => {
-    if (isVisible) return 'translate-x-0 translate-y-0 scale-100';
-    switch (direction) {
-      case 'up': return 'translate-y-12 scale-95';
-      case 'left': return '-translate-x-12';
-      case 'right': return 'translate-x-12';
-      case 'none': return 'scale-95';
-      default: return 'translate-y-12';
-    }
-  };
-
-  return (
-    <div
-      ref={ref}
-      className={`transition-all duration-1000 ease-out ${
-        isVisible ? 'opacity-100' : 'opacity-0'
-      } ${getTransform()} ${className}`}
-    >
-      {children}
-    </div>
-  );
-};
 
 // --- Main Page Component ---
 
@@ -134,21 +85,21 @@ export default function HomePage() {
         <div className="relative z-10 container mx-auto px-4 max-w-7xl text-left py-10 sm:py-14 lg:py-20 w-full">
           <div className="max-w-[760px]">
             {/* Headline with animation */}
-            <AnimatedElement direction="up" delay={0}>
+            <AnimatedElement duration={1000} direction="up" delay={0}>
               <h1 className="text-3xl sm:text-4xl md:text-5xl xl:text-[56px] font-heading font-bold text-white mb-5 sm:mb-6 tracking-normal leading-[1.12]">
                 Gebrauchtwagen in Iserlohn-Letmathe
               </h1>
             </AnimatedElement>
 
             {/* Subheadline with animation */}
-            <AnimatedElement direction="up" delay={200}>
+            <AnimatedElement duration={1000} direction="up" delay={200}>
               <p className="text-base sm:text-lg md:text-xl text-white/95 font-paragraph font-normal mb-8 sm:mb-10 leading-relaxed max-w-[680px]">
                 Seit 1982 bietet Automobile Quick gepflegte Gebrauchtwagen, echte Fahrzeugbilder und persönliche Beratung direkt vor Ort.
               </p>
             </AnimatedElement>
 
             {/* CTA Buttons with animation */}
-            <AnimatedElement direction="up" delay={400}>
+            <AnimatedElement duration={1000} direction="up" delay={400}>
               <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-8 sm:mb-10 flex-wrap">
                 {/* Primary CTA: Jetzt Fahrzeuge entdecken */}
                 <Link
@@ -181,7 +132,7 @@ export default function HomePage() {
             </AnimatedElement>
 
             {/* Social Proof Strip */}
-            <AnimatedElement direction="up" delay={600}>
+            <AnimatedElement duration={1000} direction="up" delay={600}>
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 pt-6 sm:pt-8 border-t border-white/20">
                 {/* Google trust */}
                 <a
@@ -241,35 +192,35 @@ export default function HomePage() {
       <section className="bg-white border-b border-gray-200 py-8 sm:py-12">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8 text-center">
-            <AnimatedElement delay={0}>
+            <AnimatedElement duration={1000} delay={0}>
               <div className="flex flex-col items-center">
                 <MapPin size={32} className="text-secondary mb-3" />
                 <p className="text-base font-bold text-primary mb-1">Lokal vor Ort</p>
                 <p className="text-xs text-gray-600">Iserlohn-Letmathe</p>
               </div>
             </AnimatedElement>
-            <AnimatedElement delay={100}>
+            <AnimatedElement duration={1000} delay={100}>
               <div className="flex flex-col items-center">
                 <ShieldCheck size={32} className="text-secondary mb-3" />
                 <p className="text-base font-bold text-primary mb-1">Geprüfte</p>
                 <p className="text-xs text-gray-600">Fahrzeuge</p>
               </div>
             </AnimatedElement>
-            <AnimatedElement delay={200}>
+            <AnimatedElement duration={1000} delay={200}>
               <div className="flex flex-col items-center">
                 <p className="text-3xl sm:text-4xl font-bold text-primary mb-2">42</p>
                 <p className="text-base font-bold text-primary mb-1">Jahre</p>
                 <p className="text-xs text-gray-600">Erfahrung</p>
               </div>
             </AnimatedElement>
-            <AnimatedElement delay={300}>
+            <AnimatedElement duration={1000} delay={300}>
               <div className="flex flex-col items-center">
                 <Users size={32} className="text-secondary mb-3" />
                 <p className="text-base font-bold text-primary mb-1">Persönliche</p>
                 <p className="text-xs text-gray-600">Beratung</p>
               </div>
             </AnimatedElement>
-            <AnimatedElement delay={400}>
+            <AnimatedElement duration={1000} delay={400}>
               <div className="flex flex-col items-center">
                 <Award size={32} className="text-secondary mb-3" />
                 <p className="text-base font-bold text-primary mb-1">Geprüfte</p>
@@ -283,7 +234,7 @@ export default function HomePage() {
       {/* FEATURED VEHICLES SECTION */}
       <section className="py-12 sm:py-16 md:py-20 bg-white" id="main-content">
         <div className="container mx-auto px-4 max-w-7xl">
-          <AnimatedElement>
+          <AnimatedElement duration={1000}>
             <div className="text-center mb-12 sm:mb-16">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-primary mb-4 sm:mb-6">
                 Aktuelle Fahrzeuge
@@ -314,7 +265,7 @@ export default function HomePage() {
               ) : vehicles.length > 0 ? (
                 // Actual Data - Show first 6 vehicles
                 vehicles.slice(0, 6).map((vehicle, index) => (
-                  <AnimatedElement key={vehicle.id} delay={index * 100} direction="up">
+                  <AnimatedElement duration={1000} key={vehicle.id} delay={index * 100} direction="up">
                     <Link
                       to={`/fahrzeugdetail/${vehicle.id}`}
                       className="group flex flex-col h-full bg-white rounded-md transition-colors duration-200 overflow-hidden border border-border-line hover:border-secondary/70"
@@ -409,21 +360,21 @@ export default function HomePage() {
       <section className="py-12 sm:py-16 md:py-20 bg-gray-50">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-10">
-            <AnimatedElement direction="left">
+            <AnimatedElement duration={1000} direction="left">
               <div className="bg-white p-8 sm:p-10 rounded-md border border-border-line border-l-4 border-l-secondary h-full">
                 <Award size={44} className="mb-6 text-secondary" />
                 <h3 className="text-xl sm:text-2xl font-heading font-bold mb-4 text-primary">Geprüfte Fahrzeuge</h3>
                 <p className="text-sm sm:text-base text-gray-600 leading-relaxed">Alle Fahrzeuge werden sorgfältig geprüft und inspiziert, um höchste Qualitätsstandards zu gewährleisten.</p>
               </div>
             </AnimatedElement>
-            <AnimatedElement direction="up" delay={100}>
+            <AnimatedElement duration={1000} direction="up" delay={100}>
               <div className="bg-white p-8 sm:p-10 rounded-md border border-border-line border-l-4 border-l-secondary h-full">
                 <Users size={44} className="mb-6 text-secondary" />
                 <h3 className="text-xl sm:text-2xl font-heading font-bold mb-4 text-primary">Persönliche Beratung</h3>
                 <p className="text-sm sm:text-base text-gray-600 leading-relaxed">Unser erfahrenes Team berät Sie kompetent und fair – ganz nach Ihren individuellen Wünschen und Anforderungen.</p>
               </div>
             </AnimatedElement>
-            <AnimatedElement direction="right" delay={200}>
+            <AnimatedElement duration={1000} direction="right" delay={200}>
               <div className="bg-white p-8 sm:p-10 rounded-md border border-border-line border-l-4 border-l-secondary h-full">
                 <Award size={44} className="mb-6 text-secondary" />
                 <h3 className="text-xl sm:text-2xl font-heading font-bold mb-4 text-primary">Seit 1982</h3>
@@ -437,7 +388,7 @@ export default function HomePage() {
       {/* TRADE-IN TEASER */}
       <section className="py-12 sm:py-16 md:py-20 bg-white">
         <div className="container mx-auto px-4 max-w-7xl">
-          <AnimatedElement>
+          <AnimatedElement duration={1000}>
             <div className="bg-primary rounded-md p-10 sm:p-14 md:p-16 text-center text-white border-b-4 border-secondary">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold mb-6 sm:mb-8">
                 Sie möchten Ihr Auto verkaufen?
@@ -460,7 +411,7 @@ export default function HomePage() {
       {/* FINANCING TEASER */}
       <section className="py-12 sm:py-16 md:py-20 bg-gray-50">
         <div className="container mx-auto px-4 max-w-7xl">
-          <AnimatedElement>
+          <AnimatedElement duration={1000}>
             <div className="bg-white rounded-md p-10 sm:p-14 md:p-16 text-center border border-border-line border-b-4 border-b-secondary">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-primary mb-6 sm:mb-8">
                 Flexible Finanzierungslösungen
