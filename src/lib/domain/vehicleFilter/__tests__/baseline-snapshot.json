@@ -1,0 +1,154 @@
+{
+  "mode": "corrected",
+  "snapshot": [
+    {
+      "case": "no-filter",
+      "criteria": {
+        "name": "no-filter",
+        "manufacturer": "",
+        "priceMax": "",
+        "driveType": "",
+        "maxMileage": "",
+        "yearFrom": ""
+      },
+      "ids": [
+        "renault-scenic-2013",
+        "opel-astra-st-2022",
+        "opel-corsa-2016",
+        "fiat-500-2022",
+        "nissan-micra-2017",
+        "opel-astra-2024",
+        "fiat-500-hybrid-2024",
+        "fiat-500-dolce-vita-2022",
+        "opel-corsa-e-2018",
+        "opel-corsa-f-2020",
+        "opel-mokka-gs-line-2022",
+        "ford-fiesta-2021",
+        "kia-soul-2017",
+        "opel-astra-2017",
+        "opel-mokka-2016",
+        "citroen-c3-aircross-2017",
+        "opel-mokka-x-2017",
+        "opel-mokka-2013",
+        "bmw-x1-2018",
+        "opel-corsa-automatik-2023"
+      ]
+    },
+    {
+      "case": "manufacturer-bmw",
+      "criteria": {
+        "name": "manufacturer-bmw",
+        "manufacturer": "BMW",
+        "priceMax": "",
+        "driveType": "",
+        "maxMileage": "",
+        "yearFrom": ""
+      },
+      "ids": [
+        "bmw-x1-2018"
+      ]
+    },
+    {
+      "case": "price-max-15000",
+      "criteria": {
+        "name": "price-max-15000",
+        "manufacturer": "",
+        "priceMax": "15000",
+        "driveType": "",
+        "maxMileage": "",
+        "yearFrom": ""
+      },
+      "ids": [
+        "renault-scenic-2013",
+        "opel-corsa-2016",
+        "fiat-500-2022",
+        "nissan-micra-2017",
+        "fiat-500-hybrid-2024",
+        "fiat-500-dolce-vita-2022",
+        "opel-corsa-e-2018",
+        "opel-corsa-f-2020",
+        "ford-fiesta-2021",
+        "kia-soul-2017",
+        "opel-astra-2017",
+        "opel-mokka-2016",
+        "citroen-c3-aircross-2017",
+        "opel-mokka-x-2017",
+        "opel-mokka-2013",
+        "opel-corsa-automatik-2023"
+      ]
+    },
+    {
+      "case": "fuel-benzin",
+      "criteria": {
+        "name": "fuel-benzin",
+        "manufacturer": "",
+        "priceMax": "",
+        "driveType": "Benzin",
+        "maxMileage": "",
+        "yearFrom": ""
+      },
+      "ids": [
+        "renault-scenic-2013",
+        "opel-astra-st-2022",
+        "opel-corsa-2016",
+        "nissan-micra-2017",
+        "opel-astra-2024",
+        "opel-corsa-e-2018",
+        "opel-corsa-f-2020",
+        "opel-mokka-gs-line-2022",
+        "ford-fiesta-2021",
+        "kia-soul-2017",
+        "opel-astra-2017",
+        "opel-mokka-2016",
+        "citroen-c3-aircross-2017",
+        "opel-mokka-x-2017",
+        "opel-mokka-2013",
+        "bmw-x1-2018",
+        "opel-corsa-automatik-2023"
+      ]
+    },
+    {
+      "case": "year-from-2015",
+      "criteria": {
+        "name": "year-from-2015",
+        "manufacturer": "",
+        "priceMax": "",
+        "driveType": "",
+        "maxMileage": "",
+        "yearFrom": "2015"
+      },
+      "ids": [
+        "opel-astra-st-2022",
+        "opel-corsa-2016",
+        "fiat-500-2022",
+        "nissan-micra-2017",
+        "opel-astra-2024",
+        "fiat-500-hybrid-2024",
+        "fiat-500-dolce-vita-2022",
+        "opel-corsa-e-2018",
+        "opel-corsa-f-2020",
+        "opel-mokka-gs-line-2022",
+        "ford-fiesta-2021",
+        "kia-soul-2017",
+        "opel-astra-2017",
+        "opel-mokka-2016",
+        "citroen-c3-aircross-2017",
+        "opel-mokka-x-2017",
+        "bmw-x1-2018",
+        "opel-corsa-automatik-2023"
+      ]
+    },
+    {
+      "case": "combined",
+      "criteria": {
+        "name": "combined",
+        "manufacturer": "Opel",
+        "priceMax": "20000",
+        "driveType": "Diesel",
+        "maxMileage": "100000",
+        "yearFrom": "2012"
+      },
+      "ids": []
+    }
+  ]
+}
