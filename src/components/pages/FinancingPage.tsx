@@ -17,10 +17,12 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
     const el = ref.current;
     if (!el) return;
 
+    let timeoutId: ReturnType<typeof setTimeout>;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setTimeout(() => setIsVisible(true), delay);
+          timeoutId = setTimeout(() => setIsVisible(true), delay);
           observer.unobserve(el);
         }
       },
@@ -28,7 +30,10 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      if (timeoutId) clearTimeout(timeoutId);
+    };
   }, [delay]);
 
   return (
