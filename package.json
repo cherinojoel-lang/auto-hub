@@ -9,7 +9,8 @@
     "deploy": "wrangler deploy",
     "deploy:preview": "wrangler deploy",
     "check": "npx astro check --js-only",
-    "test:run": "vitest run"
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@astrojs/check": "0.9.4",
@@ -70,6 +71,7 @@
     "@testing-library/react": "^13.4.0",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
+    "@vitest/coverage-v8": "^3.1.4",
     "jsdom": "^20.0.0",
     "typescript": "^5.8.3",
     "vite": "^6.4.1",
