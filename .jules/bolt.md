@@ -8,3 +8,7 @@
 ## 2026-05-27 - [Remove Artificial Latency]
 **Learning:** Components sometimes use `await new Promise(resolve => setTimeout(resolve, 300))` to simulate API loading times. While intended for UX, this blocks LCP and significantly impacts perceived performance when loading static local data.
 **Action:** Always verify that 'simulated latency' or artificial delays are completely removed when switching to local static data to ensure immediate rendering.
+
+## 2024-05-31 - [Promise.all for I/O Concurrency]
+**Learning:** Sequential execution of array-based await operations (e.g., `for...of` containing database `insert` or `update` loops) accumulates network I/O wait times unnecessarily.
+**Action:** When performing independent network or database requests in a loop over multi-references or similar datasets, always use `Promise.all` over mapped promises to execute them concurrently for an O(N) reduction in wait time.
