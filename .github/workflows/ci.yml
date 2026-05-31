@@ -9,7 +9,7 @@ on:
 
 jobs:
   ci:
-    name: ci
+    name: CI Checks
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
