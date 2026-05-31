@@ -7,6 +7,7 @@ import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { updateMetaTags, getStructuredDataProduct } from '@/lib/seo';
 import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, generateProductSchema, SITE_CONFIG } from '@/lib/seo-config';
+import CarSchema from '@/components/schemas/CarSchema';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string }> = ({ 
   children, 
@@ -126,10 +127,21 @@ export default function VehicleDetailPage() {
     setCurrentGalleryIndex(prev => prev === galleryImages.length - 1 ? 0 : prev + 1);
   };
 
-
+  const carSchemaData = vehicle ? {
+    id: vehicle.id,
+    brand: vehicle.make,
+    model: vehicle.model,
+    year: parseInt(vehicle.firstRegistration.split('/').pop() || '0'),
+    price: vehicle.priceValue,
+    mileage: parseInt(vehicle.mileage.replace(/\D/g, '')),
+    fuel: vehicle.fuel,
+    description: vehicle.description,
+    imageUrl: vehicle.mainImage ? `${SITE_CONFIG.url}${vehicle.mainImage}` : undefined,
+  } : null;
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      {carSchemaData && <CarSchema vehicle={carSchemaData} />}
       <SeoHead 
         title={vehicle ? `${vehicle.title} - Gebrauchtwagen bei Automobile Quick` : 'Fahrzeug nicht gefunden'}
         description={vehicle?.description || 'Hochwertiger Gebrauchtwagen bei Automobile Quick in Iserlohn-Letmathe'}

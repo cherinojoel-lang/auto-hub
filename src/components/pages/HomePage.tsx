@@ -81,7 +81,7 @@ export default function HomePage() {
       keywords: 'Gebrauchtwagen Iserlohn, Gebrauchtwagen Letmathe, Autohaus Iserlohn, Gebrauchtwagen kaufen, Audi Gebrauchtwagen, BMW Gebrauchtwagen, Mercedes Gebrauchtwagen, VW Gebrauchtwagen, Porsche Gebrauchtwagen, Automobile Quick, Fahrzeugbestand, Iserlohn-Letmathe',
       ogTitle: 'Automobile Quick | Gebrauchtwagen in Iserlohn-Letmathe',
       ogDescription: PAGE_METADATA.home.description,
-      ogImage: 'https://static.wixstatic.com/media/32e7c0_d28732f69d9643a7ada1b1be4890a422~mv2.png',
+      ogImage: `${SITE_CONFIG.url}/images/logo-og.png`,
       canonicalUrl: `${SITE_CONFIG.url}/`,
       structuredData: getStructuredDataOrganization(),
     });
@@ -120,7 +120,7 @@ export default function HomePage() {
         {/* Background Image with Dark Overlay Gradient */}
         <div className="absolute inset-0 z-0">
           <Image 
-            src="https://static.wixstatic.com/media/32e7c0_72b43166ec7744bdb672b1eef573e535~mv2.png?originWidth=1600&originHeight=896" 
+            src="/images/hero-bg.png" 
             alt="Automobile Quick Autohaus - Gebrauchtwagen in Iserlohn-Letmathe seit 1982" 
             className="w-full h-full object-cover object-center"
             width={1600}

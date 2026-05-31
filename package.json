@@ -3,11 +3,10 @@
   "type": "module",
   "version": "1.0.0",
   "scripts": {
-    "dev": "wix dev",
-    "build": "wix build",
-    "preview": "wix preview",
-    "release": "wix release",
-    "env": "wix env pull",
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "deploy:preview": "wrangler pages deploy dist --project-name automobile-quick",
     "check": "npx astro check --js-only",
     "test:run": "vitest run"
   },
@@ -74,6 +73,7 @@
     "typescript": "^5.8.3",
     "vite": "^6.4.1",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "3.1.4"
+    "vitest": "3.1.4",
+    "wrangler": "^4.95.0"
   }
 }
