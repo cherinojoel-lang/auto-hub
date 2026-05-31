@@ -41,18 +41,40 @@ A modern, full-featured Wix Astro template built with React, TypeScript, and Tai
 
 ### Installation
 
-1. **Install dependencies**:
-   ```bash
-   npm install
+#### Option 1: Automated Setup (Recommended)
+You can use the provided setup script to automatically check your Node.js version, set up `.npmrc` if missing, install dependencies, and build the project:
+
+```bash
+# Make the script executable
+chmod +x setup.sh
+
+# Run the setup script
+./setup.sh
+```
+
+#### Option 2: Manual Installation
+
+1. **Configure npm registry**:
+   If you don't have an `.npmrc` file in the root directory, create one with the following content:
+   ```ini
+   registry=https://registry.npmjs.org/
+   @wix:registry=https://registry.npmjs.org/
    ```
 
-2. **Set up environment variables**:
-   ```bash
+2. **Install dependencies**:
+   ```text
+   npm install
+   ```
+   *(Note: Local npm install might log some warnings or 404 errors related to @wix/editor-elements-definitions. Do not use --force, this is expected in some local setups.)*
+
+3. **Set up environment variables**:
+   ```text
    npm run env
    ```
 
-3. **Start development server**:
-   ```bash
+4. **Build and Start development server**:
+   ```text
+   npm run build
    npm run dev
    ```
 

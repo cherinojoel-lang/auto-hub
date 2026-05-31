@@ -8,11 +8,22 @@ export default function StickyHeader() {
   const location = useLocation();
 
   useEffect(() => {
+    let ticking = false;
+
+    // Performance optimization: Throttle scroll event using requestAnimationFrame
+    // to prevent excessive re-renders and use passive listener to avoid blocking
+    // the compositor thread.
     const handleScroll = () => {
-      setIsVisible(window.scrollY > 100);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setIsVisible(window.scrollY > 100);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
