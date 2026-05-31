@@ -111,4 +111,40 @@ describe('useSize', () => {
     unmount()
     expect(cancelAnimationFrameSpy).toHaveBeenCalled()
   })
+
+  it('does not set initial size if width or height is 0', () => {
+    mockRef.current!.getBoundingClientRect = vi.fn().mockReturnValue({
+      width: 0,
+      height: 0,
+      top: 0,
+      left: 0,
+      bottom: 0,
+      right: 0,
+      x: 0,
+      y: 0,
+      toJSON: () => {}
+    })
+
+    const { result } = renderHook(() => useSize(mockRef as React.RefObject<HTMLElement>))
+    expect(result.current).toBeNull()
+  })
+
+  it('does not update size if entry.contentRect width or height is 0', () => {
+    const { result } = renderHook(() => useSize(mockRef as React.RefObject<HTMLElement>))
+    expect(result.current).toEqual({ width: 100, height: 100 })
+
+    act(() => {
+      triggerResize({
+        contentRect: { width: 0, height: 0 }
+      })
+    })
+
+    act(() => {
+      vi.advanceTimersByTime(0)
+      vi.advanceTimersByTime(0)
+      vi.advanceTimersByTime(0)
+    })
+
+    expect(result.current).toEqual({ width: 100, height: 100 })
+  })
 })
