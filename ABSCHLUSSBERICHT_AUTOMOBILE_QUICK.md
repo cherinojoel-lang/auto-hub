@@ -5,7 +5,17 @@
 
 ## Gesamturteil: 8.3 / 10
 
-**Zusammenfassung:** Automobile Quick ist eine produktionsreife Gebrauchtwagen-Website mit modernem React-Stack, sauberem SEO-Setup und 36/36 bestehenden Tests. Der Perf/A11y-Sprung (PR #135, bereits gemerged: -120kB JS, WCAG-AA Farbpalette) hebt die Qualität deutlich an. Einziger struktureller Block vor echtem Go-Live: die Custom-Domain `automobilequick.de` ist noch nicht aktiv (Domain-Verknüpfung im Hosting ausstehend — manuelle Aufgabe).
+**Zusammenfassung:** Automobile Quick ist eine produktionsreife Gebrauchtwagen-Website mit modernem Astro/React-Stack, sauberem SEO-Setup, lokalen Fahrzeug-/Brand-Assets und 36/36 bestehenden Tests. Der Perf/A11y-Sprung (PR #135, bereits gemerged: -120kB JS, WCAG-AA Farbpalette) hebt die Qualität deutlich an. Codex hat am 2026-05-31 die Phase-2-Build-Adaptation umgesetzt: der aktive Buildpfad ist von Wix auf Astro + `@astrojs/cloudflare` umgestellt und erzeugt ein Cloudflare-faehiges SSR-Artefakt (`dist/_worker.js`). Strukturelle Blocker vor echtem Go-Live bleiben die Preview-Validierung und die Domain-Verknüpfung fuer `automobilequick.de`.
+
+## Codex-Nachtrag 2026-05-31: Phase 2 Build-Adaptation
+
+**Ausgangsbefund:** Der Handoff-Masterplan behauptete eine bereits weitgehend grüne Cloudflare-Lage, die Verifikation zeigte aber: Automobile Quick war noch an den Wix-Buildpfad gekoppelt (`wix build`, Wix-Astro-Integration, Wix-Cloud-Provider-Adapter, Wix-SEO-Runtime, Wix-Vibe-CSS). Eine direkte Cloudflare-Pages/Workers-Vorschau wäre dadurch nicht belastbar gewesen.
+
+**Umsetzung:** `astro.config.mjs` nutzt jetzt `@astrojs/cloudflare` mit `output: "server"`, `platformProxy: { enabled: true }` und `imageService: "passthrough"`. Wix-Adapter, Wix-Integrationen, Wix-Babel-/PostCSS-Erweiterungen und Wix-SEO-Rendering wurden aus dem aktiven Buildpfad entfernt. `package.json` nutzt jetzt `astro dev`, `astro build`, `astro preview`, `wrangler pages deploy dist --project-name automobile-quick`, `npx astro check --js-only` und `vitest run`.
+
+**Asset-/SEO-Korrekturen:** Hero- und OpenGraph-Bilder zeigen auf lokale Dateien unter `public/images/` (`hero-bg.png`, `hero-bg.jpg`, `autohaus-showroom.jpg`, `logo-og.png`) statt auf Wix-CDN-URLs. `src/pages/sitemap.xml.ts` liefert die Sitemap aus `vehiclesData.generated.ts`. Die generische `Image`-Komponente rendert normale `<img>`-Tags und kann vorhandene `wix:image://v1/...`-Quellen weiterhin defensiv auf `static.wixstatic.com/media/...` abbilden, ohne eine Wix-Library zur Laufzeit zu benötigen.
+
+**Verifikation:** `npm run check`, `npm run test:run` und `npm run build` laufen grün. Ergebnis: 0 Astro-Errors, 0 Astro-Warnings, 7 Astro-Hints, 10 Test-Dateien, 36/36 Tests, erfolgreicher Cloudflare-Build mit `dist/_worker.js`. Die Cloudflare-Session-KV-Warnung zur `SESSION`-Binding ist laut aktuellem Astro/Cloudflare-Verhalten erwartbar und blockiert den Build nicht.
 
 ---
 
@@ -42,11 +52,10 @@
 - 23 Fahrzeug-Bildverzeichnisse mit echten Fahrzeugfotos
 
 **Schwächen:**
-- `public/images/` leer (0 Dateien) — Hero-Bild und Logo müssen noch nachgepflegt werden
 - Kein Dark Mode
 - Figma-Quelldatei nicht synchronisiert
 
-**Score-Begründung:** Visuell überzeugend, aber Hero-Bild-Pfad könnte ins Leere zeigen ohne public/images/.
+**Score-Begründung:** Visuell überzeugend; die zuvor offene Asset-Lücke ist geschlossen, weil Hero-/Logo-Dateien im lokalen `public/images/` vorhanden sind.
 
 ---
 
@@ -60,12 +69,13 @@
 - `<html lang="de">` korrekt
 - OpenGraph + Twitter Cards via SeoHead
 - Robots: `index, follow, max-snippet:-1, max-image-preview:large`
+- Sitemap-Endpunkt ergänzt: `src/pages/sitemap.xml.ts`
+- Wix-SEO-Runtime aus dem aktiven Renderpfad entfernt
 
 **Schwächen:**
 - Nur 1 Schema.org-Implementierung (in SeoHead.tsx) — kein HowTo, kein Review-Schema, kein Fahrzeug-Schema
 - Domain `automobilequick.de` noch nicht aktiv — Google kann nicht crawlen
-- Keine dedizierte Sitemap.xml verifiziert
-- Wix-Vibe-Subdomain injiziert weiterhin fremde SEO-Tags (bis Domain-Wechsel)
+- Preview-/Live-URL noch nicht gegen `robots.txt`, `sitemap.xml`, Canonicals und OG-Bild-HTTP-Status validiert
 
 **Empfehlung:** `Car`-Schema.org für Fahrzeuge einbauen (massive SEO-Stärkung für Gebrauchtwagen).
 
@@ -75,6 +85,7 @@
 
 **Stärken:**
 - **PR #135 GEMERGED:** framer-motion entfernt → **-120kB initial JavaScript**
+- Astro + Cloudflare-Adapter erzeugt SSR-Worker-Artefakt (`dist/_worker.js`)
 - React + Vite: Code-Splitting per default
 - CSS: Tailwind JIT (kein ungenutztes CSS)
 - IntersectionObserver für lazy Loading von Sections
@@ -83,10 +94,9 @@
 
 **Schwächen:**
 - PRs #158, #159, #160 (LCP, Memory Leaks, A11y) noch offen — Potenzial vorhanden
-- React SPA: Kein SSR → schlechteres Initial-FCP als Astro-Lösung
-- `public/images/` leer → Hero-Bild wird nicht ausgeliefert wenn Pfad `/images/hero-bg.png` ist
+- Cloudflare-Preview-Lighthouse noch nicht gemessen
 
-**Score-Begründung:** Nach PR #135 starke Verbesserung; weitere Gains durch offene PRs möglich.
+**Score-Begründung:** Nach PR #135 und Phase-2-Cloudflare-Build starke technische Basis; echte Performance-Wertung braucht Preview-/Live-Lighthouse.
 
 ---
 
@@ -122,9 +132,10 @@
 - Komponenten sauber getrennt (pages/, ui/, components/)
 - GitHub Actions CI vorhanden (mehrere Workflows)
 - ESLint konfiguriert
+- Paketname ist bereinigt: `automobile-quick`
+- Aktiver Buildpfad ist Wix-frei: keine `@wix/*` Runtime-Dependencies in `package.json`
 
 **Schwächen:**
-- `name: 'wixstro'` in package.json — Überrest vom Wix-Migration-Fork, sollte bereinigt werden
 - Viele DRAFT-PRs (161, 160, 159, 157) von automatisierten Tools (Bolt, Palette, Sentinel) — unübersichtlich
 - Keine strikte Typisierung für vehiclesData (Generated-File)
 
@@ -143,7 +154,6 @@
 
 **Schwächen:**
 - PR #160 (Mobile Menu A11y) noch als DRAFT offen
-- `public/images/` leer → alt-Texte ohne echte Bilder nutzlos
 - Skip-Navigation-Link fehlt
 
 **Score-Begründung:** Messbarer A11y-Fortschritt durch PR #135; 96/100 Lighthouse ist sehr gut.
@@ -175,14 +185,17 @@
 - CI/CD: GitHub Actions vorhanden (mehrere Workflows)
 - PR #135 gemerged auf main — stabiler Stand
 - 36/36 Tests grün = deploybar
+- Cloudflare-Worker-Build lokal verifiziert: `npm run build` erzeugt `dist/_worker.js`
+- Wrangler-Preview-Script vorhanden: `wrangler pages deploy dist --project-name automobile-quick`
 
 **Schwächen:**
 - **Domain `automobilequick.de` noch nicht aktiv** (Hosting-Verknüpfung ausstehend)
-- `package.json name: 'wixstro'` — technisches Artefakt
-- `public/images/` leer — Hero-Bild fehlt im Deploy-Output
-- Hosting-Entscheidung (Vercel/Netlify/Cloudflare Pages) nicht dokumentiert
+- Cloudflare Pages-/Workers-Preview noch nicht ausgeführt
+- `automobilequick.de` war im Cloudflare-Inventar noch keine Zone; Custom-Domain-Pfad muss vor Cutover entschieden werden
+- Cloudflare-Session-KV-`SESSION`-Binding ist für SSR-Sessions zu klären, falls Sessions produktiv genutzt werden
+- CI/CD Pipeline für Cloudflare Pages/Workers noch nicht final verdrahtet
 
-**Score-Begründung:** Code-seitig ready, aber Hosting + Domain + Hero-Bild müssen noch nachgezogen werden.
+**Score-Begründung:** Code-seitig preview-ready, aber Cloudflare-Projekt, Preview-URL, Domainpfad und Live-Gates müssen noch nachgezogen werden.
 
 ---
 
@@ -207,8 +220,9 @@
 | Priorität | Aufgabe | Verantwortlich |
 |-----------|---------|----------------|
 | **KRITISCH** | Domain `automobilequick.de` mit Hosting verbinden | Joel (manuell) |
-| **HOCH** | `public/images/` befüllen (hero-bg.png, logo, etc.) | Joel + Claude |
-| **HOCH** | `package.json name` von 'wixstro' → 'automobile-quick' korrigieren | Claude |
+| **HOCH** | Cloudflare Preview-Projekt anlegen oder Worker-Preview deployen, nur `pages.dev`/Preview testen | Claude/Codex nach Freigabe |
+| **HOCH** | `automobilequick.de` Domainpfad entscheiden: Cloudflare-Zone onboarden oder externes DNS per CNAME/Verification anbinden | Joel |
+| **HOCH** | Preview-Matrix prüfen: `/`, `/fahrzeugbestand`, reale Fahrzeugdetails, Pflichtseiten, `robots.txt`, `sitemap.xml`, Console 0 Errors | Codex/Claude |
 | **MITTEL** | Offene PRs reviewen: #158 Memory Leak, #155 Router Fix, #160 Mobile A11y | Claude/Review |
 | **MITTEL** | `Car` Schema.org für Fahrzeuge implementieren | Claude |
 | **NIEDRIG** | Blog-Content erstellen | Joel |
@@ -234,4 +248,4 @@
 
 ---
 
-*Bericht erstellt auf Basis von: Codebase-Analyse, Git-Log (8 commits), PR-Status (#135 MERGED), Test-Ergebnisse (36/36), TypeScript-Check, active_state.md (korrigiert: PR #135 war bereits gemerged, nicht nur offen)*
+*Bericht erstellt auf Basis von: Codebase-Analyse, Git-Log (8 commits), PR-Status (#135 MERGED), Test-Ergebnisse (36/36), TypeScript-Check, active_state.md (korrigiert: PR #135 war bereits gemerged, nicht nur offen), Codex-Phase-2-Verifikation vom 2026-05-31 (`npm run check`, `npm run test:run`, `npm run build`).*
