@@ -18,7 +18,7 @@ export const Head = () => {
       <meta property="og:description" content="Hochwertige Gebrauchtwagen mit persönlicher Beratung. Automobile Quick - Ihr Autohaus seit 1982." />
       <meta property="og:site_name" content="Automobile Quick" />
       <meta property="og:type" content="website" />
-      <meta property="og:image" content="https://static.wixstatic.com/media/32e7c0_d28732f69d9643a7ada1b1be4890a422~mv2.png" />
+      <meta property="og:image" content="https://automobilequick.de/images/logo-og.png" />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       <meta property="og:locale" content="de_DE" />
@@ -27,7 +27,7 @@ export const Head = () => {
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content="Automobile Quick - Gebrauchtwagen in Iserlohn-Letmathe" />
       <meta name="twitter:description" content="Hochwertige Gebrauchtwagen mit persönlicher Beratung. Automobile Quick - Ihr Autohaus seit 1982." />
-      <meta name="twitter:image" content="https://static.wixstatic.com/media/32e7c0_d28732f69d9643a7ada1b1be4890a422~mv2.png" />
+      <meta name="twitter:image" content="https://automobilequick.de/images/logo-og.png" />
       
       {/* Additional SEO Tags */}
       <meta name="theme-color" content="#0A1628" />
@@ -38,8 +38,6 @@ export const Head = () => {
       <link rel="canonical" href="https://automobilequick.de/" />
       
       {/* Preconnect to external resources */}
-      <link rel="preconnect" href="https://static.parastorage.com" />
-      <link rel="preconnect" href="https://static.wixstatic.com" crossOrigin="anonymous" />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       
       {/* Alternate language versions */}

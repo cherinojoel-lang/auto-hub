@@ -1,8 +1,8 @@
-import type { PageMetadata } from "@wix/astro-pages";
-
 /// <reference path="../.astro/types.d.ts" />
 
 declare const Astro: Readonly<import("astro").AstroGlobal>;
+
+type RouteMetadata = Record<string, unknown>;
 
 declare global {
   interface SDKTypeMode {
@@ -20,9 +20,11 @@ declare global {
 
 declare module "react-router-dom" {
   export interface IndexRouteObject {
-    routeMetadata?: PageMetadata;
+    routeMetadata?: RouteMetadata;
   }
   export interface NonIndexRouteObject {
-    routeMetadata?: PageMetadata;
+    routeMetadata?: RouteMetadata;
   }
 }
+
+export {};
