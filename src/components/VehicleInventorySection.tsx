@@ -44,12 +44,9 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, index }) => {
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
       }`}
     >
-      <Link
-        to={`/fahrzeugdetail/${vehicle.id}`}
-        className="group flex flex-col h-full bg-surface-elevated shadow-sm rounded-lg hover:shadow-md transition-shadow duration-200 overflow-hidden border border-border-line"
-      >
+      <div className="group flex flex-col h-full bg-surface-elevated shadow-sm rounded-lg hover:shadow-md transition-shadow duration-200 overflow-hidden border border-border-line">
         {/* Image Container */}
-        <div className="relative aspect-video overflow-hidden bg-alt-bg">
+        <Link to={`/fahrzeugdetail/${vehicle.id}`} className="relative aspect-video overflow-hidden bg-alt-bg block">
           <Image
             src={vehicle.mainImage}
             alt={vehicle.alt || vehicle.title}
@@ -62,14 +59,16 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, index }) => {
           <div className="absolute top-3 left-3 bg-white/95 text-primary px-3 py-1.5 text-xs font-bold rounded-md border border-border-line">
             Verfügbar
           </div>
-        </div>
+        </Link>
 
         {/* Content Area */}
         <div className="p-5 flex flex-col flex-grow">
           {/* Brand + Model */}
-          <h3 className="text-base font-bold text-foreground line-clamp-2 mb-2 group-hover:text-primary transition-colors leading-snug">
-            {vehicle.title}
-          </h3>
+          <Link to={`/fahrzeugdetail/${vehicle.id}`} className="mb-2">
+            <h3 className="text-base font-bold text-foreground line-clamp-2 group-hover:text-primary transition-colors leading-snug">
+              {vehicle.title}
+            </h3>
+          </Link>
 
           {/* Trim Line */}
           <p className="text-sm text-text-secondary mb-3">
@@ -102,16 +101,19 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, index }) => {
           <p className="text-xs text-text-secondary mb-4">{vehicle.financing}</p>
 
           {/* WhatsApp Anfrage */}
-          <div className="mb-3" onClick={(e) => e.preventDefault()}>
+          <div className="mb-3">
             <WhatsAppCta vehicleTitle={vehicle.title} compact className="w-full justify-center" />
           </div>
 
           {/* CTA Button */}
-          <span className="w-full flex items-center justify-center bg-primary text-white py-3 rounded-md font-bold text-sm hover:bg-primary/90 transition-colors mt-auto min-h-[48px]">
+          <Link
+            to={`/fahrzeugdetail/${vehicle.id}`}
+            className="w-full flex items-center justify-center bg-primary text-white py-3 rounded-md font-bold text-sm hover:bg-primary/90 transition-colors mt-auto min-h-[48px]"
+          >
             Details ansehen
-          </span>
+          </Link>
         </div>
-      </Link>
+      </div>
     </div>
   );
 };

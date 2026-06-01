@@ -14,7 +14,7 @@ import ContactSection from '@/components/ContactSection';
 import HowItWorksSection from '@/components/HowItWorksSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import ReviewsSchema from '@/components/schemas/ReviewsSchema';
-import { aggregateRating, trustFacts } from '@/data/reviewsData';
+import { aggregateRating } from '@/data/reviewsData';
 
 // --- Animation Components ---
 
