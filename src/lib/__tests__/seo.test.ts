@@ -8,6 +8,38 @@ describe('seo utility', () => {
       document.title = '';
     });
 
+
+    it('sets document language to de', () => {
+      const config = {
+        title: 'Test Title',
+        description: 'Test Description',
+      };
+
+      updateMetaTags(config);
+
+      expect(document.documentElement.lang).toBe('de');
+    });
+
+    it('removes elements with wix-seo-tags attribute', () => {
+      const wixTag1 = document.createElement('meta');
+      wixTag1.setAttribute('wix-seo-tags', 'true');
+      document.head.appendChild(wixTag1);
+
+      const wixTag2 = document.createElement('title');
+      wixTag2.setAttribute('wix-seo-tags', 'true');
+      document.head.appendChild(wixTag2);
+
+      const config = {
+        title: 'Test Title',
+        description: 'Test Description',
+      };
+
+      updateMetaTags(config);
+
+      const elements = document.querySelectorAll('[wix-seo-tags="true"]');
+      expect(elements.length).toBe(0);
+    });
+
     it('updates document.title and description', () => {
       const config: SEOConfig = {
         title: 'Test Title',
