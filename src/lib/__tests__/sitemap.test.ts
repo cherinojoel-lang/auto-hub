@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { generateSitemap, type SitemapEntry } from '../sitemap';
+import { generateSitemap, generateFullSitemap, type SitemapEntry } from '../sitemap';
 
 describe('generateSitemap', () => {
   it('should generate a basic sitemap with minimal entries', () => {
@@ -73,5 +73,51 @@ describe('generateSitemap', () => {
     // " -> &quot;
     // ' -> &apos;
     expect(result).toContain('<loc>https://automobilequick.de/search?q=cars&amp;sort=price&lt;10000&gt;5000&quot;model&apos;s&quot;</loc>');
+  });
+});
+
+describe('generateFullSitemap', () => {
+  it('should include default entries even with no available vehicles', () => {
+    const result = generateFullSitemap([]);
+
+    // Check that default entries are in the output
+    expect(result).toContain('<loc>https://automobilequick.de/</loc>');
+    expect(result).toContain('<loc>https://automobilequick.de/fahrzeugbestand</loc>');
+    expect(result).toContain('<loc>https://automobilequick.de/ueber-uns</loc>');
+    expect(result).toContain('<loc>https://automobilequick.de/kontakt</loc>');
+    expect(result).toContain('<loc>https://automobilequick.de/autoankauf</loc>');
+    expect(result).toContain('<loc>https://automobilequick.de/finanzierung</loc>');
+  });
+
+  it('should filter out non-available vehicles', () => {
+    const vehicles = [
+      { id: '1', status: 'available' },
+      { id: '2', status: 'sold' },
+      { id: '3', status: 'reserved' }
+    ];
+
+    const result = generateFullSitemap(vehicles);
+
+    expect(result).toContain('<loc>https://automobilequick.de/fahrzeugdetail/1</loc>');
+    expect(result).not.toContain('<loc>https://automobilequick.de/fahrzeugdetail/2</loc>');
+    expect(result).not.toContain('<loc>https://automobilequick.de/fahrzeugdetail/3</loc>');
+  });
+
+  it('should use listingDate when provided, otherwise fallback to today', () => {
+    const today = new Date().toISOString().slice(0, 10);
+    const vehicles = [
+      { id: '1', status: 'available', listingDate: '2023-11-15T12:00:00Z' },
+      { id: '2', status: 'available' }
+    ];
+
+    const result = generateFullSitemap(vehicles);
+
+    expect(result).toContain('<loc>https://automobilequick.de/fahrzeugdetail/1</loc>');
+
+    const vehicle1Section = result.substring(result.indexOf('fahrzeugdetail/1'), result.indexOf('fahrzeugdetail/2'));
+    expect(vehicle1Section).toContain('<lastmod>2023-11-15</lastmod>');
+
+    const vehicle2Section = result.substring(result.indexOf('fahrzeugdetail/2'));
+    expect(vehicle2Section).toContain(`<lastmod>${today}</lastmod>`);
   });
 });
