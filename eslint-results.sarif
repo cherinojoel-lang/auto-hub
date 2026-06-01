@@ -1,0 +1,790 @@
+{
+  "version": "2.1.0",
+  "$schema": "http://json.schemastore.org/sarif-2.1.0-rtm.5",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "ESLint",
+          "informationUri": "https://eslint.org",
+          "rules": [
+            {
+              "id": "no-extra-semi",
+              "helpUri": "https://eslint.org/docs/latest/rules/no-extra-semi",
+              "properties": {},
+              "shortDescription": {
+                "text": "Disallow unnecessary semicolons"
+              }
+            },
+            {
+              "id": "@typescript-eslint/triple-slash-reference",
+              "helpUri": "https://typescript-eslint.io/rules/triple-slash-reference",
+              "properties": {},
+              "shortDescription": {
+                "text": "Disallow certain triple slash directives in favor of ES6-style import declarations"
+              }
+            }
+          ],
+          "version": "8.57.1"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///app/eslint-rules/fix-empty-select-item-value.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/eslint-rules/no-early-return-before-scroll-ref.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/eslint-rules/use-image-component.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/eslint.config.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/framewire.js"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/integrations/cms/cms-ecom/cart/index.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/integrations/cms/cms-ecom/cart/useCartStore.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/integrations/cms/cms-ecom/currency.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/integrations/cms/cms-ecom/ecom-service.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/integrations/cms/cms-ecom/index.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/integrations/cms/index.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/integrations/cms/service.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/integrations/cms/types.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/integrations/errorHandlers/ErrorPage.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/integrations/index.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/integrations/members/index.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/integrations/members/providers/MemberContext.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/integrations/members/providers/MemberProvider.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/integrations/members/providers/index.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/integrations/members/service.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/integrations/members/types.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ContactSection.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/CookieConsentBanner.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/FinancingCalculatorSection.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/Footer.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/Head.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/Header.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/HowItWorksSection.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/Layout.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/MobileFloatingActionBar.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/RouteLoader.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/Router.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/SeoHead.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/SocialProofSection.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/StickyHeader.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/VehicleInventorySection.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/WhatsAppButton.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/__tests__/ContactSection.test.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/__tests__/loading-spinner.test.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/pages/AboutPage.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/pages/BlogDetailPage.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/pages/BlogPage.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/pages/ContactPage.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/pages/FinancingPage.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/pages/HomePage.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/pages/ImprintPage.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/pages/PrivacyPage.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/pages/TradeInPage.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/pages/VehicleDetailPage.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/pages/VehiclesPage.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/pages/__tests__/HomePage.test.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/pages/__tests__/VehicleDetailPage.test.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/pages/__tests__/VehiclesPage.test.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/schemas/CarSchema.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/accordion.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/alert-dialog.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/alert.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/aspect-ratio.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/avatar.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/badge.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/button.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/calendar.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/card.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/checkbox.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/collapsible.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/command.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/context-menu.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/dialog.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/dropdown-menu.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/form.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/hover-card.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/image.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/input.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/label.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/loading-spinner.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/member-protected-route.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/menubar.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/navigation-menu.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/popover.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/progress.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/radio-group.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/scroll-area.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/select.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/separator.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/sheet.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/sign-in.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/skeleton.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/slider.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/switch.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/table.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/tabs.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/textarea.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/toast.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/toaster.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/toggle-group.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/toggle.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/components/ui/tooltip.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/data/vehicleImages.generated.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/data/vehiclesData.generated.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/entities/blogarticles.d.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/entities/contactinquiries.d.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/entities/financinginquiries.d.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/entities/index.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/entities/tradeinquiries.d.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/entities/vehicles.d.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/env.d.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/hooks/__tests__/use-size.test.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/hooks/__tests__/use-toast.test.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/hooks/use-size.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/hooks/use-toast.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/integrations/errorHandlers/ErrorPage.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/lib/__tests__/scroll-to-top.test.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/lib/__tests__/seo-config.test.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/lib/__tests__/seo.test.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/lib/__tests__/sitemap.test.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/lib/__tests__/utils.test.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/lib/domain/vehicleFilter/__tests__/deriveOptions.test.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/lib/domain/vehicleFilter/__tests__/filterVehicles.test.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/lib/domain/vehicleFilter/__tests__/parsers.test.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/lib/domain/vehicleFilter/__tests__/predicates.test.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/lib/domain/vehicleFilter/__tests__/regression.test.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/lib/domain/vehicleFilter/__tests__/schema.test.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/lib/domain/vehicleFilter/deriveOptions.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/lib/domain/vehicleFilter/filterVehicles.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/lib/domain/vehicleFilter/index.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/lib/domain/vehicleFilter/parsers.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/lib/domain/vehicleFilter/predicates.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/lib/domain/vehicleFilter/schema.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/lib/scroll-to-top.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/lib/seo-config.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/lib/seo.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/lib/seo/__tests__/vehicles-canonical.test.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/lib/seo/__tests__/vehicles-jsonld.test.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/lib/seo/vehicles-canonical.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/lib/seo/vehicles-jsonld.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/lib/sitemap.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/lib/utils.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/src/pages/sitemap.xml.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/vite-error-overlay-plugin.js"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/vitest.config.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///app/vitest.setup.ts"
+          }
+        }
+      ],
+      "results": [
+        {
+          "level": "error",
+          "message": {
+            "text": "Unnecessary semicolon."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///app/integrations/errorHandlers/ErrorPage.tsx",
+                  "index": 13
+                },
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 2,
+                  "endLine": 19,
+                  "endColumn": 3
+                }
+              }
+            }
+          ],
+          "ruleId": "no-extra-semi",
+          "ruleIndex": 0
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Do not use a triple slash reference for ../.astro/types.d.ts, use `import` style instead."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///app/src/env.d.ts",
+                  "index": 105
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 46
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/triple-slash-reference",
+          "ruleIndex": 1
+        }
+      ]
+    }
+  ]
+}
