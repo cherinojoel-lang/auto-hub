@@ -40,6 +40,9 @@ export default {
                 'border-line': '#D8DEE8',
                 'cta-hover': '#A83C00',
                 'reserved': '#F39C12',
+                'surface': '#F8F7F4',
+                'surface-elevated': '#FFFFFF',
+                'surface-muted': '#F0EDE8',
             },
             zIndex: {
                 '1000': '1000',

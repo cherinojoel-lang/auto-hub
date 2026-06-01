@@ -46,7 +46,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, index }) => {
     >
       <Link
         to={`/fahrzeugdetail/${vehicle.id}`}
-        className="group flex flex-col h-full bg-white rounded-md border border-border-line hover:border-secondary/70 transition-colors duration-200 overflow-hidden"
+        className="group flex flex-col h-full bg-surface-elevated shadow-sm rounded-lg hover:shadow-md transition-shadow duration-200 overflow-hidden border border-border-line"
       >
         {/* Image Container */}
         <div className="relative aspect-video overflow-hidden bg-alt-bg">
@@ -120,7 +120,7 @@ export default function VehicleInventorySection() {
   const topVehicles = vehiclesData.slice(0, 6);
 
   return (
-    <section className="py-20 bg-background">
+    <section className="py-20 bg-surface">
       <div className="max-w-7xl mx-auto px-6">
         {/* Heading */}
         <div className="text-center mb-12">

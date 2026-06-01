@@ -290,7 +290,7 @@ export default function ContactPage() {
                         <div>
                           <p className="font-medium text-foreground mb-1">Öffnungszeiten</p>
                           <p className="text-foreground/70">Mo-Fr: 9:00 - 18:00 Uhr</p>
-                          <p className="text-foreground/70">Sa: 10:00 - 14:00 Uhr</p>
+                          <p className="text-foreground/70">Sa: 10:00 - 16:00 Uhr</p>
                           <p className="text-foreground/70">So: Geschlossen</p>
                         </div>
                       </div>

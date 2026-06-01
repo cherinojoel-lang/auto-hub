@@ -31,10 +31,8 @@ export default function MobileFloatingActionBar() {
 
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 z-50 md:hidden"
+      className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-white border-t border-border-line"
       style={{
-        backgroundColor: '#FFFFFF',
-        borderTop: '1px solid #D8DEE8',
         maxHeight: '72px',
         paddingBottom: 'env(safe-area-inset-bottom)',
       }}
