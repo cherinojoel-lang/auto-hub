@@ -46,4 +46,40 @@ describe('cn', () => {
       )
     ).toBe('base-class arr-1 arr-2 cond-true p-8 text-black');
   });
+
+  it('handles empty inputs', () => {
+    expect(cn()).toBe('');
+    expect(cn('')).toBe('');
+    expect(cn(null, undefined, false)).toBe('');
+  });
+
+  it('handles nested arrays', () => {
+    expect(cn(['class-a', ['class-b', ['class-c']]])).toBe('class-a class-b class-c');
+  });
+
+  it('handles tailwind conflict resolution with specific properties', () => {
+    // p-4 adds padding to all sides, px-2 overrides horizontal padding
+    expect(cn('p-4', 'px-2')).toBe('p-4 px-2');
+    // pb-4 overrides the bottom padding of py-2
+    expect(cn('py-2', 'pb-4')).toBe('py-2 pb-4');
+  });
+
+  it('preserves custom non-tailwind classes alongside tailwind classes', () => {
+    expect(cn('custom-class', 'text-red-500', 'my-custom-module_class')).toBe('custom-class text-red-500 my-custom-module_class');
+  });
+
+  it('handles object notation with complex logic', () => {
+    expect(
+      cn(
+        'base-btn',
+        {
+          'bg-blue-500': true,
+          'bg-gray-500': false,
+          'text-white': 1 > 0,
+        },
+        ['hover:bg-blue-600', { 'cursor-not-allowed': false }]
+      )
+    ).toBe('base-btn bg-blue-500 text-white hover:bg-blue-600');
+  });
+
 });
