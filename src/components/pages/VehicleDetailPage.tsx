@@ -8,9 +8,6 @@ import { updateMetaTags, getStructuredDataProduct } from '@/lib/seo';
 import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, generateProductSchema, SITE_CONFIG } from '@/lib/seo-config';
 import CarSchema from '@/components/schemas/CarSchema';
-import { Lightbox } from '@/components/ui/lightbox';
-import { WhatsAppCta } from '@/components/ui/whatsapp-cta';
-import { EnvkvDisclosure } from '@/components/EnvkvDisclosure';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; priority?: boolean }> = ({
   children, 
@@ -66,7 +63,6 @@ export default function VehicleDetailPage() {
   const [similarVehicle, setSimilarVehicle] = useState<Vehicle[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentGalleryIndex, setCurrentGalleryIndex] = useState(0);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   useEffect(() => {
     loadVehicle();
@@ -133,10 +129,6 @@ export default function VehicleDetailPage() {
     setCurrentGalleryIndex(prev => prev === galleryImages.length - 1 ? 0 : prev + 1);
   };
 
-  const openLightbox = () => setLightboxOpen(true);
-  const closeLightbox = () => setLightboxOpen(false);
-  const goToImage = (index: number) => setCurrentGalleryIndex(index);
-
   const carSchemaData = vehicle ? {
     id: vehicle.id,
     brand: vehicle.make,
@@ -188,7 +180,7 @@ export default function VehicleDetailPage() {
                 {vehicle.mainImage ? (
                   <div className="w-full flex flex-col">
                     {/* Main Image */}
-                    <div className="relative w-full aspect-video overflow-hidden bg-alt-bg cursor-pointer" onClick={openLightbox}>
+                    <div className="relative w-full aspect-video overflow-hidden bg-alt-bg">
                       <Image
                         src={currentImage || vehicle.mainImage}
                         alt={vehicle.alt || vehicle.title}
@@ -420,7 +412,7 @@ export default function VehicleDetailPage() {
                 <div className="bg-alt-bg">
                   {vehicle.mainImage ? (
                     <div className="w-full flex flex-col">
-                      <div className="relative w-full aspect-video overflow-hidden bg-alt-bg cursor-pointer" onClick={openLightbox}>
+                      <div className="relative w-full aspect-video overflow-hidden bg-alt-bg">
                         <Image
                           src={currentImage || vehicle.mainImage}
                           alt={vehicle.alt || vehicle.title}
@@ -659,7 +651,7 @@ export default function VehicleDetailPage() {
                 {/* Right Column - Desktop Price Box */}
                 <div className="lg:col-span-1">
                   <div className="sticky top-32 w-full">
-                    <AnimatedElement className="bg-surface-elevated shadow-md rounded-xl border border-border-line p-6 sm:p-8" priority={true}>
+                    <AnimatedElement className="bg-card-bg rounded-lg border border-border-line p-6 sm:p-8" priority={true}>
                       {/* Price */}
                       <div className="mb-8">
                         <p className="text-sm text-text-secondary font-medium mb-2">Verkaufspreis</p>
@@ -709,49 +701,13 @@ export default function VehicleDetailPage() {
               </div>
             </div>
 
-            {/* EnVKV — Pflichtangaben */}
-            {vehicle && (
-              <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl pb-8">
-                <EnvkvDisclosure vehicle={vehicle} />
-              </div>
-            )}
-
+            {/* Bottom Spacing for Mobile */}
+            <div className="lg:hidden pb-40"></div>
           </>
         )}
       </div>
 
-      {/* Lightbox */}
-      {lightboxOpen && galleryImages.length > 0 && (
-        <Lightbox
-          images={galleryImages}
-          currentIndex={currentGalleryIndex}
-          alt={vehicle?.alt || vehicle?.title || 'Fahrzeugbild'}
-          onClose={closeLightbox}
-          onNext={handleNextImage}
-          onPrev={handlePrevImage}
-          onGoTo={goToImage}
-        />
-      )}
 
-      {/* Sticky Mobile CTA Bar */}
-      {vehicle && (
-        <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-white border-t border-border-line shadow-[0_-2px_8px_rgba(0,0,0,0.08)] px-4 py-3 flex gap-3">
-          <a
-            href="tel:+4923749129120"
-            className="flex-1 flex items-center justify-center gap-2 py-3 bg-primary text-white font-bold rounded-md text-sm hover:bg-primary/90 transition-colors min-h-[48px]"
-            aria-label="Automobile Quick anrufen"
-          >
-            <Phone size={16} />
-            <span>Anrufen</span>
-          </a>
-          <WhatsAppCta
-            vehicleTitle={vehicle.title}
-            className="flex-1 min-h-[48px]"
-          />
-        </div>
-      )}
-      {/* Spacer so footer doesn't hide behind sticky bar */}
-      {vehicle && <div className="h-[76px] lg:hidden" aria-hidden="true" />}
     </div>
   );
 }

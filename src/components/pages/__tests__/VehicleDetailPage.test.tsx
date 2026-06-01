@@ -26,6 +26,14 @@ vi.mock('react-router-dom', async () => {
   };
 });
 
+const mockIntersectionObserver = vi.fn();
+mockIntersectionObserver.mockReturnValue({
+  observe: () => null,
+  unobserve: () => null,
+  disconnect: () => null
+});
+window.IntersectionObserver = mockIntersectionObserver;
+
 describe('VehicleDetailPage', () => {
   it('handles error when loading vehicle fails', async () => {
     const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});

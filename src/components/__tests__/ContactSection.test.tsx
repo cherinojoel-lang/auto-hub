@@ -2,6 +2,14 @@ import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import ContactSection from '../ContactSection';
 import { vi } from 'vitest';
 
+const mockIntersectionObserver = vi.fn();
+mockIntersectionObserver.mockReturnValue({
+  observe: () => null,
+  unobserve: () => null,
+  disconnect: () => null
+});
+window.IntersectionObserver = mockIntersectionObserver;
+
 describe('ContactSection', () => {
   it('renders successfully', () => {
     render(<ContactSection />);

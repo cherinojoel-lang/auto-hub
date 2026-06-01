@@ -1,33 +1,5 @@
+import { items } from "@wix/data";
 import { WixDataItem } from ".";
-
-const unavailableMutation = async () => {
-  throw new Error('Wix CMS is no longer connected.');
-};
-
-const emptyQueryResult = {
-  items: [],
-  totalCount: 0,
-  hasNext: () => false,
-};
-
-const items = {
-  insert: unavailableMutation,
-  update: unavailableMutation,
-  remove: unavailableMutation,
-  insertReference: unavailableMutation,
-  removeReference: unavailableMutation,
-  queryReferenced: async () => emptyQueryResult,
-  query: () => {
-    const query = {
-      eq: () => query,
-      include: () => query,
-      skip: () => query,
-      limit: () => query,
-      find: async () => emptyQueryResult,
-    };
-    return query;
-  },
-};
 
 /**
  * Pagination options for querying collections

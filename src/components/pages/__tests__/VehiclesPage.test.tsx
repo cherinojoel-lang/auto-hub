@@ -20,6 +20,14 @@ vi.mock('@/components/ui/image', () => ({
   Image: () => <div data-testid="mock-image" />,
 }));
 
+const mockIntersectionObserver = vi.fn();
+mockIntersectionObserver.mockReturnValue({
+  observe: () => null,
+  unobserve: () => null,
+  disconnect: () => null
+});
+window.IntersectionObserver = mockIntersectionObserver;
+
 describe('VehiclesPage', () => {
   beforeEach(() => {
     vi.clearAllMocks();

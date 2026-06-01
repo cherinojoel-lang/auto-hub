@@ -47,7 +47,7 @@ export default function Footer() {
                 <CalendarClock size={18} className="flex-shrink-0 text-secondary" />
                 <div className="text-sm text-white/80">
                   <p>Mo-Fr: 09:00 - 18:00 Uhr</p>
-                  <p>Sa: 10:00 - 16:00 Uhr</p>
+                  <p>Sa: 09:00 - 13:00 Uhr</p>
                   <p>Besichtigung jederzeit möglich</p>
                 </div>
               </div>

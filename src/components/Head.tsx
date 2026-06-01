@@ -34,8 +34,11 @@ export const Head = () => {
       <meta name="apple-mobile-web-app-capable" content="yes" />
       <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
       
-      {/* Canonical URL (initial — wird per Route dynamisch via DynamicCanonical aktualisiert) */}
+      {/* Canonical URL */}
       <link rel="canonical" href="https://automobilequick.de/" />
+
+      {/* Preconnect to external resources */}
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
 
       {/* Alternate language versions */}
       <link rel="alternate" hrefLang="de" href="https://automobilequick.de/" />

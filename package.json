@@ -6,17 +6,16 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "deploy": "npm run build && wrangler deploy --config dist/server/wrangler.json",
-    "deploy:dry-run": "npm run build && wrangler deploy --config dist/server/wrangler.json --dry-run",
-    "lint:scan": "eslint src --ext .js,.jsx,.ts,.tsx",
+    "deploy": "wrangler deploy",
+    "deploy:preview": "wrangler deploy",
     "check": "npx astro check --js-only",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.2",
-    "@astrojs/cloudflare": "^13.6.0",
-    "@astrojs/react": "^5.0.6",
+    "@astrojs/check": "0.9.4",
+    "@astrojs/cloudflare": "12.6.13",
+    "@astrojs/react": "4.3.0",
     "@astrojs/tailwind": "6.0.2",
     "@hookform/resolvers": "5.2.0",
     "@radix-ui/react-accordion": "1.2.11",
@@ -50,7 +49,7 @@
     "@react-hook/resize-observer": "2.0.2",
     "@tailwindcss/container-queries": "0.1.1",
     "@tailwindcss/typography": "0.5.16",
-    "astro": "^6.4.2",
+    "astro": "^5.16.5",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
@@ -68,26 +67,17 @@
     "zod": "^3.24.4"
   },
   "devDependencies": {
-    "@microsoft/eslint-formatter-sarif": "^3.1.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
-    "@typescript-eslint/parser": "^7.18.0",
-    "@vitest/coverage-v8": "^4.1.8",
-    "eslint": "^8.57.1",
+    "@vitest/coverage-v8": "^3.1.4",
     "jsdom": "^20.0.0",
     "typescript": "^5.8.3",
     "vite": "^6.4.1",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^4.1.8",
+    "vitest": "3.1.4",
     "wrangler": "^4.95.0"
-  },
-  "overrides": {
-    "@astrojs/language-server": "^2.16.10",
-    "volar-service-yaml": "^0.0.71",
-    "yaml-language-server": "^1.23.0",
-    "yaml": "^2.9.0"
   }
 }

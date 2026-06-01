@@ -126,7 +126,7 @@ export default function HowItWorksSection() {
   return (
     <section
       ref={ref}
-      className="py-16 md:py-20 bg-surface-muted"
+      className="py-16 md:py-20 bg-neutral-100"
       aria-label="So funktioniert's - Unser Prozess"
     >
       <div className="container mx-auto px-6 max-w-5xl">

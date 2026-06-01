@@ -16,7 +16,7 @@ export default function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="WhatsApp Kontakt"
-      className={`fixed bottom-6 right-6 w-15 h-15 rounded-full bg-[#25d366] hidden md:flex items-center justify-center z-9999 shadow-lg hover:shadow-xl transition-transform duration-200 hover:scale-110 ${shouldPulse ? 'animate-wa-pulse' : ''}`}
+      className={`fixed bottom-6 right-6 md:bottom-6 md:right-6 w-15 h-15 rounded-full bg-[#25d366] flex items-center justify-center z-9999 shadow-lg hover:shadow-xl transition-transform duration-200 hover:scale-110 ${shouldPulse ? 'animate-wa-pulse' : ''}`}
       style={{
         boxShadow: '0 4px 12px rgba(37, 211, 102, 0.4)',
         bottom: '24px',

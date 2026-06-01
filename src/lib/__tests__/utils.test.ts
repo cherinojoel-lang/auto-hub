@@ -50,7 +50,7 @@ describe('cn', () => {
         false && 'hidden',
         0 && 'w-0', // Number 0 is falsy
         NaN && 'h-0', // NaN is falsy
-        '' && 'm-0', // Empty string is falsy
+        (String('') && 'm-0'), // Empty string is falsy
         null,
         undefined,
         'flex'

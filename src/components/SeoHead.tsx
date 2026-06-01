@@ -16,6 +16,10 @@ export default function SeoHead({ title, description, image, url, schema, schema
     const resolvedDescription = description || SITE_CONFIG.description;
     const resolvedImage = image || SITE_CONFIG.image;
 
+    document
+      .querySelectorAll('[wix-seo-tags="true"]')
+      .forEach((element) => element.remove());
+
     // Set title
     if (title) {
       document.title = title;

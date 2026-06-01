@@ -1,9 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { ArrowRight, Calendar, Camera, Filter, Fuel, Gauge, ShieldCheck, X, Zap } from 'lucide-react';
+import { Filter, X } from 'lucide-react';
 import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
 import { Image } from '@/components/ui/image';
-import { WhatsAppCta } from '@/components/ui/whatsapp-cta';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
 import SeoHead from '@/components/SeoHead';
@@ -14,7 +13,6 @@ import {
   deriveManufacturerOptions,
   deriveFuelOptions,
 } from '@/lib/domain/vehicleFilter';
-import { getVehicleImageCount, getFeatureChips } from '@/lib/domain/vehicleFeatures';
 
 const MANUFACTURER_OPTIONS = deriveManufacturerOptions(vehiclesData);
 const FUEL_OPTIONS = deriveFuelOptions(vehiclesData);
@@ -61,6 +59,16 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
     </div>
   );
 };
+
+const getVehicleImageCount = (vehicle: Vehicle) => {
+  const images: string[] = [];
+  if (vehicle.mainImage) images.push(vehicle.mainImage);
+  if (Array.isArray(vehicle.gallery) && vehicle.gallery.length > 0) {
+    images.push(...vehicle.gallery);
+  }
+  return Array.from(new Set(images)).length;
+};
+
 
 export default function VehiclePage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -303,27 +311,6 @@ export default function VehiclePage() {
       {/* Vehicle Grid */}
       <section className="py-8 sm:py-12 md:py-16 bg-background flex-1" id="main-content">
         <div className="container mx-auto px-4 max-w-[1400px]">
-          {/* Ergebnis-Header */}
-          {!isLoading && (
-            <div className="flex items-center justify-between mb-6 flex-wrap gap-2">
-              <p className="text-sm text-text-secondary">
-                <span className="font-bold text-foreground">{vehicles.length}</span>{' '}
-                {vehicles.length === 1 ? 'Fahrzeug' : 'Fahrzeuge'}
-                {[manufacturer, priceMax, driveType, maxMileage, yearFrom].filter(Boolean).length > 0
-                  ? ' gefunden'
-                  : ' verfügbar'}
-              </p>
-              {[manufacturer, priceMax, driveType, maxMileage, yearFrom].filter(Boolean).length > 0 && (
-                <button
-                  onClick={clearFilters}
-                  className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-secondary border border-secondary rounded-md hover:bg-secondary/5 transition-colors"
-                >
-                  <X size={14} />
-                  Filter zurücksetzen ({[manufacturer, priceMax, driveType, maxMileage, yearFrom].filter(Boolean).length})
-                </button>
-              )}
-            </div>
-          )}
           <div className="min-h-[600px]">
             {isLoading ? (
               <div className="flex justify-center items-center py-20">
@@ -332,110 +319,100 @@ export default function VehiclePage() {
             ) : vehicles.length > 0 ? (
               <>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                  {vehicles.map((vehicle, index) => {
-                    const imageCount = getVehicleImageCount(vehicle);
-                    const featureChips = getFeatureChips(vehicle);
-                    return (
+                  {vehicles.map((vehicle, index) => (
                     <AnimatedElement key={vehicle.id} delay={index * 50}>
-                      <div className="group flex flex-col h-full bg-surface-elevated shadow-sm rounded-lg hover:shadow-md transition-shadow duration-200 overflow-hidden border border-border-line">
-                        {/* Image Container */}
-                        <Link to={`/fahrzeugdetail/${vehicle.id}`} className="relative aspect-[4/3] overflow-hidden bg-alt-bg block">
-                          <Image
-                            src={vehicle.mainImage}
-                            alt={vehicle.alt || vehicle.title}
-                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-                            width={400}
-                            height={300}
-                            loading={index < 6 ? 'eager' : 'lazy'}
-                            decoding="async"
-                          />
-                          <div className="absolute top-3 left-3 bg-white/95 text-primary px-3 py-1.5 text-xs font-bold rounded-md border border-border-line">
-                            {vehicle.isNew ? 'Neu eingetroffen' : 'Verfügbar'}
-                          </div>
-                          {imageCount > 0 && (
-                            <div className="absolute top-3 right-3 inline-flex items-center gap-1.5 bg-primary/95 text-white px-3 py-1.5 text-xs font-bold rounded-md">
-                              <Camera size={13} />
-                              <span>{imageCount} Fotos</span>
-                            </div>
-                          )}
-                          <div className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 bg-white/95 text-primary px-3 py-1.5 text-xs font-bold rounded-md border border-border-line">
-                            <ShieldCheck size={13} className="text-secondary" />
-                            <span>Geprüft</span>
-                          </div>
-                        </Link>
+                      {(() => {
+                        const imageCount = getVehicleImageCount(vehicle);
 
-                        {/* Content Area */}
-                        <div className="p-5 sm:p-6 flex flex-col flex-grow">
-                          <Link to={`/fahrzeugdetail/${vehicle.id}`} className="mb-2">
-                            <h3 className="text-base font-bold text-foreground line-clamp-2 group-hover:text-primary transition-colors leading-snug">
-                              {vehicle.title}
-                            </h3>
-                          </Link>
+                        return (
+                          <div className="group bg-card-bg rounded-md transition-colors duration-200 overflow-hidden border border-border-line hover:border-secondary/70 flex flex-col h-full">
+                            {/* Image Section */}
+                            <div className="aspect-[4/3] overflow-hidden bg-alt-bg relative">
+                              {vehicle.mainImage ? (
+                                <Image
+                                  src={vehicle.mainImage}
+                                  alt={vehicle.alt || vehicle.title}
+                                  className="w-full h-full object-cover"
+                                  width={400}
+                                  height={300}
+                                  loading={index < 6 ? "eager" : "lazy"}
+                                  decoding="async"
+                                />
+                              ) : (
+                                <div className="w-full h-full flex flex-col items-center justify-center bg-alt-bg">
+                                  <span className="text-text-secondary text-sm font-medium">Bild folgt</span>
+                                </div>
+                              )}
+                              <div className="absolute top-4 left-4 bg-white/95 text-primary px-3 py-1.5 text-xs font-bold rounded-md border border-border-line">
+                                {vehicle.status === 'available' ? 'Verfügbar' : 'Archiv'}
+                              </div>
+                              <div className="absolute top-4 right-4 bg-primary text-white px-3 py-1.5 text-xs font-bold rounded-md">
+                                {imageCount} {imageCount === 1 ? 'Bild' : 'Bilder'}
+                              </div>
+                            </div>
 
-                          <p className="text-xs text-text-secondary mb-4 line-clamp-2 min-h-[2rem]">
-                            {vehicle.description || `${vehicle.make} ${vehicle.model} aus gepflegtem Bestand in Iserlohn-Letmathe`}
-                          </p>
+                            {/* Content Section */}
+                            <div className="p-6 sm:p-8 flex flex-col flex-1">
+                          {/* Title */}
+                          <h3 className="text-lg sm:text-xl font-heading font-bold mb-4 text-foreground group-hover:text-primary transition-colors leading-snug">
+                            {vehicle.title}
+                          </h3>
 
-                          {/* Specs Grid */}
-                          <div className="grid grid-cols-2 gap-3 text-xs text-text-secondary mb-4">
-                            <div className="flex min-w-0 items-center gap-2">
-                              <Calendar size={14} className="text-secondary flex-shrink-0" />
-                              <span className="truncate">EZ {vehicle.firstRegistration || 'Neu'}</span>
-                            </div>
-                            <div className="flex min-w-0 items-center gap-2">
-                              <Gauge size={14} className="text-secondary flex-shrink-0" />
-                              <span className="truncate">{vehicle.mileage || '0 km'}</span>
-                            </div>
-                            <div className="flex min-w-0 items-center gap-2">
-                              <Zap size={14} className="text-secondary flex-shrink-0" />
-                              <span className="truncate">{vehicle.power || '-'}</span>
-                            </div>
-                            <div className="flex min-w-0 items-center gap-2">
-                              <Fuel size={14} className="text-secondary flex-shrink-0" />
-                              <span className="truncate">{vehicle.fuel || '-'}</span>
-                            </div>
+                          {/* Price */}
+                          <div className="mb-2">
+                            <span className="text-3xl sm:text-4xl font-bold text-secondary">
+                              {vehicle.price}
+                            </span>
                           </div>
 
-                          {featureChips.length > 0 && (
-                            <div className="mb-4 flex min-h-[28px] flex-wrap gap-2">
-                              {featureChips.map((chip) => (
-                                <span
-                                  key={chip}
-                                  className="rounded-md border border-border-line bg-white px-2.5 py-1 text-[11px] font-bold text-primary"
-                                >
-                                  {chip}
-                                </span>
-                              ))}
-                            </div>
+                          {/* Financing */}
+                          {vehicle.financing && (
+                            <p className="text-sm text-text-secondary mb-6 font-medium">
+                              {vehicle.financing}
+                            </p>
                           )}
 
-                          <div className="border-t border-border-line my-4"></div>
+                          {/* Details */}
+                          <div className="space-y-2 mb-6 text-sm text-text-secondary flex-1">
+                            {vehicle.firstRegistration && (
+                              <p className="font-medium">Erstzulassung: {vehicle.firstRegistration}</p>
+                            )}
+                            {vehicle.mileage && (
+                              <p className="font-medium">Kilometerstand: {vehicle.mileage}</p>
+                            )}
+                            {vehicle.power && (
+                              <p className="font-medium">Leistung: {vehicle.power}</p>
+                            )}
+                            {vehicle.fuel && <p className="font-medium">Kraftstoff: {vehicle.fuel}</p>}
+                          </div>
 
-                          <p className="text-xs text-text-secondary mb-1">Barpreis</p>
-                          <p className="text-2xl font-bold text-secondary mb-1">{vehicle.price}</p>
-                          <p className="text-xs text-text-secondary mb-4">{vehicle.financing}</p>
-
-                          {/* CTA */}
-                          <div className="mt-auto flex flex-col gap-2">
+                          {/* Buttons - 3 CTAs */}
+                          <div className="flex flex-col gap-2 pt-6 border-t border-border-line">
                             <Link
                               to={`/fahrzeugdetail/${vehicle.id}`}
-                              className="w-full flex items-center justify-center gap-2 bg-primary text-white py-3 rounded-md font-bold text-sm hover:bg-primary/90 transition-colors min-h-[48px]"
+                              className="w-full bg-primary text-white px-4 py-3 rounded-md font-bold text-sm text-center hover:bg-primary/90 transition-colors duration-200 min-h-[48px] flex items-center justify-center"
                             >
-                              Fahrzeug ansehen
-                              <ArrowRight size={16} />
+                              Details anzeigen
                             </Link>
-                            <WhatsAppCta
-                              vehicleTitle={vehicle.title}
-                              compact
-                              variant="subtle"
-                              className="w-full justify-center min-h-[44px]"
-                            />
+                            <Link
+                              to="/kontakt"
+                              className="w-full bg-secondary text-white px-4 py-3 rounded-md font-bold text-sm text-center hover:bg-cta-hover transition-colors duration-200 min-h-[48px] flex items-center justify-center"
+                            >
+                              Anfrage senden
+                            </Link>
+                            <a
+                              href="tel:+492374912912"
+                              className="w-full bg-white text-primary px-4 py-3 rounded-md font-bold text-sm text-center border border-primary hover:bg-primary/5 transition-colors duration-200 min-h-[48px] flex items-center justify-center"
+                            >
+                              Anrufen
+                            </a>
                           </div>
-                        </div>
-                      </div>
+                            </div>
+                          </div>
+                        );
+                      })()}
                     </AnimatedElement>
-                    );
-                  })}
+                  ))}
                 </div>
 
                 {hasNext && (
@@ -451,14 +428,9 @@ export default function VehiclePage() {
               </>
             ) : (
               <div className="text-center py-20">
-                <p className="text-xl font-bold text-foreground mb-3">Keine Fahrzeuge gefunden</p>
-                <p className="text-text-secondary mb-8">Versuche andere Filterkriterien.</p>
-                <button
-                  onClick={clearFilters}
-                  className="px-8 py-3.5 bg-secondary text-white font-bold rounded-md hover:opacity-90 transition-colors min-h-[48px]"
-                >
-                  Alle Filter zurücksetzen
-                </button>
+                <p className="text-lg sm:text-xl text-text-secondary">
+                  Keine Fahrzeuge gefunden. Bitte passen Sie Ihre Filter an.
+                </p>
               </div>
             )}
           </div>
