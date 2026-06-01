@@ -10,6 +10,7 @@ import { PAGE_METADATA, generateProductSchema, SITE_CONFIG } from '@/lib/seo-con
 import CarSchema from '@/components/schemas/CarSchema';
 import { Lightbox } from '@/components/ui/lightbox';
 import { WhatsAppCta } from '@/components/ui/whatsapp-cta';
+import { EnvkvDisclosure } from '@/components/EnvkvDisclosure';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; priority?: boolean }> = ({
   children, 
@@ -707,6 +708,13 @@ export default function VehicleDetailPage() {
                 </div>
               </div>
             </div>
+
+            {/* EnVKV — Pflichtangaben */}
+            {vehicle && (
+              <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl pb-8">
+                <EnvkvDisclosure vehicle={vehicle} />
+              </div>
+            )}
 
           </>
         )}
