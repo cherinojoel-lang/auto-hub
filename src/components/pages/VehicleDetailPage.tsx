@@ -4,6 +4,8 @@ import { Calendar, Gauge, Zap, Fuel, ArrowLeft, Phone, MapPin, Wrench, ChevronLe
 import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
 import { Image } from '@/components/ui/image';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
+import { useToast } from '@/hooks/use-toast';
+
 import { updateMetaTags, getStructuredDataProduct } from '@/lib/seo';
 import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, generateProductSchema, SITE_CONFIG } from '@/lib/seo-config';
@@ -67,6 +69,7 @@ export default function VehicleDetailPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [currentGalleryIndex, setCurrentGalleryIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     loadVehicle();
@@ -106,6 +109,11 @@ export default function VehicleDetailPage() {
       }
     } catch (error) {
       console.error('Error loading vehicle:', error);
+      toast({
+        title: "Fehler",
+        description: "Fahrzeugdaten konnten nicht geladen werden.",
+        variant: "destructive",
+      });
     } finally {
       setIsLoading(false);
     }
