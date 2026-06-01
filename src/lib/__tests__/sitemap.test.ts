@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { generateSitemap, generateFullSitemap, type SitemapEntry } from '../sitemap';
 
 describe('generateSitemap', () => {
@@ -79,7 +79,7 @@ describe('generateSitemap', () => {
 
 describe('generateFullSitemap', () => {
   it('should include available vehicles and filter out others', () => {
-    const vehicles = [
+    const vehicles: Parameters<typeof generateFullSitemap>[0] = [
       { id: 'v1', status: 'available', listingDate: '2024-01-01T12:00:00.000Z' },
       { id: 'v2', status: 'sold', listingDate: '2024-01-02T12:00:00.000Z' },
       { id: 'v3', status: 'available', listingDate: '2024-01-03T12:00:00.000Z' }
@@ -96,8 +96,12 @@ describe('generateFullSitemap', () => {
   });
 
   it('should use today\'s date when listingDate is missing', () => {
-    const todayStr = new Date().toISOString().slice(0, 10);
-    const vehicles = [
+    const mockDate = new Date('2024-05-05T12:00:00Z');
+    vi.useFakeTimers();
+    vi.setSystemTime(mockDate);
+
+    const todayStr = mockDate.toISOString().slice(0, 10);
+    const vehicles: Parameters<typeof generateFullSitemap>[0] = [
       { id: 'v1', status: 'available' }
     ];
 
@@ -105,6 +109,8 @@ describe('generateFullSitemap', () => {
 
     expect(result).toContain('<loc>https://automobilequick.de/fahrzeugdetail/v1</loc>');
     expect(result).toContain(`<lastmod>${todayStr}</lastmod>`);
+
+    vi.useRealTimers();
   });
 
   it('should include default sitemap entries even if vehicle list is empty', () => {
