@@ -1,7 +1,59 @@
 import { describe, it, expect } from 'vitest';
-import { generateBusinessSchema, SITE_CONFIG, OPENING_HOURS } from '../seo-config';
+import { generateBusinessSchema, generateBreadcrumbSchema, SITE_CONFIG, OPENING_HOURS } from '../seo-config';
 
 describe('seo-config', () => {
+  describe('generateBreadcrumbSchema', () => {
+    it('should handle an empty array', () => {
+      const schema = generateBreadcrumbSchema([]);
+
+      expect(schema['@context']).toBe('https://schema.org');
+      expect(schema['@type']).toBe('BreadcrumbList');
+      expect(schema.itemListElement).toEqual([]);
+    });
+
+    it('should generate schema for a single item', () => {
+      const schema = generateBreadcrumbSchema([
+        { name: 'Home', url: 'https://example.com' }
+      ]);
+
+      expect(schema.itemListElement).toHaveLength(1);
+      expect(schema.itemListElement[0]).toEqual({
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://example.com'
+      });
+    });
+
+    it('should generate schema for multiple items', () => {
+      const schema = generateBreadcrumbSchema([
+        { name: 'Home', url: 'https://example.com' },
+        { name: 'Category', url: 'https://example.com/category' },
+        { name: 'Product', url: 'https://example.com/category/product' }
+      ]);
+
+      expect(schema.itemListElement).toHaveLength(3);
+      expect(schema.itemListElement[0]).toEqual({
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://example.com'
+      });
+      expect(schema.itemListElement[1]).toEqual({
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Category',
+        item: 'https://example.com/category'
+      });
+      expect(schema.itemListElement[2]).toEqual({
+        '@type': 'ListItem',
+        position: 3,
+        name: 'Product',
+        item: 'https://example.com/category/product'
+      });
+    });
+  });
+
   describe('generateBusinessSchema', () => {
     it('should generate valid LocalBusiness + AutoDealer schema based on SITE_CONFIG', () => {
       const schema = generateBusinessSchema();
