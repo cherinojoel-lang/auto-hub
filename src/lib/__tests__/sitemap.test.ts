@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { generateSitemap, type SitemapEntry } from '../sitemap';
+import { generateSitemap, generateFullSitemap, type SitemapEntry } from '../sitemap';
 
 describe('generateSitemap', () => {
   it('should generate a basic sitemap with minimal entries', () => {
@@ -73,5 +73,46 @@ describe('generateSitemap', () => {
     // " -> &quot;
     // ' -> &apos;
     expect(result).toContain('<loc>https://automobilequick.de/search?q=cars&amp;sort=price&lt;10000&gt;5000&quot;model&apos;s&quot;</loc>');
+  });
+});
+
+
+describe('generateFullSitemap', () => {
+  it('should include available vehicles and filter out others', () => {
+    const vehicles = [
+      { id: 'v1', status: 'available', listingDate: '2024-01-01T12:00:00.000Z' },
+      { id: 'v2', status: 'sold', listingDate: '2024-01-02T12:00:00.000Z' },
+      { id: 'v3', status: 'available', listingDate: '2024-01-03T12:00:00.000Z' }
+    ];
+
+    const result = generateFullSitemap(vehicles);
+
+    expect(result).toContain('<loc>https://automobilequick.de/fahrzeugdetail/v1</loc>');
+    expect(result).toContain('<lastmod>2024-01-01</lastmod>');
+    expect(result).toContain('<loc>https://automobilequick.de/fahrzeugdetail/v3</loc>');
+    expect(result).toContain('<lastmod>2024-01-03</lastmod>');
+    expect(result).not.toContain('<loc>https://automobilequick.de/fahrzeugdetail/v2</loc>');
+    expect(result).not.toContain('<lastmod>2024-01-02</lastmod>');
+  });
+
+  it('should use today\'s date when listingDate is missing', () => {
+    const todayStr = new Date().toISOString().slice(0, 10);
+    const vehicles = [
+      { id: 'v1', status: 'available' }
+    ];
+
+    const result = generateFullSitemap(vehicles);
+
+    expect(result).toContain('<loc>https://automobilequick.de/fahrzeugdetail/v1</loc>');
+    expect(result).toContain(`<lastmod>${todayStr}</lastmod>`);
+  });
+
+  it('should include default sitemap entries even if vehicle list is empty', () => {
+    const result = generateFullSitemap([]);
+
+    expect(result).toContain('<loc>https://automobilequick.de/</loc>');
+    expect(result).toContain('<loc>https://automobilequick.de/fahrzeugbestand</loc>');
+    expect(result).toContain('<loc>https://automobilequick.de/ueber-uns</loc>');
+    expect(result).toContain('<loc>https://automobilequick.de/kontakt</loc>');
   });
 });
