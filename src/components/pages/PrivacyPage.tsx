@@ -133,7 +133,7 @@ export default function PrivacyPage() {
                 </h2>
                 <div className="space-y-4 text-foreground/80">
                   <p>
-                    Diese Website wird über die Plattform Wix.com (Wix.com Ltd., Tel Aviv, Israel; in der EU vertreten durch Wix Online Platform Limited, Dublin, Irland) bereitgestellt. Beim Aufruf der Website können technische Verbindungsdaten verarbeitet werden, die zur Auslieferung der Website notwendig sind (z. B. IP-Adresse, Browser-Typ, Zeitstempel). Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer sicheren Bereitstellung).
+                    Diese Website wird über die Plattform Cloudflare Pages bereitgestellt (Anbieter: Cloudflare, Inc., 101 Townsend St., San Francisco, CA 94107, USA; in der EU vertreten durch Cloudflare Germany GmbH, Rosental 7, c/o Mindspace, 80331 München). Beim Aufruf der Website können technische Verbindungsdaten verarbeitet werden, die zur Auslieferung und Absicherung der Website notwendig sind (z. B. IP-Adresse, Browser-Typ, Zeitstempel, angefragte URL). Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer sicheren und performanten Bereitstellung). Cloudflare ist nach dem EU-US Data Privacy Framework zertifiziert. Weitere Informationen finden Sie in der <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer" className="text-secondary underline hover:no-underline">Cloudflare Datenschutzerklärung</a>.
                   </p>
                 </div>
               </div>
