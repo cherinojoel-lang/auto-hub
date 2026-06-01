@@ -51,8 +51,7 @@ export default function MobileFloatingActionBar() {
         {/* Contact Button */}
         <Link
           to="/kontakt"
-          className="flex flex-col items-center justify-center flex-1 h-full gap-1 transition-colors"
-          style={{ color: '#1A1A1A' }}
+          className="flex flex-col items-center justify-center flex-1 h-full gap-1 transition-colors text-foreground"
           aria-label="Anfrage"
         >
           <MessageSquare size={20} />
@@ -62,8 +61,7 @@ export default function MobileFloatingActionBar() {
         {/* Vehicles Button */}
         <Link
           to="/fahrzeugbestand"
-          className="flex flex-col items-center justify-center flex-1 h-full gap-1 transition-colors"
-          style={{ color: '#1A1A1A' }}
+          className="flex flex-col items-center justify-center flex-1 h-full gap-1 transition-colors text-foreground"
           aria-label="Fahrzeuge"
         >
           <Car size={20} />
