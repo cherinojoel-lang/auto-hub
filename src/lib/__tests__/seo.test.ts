@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { updateMetaTags, SEOConfig, getStructuredDataBreadcrumb } from '../seo';
+import { updateMetaTags, SEOConfig, getStructuredDataBreadcrumb, getStructuredDataOrganization } from '../seo';
 
 describe('seo utility', () => {
   describe('updateMetaTags', () => {
@@ -276,6 +276,48 @@ describe('seo utility', () => {
             position: 3,
             name: 'Product',
             item: 'https://example.com/category/product',
+          },
+        ],
+      });
+    });
+  });
+
+  describe('getStructuredDataOrganization', () => {
+    it('returns structured data for the organization', () => {
+      const result = getStructuredDataOrganization();
+      expect(result).toEqual({
+        '@context': 'https://schema.org',
+        '@type': 'AutoDealer',
+        name: 'Automobile Quick',
+        description: 'Gepflegte Gebrauchtwagen in Iserlohn-Letmathe seit 1982. Persönliche Beratung, Fahrzeugankauf und Finanzierung auf Anfrage.',
+        url: 'https://automobilequick.de',
+        telephone: '+49-2374-912912',
+        email: 'auto-quick@t-online.de',
+        priceRange: '€',
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: 'Hagener Str. 126a',
+          addressLocality: 'Iserlohn',
+          addressRegion: 'NW',
+          postalCode: '58642',
+          addressCountry: 'DE',
+        },
+        sameAs: [
+          'https://home.mobile.de/AUTOMOBILE-QUICK',
+        ],
+        foundingDate: '1982',
+        openingHoursSpecification: [
+          {
+            '@type': 'OpeningHoursSpecification',
+            dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+            opens: '09:00',
+            closes: '18:00',
+          },
+          {
+            '@type': 'OpeningHoursSpecification',
+            dayOfWeek: 'Saturday',
+            opens: '09:00',
+            closes: '13:00',
           },
         ],
       });
