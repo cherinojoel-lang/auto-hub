@@ -4,8 +4,8 @@ import eslintPluginAstro from 'eslint-plugin-astro';
 import importPlugin from 'eslint-plugin-import';
 import reactPlugin from 'eslint-plugin-react';
 import globals from 'globals';
-import useImageComponent from './eslint-rules/use-image-component';
-import noEarlyReturnBeforeScrollRef from './eslint-rules/no-early-return-before-scroll-ref';
+import useImageComponent from './eslint-rules/use-image-component.ts';
+import noEarlyReturnBeforeScrollRef from './eslint-rules/no-early-return-before-scroll-ref.ts';
 
 export default [
   ...eslintPluginAstro.configs.recommended,
