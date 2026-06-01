@@ -30,11 +30,11 @@ jobs:
 
       - name: Install ESLint
         run: |
-          npm install eslint@8 typescript jiti
+          npm install eslint@9 typescript jiti
           npm install @microsoft/eslint-formatter-sarif
 
       - name: Run ESLint
-        run: npx eslint . --format @microsoft/eslint-formatter-sarif/eslint -o eslint-results.sarif
+        run: ESLINT_USE_FLAT_CONFIG=true npx eslint . --format @microsoft/eslint-formatter-sarif/eslint -o eslint-results.sarif
         continue-on-error: true
 
       - name: Upload ESLint scan results to GitHub Security tab
