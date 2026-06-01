@@ -246,42 +246,42 @@ export default function HomePage() {
       <HowItWorksSection />
 
       {/* TRUST BAR */}
-      <section className="bg-white border-b border-gray-200 py-8 sm:py-12">
+      <section className="bg-primary text-white border-b border-white/10 py-8 sm:py-12">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8 text-center">
             <AnimatedElement delay={0}>
               <div className="flex flex-col items-center">
                 <MapPin size={32} className="text-secondary mb-3" />
-                <p className="text-base font-bold text-primary mb-1">Lokal vor Ort</p>
-                <p className="text-xs text-gray-600">Iserlohn-Letmathe</p>
+                <p className="text-base font-bold text-white mb-1">Lokal vor Ort</p>
+                <p className="text-xs text-white/70">Iserlohn-Letmathe</p>
               </div>
             </AnimatedElement>
             <AnimatedElement delay={100}>
               <div className="flex flex-col items-center">
                 <ShieldCheck size={32} className="text-secondary mb-3" />
-                <p className="text-base font-bold text-primary mb-1">Geprüfte</p>
-                <p className="text-xs text-gray-600">Fahrzeuge</p>
+                <p className="text-base font-bold text-white mb-1">Geprüfte</p>
+                <p className="text-xs text-white/70">Fahrzeuge</p>
               </div>
             </AnimatedElement>
             <AnimatedElement delay={200}>
               <div className="flex flex-col items-center">
-                <p className="text-3xl sm:text-4xl font-bold text-primary mb-2">42</p>
-                <p className="text-base font-bold text-primary mb-1">Jahre</p>
-                <p className="text-xs text-gray-600">Erfahrung</p>
+                <p className="text-3xl sm:text-4xl font-bold text-white mb-2">Seit 1982</p>
+                <p className="text-base font-bold text-white mb-1">Jahre</p>
+                <p className="text-xs text-white/70">Erfahrung</p>
               </div>
             </AnimatedElement>
             <AnimatedElement delay={300}>
               <div className="flex flex-col items-center">
                 <Users size={32} className="text-secondary mb-3" />
-                <p className="text-base font-bold text-primary mb-1">Persönliche</p>
-                <p className="text-xs text-gray-600">Beratung</p>
+                <p className="text-base font-bold text-white mb-1">Persönliche</p>
+                <p className="text-xs text-white/70">Beratung</p>
               </div>
             </AnimatedElement>
             <AnimatedElement delay={400}>
               <div className="flex flex-col items-center">
                 <Award size={32} className="text-secondary mb-3" />
-                <p className="text-base font-bold text-primary mb-1">Geprüfte</p>
-                <p className="text-xs text-gray-600">Fahrzeuge</p>
+                <p className="text-base font-bold text-white mb-1">Geprüfte</p>
+                <p className="text-xs text-white/70">Fahrzeuge</p>
               </div>
             </AnimatedElement>
           </div>
@@ -289,7 +289,7 @@ export default function HomePage() {
       </section>
 
       {/* FEATURED VEHICLES SECTION */}
-      <section className="py-12 sm:py-16 md:py-20 bg-white" id="main-content">
+      <section className="py-12 sm:py-16 md:py-20 bg-surface" id="main-content">
         <div className="container mx-auto px-4 max-w-7xl">
           <AnimatedElement>
             <div className="text-center mb-12 sm:mb-16">
@@ -330,7 +330,7 @@ export default function HomePage() {
                   <AnimatedElement key={vehicle.id} delay={index * 100} direction="up">
                     <Link
                       to={`/fahrzeugdetail/${vehicle.id}`}
-                      className="group flex flex-col h-full bg-white rounded-md transition-colors duration-200 overflow-hidden border border-border-line hover:border-secondary/70"
+                      className="group flex flex-col h-full bg-surface-elevated shadow-sm rounded-lg hover:shadow-md transition-shadow duration-200 overflow-hidden border border-border-line"
                     >
                       {/* Image Container */}
                       <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
@@ -387,7 +387,7 @@ export default function HomePage() {
                           <p className="text-xs text-gray-500 mb-2">Barpreis</p>
                           <div className="flex items-end justify-between">
                             <div>
-                              <span className="text-2xl sm:text-3xl font-bold text-primary">
+                              <span className="text-2xl sm:text-3xl font-bold text-secondary">
                                 {vehicle.price}
                               </span>
                               <p className="text-[10px] text-gray-400 mt-1">inkl. 19% MwSt.</p>
@@ -419,7 +419,7 @@ export default function HomePage() {
       </section>
 
       {/* ABOUT SECTION */}
-      <section className="py-12 sm:py-16 md:py-20 bg-gray-50">
+      <section className="py-12 sm:py-16 md:py-20 bg-surface-muted">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-10">
             <AnimatedElement direction="left">
@@ -448,7 +448,7 @@ export default function HomePage() {
       </section>
 
       {/* TRADE-IN TEASER */}
-      <section className="py-12 sm:py-16 md:py-20 bg-white">
+      <section className="py-12 sm:py-16 md:py-20 bg-surface">
         <div className="container mx-auto px-4 max-w-7xl">
           <AnimatedElement>
             <div className="bg-primary rounded-md p-10 sm:p-14 md:p-16 text-center text-white border-b-4 border-secondary">
@@ -471,7 +471,7 @@ export default function HomePage() {
       </section>
 
       {/* FINANCING TEASER */}
-      <section className="py-12 sm:py-16 md:py-20 bg-gray-50">
+      <section className="py-12 sm:py-16 md:py-20 bg-surface">
         <div className="container mx-auto px-4 max-w-7xl">
           <AnimatedElement>
             <div className="bg-white rounded-md p-10 sm:p-14 md:p-16 text-center border border-border-line border-b-4 border-b-secondary">

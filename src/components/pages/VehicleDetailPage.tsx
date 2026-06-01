@@ -658,7 +658,7 @@ export default function VehicleDetailPage() {
                 {/* Right Column - Desktop Price Box */}
                 <div className="lg:col-span-1">
                   <div className="sticky top-32 w-full">
-                    <AnimatedElement className="bg-card-bg rounded-lg border border-border-line p-6 sm:p-8" priority={true}>
+                    <AnimatedElement className="bg-surface-elevated shadow-md rounded-xl border border-border-line p-6 sm:p-8" priority={true}>
                       {/* Price */}
                       <div className="mb-8">
                         <p className="text-sm text-text-secondary font-medium mb-2">Verkaufspreis</p>
