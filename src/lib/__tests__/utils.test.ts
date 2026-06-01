@@ -9,6 +9,15 @@ describe('cn', () => {
   it('overrides classes using tailwind-merge', () => {
     expect(cn('p-4', 'p-8')).toBe('p-8');
     expect(cn('mt-2 text-red-500', 'mt-4 text-blue-500')).toBe('mt-4 text-blue-500');
+    // Tailwind-specific behavior tests:
+    // Conflicting text sizes
+    expect(cn('text-sm', 'text-lg')).toBe('text-lg');
+    // Conflicting flex directions
+    expect(cn('flex-row', 'flex-col')).toBe('flex-col');
+    // Margin resolution
+    expect(cn('mx-2', 'mx-4')).toBe('mx-4');
+    // Background color resolution
+    expect(cn('bg-white', 'bg-black')).toBe('bg-black');
   });
 
   it('handles conditional classes via clsx', () => {
@@ -32,6 +41,21 @@ describe('cn', () => {
         'justify-between'
       )
     ).toBe('flex items-center justify-between');
+  });
+
+  it('handles deeply nested arrays and complex falsy conditions', () => {
+    expect(
+      cn(
+        ['p-2', ['bg-white', ['text-black']]],
+        false && 'hidden',
+        0 && 'w-0', // Number 0 is falsy
+        NaN && 'h-0', // NaN is falsy
+        '' && 'm-0', // Empty string is falsy
+        null,
+        undefined,
+        'flex'
+      )
+    ).toBe('p-2 bg-white text-black flex');
   });
 
   it('handles complex combinations', () => {
