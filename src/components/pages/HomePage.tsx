@@ -77,7 +77,8 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
 export default function HomePage() {
   const [vehicles, setVehicle] = useState<Vehicle[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  
+  const [loadError, setLoadError] = useState(false);
+
 
 
   useEffect(() => {
@@ -103,8 +104,8 @@ export default function HomePage() {
       const visibleVehicles = vehiclesData.filter(v => v.status === 'available');
       setVehicle(visibleVehicles);
     } catch (error) {
-      console.error('Error loading vehicles:', error);
-      // Silently handle error for now, as proper user-facing error state requires UI changes
+      console.error('[HomePage] Fahrzeuge konnten nicht geladen werden:', error);
+      setLoadError(true);
     } finally {
       setIsLoading(false);
     }
@@ -301,6 +302,11 @@ export default function HomePage() {
           </AnimatedElement>
 
           <div className="relative min-h-[500px]">
+            {loadError && (
+              <div className="text-center py-8 px-4">
+                <p className="text-text-secondary">Fahrzeuge konnten nicht geladen werden. Bitte versuche es später erneut.</p>
+              </div>
+            )}
             {/* Always render the grid container for refs to attach safely */}
             <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 transition-opacity duration-500 ${isLoading ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
               {isLoading ? (
