@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Calendar, Gauge, Fuel } from 'lucide-react';
 import { Image } from '@/components/ui/image';
 import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
+import { WhatsAppCta } from '@/components/ui/whatsapp-cta';
 
 interface VehicleCardProps {
   vehicle: Vehicle;
@@ -99,6 +100,11 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, index }) => {
 
           {/* Monthly Rate */}
           <p className="text-xs text-text-secondary mb-4">{vehicle.financing}</p>
+
+          {/* WhatsApp Anfrage */}
+          <div className="mb-3" onClick={(e) => e.preventDefault()}>
+            <WhatsAppCta vehicleTitle={vehicle.title} compact className="w-full justify-center" />
+          </div>
 
           {/* CTA Button */}
           <span className="w-full flex items-center justify-center bg-primary text-white py-3 rounded-md font-bold text-sm hover:bg-primary/90 transition-colors mt-auto min-h-[48px]">

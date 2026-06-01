@@ -311,6 +311,27 @@ export default function VehiclePage() {
       {/* Vehicle Grid */}
       <section className="py-8 sm:py-12 md:py-16 bg-background flex-1" id="main-content">
         <div className="container mx-auto px-4 max-w-[1400px]">
+          {/* Ergebnis-Header */}
+          {!isLoading && (
+            <div className="flex items-center justify-between mb-6 flex-wrap gap-2">
+              <p className="text-sm text-text-secondary">
+                <span className="font-bold text-foreground">{vehicles.length}</span>{' '}
+                {vehicles.length === 1 ? 'Fahrzeug' : 'Fahrzeuge'}
+                {[manufacturer, priceMax, driveType, maxMileage, yearFrom].filter(Boolean).length > 0
+                  ? ' gefunden'
+                  : ' verfügbar'}
+              </p>
+              {[manufacturer, priceMax, driveType, maxMileage, yearFrom].filter(Boolean).length > 0 && (
+                <button
+                  onClick={clearFilters}
+                  className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-secondary border border-secondary rounded-md hover:bg-secondary/5 transition-colors"
+                >
+                  <X size={14} />
+                  Filter zurücksetzen ({[manufacturer, priceMax, driveType, maxMileage, yearFrom].filter(Boolean).length})
+                </button>
+              )}
+            </div>
+          )}
           <div className="min-h-[600px]">
             {isLoading ? (
               <div className="flex justify-center items-center py-20">
@@ -428,9 +449,14 @@ export default function VehiclePage() {
               </>
             ) : (
               <div className="text-center py-20">
-                <p className="text-lg sm:text-xl text-text-secondary">
-                  Keine Fahrzeuge gefunden. Bitte passen Sie Ihre Filter an.
-                </p>
+                <p className="text-xl font-bold text-foreground mb-3">Keine Fahrzeuge gefunden</p>
+                <p className="text-text-secondary mb-8">Versuche andere Filterkriterien.</p>
+                <button
+                  onClick={clearFilters}
+                  className="px-8 py-3.5 bg-secondary text-white font-bold rounded-md hover:opacity-90 transition-colors min-h-[48px]"
+                >
+                  Alle Filter zurücksetzen
+                </button>
               </div>
             )}
           </div>
