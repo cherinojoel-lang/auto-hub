@@ -8,6 +8,7 @@ import { updateMetaTags, getStructuredDataProduct } from '@/lib/seo';
 import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, generateProductSchema, SITE_CONFIG } from '@/lib/seo-config';
 import CarSchema from '@/components/schemas/CarSchema';
+import { Lightbox } from '@/components/ui/lightbox';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; priority?: boolean }> = ({
   children, 
@@ -63,6 +64,7 @@ export default function VehicleDetailPage() {
   const [similarVehicle, setSimilarVehicle] = useState<Vehicle[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentGalleryIndex, setCurrentGalleryIndex] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   useEffect(() => {
     loadVehicle();
@@ -129,6 +131,10 @@ export default function VehicleDetailPage() {
     setCurrentGalleryIndex(prev => prev === galleryImages.length - 1 ? 0 : prev + 1);
   };
 
+  const openLightbox = () => setLightboxOpen(true);
+  const closeLightbox = () => setLightboxOpen(false);
+  const goToImage = (index: number) => setCurrentGalleryIndex(index);
+
   const carSchemaData = vehicle ? {
     id: vehicle.id,
     brand: vehicle.make,
@@ -180,7 +186,7 @@ export default function VehicleDetailPage() {
                 {vehicle.mainImage ? (
                   <div className="w-full flex flex-col">
                     {/* Main Image */}
-                    <div className="relative w-full aspect-video overflow-hidden bg-alt-bg">
+                    <div className="relative w-full aspect-video overflow-hidden bg-alt-bg cursor-pointer" onClick={openLightbox}>
                       <Image
                         src={currentImage || vehicle.mainImage}
                         alt={vehicle.alt || vehicle.title}
@@ -412,7 +418,7 @@ export default function VehicleDetailPage() {
                 <div className="bg-alt-bg">
                   {vehicle.mainImage ? (
                     <div className="w-full flex flex-col">
-                      <div className="relative w-full aspect-video overflow-hidden bg-alt-bg">
+                      <div className="relative w-full aspect-video overflow-hidden bg-alt-bg cursor-pointer" onClick={openLightbox}>
                         <Image
                           src={currentImage || vehicle.mainImage}
                           alt={vehicle.alt || vehicle.title}
@@ -707,7 +713,18 @@ export default function VehicleDetailPage() {
         )}
       </div>
 
-      
+      {/* Lightbox */}
+      {lightboxOpen && galleryImages.length > 0 && (
+        <Lightbox
+          images={galleryImages}
+          currentIndex={currentGalleryIndex}
+          alt={vehicle?.alt || vehicle?.title || 'Fahrzeugbild'}
+          onClose={closeLightbox}
+          onNext={handleNextImage}
+          onPrev={handlePrevImage}
+          onGoTo={goToImage}
+        />
+      )}
     </div>
   );
 }
