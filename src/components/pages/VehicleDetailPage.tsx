@@ -9,6 +9,7 @@ import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, generateProductSchema, SITE_CONFIG } from '@/lib/seo-config';
 import CarSchema from '@/components/schemas/CarSchema';
 import { Lightbox } from '@/components/ui/lightbox';
+import { WhatsAppCta } from '@/components/ui/whatsapp-cta';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; priority?: boolean }> = ({
   children, 
@@ -707,8 +708,6 @@ export default function VehicleDetailPage() {
               </div>
             </div>
 
-            {/* Bottom Spacing for Mobile */}
-            <div className="lg:hidden pb-40"></div>
           </>
         )}
       </div>
@@ -725,6 +724,26 @@ export default function VehicleDetailPage() {
           onGoTo={goToImage}
         />
       )}
+
+      {/* Sticky Mobile CTA Bar */}
+      {vehicle && (
+        <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-white border-t border-border-line shadow-[0_-2px_8px_rgba(0,0,0,0.08)] px-4 py-3 flex gap-3">
+          <a
+            href="tel:+4923749129120"
+            className="flex-1 flex items-center justify-center gap-2 py-3 bg-primary text-white font-bold rounded-md text-sm hover:bg-primary/90 transition-colors min-h-[48px]"
+            aria-label="Automobile Quick anrufen"
+          >
+            <Phone size={16} />
+            <span>Anrufen</span>
+          </a>
+          <WhatsAppCta
+            vehicleTitle={vehicle.title}
+            className="flex-1 min-h-[48px]"
+          />
+        </div>
+      )}
+      {/* Spacer so footer doesn't hide behind sticky bar */}
+      {vehicle && <div className="h-[76px] lg:hidden" aria-hidden="true" />}
     </div>
   );
 }
