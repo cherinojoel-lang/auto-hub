@@ -4,38 +4,12 @@ import { ArrowRight, Calendar, Camera, Fuel, Gauge, ShieldCheck, Zap } from 'luc
 import { Image } from '@/components/ui/image';
 import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
 import { WhatsAppCta } from '@/components/ui/whatsapp-cta';
+import { getVehicleImageCount, getFeatureChips } from '@/lib/domain/vehicleFeatures';
 
 interface VehicleCardProps {
   vehicle: Vehicle;
   index: number;
 }
-
-const FEATURE_PATTERNS: Array<{ label: string; pattern: RegExp }> = [
-  { label: 'Navi', pattern: /\bnavi|navigation/i },
-  { label: 'Kamera', pattern: /kamera|rueckfahr|rückfahr/i },
-  { label: 'LED', pattern: /\bled\b/i },
-  { label: 'PDC', pattern: /\bpdc\b|parktronic|parksensor/i },
-  { label: '1. Hand', pattern: /1\.\s*hd|1\.\s*hand|erste hand/i },
-  { label: 'Alu', pattern: /\balu\b|alufelgen/i },
-  { label: 'Automatik', pattern: /automatik|dsg|steptronic/i },
-  { label: 'Klima', pattern: /klima|climatronic/i },
-  { label: 'Hybrid', pattern: /hybrid/i },
-];
-
-const getVehicleImageCount = (vehicle: Vehicle) => {
-  const images = [vehicle.mainImage, ...(vehicle.gallery || [])].filter(Boolean);
-  return new Set(images).size;
-};
-
-const getFeatureChips = (vehicle: Vehicle) => {
-  const source = `${vehicle.title} ${vehicle.description || ''}`;
-  const fuel = vehicle.fuel?.trim().toLowerCase();
-  return FEATURE_PATTERNS
-    .filter(({ pattern }) => pattern.test(source))
-    .map(({ label }) => label)
-    .filter((label) => label.toLowerCase() !== fuel)
-    .slice(0, 4);
-};
 
 const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, index }) => {
   const ref = useRef<HTMLDivElement>(null);
