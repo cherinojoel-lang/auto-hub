@@ -22,6 +22,8 @@ jobs:
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
+        env:
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
         with:
           node-version: "20"
 
@@ -30,14 +32,14 @@ jobs:
 
       - name: Install ESLint
         run: |
-          npm install eslint@8
-          npm install @microsoft/eslint-formatter-sarif
+          npm install eslint@8 jiti
+          npm install @microsoft/eslint-formatter-sarif @typescript-eslint/eslint-plugin @typescript-eslint/parser
 
       - name: Run ESLint
-        run: npx eslint . --format @microsoft/eslint-formatter-sarif/eslint -o eslint-results.sarif
+        run: npx eslint . --format @microsoft/eslint-formatter-sarif -o eslint-results.sarif
         continue-on-error: true
 
       - name: Upload ESLint scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: eslint-results.sarif
