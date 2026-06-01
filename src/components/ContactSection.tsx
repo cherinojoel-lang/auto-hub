@@ -82,6 +82,7 @@ export default function ContactSection() {
   const [formErrors, setFormErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const mapRef = useRef<HTMLDivElement>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
 
@@ -132,6 +133,7 @@ export default function ContactSection() {
     }
 
     setIsSubmitting(true);
+    setSubmitError(null);
 
     try {
       console.log('Submitting form...');
@@ -147,6 +149,7 @@ export default function ContactSection() {
       setTimeout(() => setSubmitSuccess(false), 3000);
     } catch (error) {
       console.error('Form submission error:', error);
+      setSubmitError('Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.');
     } finally {
       setIsSubmitting(false);
     }
@@ -299,6 +302,12 @@ export default function ContactSection() {
               {submitSuccess && (
                 <div className="p-4 bg-green-50 border border-green-200 rounded-lg text-green-800 text-sm animate-fade-in">
                   Vielen Dank! Wir werden uns in Kürze bei Ihnen melden.
+                </div>
+              )}
+
+              {submitError && (
+                <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-800 text-sm animate-fade-in">
+                  {submitError}
                 </div>
               )}
 

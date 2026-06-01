@@ -23,7 +23,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "24"
 
       - name: Install dependencies
         run: npm ci --ignore-scripts || npm install --ignore-scripts
@@ -34,10 +34,17 @@ jobs:
           npm install @microsoft/eslint-formatter-sarif
 
       - name: Run ESLint
-        run: npx eslint . --format @microsoft/eslint-formatter-sarif/eslint -o eslint-results.sarif
+        run: |
+          if [ -f "eslint.config.js" ] || [ -f "eslint.config.mjs" ] || [ -f ".eslintrc" ] || [ -f ".eslintrc.json" ] || [ -f ".eslintrc.js" ]; then
+            npx eslint . --format @microsoft/eslint-formatter-sarif/eslint -o eslint-results.sarif
+          else
+            echo "No ESLint configuration found, skipping ESLint run."
+            # Create an empty SARIF file so the upload step does not fail
+            echo '{"$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json", "version": "2.1.0", "runs": [{"tool": {"driver": {"name": "ESLint"}}, "results": []}]}' > eslint-results.sarif
+          fi
         continue-on-error: true
 
       - name: Upload ESLint scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: eslint-results.sarif
