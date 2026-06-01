@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { updateMetaTags, SEOConfig, getStructuredDataBreadcrumb } from '../seo';
+import { updateMetaTags, SEOConfig, getStructuredDataBreadcrumb, getStructuredDataProduct } from '../seo';
 
 describe('seo utility', () => {
   describe('updateMetaTags', () => {
@@ -279,6 +279,131 @@ describe('seo utility', () => {
           },
         ],
       });
+    });
+  });
+
+  describe('getStructuredDataProduct', () => {
+    it('returns structured data for a fully populated vehicle', () => {
+      const vehicle = {
+        id: '123',
+        title: 'Audi A3 Sportback',
+        firstRegistration: '2020-05',
+        mileage: '50.000 km',
+        power: '150 PS',
+        price: '25.000 €',
+        mainImage: '/images/audi-main.jpg',
+        gallery: [
+          '/images/audi-1.jpg',
+          '/images/audi-2.jpg',
+          '/images/audi-3.jpg',
+          '/images/audi-4.jpg',
+          '/images/audi-5.jpg'
+        ],
+        make: 'Audi',
+        model: 'A3',
+        fuel: 'Diesel',
+      };
+
+      const result = getStructuredDataProduct(vehicle);
+
+      expect(result).toEqual({
+        '@context': 'https://schema.org',
+        '@type': 'Car',
+        'name': 'Audi A3 Sportback',
+        'description': 'Audi A3 Sportback gebraucht kaufen in Iserlohn-Letmathe. EZ 2020-05, 50.000 km, 150 PS. Top Zustand bei Automobile Quick.',
+        'image': [
+          'https://automobilequick.de/images/audi-main.jpg',
+          'https://automobilequick.de/images/audi-2.jpg',
+          'https://automobilequick.de/images/audi-3.jpg',
+          'https://automobilequick.de/images/audi-4.jpg',
+          'https://automobilequick.de/images/audi-5.jpg',
+        ],
+        'brand': {
+          '@type': 'Brand',
+          'name': 'Audi',
+        },
+        'model': 'A3',
+        'vehicleModelDate': '2020-05',
+        'mileageFromOdometer': {
+          '@type': 'QuantitativeValue',
+          'value': '50000',
+          'unitCode': 'KMT',
+        },
+        'fuelType': 'Diesel',
+        'offers': {
+          '@type': 'Offer',
+          'price': 25000,
+          'priceCurrency': 'EUR',
+          'availability': 'https://schema.org/InStock',
+          'url': 'https://automobilequick.de/fahrzeugdetail/123',
+          'seller': {
+            '@type': 'LocalBusiness',
+            'name': 'Automobile Quick',
+            'address': {
+              '@type': 'PostalAddress',
+              'streetAddress': 'Hagener Str. 126a',
+              'addressLocality': 'Iserlohn',
+              'postalCode': '58642',
+              'addressCountry': 'DE',
+            },
+          },
+        },
+      });
+    });
+
+    it('handles vehicle with missing optional properties like gallery', () => {
+      const vehicle = {
+        id: '124',
+        title: 'BMW 3er',
+        firstRegistration: '2019-08',
+        mileage: '80.000 km',
+        power: '190 PS',
+        price: '30.000 €',
+        mainImage: '/images/bmw-main.jpg',
+        make: 'BMW',
+        model: '320d',
+        fuel: 'Diesel',
+      };
+
+      const result = getStructuredDataProduct(vehicle);
+
+      expect(result.image).toEqual([
+        'https://automobilequick.de/images/bmw-main.jpg'
+      ]);
+    });
+
+    it('correctly parses irregular price and mileage formats', () => {
+      const vehicle1 = {
+        id: '1',
+        title: 'Car',
+        price: '19.500', // Missing currency sign
+        mileage: '40.000', // Missing unit
+      };
+
+      const result1 = getStructuredDataProduct(vehicle1);
+      expect(result1.offers.price).toBe(19500);
+      expect(result1.mileageFromOdometer.value).toBe('40000');
+
+      const vehicle2 = {
+        id: '2',
+        title: 'Car',
+        price: 'Auf Anfrage', // No numbers
+        mileage: 'Neu', // No numbers
+      };
+
+      const result2 = getStructuredDataProduct(vehicle2);
+      expect(result2.offers.price).toBe(0);
+      expect(result2.mileageFromOdometer.value).toBe('');
+
+      const vehicle3 = {
+        id: '3',
+        title: 'Car',
+        // Missing properties entirely
+      };
+
+      const result3 = getStructuredDataProduct(vehicle3);
+      expect(result3.offers.price).toBe(0);
+      expect(result3.mileageFromOdometer.value).toBeUndefined();
     });
   });
 });
