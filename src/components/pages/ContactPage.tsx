@@ -290,7 +290,7 @@ export default function ContactPage() {
                         <div>
                           <p className="font-medium text-foreground mb-1">Öffnungszeiten</p>
                           <p className="text-foreground/70">Mo-Fr: 9:00 - 18:00 Uhr</p>
-                          <p className="text-foreground/70">Sa: 10:00 - 14:00 Uhr</p>
+                          <p className="text-foreground/70">Sa: 10:00 - 16:00 Uhr</p>
                           <p className="text-foreground/70">So: Geschlossen</p>
                         </div>
                       </div>
@@ -332,15 +332,27 @@ export default function ContactPage() {
               <div className="bg-background rounded-2xl shadow-lg overflow-hidden border border-border/50">
                 <div className="aspect-video">
                   <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2490.123456789!2d7.4567890!3d51.3567890!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTHCsDIxJzI0LjQiTiA3wrAyNycyNC40IkU!5e0!3m2!1sde!2sde!4v1234567890"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2490.5!2d7.6729!3d51.4040!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b90c6c7b3e6b97%3A0x41e65c2e63e47e10!2sHagener%20Str.%20126a%2C%2058642%20Iserlohn!5e0!3m2!1sde!2sde!4v1717200000000!5m2!1sde!2sde"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
                     allowFullScreen
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
-                    title="Standort Automobile Quick"
+                    title="Automobile Quick – Hagener Str. 126a, 58642 Iserlohn"
+                    aria-label="Karte: Automobile Quick Standort in Iserlohn-Letmathe"
                   />
+                </div>
+                <div className="p-4 border-t border-border-line flex justify-end">
+                  <a
+                    href="https://maps.app.goo.gl/zuvHCS86UcA9VTdv6"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-secondary text-sm font-bold hover:underline"
+                  >
+                    <MapPin size={14} />
+                    In Google Maps öffnen
+                  </a>
                 </div>
               </div>
             </div>

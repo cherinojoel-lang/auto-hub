@@ -11,14 +11,6 @@ vi.mock('@/components/ui/loading-spinner', () => ({
   LoadingSpinner: () => <div data-testid="loading-spinner">Loading...</div>
 }));
 
-const mockIntersectionObserver = vi.fn();
-mockIntersectionObserver.mockReturnValue({
-  observe: () => null,
-  unobserve: () => null,
-  disconnect: () => null
-});
-window.IntersectionObserver = mockIntersectionObserver;
-
 describe('HomePage', () => {
   it('renders successfully', () => {
     render(

@@ -1,4 +1,9 @@
-import { items } from "@wix/data";
+export interface WixDataItem {
+  _id?: string;
+}
 
-export type WixDataItem = items.WixDataItem;
-export type WixDataQueryResult = items.WixDataResult;
+export interface WixDataQueryResult<T extends WixDataItem = WixDataItem> {
+  items: T[];
+  totalCount?: number;
+  hasNext: () => boolean;
+}
