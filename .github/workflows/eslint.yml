@@ -30,7 +30,7 @@ jobs:
 
       - name: Install ESLint
         run: |
-          npm install eslint@9 typescript jiti@^2.0.0 @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-plugin-astro eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y eslint-plugin-import globals @eslint/js typescript-eslint eslint-plugin-vitest
+          npm install eslint@9 typescript jiti@^2.0.0 @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-plugin-astro eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y eslint-plugin-import globals @eslint/js@9 typescript-eslint eslint-plugin-vitest --legacy-peer-deps
           npm install @microsoft/eslint-formatter-sarif
 
       - name: Run ESLint
