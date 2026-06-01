@@ -12,6 +12,9 @@ import { PAGE_METADATA, generateBusinessSchema, SITE_CONFIG } from '@/lib/seo-co
 import VehicleInventorySection from '@/components/VehicleInventorySection';
 import ContactSection from '@/components/ContactSection';
 import HowItWorksSection from '@/components/HowItWorksSection';
+import TestimonialsSection from '@/components/TestimonialsSection';
+import ReviewsSchema from '@/components/schemas/ReviewsSchema';
+import { aggregateRating, trustFacts } from '@/data/reviewsData';
 
 // --- Animation Components ---
 
@@ -141,17 +144,30 @@ export default function HomePage() {
 
         <div className="relative z-10 container mx-auto px-4 max-w-7xl text-left py-10 sm:py-14 lg:py-20 w-full">
           <div className="max-w-[760px]">
-            {/* Headline with animation */}
+            {/* Eyebrow */}
             <AnimatedElement direction="up" delay={0} priority={true}>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl xl:text-[56px] font-heading font-bold text-white mb-5 sm:mb-6 tracking-normal leading-[1.12]">
-                Gebrauchtwagen in Iserlohn-Letmathe
+              <p className="text-xs sm:text-sm font-bold uppercase tracking-[0.25em] text-secondary mb-4">
+                Automobile Quick · Iserlohn-Letmathe · seit 1982
+              </p>
+            </AnimatedElement>
+
+            {/* Headline */}
+            <AnimatedElement direction="up" delay={100} priority={true}>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl xl:text-[64px] font-heading font-bold text-white mb-5 sm:mb-6 leading-[1.05]">
+                Gebrauchtwagen,<br />
+                <span className="text-secondary">denen Sie vertrauen.</span>
               </h1>
             </AnimatedElement>
 
-            {/* Subheadline with animation */}
+            {/* Subheadline mit echtem Trust-Anker */}
             <AnimatedElement direction="up" delay={200} priority={true}>
               <p className="text-base sm:text-lg md:text-xl text-white/95 font-paragraph font-normal mb-8 sm:mb-10 leading-relaxed max-w-[680px]">
-                Seit 1982 bietet Automobile Quick gepflegte Gebrauchtwagen, echte Fahrzeugbilder und persönliche Beratung direkt vor Ort.
+                Persönlich. Ehrlich. Über {aggregateRating.reviewCount} verifizierte Kundenbewertungen
+                mit einer Gesamtnote von{' '}
+                <span className="font-bold text-white">
+                  {aggregateRating.ratingValue.toFixed(2).replace('.', ',')} / 5
+                </span>{' '}
+                Sternen auf mobile.de und AutoScout24.
               </p>
             </AnimatedElement>
 
@@ -418,8 +434,12 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* TESTIMONIALS — echte 204 Bewertungen */}
+      <ReviewsSchema />
+      <TestimonialsSection />
+
       {/* ABOUT SECTION */}
-      <section className="py-12 sm:py-16 md:py-20 bg-surface-muted">
+      <section className="py-12 sm:py-16 md:py-20 bg-surface">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-10">
             <AnimatedElement direction="left">
