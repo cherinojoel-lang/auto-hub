@@ -26,5 +26,14 @@ configure({
   testIdAttribute: 'data-testid',
 })
 
+class MockIntersectionObserver {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+
+global.IntersectionObserver = MockIntersectionObserver as unknown as typeof IntersectionObserver
+window.IntersectionObserver = MockIntersectionObserver as unknown as typeof IntersectionObserver
+
 // Make React's act available globally for testing-library
 global.IS_REACT_ACT_ENVIRONMENT = true

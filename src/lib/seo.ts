@@ -30,9 +30,6 @@ export const DEFAULT_SEO: SEOConfig = {
 
 export function updateMetaTags(config: SEOConfig) {
   document.documentElement.lang = 'de';
-  document
-    .querySelectorAll('[wix-seo-tags="true"]')
-    .forEach((element) => element.remove());
 
   // Update title
   document.title = config.title;
@@ -152,8 +149,8 @@ export function getStructuredDataOrganization() {
       {
         '@type': 'OpeningHoursSpecification',
         dayOfWeek: 'Saturday',
-        opens: '09:00',
-        closes: '13:00',
+        opens: '10:00',
+        closes: '16:00',
       },
     ],
   };

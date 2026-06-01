@@ -8,6 +8,7 @@ import customErrorOverlayPlugin from "./vite-error-overlay-plugin.js";
 // https://astro.build/config
 export default defineConfig({
   output: "server",
+  site: 'https://automobilequick.de',
   base: "/",
   adapter: cloudflare({
     platformProxy: { enabled: true },
@@ -35,7 +36,7 @@ export default defineConfig({
     plugins: [customErrorOverlayPlugin()],
     build: {
       rollupOptions: {
-        external: ['@wix/data'],
+        external: ['@wix/data', '@wix/sdk', '@wix/members', '@wix/forms'],
         output: {
           manualChunks(id) {
             if (id.includes('node_modules/framer-motion')) return 'vendor-framer';
@@ -46,7 +47,7 @@ export default defineConfig({
       }
     },
     ssr: {
-      external: ['@wix/data'],
+      external: ['@wix/data', '@wix/sdk', '@wix/members', '@wix/forms'],
     },
     cacheDir: 'node_modules/.cache/.vite',
     optimizeDeps: {

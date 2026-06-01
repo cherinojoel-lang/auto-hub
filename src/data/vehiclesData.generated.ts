@@ -20,6 +20,21 @@ export type Vehicle = {
   isNew?: boolean;
   listingDate?: string;
   description?: string;
+  /** EnVKV — Pkw-EnVKV-Pflichtangaben (Werbeverordnung) */
+  envkv?: {
+    /** Kraftstoffverbrauch kombiniert in l/100km (Verbrenner) oder kWh/100km (E) */
+    consumptionCombined?: string;
+    consumptionInner?: string;
+    consumptionOuter?: string;
+    /** CO2-Emissionen kombiniert in g/km */
+    co2Combined?: string;
+    /** CO2-Effizienzklasse (A bis G nach neuer Skala 2024) */
+    co2Class?: 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G';
+    /** Elektrische Reichweite in km (nur BEV/PHEV) */
+    electricRange?: string;
+    /** WLTP oder NEFZ */
+    measurementProcedure?: 'WLTP' | 'NEFZ';
+  };
 };
 
 export const vehiclesData: Vehicle[] = [
