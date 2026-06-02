@@ -24,7 +24,7 @@ export interface AggregateRatingData {
 }
 
 export const aggregateRating: AggregateRatingData = {
-  ratingValue: 4.98,
+  ratingValue: 4.96,
   reviewCount: 204,
   bestRating: 5,
   worstRating: 1,

@@ -44,7 +44,7 @@ export default function TestimonialsSection() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
         <div className="text-center mb-12 sm:mb-16">
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-secondary mb-3">
-            Was unsere Kunden sagen
+            Geprüfte Qualität seit 1962
           </p>
           <h2
             id="testimonials-heading"
@@ -52,7 +52,7 @@ export default function TestimonialsSection() {
           >
             {aggregateRating.reviewCount} echte Bewertungen.{' '}
             <span className="text-secondary">
-              {aggregateRating.ratingValue.toFixed(1).replace('.', ',')} von 5 Sternen.
+              {aggregateRating.ratingValue.toFixed(2).replace('.', ',')} von 5 Sternen.
             </span>
           </h2>
 
@@ -64,25 +64,27 @@ export default function TestimonialsSection() {
               </span>
             </div>
             <div className="text-sm text-text-secondary">
-              {aggregateRating.reviewCount} verifizierte Bewertungen
+              {aggregateRating.reviewCount} verifizierte Kundenmeinungen
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-6 mt-6 text-sm">
+          <div className="flex flex-wrap items-center justify-center gap-6 mt-8 text-sm bg-surface-elevated/50 p-4 rounded-full border border-border-line/50 inline-flex mx-auto">
+            <span className="text-text-secondary font-medium mr-2">Profile einsehen:</span>
             {aggregateRating.bySource.map((s) => (
               <a
                 key={s.source}
                 href={s.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-text-secondary hover:text-primary transition-colors"
+                className="inline-flex items-center gap-2 text-text-secondary hover:text-primary transition-colors group"
+                title={`Bewertungen auf ${SOURCE_LABELS[s.source]} ansehen`}
               >
                 <SourceBadge source={s.source} />
-                <span className="font-bold text-foreground">
+                <span className="font-bold text-foreground group-hover:text-primary transition-colors">
                   {s.rating.toFixed(1).replace('.', ',')}
                 </span>
-                <span>({s.count})</span>
-                <ExternalLink size={12} aria-hidden="true" />
+                <span className="opacity-70">({s.count})</span>
+                <ExternalLink size={12} aria-hidden="true" className="opacity-50 group-hover:opacity-100" />
               </a>
             ))}
           </div>
@@ -93,11 +95,11 @@ export default function TestimonialsSection() {
             { value: '100 %', label: 'Weiterempfehlung' },
             { value: '100 %', label: 'Fahrzeug wie beschrieben' },
             { value: `${trustFacts.yearsOnMobileDe}+ Jahre`, label: 'auf mobile.de' },
-            { value: 'seit 1982', label: 'inhabergeführt' },
+            { value: 'seit 1982', label: 'Inhabergeführt' },
           ].map((stat) => (
             <div
               key={stat.label}
-              className="text-center p-5 bg-surface-elevated rounded-lg border border-border-line"
+              className="text-center p-5 bg-surface-elevated rounded-lg border border-border-line transition-all hover:border-secondary/30"
             >
               <p className="text-2xl sm:text-3xl font-bold text-primary mb-1">{stat.value}</p>
               <p className="text-xs sm:text-sm text-text-secondary leading-snug">{stat.label}</p>
@@ -143,7 +145,7 @@ export default function TestimonialsSection() {
             rel="noopener noreferrer"
             className="btn-premium-primary"
           >
-            Alle {aggregateRating.reviewCount} Bewertungen lesen
+            Alle {aggregateRating.reviewCount} Rezensionen auf mobile.de lesen
             <ExternalLink size={16} aria-hidden="true" />
           </a>
         </div>
