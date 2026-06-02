@@ -71,3 +71,16 @@ Wenn npm install/build wegen Wix-internen Paketen fehlschlägt:
 4. /fahrzeugbestand lädt: ja/nein oder nicht lokal prüfbar
 5. 17 Fahrzeuge sichtbar: ja/nein oder nicht lokal prüfbar
 6. Restfehler
+
+
+## STRICT GUARDRAILS (SCMS v3.0)
+- Keine Umsetzung bei unklarem Auftrag.
+- Bei Plan-/Architektur-/Audit-Aufträgen: nur Plan/Audit, keine Mutation.
+- Keine erfundenen Zahlen, Preise, Bewertungen oder Claims.
+- Mock-Daten müssen als MOCK_DATA markiert werden.
+- Visuelle Aussagen nur nach Screenshot/Browser/Playwright/DevTools-Verifikation.
+- Performance-/SEO-/A11y-Aussagen nur mit Messwerten.
+- Plan-Tasks erst DONE, wenn Verification-Gate bestanden ist.
+- Keine 100%-Aussage ohne Belege.
+- Keine Ordner verschieben ohne Diff/Backup.
+- Keine Skills/MCPs installieren ohne SKILL.md-/Config-Audit.
