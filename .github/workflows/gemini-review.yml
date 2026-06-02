@@ -1,0 +1,29 @@
+name: Gemini AI Code Review
+
+on:
+  pull_request:
+    branches: [main]
+  issues:
+    types: [opened, edited]
+
+jobs:
+  review:
+    name: Gemini Review
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Gemini CLI Review
+        uses: google-github-actions/run-gemini-cli@v1
+        with:
+          task: "Code-Review auf Qualität, Sicherheit, Performance, Tests, Breaking Changes"
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
