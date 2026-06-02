@@ -352,7 +352,7 @@ export default function VehiclePage() {
                           <div className="absolute top-3 left-3 bg-white/95 text-primary px-3 py-1.5 text-xs font-bold rounded-md border border-border-line">
                             {vehicle.isNew ? 'Neu eingetroffen' : 'Verfügbar'}
                           </div>
-                          {imageCount > 0 && (
+                          {imageCount > 1 && (
                             <div className="absolute top-3 right-3 inline-flex items-center gap-1.5 bg-primary/95 text-white px-3 py-1.5 text-xs font-bold rounded-md">
                               <Camera size={13} />
                               <span>{imageCount} Fotos</span>

@@ -57,3 +57,6 @@ scripts/
 
 # Vitest coverage output
 coverage/
+
+# Local session reports / screenshots (lokal, nicht versionieren)
+reports/
