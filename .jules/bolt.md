@@ -17,3 +17,7 @@
 ## 2024-05-15 - [Bypassing IntersectionObserver for LCP]
 **Learning:** The `AnimatedElement` component utilizes an `IntersectionObserver` to trigger fade-in animations. Wrapping above-the-fold content within it creates an anti-pattern delaying initial render, directly impacting LCP metrics.
 **Action:** Always modify localized wrapper definitions to accept a `priority` prop. Set this prop to `true` for hero content, enabling an early return that completely bypasses the observer and initializes the component as visible immediately.
+
+## 2024-06-02 - Extract AnimatedElement to reduce duplication
+**Learning:** The `AnimatedElement` component, which uses an `IntersectionObserver` to animate components into view, was duplicated inline across 7 different page components in `src/components/pages/`. This meant 7 separate copies of the component in the compiled bundle and duplicated `IntersectionObserver` initialization logic for each page.
+**Action:** Extracted `AnimatedElement` into a shared component at `src/components/ui/AnimatedElement.tsx` and updated all 7 pages to import it, reducing bundle size and improving maintainability.

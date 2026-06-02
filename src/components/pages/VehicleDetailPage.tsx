@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Calendar, Gauge, Zap, Fuel, ArrowLeft, Phone, MapPin, Wrench, ChevronLeft, ChevronRight } from 'lucide-react';
 import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
@@ -13,45 +13,8 @@ import CarSchema from '@/components/schemas/CarSchema';
 import { Lightbox } from '@/components/ui/lightbox';
 import { WhatsAppCta } from '@/components/ui/whatsapp-cta';
 import { EnvkvDisclosure } from '@/components/EnvkvDisclosure';
+import { AnimatedElement } from '@/components/ui/AnimatedElement';
 
-const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; priority?: boolean }> = ({
-  children, 
-  className = '',
-  priority = false
-}) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(priority || false);
-
-  useEffect(() => {
-    if (priority) return;
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(el);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      className={`transition-all duration-700 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-      } ${className}`}
-    >
-      {children}
-    </div>
-  );
-};
 
 const SAFE_SERVICE_POINTS = [
   'Persönliche Beratung vor Ort',
