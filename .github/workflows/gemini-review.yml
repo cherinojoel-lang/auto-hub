@@ -21,9 +21,16 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Gemini CLI Review
-        uses: google-github-actions/run-gemini-cli@v1
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          task: "Code-Review auf Qualität, Sicherheit, Performance, Tests, Breaking Changes"
+          node-version: '20'
+
+      - name: Install Gemini CLI
+        run: npm install -g @google/gemini-cli
+
+      - name: Gemini CLI Review
+        run: gemini /code-review
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
