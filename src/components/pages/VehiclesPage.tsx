@@ -19,17 +19,15 @@ import { getVehicleImageCount, getFeatureChips } from '@/lib/domain/vehicleFeatu
 const MANUFACTURER_OPTIONS = deriveManufacturerOptions(vehiclesData);
 const FUEL_OPTIONS = deriveFuelOptions(vehiclesData);
 
-const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number; priority?: boolean }> = ({
+const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({
   children, 
   className = '',
-  delay = 0,
-  priority = false
+  delay = 0
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(priority || false);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    if (priority) return;
     const el = ref.current;
     if (!el) return;
 
@@ -163,7 +161,7 @@ export default function VehiclePage() {
       {/* Hero Section */}
       <section className="bg-primary text-white py-12 sm:py-16 md:py-20">
         <div className="mx-auto w-full max-w-[22rem] px-4 sm:max-w-[1400px]">
-          <AnimatedElement priority={true}>
+          <AnimatedElement>
             <div className="w-full max-w-3xl mx-auto text-center min-w-0">
               <h1 className="mx-auto max-w-[17rem] sm:max-w-none text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-4 sm:mb-6 leading-tight break-words">
                 Aktuelle Gebrauchtwagen in Iserlohn-Letmathe
