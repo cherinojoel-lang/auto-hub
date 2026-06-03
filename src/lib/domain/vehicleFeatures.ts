@@ -17,12 +17,21 @@ export const getVehicleImageCount = (vehicle: Vehicle): number => {
   return new Set(images).size;
 };
 
-export const getFeatureChips = (vehicle: Vehicle): string[] => {
+const deriveFeatures = (vehicle: Vehicle): string[] => {
   const source = `${vehicle.title} ${vehicle.description || ''}`;
   const fuel = vehicle.fuel?.trim().toLowerCase();
   return FEATURE_PATTERNS
     .filter(({ pattern }) => pattern.test(source))
     .map(({ label }) => label)
-    .filter((label) => label.toLowerCase() !== fuel)
-    .slice(0, 4);
+    .filter((label) => label.toLowerCase() !== fuel);
+};
+
+export const getFeatureChips = (vehicle: Vehicle): string[] => deriveFeatures(vehicle).slice(0, 4);
+
+export const getAllFeatures = (vehicle: Vehicle): string[] => deriveFeatures(vehicle);
+
+export const getTransmission = (vehicle: Vehicle): string | null => {
+  const source = `${vehicle.title} ${vehicle.description || ''}`;
+  const automatik = FEATURE_PATTERNS.find((f) => f.label === 'Automatik');
+  return automatik && automatik.pattern.test(source) ? 'Automatik' : null;
 };

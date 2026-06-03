@@ -33,4 +33,5 @@ jobs:
         run: gemini /code-review
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_CLI_TRUST_WORKSPACE: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

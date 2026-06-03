@@ -13,6 +13,7 @@ import CarSchema from '@/components/schemas/CarSchema';
 import { Lightbox } from '@/components/ui/lightbox';
 import { WhatsAppCta } from '@/components/ui/whatsapp-cta';
 import { EnvkvDisclosure } from '@/components/EnvkvDisclosure';
+import { getAllFeatures, getTransmission } from '@/lib/domain/vehicleFeatures';
 
 const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; priority?: boolean }> = ({
   children, 
@@ -132,6 +133,9 @@ export default function VehicleDetailPage() {
   const galleryImages = getGalleryImages();
   const hasMultipleImages = galleryImages.length > 1;
   const currentImage = galleryImages[currentGalleryIndex] || vehicle?.mainImage;
+
+  const vehicleFeatures = vehicle ? getAllFeatures(vehicle) : [];
+  const transmission = vehicle ? getTransmission(vehicle) : null;
 
   const handlePrevImage = () => {
     setCurrentGalleryIndex(prev => prev === 0 ? galleryImages.length - 1 : prev - 1);
@@ -364,10 +368,12 @@ export default function VehicleDetailPage() {
                       <p className="font-bold text-primary">{vehicle.fuel}</p>
                     </div>
                   )}
-                  <div className="flex justify-between items-center pb-4 border-b border-border-line">
-                    <p className="text-sm text-text-secondary font-medium">Getriebe</p>
-                    <p className="font-bold text-primary">Automatik</p>
-                  </div>
+                  {transmission && (
+                    <div className="flex justify-between items-center pb-4 border-b border-border-line">
+                      <p className="text-sm text-text-secondary font-medium">Getriebe</p>
+                      <p className="font-bold text-primary">{transmission}</p>
+                    </div>
+                  )}
                   <div className="flex justify-between items-center">
                     <p className="text-sm text-text-secondary font-medium">Standort</p>
                     <p className="font-bold text-primary">Iserlohn-Letmathe</p>
@@ -375,6 +381,23 @@ export default function VehicleDetailPage() {
                 </div>
               </div>
             </div>
+
+            {/* Mobile: Ausstattung */}
+            {vehicleFeatures.length > 0 && (
+              <div className="lg:hidden bg-background border-t border-border-line">
+                <div className="container mx-auto px-4 max-w-7xl py-8">
+                  <h2 className="text-xl font-heading font-bold text-primary mb-6">Ausstattung</h2>
+                  <div className="grid grid-cols-2 gap-3">
+                    {vehicleFeatures.map((feature, idx) => (
+                      <div key={idx} className="flex items-center gap-3 p-3 bg-warm-bg rounded-lg border border-border-line">
+                        <div className="w-2 h-2 bg-secondary rounded-full flex-shrink-0"></div>
+                        <span className="font-medium text-foreground text-sm">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Mobile: Trust Section */}
             <div className="lg:hidden bg-warm-bg border-t border-border-line">
@@ -564,13 +587,15 @@ export default function VehicleDetailPage() {
                           </div>
                         )}
 
-                        <div className="bg-card-bg p-5 rounded-lg border border-border-line">
-                          <div className="flex items-center gap-3 mb-2">
-                            <Wrench className="text-secondary flex-shrink-0" size={24} />
-                            <p className="text-xs font-bold text-text-secondary uppercase tracking-wide">Getriebe</p>
+                        {transmission && (
+                          <div className="bg-card-bg p-5 rounded-lg border border-border-line">
+                            <div className="flex items-center gap-3 mb-2">
+                              <Wrench className="text-secondary flex-shrink-0" size={24} />
+                              <p className="text-xs font-bold text-text-secondary uppercase tracking-wide">Getriebe</p>
+                            </div>
+                            <p className="font-bold text-lg text-primary">{transmission}</p>
                           </div>
-                          <p className="font-bold text-lg text-primary">Automatik</p>
-                        </div>
+                        )}
 
                         <div className="bg-card-bg p-5 rounded-lg border border-border-line">
                           <div className="flex items-center gap-3 mb-2">
@@ -583,17 +608,40 @@ export default function VehicleDetailPage() {
                     </div>
                   </AnimatedElement>
 
-                  {/* Features/Equipment */}
+                  {/* Features/Equipment — echte abgeleitete Ausstattung */}
                   <AnimatedElement>
                     <div>
                       <h2 className="text-2xl sm:text-3xl font-heading font-bold text-primary mb-6">
                         Ausstattung
                       </h2>
+                      {vehicleFeatures.length > 0 ? (
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                          {vehicleFeatures.map((feature, idx) => (
+                            <div key={idx} className="flex items-center gap-3 p-3 bg-warm-bg rounded-lg border border-border-line">
+                              <div className="w-2 h-2 bg-secondary rounded-full flex-shrink-0"></div>
+                              <span className="font-medium text-foreground">{feature}</span>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="text-text-secondary leading-relaxed font-paragraph">
+                          Ausstattungsdetails nennen wir Ihnen gerne persönlich — rufen Sie an oder fragen Sie unverbindlich an.
+                        </p>
+                      )}
+                    </div>
+                  </AnimatedElement>
+
+                  {/* Service bei Automobile Quick — bewusst getrennt von Fahrzeug-Ausstattung */}
+                  <AnimatedElement>
+                    <div>
+                      <h2 className="text-2xl sm:text-3xl font-heading font-bold text-primary mb-6">
+                        Service bei Automobile Quick
+                      </h2>
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                        {SAFE_SERVICE_POINTS.map((feature, idx) => (
+                        {SAFE_SERVICE_POINTS.map((point, idx) => (
                           <div key={idx} className="flex items-center gap-3 p-3 bg-warm-bg rounded-lg border border-border-line">
                             <div className="w-2 h-2 bg-secondary rounded-full flex-shrink-0"></div>
-                            <span className="font-medium text-foreground">{feature}</span>
+                            <span className="font-medium text-foreground">{point}</span>
                           </div>
                         ))}
                       </div>
