@@ -10,8 +10,6 @@ jobs:
   review:
     name: Gemini Review
     runs-on: ubuntu-latest
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     permissions:
       contents: read
       pull-requests: write
@@ -32,8 +30,7 @@ jobs:
         run: npm install -g @google/gemini-cli
 
       - name: Gemini CLI Review
-        run: gemini /code-review --model gemini-1.5-flash --skip-trust
+        run: gemini /code-review
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GEMINI_CLI_TRUST_WORKSPACE: "true"
