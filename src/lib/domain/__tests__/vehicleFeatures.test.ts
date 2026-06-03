@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import type { Vehicle } from '@/data/vehiclesData.generated';
-import { getVehicleImageCount, getFeatureChips } from '../vehicleFeatures';
+import { getVehicleImageCount, getFeatureChips, getAllFeatures, getTransmission } from '../vehicleFeatures';
 
 const make = (overrides: Partial<Vehicle>): Vehicle => ({
   id: 'x',
@@ -86,5 +86,35 @@ describe('getFeatureChips', () => {
   it('gibt [] zurück wenn keine Patterns matchen', () => {
     const v = make({ title: 'Opel Corsa Basisausstattung', description: '' });
     expect(getFeatureChips(v)).toEqual([]);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// getAllFeatures
+// ---------------------------------------------------------------------------
+describe('getAllFeatures', () => {
+  it('gibt mehr als 4 Features zurück (kein slice-Cap)', () => {
+    const v = make({ title: 'BMW X5 Navi LED PDC Kamera Alu Klima' });
+    expect(getAllFeatures(v).length).toBeGreaterThan(4);
+  });
+
+  it('gibt [] zurück wenn keine Patterns matchen', () => {
+    const v = make({ title: 'Opel Corsa Basis', description: '' });
+    expect(getAllFeatures(v)).toEqual([]);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// getTransmission
+// ---------------------------------------------------------------------------
+describe('getTransmission', () => {
+  it('gibt "Automatik" zurück wenn im Titel belegt', () => {
+    const v = make({ title: 'VW Passat Automatik' });
+    expect(getTransmission(v)).toBe('Automatik');
+  });
+
+  it('gibt null zurück wenn nicht belegt (kein Hardcode-Automatik)', () => {
+    const v = make({ title: 'Renault Scenic 1.2 TCe' });
+    expect(getTransmission(v)).toBeNull();
   });
 });
