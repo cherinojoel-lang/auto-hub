@@ -17,3 +17,7 @@
 ## 2024-05-15 - [Bypassing IntersectionObserver for LCP]
 **Learning:** The `AnimatedElement` component utilizes an `IntersectionObserver` to trigger fade-in animations. Wrapping above-the-fold content within it creates an anti-pattern delaying initial render, directly impacting LCP metrics.
 **Action:** Always modify localized wrapper definitions to accept a `priority` prop. Set this prop to `true` for hero content, enabling an early return that completely bypasses the observer and initializes the component as visible immediately.
+
+## 2026-06-04 - [Widespread LCP Anti-pattern via IntersectionObserver]
+**Learning:** Found that the LCP anti-pattern of wrapping above-the-fold content in `AnimatedElement` (which delays rendering until `IntersectionObserver` triggers) was widespread across almost all top-level page components (e.g., `HomePage`, `VehiclesPage`, `FinancingPage`, etc.), not just a single component. This caused significant perceived latency across the entire application.
+**Action:** Always verify if a performance issue like LCP-delaying wrappers exists systematically across the codebase. Applied `priority={true}` to the first `AnimatedElement` on each primary route component to bypass the observer for critical hero sections.
