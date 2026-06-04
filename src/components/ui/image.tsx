@@ -5,6 +5,7 @@ const FALLBACK_IMAGE_URL = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BA
 
 export type ImageProps = ImgHTMLAttributes<HTMLImageElement> & {
   fittingType?: 'fill' | 'fit' | string;
+  fetchPriority?: 'high' | 'low' | 'auto';
 }
 
 export const Image = forwardRef<HTMLImageElement, ImageProps>(

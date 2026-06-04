@@ -50,7 +50,7 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
       observer.disconnect();
       if (timeoutId) clearTimeout(timeoutId);
     };
-  }, [delay]);
+  }, [delay, priority]);
 
   return (
     <div
