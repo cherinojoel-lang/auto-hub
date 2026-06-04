@@ -13,6 +13,7 @@ const Textarea = React.forwardRef<
         className
       )}
       ref={ref}
+      maxLength={props.maxLength || 5000}
       {...props}
     />
   )
