@@ -17,3 +17,6 @@
 ## 2024-05-15 - [Bypassing IntersectionObserver for LCP]
 **Learning:** The `AnimatedElement` component utilizes an `IntersectionObserver` to trigger fade-in animations. Wrapping above-the-fold content within it creates an anti-pattern delaying initial render, directly impacting LCP metrics.
 **Action:** Always modify localized wrapper definitions to accept a `priority` prop. Set this prop to `true` for hero content, enabling an early return that completely bypasses the observer and initializes the component as visible immediately.
+## 2024-05-18 - AnimatedElement LCP Optimization
+**Learning:** Wrapping above-the-fold content like Hero sections in an `AnimatedElement` that uses `IntersectionObserver` causes an unnecessary rendering delay and degrades LCP because it waits for JS execution and an observer callback before setting opacity.
+**Action:** Always provide a `priority={true}` prop mechanism for animation components to bypass the observer logic entirely, ensuring critical LCP elements render immediately while still participating in any subsequent CSS transition if necessary.
