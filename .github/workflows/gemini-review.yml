@@ -32,7 +32,7 @@ jobs:
         run: npm install -g @google/gemini-cli
 
       - name: Gemini CLI Review
-        run: gemini /code-review --model gemini-1.5-pro
+        run: gemini /code-review --model gemini-pro
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_CLI_TRUST_WORKSPACE: true
