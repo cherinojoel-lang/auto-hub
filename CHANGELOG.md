@@ -1,5 +1,38 @@
 # Changelog
 
+## [Unreleased] - 2026-05-28 to 2026-06-04
+
+### 🚀 Features & Enhancements
+- feat: final best practice hardening & trust sourcing
+- chore(main): release 1.0.0
+- fix(ux): replace silent error in vehicle loading with visible error state
+- fix: safely parse BASE_NAME for react router basename
+
+### ⚡ Performance (Bolt)
+- Bolt: optimize multi-reference operations with concurrent `Promise.all`
+- Bolt: LCP Optimization for AnimatedElement by bypassing IntersectionObserver for above-the-fold content
+- perf: fix memory leaks by clearing setTimeout references in IntersectionObserver callbacks
+
+### 🛡️ Security (Sentinel)
+- Sentinel: add `maxLength` to form inputs to prevent DoS risks and large payloads
+
+### 🎨 Accessibility & UI (Palette)
+- Palette: Improve mobile menu accessibility, add keyboard support, and ARIA controls
+- Palette: Link form labels to inputs for a11y
+- Palette: Enhance accessibility and focus states for toggle buttons
+- fix: accessibility issues in the financing calculator form
+
+### 🧪 Testing
+- test: add comprehensive tests for `cn` utility function
+- test: add tests for `generateBreadcrumbSchema`
+
+### 🧹 Code Health & CI
+- refactor: extract `AnimatedElement` to reduce code duplication and bundle size
+- ci: resolve various GitHub Actions suite failures (Trivy version, ESLint config, Gemini CLI trust)
+- ci: enhance security scanning workflows (Semgrep, njsscan, Bandit, CodeQL)
+- fix: use jiti@2 for typescript config loading and reinstall for eslint v9 support
+- docs: update PROJECT_STATUS.md to reflect successful API publish
+
 ## [Unreleased] - 2026-05-15 to 2026-05-21
 
 ### 🚀 Features & Enhancements
