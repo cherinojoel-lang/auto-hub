@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { BaseCrudService } from '@/integrations';
+import { useToast } from '@/hooks/use-toast';
 import { Image } from '@/components/ui/image';
 
 interface BlogArticle {
@@ -15,6 +16,7 @@ interface BlogArticle {
 }
 
 export default function BlogPage() {
+  const { toast } = useToast();
   const [articles, setArticles] = useState<BlogArticle[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -26,6 +28,7 @@ export default function BlogPage() {
         setArticles(result.items || []);
       } catch (error) {
         console.error('Error fetching blog articles:', error);
+        toast({ variant: 'destructive', title: 'Fehler', description: 'Beim Laden der Blog-Artikel ist ein Fehler aufgetreten.' });
       } finally {
         setIsLoading(false);
       }
