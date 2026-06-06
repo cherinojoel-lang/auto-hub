@@ -149,8 +149,8 @@ export function getStructuredDataOrganization() {
       {
         '@type': 'OpeningHoursSpecification',
         dayOfWeek: 'Saturday',
-        opens: '10:00',
-        closes: '16:00',
+        opens: '09:00',
+        closes: '13:00',
       },
     ],
   };

@@ -8,6 +8,13 @@ describe('ContactSection', () => {
     expect(screen.getByRole('heading', { name: /Schnellanfrage/i })).toBeInTheDocument();
   });
 
+  it('shows the verified contact details', () => {
+    render(<ContactSection />);
+
+    expect(screen.getByText('auto-quick@t-online.de')).toBeInTheDocument();
+    expect(screen.getByText('Sa: 09:00 – 13:00')).toBeInTheDocument();
+  });
+
   it('handles submission errors', async () => {
     render(<ContactSection />);
 

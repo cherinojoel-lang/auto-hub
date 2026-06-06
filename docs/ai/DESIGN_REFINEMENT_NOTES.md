@@ -1,5 +1,7 @@
 # Design Refinement Notes — Premium Visual System Pass
 
+> Current contact, opening-hour, review, and schema facts supersede this historical note. Use `docs/ai/PROJECT_STATUS.md` and `docs/ai/SOURCES.md` for the 2026-06-07 truth.
+
 **Branch:** feat/premium-design-refinement  
 **Date:** 2026-06-01  
 **Phase:** 3–8 (Token Pass, Homepage, Cards, VDP, Footer, Wix cleanup)

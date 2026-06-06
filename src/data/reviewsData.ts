@@ -24,8 +24,8 @@ export interface AggregateRatingData {
 }
 
 export const aggregateRating: AggregateRatingData = {
-  ratingValue: 4.96,
-  reviewCount: 204,
+  ratingValue: 4.98,
+  reviewCount: 205,
   bestRating: 5,
   worstRating: 1,
   bySource: [
@@ -38,7 +38,7 @@ export const aggregateRating: AggregateRatingData = {
     {
       source: 'autoscout24',
       rating: 4.9,
-      count: 47,
+      count: 48,
       url: 'https://www.autoscout24.de/haendler/automobile-quick/bewertungen',
     },
   ],
@@ -122,7 +122,7 @@ export const featuredReviews: Review[] = [
 export const trustFacts = {
   founded: 1982,
   yearsOnMobileDe: new Date().getFullYear() - 2000,
-  totalReviews: 204,
+  totalReviews: 205,
   recommendationRate: 100,
   vehicleAsDescribedRate: 100,
   ownerName: 'Konstantinos Pappas',
