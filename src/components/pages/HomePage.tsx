@@ -105,7 +105,7 @@ export default function HomePage() {
         {/* Background Image with Dark Overlay Gradient */}
         <div className="absolute inset-0 z-0">
           <Image 
-            src="/images/hero-bg.png" 
+            src="/images/hero-bg.jpg"
             alt="Automobile Quick Autohaus - Gebrauchtwagen in Iserlohn-Letmathe seit 1982" 
             className="w-full h-full object-cover object-center"
             width={1600}

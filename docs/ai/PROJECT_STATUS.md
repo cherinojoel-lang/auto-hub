@@ -30,6 +30,12 @@ Last verified: 2026-06-07
 3. Use reviews as visible trust proof with external source links, but avoid unsupported rich-result claims.
 4. Continue design optimization through a copy-paste master prompt after this correction pass.
 
+## Additional Local Hardening Under Review
+- Hero image source changed from `/images/hero-bg.png` to existing `/images/hero-bg.jpg`.
+- `ContactSection` map iframe accessibility attributes added.
+- Initial canonical link now uses production-domain route canonical before React hydration.
+- Mobile floating CTA bar mounted globally and excluded from vehicle detail pages.
+
 ## Known Open Decisions
 - Confirm final production routing and whether both `automobilequick.de` and `automobile-quick.de` should be maintained.
 - Confirm whether a real domain email should replace `auto-quick@t-online.de` later; do not change it without source confirmation.
