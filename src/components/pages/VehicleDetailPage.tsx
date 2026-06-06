@@ -793,7 +793,7 @@ export default function VehicleDetailPage() {
       {vehicle && (
         <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-white border-t border-border-line shadow-[0_-2px_8px_rgba(0,0,0,0.08)] px-4 py-3 flex gap-3">
           <a
-            href="tel:+4923749129120"
+            href="tel:+492374912912"
             className="flex-1 flex items-center justify-center gap-2 py-3 bg-primary text-white font-bold rounded-md text-sm hover:bg-primary/90 transition-colors min-h-[48px]"
             aria-label="Automobile Quick anrufen"
           >
