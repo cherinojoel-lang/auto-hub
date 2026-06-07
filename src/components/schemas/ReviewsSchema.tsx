@@ -42,7 +42,7 @@ export default function ReviewsSchema() {
     const tag = document.createElement('script');
     tag.type = 'application/ld+json';
     tag.dataset.schema = 'reviews';
-    tag.textContent = JSON.stringify(schema);
+    tag.textContent = JSON.stringify(schema).replace(/</g, '\\u003c').replace(/>/g, '\\u003e');
     document.head.appendChild(tag);
 
     return () => {
