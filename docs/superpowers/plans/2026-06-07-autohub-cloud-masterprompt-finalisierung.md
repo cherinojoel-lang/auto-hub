@@ -2,33 +2,37 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** AutoHub / Automobile Quick final über GitHub, CI, optionalen Claude-Cloud-Designreview, Production-Deployment und Live-Smoke-Test abschließen.
+**Goal:** AutoHub / Automobile Quick final über GitHub, CI, optionalen Gemini/Jamy-AI-Pro-Designreview, Cloudflare-Worker-Deployment und Live-Smoke-Test abschließen.
 
-**Architecture:** Bestehendes Astro/React/Tailwind/Cloudflare-Projekt bleibt unverändert; keine neue Designrunde im Code ohne Befund. Claude Cloud wird als externer Review-/Design-Operator genutzt, während Codex GitHub, CI, Merge, Deploy-Verifikation und Memory-Sync übernimmt.
+**Architecture:** Bestehendes Astro/React/Tailwind/Cloudflare-Projekt bleibt unverändert; keine neue Designrunde im Code ohne Befund. Gemini/Jamy mit AI-Pro-Modellzugriff wird als externer Review-/Design-Operator genutzt, während Codex GitHub, CI, Merge, Deploy-Verifikation und Memory-Sync übernimmt.
 
-**Tech Stack:** Astro, React, TypeScript, Tailwind, Cloudflare Workers/Wrangler, GitHub PR #238, npm verification gates, optional Claude Cloud Review.
+**Tech Stack:** Astro, React, TypeScript, Tailwind, Cloudflare Workers/Wrangler, GitHub PRs #238/#242, npm verification gates, optional Gemini/Jamy AI Pro Review.
 
 ---
 
 ## Aktueller Stand
 
 - Repo: `/Users/joelcherinodiaz/AI-Memory-Hub/projects/auto-hub`
-- GitHub PR: `#238` — `fix: harden autohub mobile conversion and canonicals`
-- PR URL: `https://github.com/cherinojoel-lang/auto-hub/pull/238`
-- Branch: `codex/autohub-mobile-canonical-hardening`
+- GitHub PR `#238` — `fix: harden autohub mobile conversion and canonicals` — merged.
+- GitHub PR `#242` — `fix: align canonical domain with official site` — merged.
+- Current `main`: `0a14bf0`
+- Cloudflare Worker: `https://automobile-quick.cherinojoel.workers.dev`
+- Current Worker version after final deploy: `1da10777-f70e-4684-869b-911eb29cd5fb`
 - Enthaltene Commits:
   - `1010926` — Kontakt-/Review-Fakten bereinigt
   - `e73a3f7` — Fahrzeugdetail Kontaktlinks korrigiert
   - `5041ed7` — Mobile Conversion + Canonicals gehärtet
+- Follow-up merge:
+  - `0a14bf0` — Canonical/Sitemap/Robots/OG/JSON-LD auf erreichbare offizielle Domain `https://www.automobile-quick.de` ausgerichtet.
 - Harte Checks: `CI Checks`, `CodeQL`, `DevSkim`, `ESLint`, `OSSAR`, `Trivy`, Vercel erfolgreich.
-- Offener Sonderpunkt: `Gemini Review` ist fehlgeschlagen wegen API-Quota/Tooling (`429`), nicht wegen Website-Code.
+- Offener Sonderpunkt: offizieller GitHub-`Gemini Review` Check schlug wegen API-Quota/Tooling (`429`) fehl, nicht wegen Website-Code. Manuelle Gemini/Jamy-Pro-Prüfung darf diesen automatischen Quota-Fehler ersetzen.
 - Lokale Besonderheit: `.hermes/` enthält einen vorherigen Plan und ist aktuell untracked. Dieser neue Plan liegt bewusst unter `docs/superpowers/plans/`.
 
 ## Scope
 
 ### In Scope
 
-- Claude-Cloud-Masterprompt für finalen Design-/Conversion-/SEO-Review.
+- Gemini/Jamy-Masterprompt für finalen Design-/Conversion-/SEO-Review.
 - Codex-Schritte für GitHub-Sync, PR-Status, Merge, Deploy-Prüfung, Live-Smoke-Test und Memory-Sync.
 - Klare Entscheidungspunkte: wann Cloud Review nötig ist, wann gemerged wird, wann Production als final gilt.
 
@@ -53,12 +57,18 @@
 
 ---
 
-## Masterprompt für Claude Cloud
+## Masterprompt für Gemini/Jamy AI Pro
 
-Den folgenden Prompt in Claude Cloud einfügen, falls ein finaler externer Review vor Merge/Production gewünscht ist.
+Den folgenden Prompt in Gemini/Jamy einfügen. Nutze dort das beste verfügbare Gemini-AI-Pro-/Advanced-Modell für visuelle, SEO-, Conversion- und Deployment-Analyse. Wenn mehrere Modelle verfügbar sind, nutze das stärkste Reasoning-/Code-Review-Modell für die Repo-Prüfung und ein starkes multimodales Modell für Screenshots/Designbewertung.
 
 ```text
-Du arbeitest als leitender Design-, Conversion-, SEO- und Delivery-Reviewer für das Projekt AutoHub / Automobile Quick.
+Du arbeitest als leitender Design-, Conversion-, SEO-, Cloudflare-Workers- und Delivery-Reviewer für das Projekt AutoHub / Automobile Quick.
+
+Modell-/Arbeitsmodus:
+- Nutze das beste verfügbare Gemini/Jamy AI-Pro-/Advanced-Modell.
+- Falls Modellrouting möglich ist: starkes Reasoning-/Code-Modell für Repo/SEO/Schema/CI, multimodales Modell für Screenshots und visuelle UX.
+- Arbeite audit-first. Keine Codeänderung ohne konkreten Befund mit Datei/Zeile oder reproduzierbarer Live-Beobachtung.
+- Wenn du keine konkreten Verbesserungen findest: nichts ändern, nur Review-Ergebnis liefern.
 
 WICHTIG:
 - Dies ist ein REVIEW- und FINALISIERUNGS-Auftrag, keine freie Neugestaltung.
@@ -69,21 +79,34 @@ WICHTIG:
 - Keine Blog-Routen löschen.
 - Keine großen Refactorings.
 - Keine Arbeit außerhalb des angegebenen Repos.
+- Kein DNS-/Domain-Cutover und keine Cloudflare-Route-Änderung ohne ausdrückliche User-Freigabe.
+- Cloudflare Workers ist der Zielruntime-Stack. Keine Vercel-/Pages-Migration vorschlagen.
 
 Repo:
 `/Users/joelcherinodiaz/AI-Memory-Hub/projects/auto-hub`
 
 Aktueller GitHub-Stand:
-- PR #238 ist offen:
+- `main` ist synchron mit GitHub.
+- PR #238 ist gemerged:
   `https://github.com/cherinojoel-lang/auto-hub/pull/238`
-- Branch:
-  `codex/autohub-mobile-canonical-hardening`
-- Enthaltene Commits:
+- PR #242 ist gemerged:
+  `https://github.com/cherinojoel-lang/auto-hub/pull/242`
+- Aktueller Main-Commit:
+  `0a14bf0`
+- Enthaltene Kernänderungen:
   - `1010926` — Kontakt-/Review-Fakten bereinigt
   - `e73a3f7` — Fahrzeugdetail Kontaktlinks korrigiert
   - `5041ed7` — Mobile Conversion + Canonicals gehärtet
+  - `0a14bf0` — Canonical/Sitemap/Robots/OG/JSON-LD auf offizielle erreichbare Domain `https://www.automobile-quick.de` ausgerichtet
 - Harte Checks sind grün: CI, CodeQL, DevSkim, ESLint, OSSAR, Trivy, Vercel.
-- `Gemini Review` ist nur wegen API-Quota/Tooling fehlgeschlagen, nicht wegen Codebefund.
+- Der automatische GitHub-`Gemini Review` Check ist nur wegen API-Quota/Tooling (`429`) fehlgeschlagen, nicht wegen Codebefund.
+- Cloudflare Worker ist deployed:
+  `https://automobile-quick.cherinojoel.workers.dev`
+- Final verifizierte Worker-Version:
+  `1da10777-f70e-4684-869b-911eb29cd5fb`
+- Offizielle bestehende Domain mit Altbestand:
+  `https://www.automobile-quick.de`
+- Wichtig: `www.automobile-quick.de` zeigt aktuell noch den alten nginx/Bestandsauftritt. Der neue Worker ist live auf der Worker-URL. DNS-/Route-Cutover ist ein separater Business-/Domain-Schritt.
 
 Pflichtkontext lesen:
 1. `AGENTS.md`
@@ -102,9 +125,11 @@ Verifizierte Fakten, die NICHT ohne neue öffentliche Quelle geändert werden d�
 - Öffnungszeiten: Mo-Fr 09:00-18:00, Sa 09:00-13:00
 - Positionierung: seit 1982 in Iserlohn-Letmathe
 - Bewertungen sichtbar nur als echte externe Profile mobile.de + AutoScout24; keine Review-Rich-Snippets auf LocalBusiness/AutoDealer.
+- SEO-Basisdomain für Canonical/Sitemap/Robots/OG/JSON-LD: `https://www.automobile-quick.de`
+- Nicht verwenden als Canonical: `https://automobilequick.de` ohne Bindestrich, weil diese Domain aktuell nicht auflöst.
 
 Review-Ziel:
-Prüfe, ob die Webseite nach dem PR #238 aus Design-, SEO-, Conversion-, Kontakt- und Deployment-Sicht final reif ist. Wenn du keine konkreten Probleme findest, ändere nichts und bestätige nur den Befund mit Verification.
+Prüfe, ob die Worker-Version aus Design-, SEO-, Conversion-, Kontakt- und Deployment-Sicht final reif für Domain-Cutover ist. Wenn du keine konkreten Probleme findest, ändere nichts und bestätige nur den Befund mit Verification.
 
 Design-/UX-Prüfung:
 - Erste Ansicht: Ist klar, was Automobile Quick anbietet?
@@ -127,6 +152,13 @@ Conversion-Prüfung:
 - Fahrzeugdetailseite hat keine doppelte generische mobile Leiste.
 - Telefonnummer und WhatsApp sind korrekt: keine Variante `4923749129120`.
 
+Cloudflare-Workers-/Deployment-Prüfung:
+- Zielruntime ist Cloudflare Workers via Wrangler.
+- Worker-Live-URL prüfen: `https://automobile-quick.cherinojoel.workers.dev`
+- Kernseiten prüfen: `/`, `/fahrzeugbestand`, `/kontakt`, `/ueber-uns`, ein `/fahrzeugdetail/...` Pfad.
+- Prüfe, ob `robots.txt` und `sitemap.xml` auf `https://www.automobile-quick.de` zeigen.
+- Keine Änderung an DNS, Custom Domain, Cloudflare Routes oder Secrets.
+
 Kontakt-/Fakten-Regressionssuche:
 Suche nach folgenden verbotenen/veralteten Mustern:
 - `4923749129120`
@@ -136,6 +168,7 @@ Suche nach folgenden verbotenen/veralteten Mustern:
 - `seit 1962`
 - `ReviewsSchema`
 - `aggregateRating` oder `reviewCount` im LocalBusiness/AutoDealer JSON-LD-Kontext
+- `automobilequick.de` ohne Bindestrich in aktiven SEO-/Schema-/Sitemap-/Robots-Kontexten
 
 Verification, falls du Code änderst:
 1. `npm run test:run`
@@ -146,15 +179,16 @@ Verification, falls du Code änderst:
 
 Verification, wenn du nichts änderst:
 1. `git status --short --branch`
-2. `gh pr view 238 --json mergeStateStatus,statusCheckRollup,url`
+2. `gh run list --branch main --limit 8`
 3. Stichproben-Suche nach den verbotenen Mustern oben
+4. Live-Smoke-Test gegen `https://automobile-quick.cherinojoel.workers.dev`
 
 Ergebnisformat:
 1. Konkrete Findings mit Datei/Zeile oder "keine neuen Findings"
 2. Falls Änderungen: geänderte Dateien + Begründung
 3. Verification PASS/FAIL mit Befehl und Ergebnis
-4. Merge-Empfehlung: `merge now`, `retry Gemini Review`, `fix required`, oder `wait for user decision`
-5. Offene Punkte, die echte User-/Business-Entscheidung brauchen
+4. Go-/No-Go-Empfehlung für Domain-Cutover: `ready for cutover`, `fix required`, oder `wait for user decision`
+5. Offene Punkte, die echte User-/Business-Entscheidung brauchen, insbesondere Domain-Cutover und Formular-/CRM-Backend
 ```
 
 ---
@@ -162,7 +196,7 @@ Ergebnisformat:
 ## Was Codex selbstständig erledigen kann
 
 - [ ] PR #238 Status lesen und harte Checks von optionalen/agentischen Checks trennen.
-- [ ] Gemini-Review-Fehlerlog einordnen und dokumentieren.
+- [ ] Automatischen Gemini-Review-Fehlerlog als Quota-/Toolingfehler einordnen und dokumentieren.
 - [ ] Falls Merge erlaubt ist: PR nach User-Freigabe mergen.
 - [ ] Nach Merge lokales `main` per Fast-Forward synchronisieren.
 - [ ] Lokale Gates erneut laufen lassen: `npm run test:run`, `npm run check`, `npm run build`, `npm audit --audit-level=low`.
@@ -172,20 +206,21 @@ Ergebnisformat:
 - [ ] Nach finaler Verifikation `docs/ai/CURRENT_HANDOFF.md`, `docs/ai/PROJECT_STATUS.md` und `ai-state` aktualisieren.
 - [ ] Eine knappe Abschlussmeldung mit PASS/FAIL, Commit/PR/Merge-Hash und offenen Punkten liefern.
 
-## Was Claude Cloud / externer Designreview leisten soll
+## Was Gemini/Jamy AI Pro / externer Designreview leisten soll
 
 - [ ] Design-, Trust- und Conversion-Blick ohne Code-Änderungsdrang.
 - [ ] Vergleich analog HSB-Boden: echte B2B/B2C-Nützlichkeit, kein generischer Landingpage-Look.
 - [ ] Mobile UX qualitativ bewerten.
 - [ ] Copy-/CTA-Schwächen benennen, aber nur mit Datei/Zeile und konkreter Verbesserung.
 - [ ] SEO-/Schema-Regressionsrisiken prüfen.
+- [ ] Cloudflare-Workers-Livepfad, Robots, Sitemap und Canonicals als Cutover-Readiness prüfen.
 - [ ] Nur dann Änderungen vorschlagen, wenn ein echter Befund vorliegt.
 
 ## Was der User entscheiden muss
 
-- [ ] Ob Claude Cloud Review vor dem Merge zwingend gewünscht ist oder PR #238 nach harten grünen Checks gemerged werden darf.
-- [ ] Ob `Gemini Review` als Quota-Fehler ignoriert/neu gestartet/als Required Check angepasst werden soll.
-- [ ] Ob nach Merge direkt Production deployed werden soll.
+- [ ] Ob Gemini/Jamy AI Pro Review vor Domain-Cutover zwingend gewünscht ist.
+- [ ] Ob der automatische GitHub-`Gemini Review` Quota-Fehler dauerhaft als nicht-blockierend behandelt oder Workflow-seitig gefixt werden soll.
+- [ ] Ob die offizielle Domain `www.automobile-quick.de` auf den Cloudflare Worker umgestellt werden soll.
 - [ ] Ob ein finaler Live-Lighthouse-Test als Voraussetzung für "fertig" gelten soll.
 - [ ] Ob `.hermes/`-Plandatei aus dem vorigen Plan im Git bleiben, ignoriert oder separat gelöscht werden soll. Keine Löschung ohne explizite Freigabe.
 
@@ -198,26 +233,25 @@ Ergebnisformat:
 
 - [ ] **Step 1: Masterprompt kopieren**
 
-Kopiere den Abschnitt `Masterprompt für Claude Cloud` in Claude Cloud.
+Kopiere den Abschnitt `Masterprompt für Gemini/Jamy AI Pro` in Gemini/Jamy.
 
 Expected:
-- Claude Cloud arbeitet nur als Review-/Finalisierungsinstanz.
+- Gemini/Jamy arbeitet nur als Review-/Finalisierungsinstanz.
 - Keine unkontrollierten Codeänderungen.
 
 - [ ] **Step 2: Ergebnis klassifizieren**
 
-Ordne das Claude-Ergebnis in eine der vier Kategorien ein:
+Ordne das Gemini/Jamy-Ergebnis in eine der drei Kategorien ein:
 
 ```text
-merge now
-retry Gemini Review
+ready for cutover
 fix required
 wait for user decision
 ```
 
 Expected:
 - Nur `fix required` löst neue Codearbeit aus.
-- Bei `merge now` geht es zu Task 2.
+- Bei `ready for cutover` geht es zur Domain-/Businessentscheidung.
 
 ---
 
@@ -541,4 +575,3 @@ Expected:
 - Spec coverage: Der Plan deckt Cloud-Masterprompt, HSB-Analogik, GitHub-Sync, PR #238, CI-Sonderfall, Merge, lokale Verifikation, Production-/Live-Smoke-Test, Memory-Sync und Abschlussbericht ab.
 - Placeholder scan: Keine `TBD`, keine unkonkreten "später implementieren"-Schritte; alle Befehle und erwarteten Ergebnisse sind benannt.
 - Type/path consistency: Alle Pfade zeigen auf `/Users/joelcherinodiaz/AI-Memory-Hub/projects/auto-hub`; HSB-Boden ist nur Vorbild, kein Zielrepo dieses Plans.
-
