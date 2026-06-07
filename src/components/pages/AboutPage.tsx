@@ -279,6 +279,7 @@ export default function AboutPage() {
                       loading="lazy"
                       referrerPolicy="no-referrer-when-downgrade"
                       title="Standort Automobile Quick"
+                      aria-label="Interaktive Karte: Standort Automobile Quick in Iserlohn-Letmathe"
                     />
                   </div>
                   <p className="text-foreground/70 mb-4">
