@@ -275,10 +275,10 @@ export default function ContactPage() {
                         <div>
                           <p className="font-medium text-foreground mb-1">E-Mail</p>
                           <a 
-                            href="mailto:info@automobilequick.de"
+                            href="mailto:auto-quick@t-online.de"
                             className="text-foreground/70 hover:text-primary transition-colors"
                           >
-                            info@automobilequick.de
+                            auto-quick@t-online.de
                           </a>
                         </div>
                       </div>
@@ -290,7 +290,7 @@ export default function ContactPage() {
                         <div>
                           <p className="font-medium text-foreground mb-1">Öffnungszeiten</p>
                           <p className="text-foreground/70">Mo-Fr: 9:00 - 18:00 Uhr</p>
-                          <p className="text-foreground/70">Sa: 10:00 - 16:00 Uhr</p>
+                          <p className="text-foreground/70">Sa: 09:00 - 13:00 Uhr</p>
                           <p className="text-foreground/70">So: Geschlossen</p>
                         </div>
                       </div>
@@ -332,7 +332,7 @@ export default function ContactPage() {
               <div className="bg-background rounded-2xl shadow-lg overflow-hidden border border-border/50">
                 <div className="aspect-video">
                   <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2490.5!2d7.6729!3d51.4040!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b90c6c7b3e6b97%3A0x41e65c2e63e47e10!2sHagener%20Str.%20126a%2C%2058642%20Iserlohn!5e0!3m2!1sde!2sde!4v1717200000000!5m2!1sde!2sde"
+                    src="https://www.google.com/maps?q=Automobile%20Quick%20Hagener%20Str.%20126a%2058642%20Iserlohn&output=embed"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}

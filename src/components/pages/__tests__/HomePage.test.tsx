@@ -20,4 +20,19 @@ describe('HomePage', () => {
     );
     expect(screen.getAllByText(/Gebrauchtwagen in Iserlohn-Letmathe/i)[0]).toBeInTheDocument();
   });
+
+  it('does not render self-serving review structured data', () => {
+    render(
+      <BrowserRouter>
+        <HomePage />
+      </BrowserRouter>
+    );
+
+    const jsonLdScripts = Array.from(
+      document.querySelectorAll('script[type="application/ld+json"]')
+    ).map((script) => script.textContent ?? '');
+
+    expect(jsonLdScripts.join('\n')).not.toContain('aggregateRating');
+    expect(jsonLdScripts.join('\n')).not.toContain('"review"');
+  });
 });

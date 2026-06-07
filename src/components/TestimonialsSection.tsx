@@ -44,13 +44,13 @@ export default function TestimonialsSection() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
         <div className="text-center mb-12 sm:mb-16">
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-secondary mb-3">
-            Geprüfte Qualität seit 1962
+            Geprüfte Qualität seit 1982
           </p>
           <h2
             id="testimonials-heading"
             className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-primary mb-6 max-w-3xl mx-auto"
           >
-            {aggregateRating.reviewCount} echte Bewertungen.{' '}
+            {aggregateRating.reviewCount} öffentlich einsehbare Bewertungen.{' '}
             <span className="text-secondary">
               {aggregateRating.ratingValue.toFixed(2).replace('.', ',')} von 5 Sternen.
             </span>
@@ -64,7 +64,7 @@ export default function TestimonialsSection() {
               </span>
             </div>
             <div className="text-sm text-text-secondary">
-              {aggregateRating.reviewCount} verifizierte Kundenmeinungen
+              Aus mobile.de und AutoScout24 zusammengeführt
             </div>
           </div>
 
@@ -93,7 +93,7 @@ export default function TestimonialsSection() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-12 sm:mb-16">
           {[
             { value: '100 %', label: 'Weiterempfehlung' },
-            { value: '100 %', label: 'Fahrzeug wie beschrieben' },
+            { value: `${trustFacts.totalReviews}`, label: 'Bewertungen gesamt' },
             { value: `${trustFacts.yearsOnMobileDe}+ Jahre`, label: 'auf mobile.de' },
             { value: 'seit 1982', label: 'Inhabergeführt' },
           ].map((stat) => (
@@ -145,7 +145,7 @@ export default function TestimonialsSection() {
             rel="noopener noreferrer"
             className="btn-premium-primary"
           >
-            Alle {aggregateRating.reviewCount} Rezensionen auf mobile.de lesen
+            Bewertungen auf mobile.de lesen
             <ExternalLink size={16} aria-hidden="true" />
           </a>
         </div>

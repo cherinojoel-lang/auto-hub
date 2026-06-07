@@ -3,6 +3,15 @@ import { generateBusinessSchema, SITE_CONFIG, OPENING_HOURS } from '../seo-confi
 
 describe('seo-config', () => {
   describe('generateBusinessSchema', () => {
+    it('uses the verified public opening hours', () => {
+      expect(OPENING_HOURS).toContainEqual({
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: 'Saturday',
+        opens: '09:00',
+        closes: '13:00',
+      });
+    });
+
     it('should generate valid LocalBusiness + AutoDealer schema based on SITE_CONFIG', () => {
       const schema = generateBusinessSchema();
 

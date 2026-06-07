@@ -2,11 +2,17 @@
 import { Head } from "@/components/Head";
 import AppRouter from "@/components/Router";
 import "@/styles/global.css";
+
+const normalizedPath =
+  Astro.url.pathname === "/" || Astro.url.pathname === "/index"
+    ? "/"
+    : Astro.url.pathname.replace(/\/+$/, "");
+const canonicalUrl = `https://automobilequick.de${normalizedPath}`;
 ---
 
 <html lang="de" class="w-full h-full">
   <head>
-    <Head />
+    <Head canonicalUrl={canonicalUrl} />
   </head>
   <body class="w-full h-full">
     <div id="root" class="w-full h-full">

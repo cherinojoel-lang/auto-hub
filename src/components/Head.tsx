@@ -1,4 +1,6 @@
-export const Head = () => {
+export const Head = ({ canonicalUrl }: { canonicalUrl?: string }) => {
+  const currentCanonical = canonicalUrl || "https://automobilequick.de/";
+
   return (
     <>
       <meta charSet="UTF-8" />
@@ -34,12 +36,12 @@ export const Head = () => {
       <meta name="apple-mobile-web-app-capable" content="yes" />
       <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
       
-      {/* Canonical URL (initial — wird per Route dynamisch via DynamicCanonical aktualisiert) */}
-      <link rel="canonical" href="https://automobilequick.de/" />
+      {/* Canonical URL (wird per Route dynamisch via DynamicCanonical aktualisiert) */}
+      <link rel="canonical" href={currentCanonical} />
 
       {/* Alternate language versions */}
-      <link rel="alternate" hrefLang="de" href="https://automobilequick.de/" />
-      <link rel="alternate" hrefLang="x-default" href="https://automobilequick.de/" />
+      <link rel="alternate" hrefLang="de" href={currentCanonical} />
+      <link rel="alternate" hrefLang="x-default" href={currentCanonical} />
     </>
   );
 };

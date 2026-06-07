@@ -8,7 +8,7 @@ export type ImageProps = ImgHTMLAttributes<HTMLImageElement> & {
 }
 
 export const Image = forwardRef<HTMLImageElement, ImageProps>(
-  ({ src, fittingType, ...props }, ref) => {
+  ({ src, fittingType, fetchPriority, ...props }, ref) => {
     const [imgSrc, setImgSrc] = useState<string | undefined>(src);
     const [hasError, setHasError] = useState(false);
 
@@ -33,6 +33,7 @@ export const Image = forwardRef<HTMLImageElement, ImageProps>(
         style={{ objectFit, ...props.style }}
         onError={handleImageError}
         {...props}
+        {...(fetchPriority ? { fetchpriority: fetchPriority } : {})}
         data-empty-image={!src || undefined}
         data-error-image={hasError || undefined}
       />

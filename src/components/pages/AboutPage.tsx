@@ -257,7 +257,7 @@ export default function AboutPage() {
                       <div>
                         <p className="font-medium text-foreground">Öffnungszeiten</p>
                         <p className="text-foreground/70">Mo-Fr: 9:00 - 18:00 Uhr</p>
-                        <p className="text-foreground/70">Sa: 10:00 - 16:00 Uhr</p>
+                        <p className="text-foreground/70">Sa: 09:00 - 13:00 Uhr</p>
                       </div>
                     </div>
                   </div>
@@ -271,7 +271,7 @@ export default function AboutPage() {
                   </h3>
                   <div className="aspect-video bg-secondary/10 rounded-lg overflow-hidden mb-6">
                     <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2490.123456789!2d7.4567890!3d51.3567890!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTHCsDIxJzI0LjQiTiA3wrAyNycyNC40IkU!5e0!3m2!1sde!2sde!4v1234567890"
+                      src="https://www.google.com/maps?q=Automobile%20Quick%20Hagener%20Str.%20126a%2058642%20Iserlohn&output=embed"
                       width="100%"
                       height="100%"
                       style={{ border: 0 }}
@@ -279,6 +279,7 @@ export default function AboutPage() {
                       loading="lazy"
                       referrerPolicy="no-referrer-when-downgrade"
                       title="Standort Automobile Quick"
+                      aria-label="Interaktive Karte: Standort Automobile Quick in Iserlohn-Letmathe"
                     />
                   </div>
                   <p className="text-foreground/70 mb-4">

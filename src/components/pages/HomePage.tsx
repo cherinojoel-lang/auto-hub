@@ -11,7 +11,6 @@ import VehicleInventorySection from '@/components/VehicleInventorySection';
 import ContactSection from '@/components/ContactSection';
 import HowItWorksSection from '@/components/HowItWorksSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
-import ReviewsSchema from '@/components/schemas/ReviewsSchema';
 import { aggregateRating } from '@/data/reviewsData';
 
 // --- Animation Components ---
@@ -106,7 +105,7 @@ export default function HomePage() {
         {/* Background Image with Dark Overlay Gradient */}
         <div className="absolute inset-0 z-0">
           <Image 
-            src="/images/hero-bg.png" 
+            src="/images/hero-bg.jpg"
             alt="Automobile Quick Autohaus - Gebrauchtwagen in Iserlohn-Letmathe seit 1982" 
             className="w-full h-full object-cover object-center"
             width={1600}
@@ -137,7 +136,7 @@ export default function HomePage() {
             {/* Subheadline mit echtem Trust-Anker */}
             <AnimatedElement direction="up" delay={200} priority={true}>
               <p className="text-base sm:text-lg md:text-xl text-white/95 font-paragraph font-normal mb-8 sm:mb-10 leading-relaxed max-w-[680px]">
-                Persönlich. Ehrlich. Über {aggregateRating.reviewCount} verifizierte Kundenbewertungen
+                Persönlich. Ehrlich. Über {aggregateRating.reviewCount} öffentlich einsehbare Kundenbewertungen
                 mit einer Gesamtnote von{' '}
                 <span className="font-bold text-white">
                   {aggregateRating.ratingValue.toFixed(2).replace('.', ',')} / 5
@@ -279,8 +278,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* TESTIMONIALS — echte 204 Bewertungen */}
-      <ReviewsSchema />
+      {/* TESTIMONIALS */}
       <TestimonialsSection />
 
       {/* ABOUT SECTION */}

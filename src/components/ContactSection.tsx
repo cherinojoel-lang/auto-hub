@@ -14,9 +14,9 @@ function isBusinessOpen() {
     return currentTime >= 9 && currentTime < 18;
   }
 
-  // Sa: 10:00 - 16:00
+  // Sa: 09:00 - 13:00
   if (day === 6) {
-    return currentTime >= 10 && currentTime < 16;
+    return currentTime >= 9 && currentTime < 13;
   }
 
   // Sunday: closed
@@ -36,18 +36,18 @@ function getNextOpeningTime() {
   // If it's Monday-Friday after 6 PM
   if (day >= 1 && day <= 5 && hours >= 18) {
     if (day === 5) {
-      return 'Sa 10:00';
+      return 'Sa 09:00';
     }
     return `${String(day + 1).padStart(2, '0')} 09:00`;
   }
 
-  // If it's Saturday before 10 AM
-  if (day === 6 && hours < 10) {
-    return 'heute 10:00';
+  // If it's Saturday before 9 AM
+  if (day === 6 && hours < 9) {
+    return 'heute 09:00';
   }
 
-  // If it's Saturday after 4 PM
-  if (day === 6 && hours >= 16) {
+  // If it's Saturday after 1 PM
+  if (day === 6 && hours >= 13) {
     return 'Mo 09:00';
   }
 
@@ -230,10 +230,10 @@ export default function ContactSection() {
                 <div className="flex-1">
                   <p className="text-sm text-slate-500 mb-1">E-Mail</p>
                   <p className="text-lg font-semibold text-slate-900 mb-2">
-                    info@automobilequick.de
+                    auto-quick@t-online.de
                   </p>
                   <a
-                    href="mailto:info@automobilequick.de"
+                    href="mailto:auto-quick@t-online.de"
                     className="text-sm font-medium text-slate-900 hover:text-slate-700 transition-colors"
                   >
                     E-Mail schreiben
@@ -249,7 +249,7 @@ export default function ContactSection() {
                 <div className="flex-1">
                   <p className="text-sm text-slate-500 mb-1">Öffnungszeiten</p>
                   <p className="text-sm text-slate-900 mb-1">Mo–Fr: 09:00 – 18:00</p>
-                  <p className="text-sm text-slate-900 mb-2">Sa: 10:00 – 16:00</p>
+                  <p className="text-sm text-slate-900 mb-2">Sa: 09:00 – 13:00</p>
                   <div className="flex items-center gap-2">
                     <div
                       className={`w-2 h-2 rounded-full ${
@@ -277,7 +277,9 @@ export default function ContactSection() {
                   loading="lazy"
                   allowFullScreen
                   referrerPolicy="no-referrer-when-downgrade"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2555.8891234567!2d7.6833333!3d51.3833333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b8d8d8d8d8d8d9%3A0x1234567890abcdef!2sHagener%20Str.%20126a%2C%2058642%20Iserlohn!5e0!3m2!1sde!2sde!4v1234567890"
+                  src="https://www.google.com/maps?q=Automobile%20Quick%20Hagener%20Str.%20126a%2058642%20Iserlohn&output=embed"
+                  title="Standort Automobile Quick – Google Maps"
+                  aria-label="Interaktive Karte: Standort Automobile Quick in Iserlohn-Letmathe"
                 />
               )}
             </div>

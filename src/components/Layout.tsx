@@ -4,6 +4,7 @@ import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import CookieConsentBanner from '@/components/CookieConsentBanner';
 import { DynamicCanonical } from '@/components/DynamicCanonical';
+import MobileFloatingActionBar from '@/components/MobileFloatingActionBar';
 
 export default function Layout() {
   return (
@@ -15,6 +16,7 @@ export default function Layout() {
       </main>
       <Footer />
       <WhatsAppButton />
+      <MobileFloatingActionBar />
       <CookieConsentBanner />
     </div>
   );

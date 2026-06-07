@@ -8,7 +8,7 @@ interface WhatsAppCtaProps {
   variant?: 'solid' | 'subtle';
 }
 
-const WA_NUMBER = '4923749129120';
+const WA_NUMBER = '492374912912';
 
 export const WhatsAppCta: React.FC<WhatsAppCtaProps> = ({ vehicleTitle, className = '', compact = false, variant = 'solid' }) => {
   const message = encodeURIComponent(`Hallo, ich interessiere mich für: ${vehicleTitle}. Ist das Fahrzeug noch verfügbar?`);

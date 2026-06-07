@@ -1,33 +1,11 @@
-import { Phone, MessageSquare, Car } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Phone, MessageSquare, Car, MessageCircle } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function MobileFloatingActionBar() {
-  const [isVisible, setIsVisible] = useState(false);
+  const { pathname } = useLocation();
+  const isVehicleDetailPage = pathname.startsWith('/fahrzeugdetail/');
 
-  useEffect(() => {
-    let ticking = false;
-
-    // Performance optimization: Throttle scroll event using requestAnimationFrame
-    // to prevent excessive re-renders and use passive listener to avoid blocking
-    // the compositor thread.
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const currentScrollY = window.scrollY;
-          // Show after 300px scroll
-          setIsVisible(currentScrollY > 300);
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  if (!isVisible) return null;
+  if (isVehicleDetailPage) return null;
 
   return (
     <div
@@ -35,9 +13,10 @@ export default function MobileFloatingActionBar() {
       style={{
         maxHeight: '72px',
         paddingBottom: 'env(safe-area-inset-bottom)',
+        boxShadow: '0 -2px 10px rgba(0,0,0,0.05)',
       }}
     >
-      <div className="flex h-16 items-center justify-around max-w-7xl mx-auto px-4">
+      <div className="flex h-16 items-center justify-around max-w-7xl mx-auto px-2">
         {/* Call Button */}
         <a
           href="tel:+492374912912"
@@ -46,6 +25,18 @@ export default function MobileFloatingActionBar() {
         >
           <Phone size={20} />
           <span className="text-[10px] font-bold">Anrufen</span>
+        </a>
+
+        {/* WhatsApp Button */}
+        <a
+          href="https://wa.me/492374912912?text=Hallo%20Automobile%20Quick,%20ich%20habe%20eine%20allgemeine%20Anfrage."
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex flex-col items-center justify-center flex-1 h-full gap-1 transition-colors text-[#25D366]"
+          aria-label="WhatsApp"
+        >
+          <MessageCircle size={20} />
+          <span className="text-[10px] font-bold">WhatsApp</span>
         </a>
 
         {/* Contact Button */}
