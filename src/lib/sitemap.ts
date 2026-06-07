@@ -11,7 +11,7 @@ export interface SitemapEntry {
 }
 
 export function generateSitemap(entries: SitemapEntry[]): string {
-  const baseUrl = 'https://automobilequick.de';
+  const baseUrl = 'https://www.automobile-quick.de';
   
   const xmlEntries = entries.map(entry => {
     const url = entry.url.startsWith('http') ? entry.url : `${baseUrl}${entry.url}`;

@@ -168,7 +168,7 @@ Ergebnisformat:
 - [ ] Lokale Gates erneut laufen lassen: `npm run test:run`, `npm run check`, `npm run build`, `npm audit --audit-level=low`.
 - [ ] Falls Deploy-Script bekannt und sicher: `npm run deploy:dry-run` ausführen.
 - [ ] Production-Deployment-Status über GitHub/Cloudflare/Vercel prüfen, ohne DNS zu verändern.
-- [ ] Live-Smoke-Test per HTTP und Browser gegen `automobilequick.de` bzw. bekannte Worker-/Preview-URL durchführen.
+- [ ] Live-Smoke-Test per HTTP und Browser gegen `www.automobile-quick.de` bzw. bekannte Worker-/Preview-URL durchführen.
 - [ ] Nach finaler Verifikation `docs/ai/CURRENT_HANDOFF.md`, `docs/ai/PROJECT_STATUS.md` und `ai-state` aktualisieren.
 - [ ] Eine knappe Abschlussmeldung mit PASS/FAIL, Commit/PR/Merge-Hash und offenen Punkten liefern.
 
@@ -394,9 +394,9 @@ Expected:
 Run:
 
 ```bash
-curl -I https://automobilequick.de/
-curl -I https://automobilequick.de/fahrzeugbestand
-curl -I https://automobilequick.de/kontakt
+curl -I https://www.automobile-quick.de/
+curl -I https://www.automobile-quick.de/fahrzeugbestand
+curl -I https://www.automobile-quick.de/kontakt
 ```
 
 Expected:
@@ -408,7 +408,7 @@ Expected:
 Run:
 
 ```bash
-curl -s https://automobilequick.de/ | grep -E "hero-bg.jpg|Automobile Quick|auto-quick@t-online.de|02374"
+curl -s https://www.automobile-quick.de/ | grep -E "hero-bg.jpg|Automobile Quick|auto-quick@t-online.de|02374"
 ```
 
 Expected:
@@ -427,9 +427,9 @@ Expected:
 Öffne:
 
 ```text
-https://automobilequick.de/
-https://automobilequick.de/fahrzeugbestand
-https://automobilequick.de/kontakt
+https://www.automobile-quick.de/
+https://www.automobile-quick.de/fahrzeugbestand
+https://www.automobile-quick.de/kontakt
 ```
 
 Expected:

@@ -5,7 +5,7 @@ const MAX_ITEMS = 20;
 const PROVIDER = {
   '@type': 'AutoDealer' as const,
   name: 'Automobile Quick',
-  url: 'https://automobilequick.de',
+  url: 'https://www.automobile-quick.de',
   telephone: '+49-2374-912912',
   address: {
     '@type': 'PostalAddress',

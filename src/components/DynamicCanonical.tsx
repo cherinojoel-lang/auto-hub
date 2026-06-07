@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-const SITE_URL = 'https://automobilequick.de';
+const SITE_URL = 'https://www.automobile-quick.de';
 
 export function DynamicCanonical() {
   const { pathname } = useLocation();
