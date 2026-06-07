@@ -12,13 +12,13 @@ const v = (id: string, overrides: Partial<Vehicle> = {}): Vehicle => ({
 
 describe('buildItemListJsonLd', () => {
   it('liefert gültiges JSON', () => {
-    const json = buildItemListJsonLd([v('a')], 'https://automobilequick.de/fahrzeugbestand');
+    const json = buildItemListJsonLd([v('a')], 'https://www.automobile-quick.de/fahrzeugbestand');
     expect(() => JSON.parse(json)).not.toThrow();
   });
 
   it('enthält @context und @type ItemList', () => {
     const parsed = JSON.parse(
-      buildItemListJsonLd([v('a')], 'https://automobilequick.de/fahrzeugbestand'),
+      buildItemListJsonLd([v('a')], 'https://www.automobile-quick.de/fahrzeugbestand'),
     );
     expect(parsed['@context']).toBe('https://schema.org');
     expect(parsed['@type']).toBe('ItemList');
@@ -26,14 +26,14 @@ describe('buildItemListJsonLd', () => {
 
   it('numberOfItems reflektiert Gesamtzahl, nicht abgeschnittene Liste', () => {
     const many = Array.from({ length: 30 }, (_, i) => v(String(i)));
-    const parsed = JSON.parse(buildItemListJsonLd(many, 'https://automobilequick.de/fahrzeugbestand'));
+    const parsed = JSON.parse(buildItemListJsonLd(many, 'https://www.automobile-quick.de/fahrzeugbestand'));
     expect(parsed.numberOfItems).toBe(30);
     expect(parsed.itemListElement).toHaveLength(20);
   });
 
   it('jedes Item hat position, Product mit Brand und Offer', () => {
     const parsed = JSON.parse(
-      buildItemListJsonLd([v('a', { make: 'BMW' })], 'https://automobilequick.de/fahrzeugbestand'),
+      buildItemListJsonLd([v('a', { make: 'BMW' })], 'https://www.automobile-quick.de/fahrzeugbestand'),
     );
     const first = parsed.itemListElement[0];
     expect(first.position).toBe(1);
@@ -46,7 +46,7 @@ describe('buildItemListJsonLd', () => {
 
   it('sold vehicles → OutOfStock availability', () => {
     const parsed = JSON.parse(
-      buildItemListJsonLd([v('a', { status: 'sold' })], 'https://automobilequick.de/fahrzeugbestand'),
+      buildItemListJsonLd([v('a', { status: 'sold' })], 'https://www.automobile-quick.de/fahrzeugbestand'),
     );
     expect(parsed.itemListElement[0].item.offers.availability).toBe('https://schema.org/OutOfStock');
   });

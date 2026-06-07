@@ -37,6 +37,6 @@ Last verified: 2026-06-07
 - Mobile floating CTA bar mounted globally and excluded from vehicle detail pages.
 
 ## Known Open Decisions
-- Confirm final production routing and whether both `automobilequick.de` and `automobile-quick.de` should be maintained.
+- Confirm final production routing and whether both `www.automobile-quick.de` and `automobile-quick.de` should be maintained.
 - Confirm whether a real domain email should replace `auto-quick@t-online.de` later; do not change it without source confirmation.
 - Confirm whether a live CRM/form backend should replace the current simulated inquiry flow.

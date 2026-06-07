@@ -1,5 +1,5 @@
 export const Head = ({ canonicalUrl }: { canonicalUrl?: string }) => {
-  const currentCanonical = canonicalUrl || "https://automobilequick.de/";
+  const currentCanonical = canonicalUrl || "https://www.automobile-quick.de/";
 
   return (
     <>
@@ -20,7 +20,7 @@ export const Head = ({ canonicalUrl }: { canonicalUrl?: string }) => {
       <meta property="og:description" content="Hochwertige Gebrauchtwagen mit persönlicher Beratung. Automobile Quick - Ihr Autohaus seit 1982." />
       <meta property="og:site_name" content="Automobile Quick" />
       <meta property="og:type" content="website" />
-      <meta property="og:image" content="https://automobilequick.de/images/logo-og.png" />
+      <meta property="og:image" content="https://www.automobile-quick.de/images/logo-og.png" />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       <meta property="og:locale" content="de_DE" />
@@ -29,7 +29,7 @@ export const Head = ({ canonicalUrl }: { canonicalUrl?: string }) => {
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content="Automobile Quick - Gebrauchtwagen in Iserlohn-Letmathe" />
       <meta name="twitter:description" content="Hochwertige Gebrauchtwagen mit persönlicher Beratung. Automobile Quick - Ihr Autohaus seit 1982." />
-      <meta name="twitter:image" content="https://automobilequick.de/images/logo-og.png" />
+      <meta name="twitter:image" content="https://www.automobile-quick.de/images/logo-og.png" />
       
       {/* Additional SEO Tags */}
       <meta name="theme-color" content="#0A1628" />

@@ -3,7 +3,7 @@ Allow: /
 Disallow: /admin
 Disallow: /api
 
-Sitemap: https://automobilequick.de/sitemap.xml
+Sitemap: https://www.automobile-quick.de/sitemap.xml
 
 # Crawl delay for search engines
 Crawl-delay: 1

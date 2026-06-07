@@ -5,7 +5,7 @@
 
 export const SITE_CONFIG = {
   name: 'Automobile Quick',
-  url: 'https://automobilequick.de',
+  url: 'https://www.automobile-quick.de',
   description: 'Ihr vertrauensvoller Partner für gepflegte Gebrauchtwagen in Iserlohn-Letmathe seit 1982.',
   telephone: '+49-2374-912912',
   email: 'auto-quick@t-online.de',
@@ -19,7 +19,7 @@ export const SITE_CONFIG = {
     latitude: '51.4043',
     longitude: '7.6745',
   },
-  image: 'https://automobilequick.de/images/logo-og.png',
+  image: 'https://www.automobile-quick.de/images/logo-og.png',
   foundingYear: 1982,
 };
 
