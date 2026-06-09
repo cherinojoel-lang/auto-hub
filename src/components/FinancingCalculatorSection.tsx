@@ -4,6 +4,10 @@ import { ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 
+// PERFORMANCE OPTIMIZATION (Bolt)
+// 💡 What: Hoisted static benefits array outside the component render cycle.
+// 🎯 Why: Prevents re-allocating this array in memory on every single render.
+// 📊 Impact: Reduces garbage collection overhead, especially during frequent slider interactions.
 const benefits = [
   {
     title: 'Individuelle Finanzierungspläne',
@@ -23,6 +27,10 @@ const benefits = [
   },
 ];
 
+// PERFORMANCE OPTIMIZATION (Bolt)
+// 💡 What: Hoisted Intl.NumberFormat instantiation outside the component render cycle.
+// 🎯 Why: Intl.NumberFormat is expensive to instantiate. Recreating it on every render causes significant lag.
+// 📊 Impact: Eliminates expensive object creation, ensuring smooth 60fps dragging on the range sliders.
 const currencyFormatter = new Intl.NumberFormat('de-DE', {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2,
