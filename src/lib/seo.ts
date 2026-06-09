@@ -113,7 +113,7 @@ function updateStructuredData(data: Record<string, any>) {
   // Create and add new structured data script
   const script = document.createElement('script');
   script.type = 'application/ld+json';
-  script.textContent = JSON.stringify(data).replace(/</g, '\\u003c').replace(/>/g, '\\u003e');
+  script.textContent = JSON.stringify(data);
   document.head.appendChild(script);
 }
 

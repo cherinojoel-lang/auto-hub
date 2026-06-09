@@ -83,7 +83,7 @@ export default function SeoHead({ title, description, image, url, schema, schema
         const schemaScript = document.createElement('script');
         schemaScript.setAttribute('type', 'application/ld+json');
         schemaScript.setAttribute('data-seo-schema', 'true');
-        schemaScript.textContent = JSON.stringify(schemaData).replace(/</g, '\\u003c').replace(/>/g, '\\u003e');
+        schemaScript.textContent = JSON.stringify(schemaData);
         document.head.appendChild(schemaScript);
       });
     }
