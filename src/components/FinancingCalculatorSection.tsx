@@ -3,6 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
+const currencyFormatter = new Intl.NumberFormat('de-DE', {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+
 export default function FinancingCalculatorSection() {
   const navigate = useNavigate();
   const [purchasePrice, setPurchasePrice] = useState(25000);
@@ -26,10 +31,7 @@ export default function FinancingCalculatorSection() {
   }, [purchasePrice, downPayment, loanTerm, interestRate]);
 
   const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('de-DE', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }).format(value);
+    return currencyFormatter.format(value);
   };
 
   const handleFinancingRequest = () => {
