@@ -17,3 +17,7 @@
 ## 2024-05-15 - [Bypassing IntersectionObserver for LCP]
 **Learning:** The `AnimatedElement` component utilizes an `IntersectionObserver` to trigger fade-in animations. Wrapping above-the-fold content within it creates an anti-pattern delaying initial render, directly impacting LCP metrics.
 **Action:** Always modify localized wrapper definitions to accept a `priority` prop. Set this prop to `true` for hero content, enabling an early return that completely bypasses the observer and initializes the component as visible immediately.
+
+## 2024-06-10 - [Intl.NumberFormat Instantiation Overhead]
+**Learning:** `Intl.NumberFormat` is an expensive object to instantiate. In components with frequent state updates, such as range sliders triggering rapid re-renders (like `FinancingCalculatorSection`), dynamically instantiating it inside a format helper function causes significant CPU/memory overhead and can lead to jank during rapid interactions.
+**Action:** Always hoist static `Intl.NumberFormat` instances and other expensive stateless formatter objects outside of the React component scope to ensure they are only instantiated once per module load.
