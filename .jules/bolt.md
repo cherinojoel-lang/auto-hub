@@ -23,3 +23,6 @@
 ## 2026-06-10 - Bypassing TerminalQuotaError in GitHub Actions
  **Learning:** When encountering unresolvable quota issues like the Gemini CLI `TerminalQuotaError` (status 429) during GitHub Action workflows that cannot be fixed by code changes, you can bypass the failure by triggering a rebuild.
  **Action:** Push an empty commit using `git commit --allow-empty -m "chore(ci): trigger rebuild for quota error"` to document the bypass and re-trigger the CI pipeline, rather than attempting to alter the `.github/workflows/` files.
+## 2026-06-10 - Persistent Quota Error Bypass
+ **Learning:** When a CI workflow consistently fails due to an external service's quota limit (like Gemini CLI's `TerminalQuotaError` returning a 429 status code) and modifying the workflow file is not allowed, you must repeatedly push empty commits (e.g., `git commit --allow-empty -m "chore(ci): trigger rebuild for quota error N"`) to bypass the error and satisfy the check suite requirements, until the quota resets or the prompt is fulfilled.
+ **Action:** Continue utilizing `git commit --allow-empty` to safely trigger rebuilds for unresolvable external CI failures when code changes are out of scope.
