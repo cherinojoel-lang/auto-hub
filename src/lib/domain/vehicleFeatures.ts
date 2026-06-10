@@ -17,16 +17,30 @@ export const getVehicleImageCount = (vehicle: Vehicle): number => {
   return new Set(images).size;
 };
 
+const featuresCache = new WeakMap<Vehicle, string[]>();
+
 const deriveFeatures = (vehicle: Vehicle): string[] => {
+  const cached = featuresCache.get(vehicle);
+  if (cached) return cached;
   const source = `${vehicle.title} ${vehicle.description || ''}`;
   const fuel = vehicle.fuel?.trim().toLowerCase();
-  return FEATURE_PATTERNS
+  const features = FEATURE_PATTERNS
     .filter(({ pattern }) => pattern.test(source))
     .map(({ label }) => label)
     .filter((label) => label.toLowerCase() !== fuel);
+
+  featuresCache.set(vehicle, features);
+  return features;
 };
 
-export const getFeatureChips = (vehicle: Vehicle): string[] => deriveFeatures(vehicle).slice(0, 4);
+const featureChipsCache = new WeakMap<Vehicle, string[]>();
+export const getFeatureChips = (vehicle: Vehicle): string[] => {
+  const cached = featureChipsCache.get(vehicle);
+  if (cached) return cached;
+  const chips = deriveFeatures(vehicle).slice(0, 4);
+  featureChipsCache.set(vehicle, chips);
+  return chips;
+};
 
 export const getAllFeatures = (vehicle: Vehicle): string[] => deriveFeatures(vehicle);
 
