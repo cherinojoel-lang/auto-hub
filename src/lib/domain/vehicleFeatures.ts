@@ -21,7 +21,7 @@ const featuresCache = new WeakMap<Vehicle, string[]>();
 
 const deriveFeatures = (vehicle: Vehicle): string[] => {
   if (featuresCache.has(vehicle)) {
-    return featuresCache.get(vehicle)!;
+    return featuresCache.get(vehicle) as string[];
   }
   const source = `${vehicle.title} ${vehicle.description || ''}`;
   const fuel = vehicle.fuel?.trim().toLowerCase();
@@ -34,7 +34,15 @@ const deriveFeatures = (vehicle: Vehicle): string[] => {
   return features;
 };
 
-export const getFeatureChips = (vehicle: Vehicle): string[] => deriveFeatures(vehicle).slice(0, 4);
+const featureChipsCache = new WeakMap<Vehicle, string[]>();
+export const getFeatureChips = (vehicle: Vehicle): string[] => {
+  if (featureChipsCache.has(vehicle)) {
+    return featureChipsCache.get(vehicle) as string[];
+  }
+  const chips = deriveFeatures(vehicle).slice(0, 4);
+  featureChipsCache.set(vehicle, chips);
+  return chips;
+};
 
 export const getAllFeatures = (vehicle: Vehicle): string[] => deriveFeatures(vehicle);
 
