@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
+// ⚡ Bolt: Hoisted Intl.NumberFormat outside the component to prevent expensive
+// re-instantiation on every render when the user rapidly interacts with the range sliders.
 const currencyFormatter = new Intl.NumberFormat('de-DE', {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2,
