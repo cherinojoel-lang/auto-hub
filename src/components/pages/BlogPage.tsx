@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { BaseCrudService } from '@/integrations';
 import { Image } from '@/components/ui/image';
@@ -13,6 +13,8 @@ interface BlogArticle {
   publishedDate?: Date | string;
   author?: string;
 }
+
+const categories = ['Kaufberatung', 'Finanzierung', 'Autopflege'];
 
 export default function BlogPage() {
   const [articles, setArticles] = useState<BlogArticle[]>([]);
@@ -34,10 +36,11 @@ export default function BlogPage() {
     fetchArticles();
   }, []);
 
-  const categories = ['Kaufberatung', 'Finanzierung', 'Autopflege'];
-  const filteredArticles = selectedCategory
-    ? articles.filter(article => article.category === selectedCategory)
-    : articles;
+  const filteredArticles = useMemo(() => {
+    return selectedCategory
+      ? articles.filter(article => article.category === selectedCategory)
+      : articles;
+  }, [articles, selectedCategory]);
 
   const formatDate = (date: Date | string | undefined) => {
     if (!date) return '';
