@@ -152,9 +152,9 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, index }) => {
   );
 };
 
-export default function VehicleInventorySection() {
-  const topVehicles = vehiclesData.filter((vehicle) => vehicle.status === 'available').slice(0, 6);
+const topVehicles = vehiclesData.filter((vehicle) => vehicle.status === 'available').slice(0, 6);
 
+export default function VehicleInventorySection() {
   return (
     <section className="py-16 sm:py-20 bg-surface" id="main-content">
       <div className="max-w-7xl mx-auto px-6">
