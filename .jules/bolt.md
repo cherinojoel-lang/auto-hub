@@ -17,3 +17,6 @@
 ## 2024-05-15 - [Bypassing IntersectionObserver for LCP]
 **Learning:** The `AnimatedElement` component utilizes an `IntersectionObserver` to trigger fade-in animations. Wrapping above-the-fold content within it creates an anti-pattern delaying initial render, directly impacting LCP metrics.
 **Action:** Always modify localized wrapper definitions to accept a `priority` prop. Set this prop to `true` for hero content, enabling an early return that completely bypasses the observer and initializes the component as visible immediately.
+## 2024-05-24 - Static Array Filtering in Render Optimization
+ **Learning:** In React components, filtering or slicing a static data source directly inside the component body recalculates the array on every render, unnecessarily consuming CPU and causing potential re-rendering of child components if the array reference changes.
+ **Action:** Hoist static array calculations (like filtering, slicing) completely outside of the component function, so the calculation happens only once when the module loads, bypassing React lifecycle overhead entirely.
