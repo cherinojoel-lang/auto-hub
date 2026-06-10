@@ -17,6 +17,16 @@ interface BlogArticle {
   metaDescription?: string;
 }
 
+
+const parseTable = (paragraph: string) => {
+  const lines = paragraph.split('\n');
+  const headers = lines[0].split('|').map(h => h.trim()).filter(Boolean);
+  const rows = lines.slice(2).map(line =>
+    line.split('|').map(cell => cell.trim()).filter(Boolean)
+  );
+  return { headers, rows };
+};
+
 export default function BlogDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const [article, setArticle] = useState<BlogArticle | null>(null);
@@ -99,11 +109,7 @@ export default function BlogDetailPage() {
           }
           // Handle tables
           if (paragraph.includes('|')) {
-            const lines = paragraph.split('\n');
-            const headers = lines[0].split('|').map(h => h.trim()).filter(Boolean);
-            const rows = lines.slice(2).map(line => 
-              line.split('|').map(cell => cell.trim()).filter(Boolean)
-            );
+            const { headers, rows } = parseTable(paragraph);
             return (
               <div key={index} className="overflow-x-auto my-6">
                 <table className="w-full border-collapse border border-neutral-300">
