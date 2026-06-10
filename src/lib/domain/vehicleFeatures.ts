@@ -20,9 +20,8 @@ export const getVehicleImageCount = (vehicle: Vehicle): number => {
 const featuresCache = new WeakMap<Vehicle, string[]>();
 
 const deriveFeatures = (vehicle: Vehicle): string[] => {
-  if (featuresCache.has(vehicle)) {
-    return featuresCache.get(vehicle) as string[];
-  }
+  const cached = featuresCache.get(vehicle);
+  if (cached) return cached;
   const source = `${vehicle.title} ${vehicle.description || ''}`;
   const fuel = vehicle.fuel?.trim().toLowerCase();
   const features = FEATURE_PATTERNS
@@ -36,9 +35,8 @@ const deriveFeatures = (vehicle: Vehicle): string[] => {
 
 const featureChipsCache = new WeakMap<Vehicle, string[]>();
 export const getFeatureChips = (vehicle: Vehicle): string[] => {
-  if (featureChipsCache.has(vehicle)) {
-    return featureChipsCache.get(vehicle) as string[];
-  }
+  const cached = featureChipsCache.get(vehicle);
+  if (cached) return cached;
   const chips = deriveFeatures(vehicle).slice(0, 4);
   featureChipsCache.set(vehicle, chips);
   return chips;
