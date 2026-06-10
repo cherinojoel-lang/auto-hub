@@ -28,7 +28,7 @@ const fuelOptions = deriveFuelOptions(vehiclesData);
 
 const canonicalPath = criteriaToCanonicalUrl(criteria);
 const canonicalUrl = `${url.origin}${canonicalPath}`;
-const itemListJsonLd = buildItemListJsonLd(filtered, canonicalUrl);
+const itemListJsonLd = buildItemListJsonLd(filtered, canonicalUrl).replace(/</g, '\\u003c');
 ---
 <!doctype html>
 <html lang="de">
