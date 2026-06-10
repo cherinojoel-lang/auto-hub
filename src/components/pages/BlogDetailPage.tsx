@@ -17,6 +17,21 @@ interface BlogArticle {
   metaDescription?: string;
 }
 
+
+const parseListItems = (paragraph: string): string[] => {
+  const items: string[] = [];
+  let currentPos = 0;
+  while (currentPos < paragraph.length) {
+    let nextNewline = paragraph.indexOf('\n', currentPos);
+    if (nextNewline === -1) nextNewline = paragraph.length;
+    if (paragraph.startsWith('- ', currentPos)) {
+      items.push(paragraph.substring(currentPos + 2, nextNewline));
+    }
+    currentPos = nextNewline + 1;
+  }
+  return items;
+};
+
 export default function BlogDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const [article, setArticle] = useState<BlogArticle | null>(null);
@@ -86,12 +101,12 @@ export default function BlogDetailPage() {
           }
           // Handle lists
           if (paragraph.startsWith('- ')) {
-            const items = paragraph.split('\n').filter(line => line.startsWith('- '));
+            const items = parseListItems(paragraph);
             return (
               <ul key={index} className="list-disc list-inside space-y-2 my-4">
                 {items.map((item, i) => (
                   <li key={i} className="text-neutral-700">
-                    {item.replace('- ', '')}
+                    {item}
                   </li>
                 ))}
               </ul>

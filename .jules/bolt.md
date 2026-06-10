@@ -17,3 +17,6 @@
 ## 2024-05-15 - [Bypassing IntersectionObserver for LCP]
 **Learning:** The `AnimatedElement` component utilizes an `IntersectionObserver` to trigger fade-in animations. Wrapping above-the-fold content within it creates an anti-pattern delaying initial render, directly impacting LCP metrics.
 **Action:** Always modify localized wrapper definitions to accept a `priority` prop. Set this prop to `true` for hero content, enabling an early return that completely bypasses the observer and initializes the component as visible immediately.
+## 2024-06-10 - Extracted List Parsing to Pure Function
+ **Learning:** To optimize string processing performance and avoid memory allocations from intermediate arrays in hot code paths (e.g., React render loops), replace chained array methods like `.split().filter().map()` with single-pass `while` loops using `indexOf` and `substring`.
+ **Action:** For performance optimization tasks involving string splitting and array iteration inside React render methods, evaluate whether the logic can be extracted to a memoized or pure function outside the render loop and rewritten with zero-allocation string slicing.
