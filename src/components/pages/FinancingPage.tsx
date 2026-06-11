@@ -191,10 +191,11 @@ export default function FinancingPage() {
             <form onSubmit={handleSubmit} className="bg-background rounded-lg p-8 shadow-sm border border-neutral-200">
               {/* Name */}
               <div className="mb-6">
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
                   Name <span className="text-secondary">*</span>
                 </label>
                 <input
+                  id="name"
                   type="text"
                   required
                   value={formData.name}
@@ -206,10 +207,11 @@ export default function FinancingPage() {
 
               {/* Phone */}
               <div className="mb-6">
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-2">
                   Telefon <span className="text-secondary">*</span>
                 </label>
                 <input
+                  id="phone"
                   type="tel"
                   required
                   value={formData.phone}
@@ -221,10 +223,11 @@ export default function FinancingPage() {
 
               {/* Email */}
               <div className="mb-6">
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
                   E-Mail
                 </label>
                 <input
+                  id="email"
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -235,10 +238,11 @@ export default function FinancingPage() {
 
               {/* Vehicle */}
               <div className="mb-6">
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label htmlFor="vehicle" className="block text-sm font-medium text-foreground mb-2">
                   Gewünschtes Fahrzeug
                 </label>
                 <input
+                  id="vehicle"
                   type="text"
                   value={formData.vehicle}
                   onChange={(e) => setFormData({ ...formData, vehicle: e.target.value })}
@@ -249,10 +253,11 @@ export default function FinancingPage() {
 
               {/* Message */}
               <div className="mb-6">
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
                   Nachricht
                 </label>
                 <textarea
+                  id="message"
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50 resize-none"
