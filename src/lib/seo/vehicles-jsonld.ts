@@ -51,5 +51,6 @@ export const buildItemListJsonLd = (
     itemListElement: items,
   };
 
-  return JSON.stringify(itemList);
+  // Escape < and > to prevent XSS when injected via set:html
+  return JSON.stringify(itemList).replace(/</g, '\\u003c').replace(/>/g, '\\u003e');
 };
