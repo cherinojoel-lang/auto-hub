@@ -47,7 +47,7 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
       observer.disconnect();
       if (timeoutId) clearTimeout(timeoutId);
     };
-  }, [delay]);
+  }, [delay, priority]);
 
   const getTransform = () => {
     if (isVisible) return 'translate-x-0 translate-y-0 scale-100';

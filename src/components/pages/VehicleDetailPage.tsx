@@ -40,7 +40,7 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [priority]);
 
   return (
     <div

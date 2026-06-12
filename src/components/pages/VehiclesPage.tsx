@@ -19,15 +19,17 @@ import { getVehicleImageCount, getFeatureChips } from '@/lib/domain/vehicleFeatu
 const MANUFACTURER_OPTIONS = deriveManufacturerOptions(vehiclesData);
 const FUEL_OPTIONS = deriveFuelOptions(vehiclesData);
 
-const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
+const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number; priority?: boolean }> = ({
   children, 
   className = '',
-  delay = 0 
+  delay = 0,
+  priority = false
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(priority || false);
 
   useEffect(() => {
+    if (priority) return;
     const el = ref.current;
     if (!el) return;
 
@@ -48,7 +50,7 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
       observer.disconnect();
       if (timeoutId) clearTimeout(timeoutId);
     };
-  }, [delay]);
+  }, [delay, priority]);
 
   return (
     <div
@@ -161,7 +163,7 @@ export default function VehiclePage() {
       {/* Hero Section */}
       <section className="bg-primary text-white py-12 sm:py-16 md:py-20">
         <div className="mx-auto w-full max-w-[22rem] px-4 sm:max-w-[1400px]">
-          <AnimatedElement>
+          <AnimatedElement priority={true}>
             <div className="w-full max-w-3xl mx-auto text-center min-w-0">
               <h1 className="mx-auto max-w-[17rem] sm:max-w-none text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-4 sm:mb-6 leading-tight break-words">
                 Aktuelle Gebrauchtwagen in Iserlohn-Letmathe
@@ -346,7 +348,8 @@ export default function VehiclePage() {
                             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
                             width={400}
                             height={300}
-                            loading={index < 6 ? 'eager' : 'lazy'}
+                            fetchPriority={index < 6 ? "high" : "auto"}
+                            loading={index < 6 ? "eager" : "lazy"}
                             decoding="async"
                           />
                           <div className="absolute top-3 left-3 bg-white/95 text-primary px-3 py-1.5 text-xs font-bold rounded-md border border-border-line">
