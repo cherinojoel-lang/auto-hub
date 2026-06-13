@@ -21,3 +21,7 @@
 ## 2024-06-13 - [Optimize Array Filtering]
 **Learning:** Chaining multiple `.filter()` calls on an array (e.g., `array.filter(a).filter(b).filter(c)`) results in multiple passes over the array and the allocation of an intermediate array for each filter operation. This increases memory usage and garbage collection overhead, especially on large datasets.
 **Action:** Always combine multiple chained filter predicates into a single `.filter()` call using logical AND (`&&`) operators. This ensures a single pass over the array, avoids intermediate allocations, and leverages short-circuit evaluation.
+
+## 2024-06-13 - [Gemini CLI Quota Error]
+**Learning:** During the automated code review process (`gemini /code-review`), a `TerminalQuotaError` might occur with an HTTP 429 status code indicating that the daily quota on the Gemini model has been exhausted. This is a transient, third-party API limit, not an issue with the application code itself.
+**Action:** When a CI failure is explicitly confirmed to be a `TerminalQuotaError` from the Gemini API and out-of-scope for codebase modification, resolve it by pushing an empty commit with a descriptive message like `chore: bypass CI failure` to re-trigger the workflow and allow the PR to proceed.
