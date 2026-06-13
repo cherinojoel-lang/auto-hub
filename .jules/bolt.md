@@ -17,3 +17,7 @@
 ## 2024-05-15 - [Bypassing IntersectionObserver for LCP]
 **Learning:** The `AnimatedElement` component utilizes an `IntersectionObserver` to trigger fade-in animations. Wrapping above-the-fold content within it creates an anti-pattern delaying initial render, directly impacting LCP metrics.
 **Action:** Always modify localized wrapper definitions to accept a `priority` prop. Set this prop to `true` for hero content, enabling an early return that completely bypasses the observer and initializes the component as visible immediately.
+
+## 2024-06-13 - [Optimize Array Filtering]
+**Learning:** Chaining multiple `.filter()` calls on an array (e.g., `array.filter(a).filter(b).filter(c)`) results in multiple passes over the array and the allocation of an intermediate array for each filter operation. This increases memory usage and garbage collection overhead, especially on large datasets.
+**Action:** Always combine multiple chained filter predicates into a single `.filter()` call using logical AND (`&&`) operators. This ensures a single pass over the array, avoids intermediate allocations, and leverages short-circuit evaluation.
