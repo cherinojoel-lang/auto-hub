@@ -17,3 +17,15 @@
 ## 2024-05-15 - [Bypassing IntersectionObserver for LCP]
 **Learning:** The `AnimatedElement` component utilizes an `IntersectionObserver` to trigger fade-in animations. Wrapping above-the-fold content within it creates an anti-pattern delaying initial render, directly impacting LCP metrics.
 **Action:** Always modify localized wrapper definitions to accept a `priority` prop. Set this prop to `true` for hero content, enabling an early return that completely bypasses the observer and initializes the component as visible immediately.
+
+## 2024-06-13 - [Optimize Array Filtering]
+**Learning:** Chaining multiple `.filter()` calls on an array (e.g., `array.filter(a).filter(b).filter(c)`) results in multiple passes over the array and the allocation of an intermediate array for each filter operation. This increases memory usage and garbage collection overhead, especially on large datasets.
+**Action:** Always combine multiple chained filter predicates into a single `.filter()` call using logical AND (`&&`) operators. This ensures a single pass over the array, avoids intermediate allocations, and leverages short-circuit evaluation.
+
+## 2024-06-13 - [Gemini CLI Quota Error]
+**Learning:** During the automated code review process (`gemini /code-review`), a `TerminalQuotaError` might occur with an HTTP 429 status code indicating that the daily quota on the Gemini model has been exhausted. This is a transient, third-party API limit, not an issue with the application code itself.
+**Action:** When a CI failure is explicitly confirmed to be a `TerminalQuotaError` from the Gemini API and out-of-scope for codebase modification, resolve it by pushing an empty commit with a descriptive message like `chore: bypass CI failure` to re-trigger the workflow and allow the PR to proceed.
+
+## 2024-06-13 - [CI Re-trigger via Amend]
+**Learning:** If a transient CI failure (like a Gemini quota error) occurs after a commit containing legitimate codebase modifications, using `git commit --allow-empty` is against project conventions.
+**Action:** Always use `git commit --amend --no-edit` to generate a new commit SHA without altering the commit message or introducing an unnecessary empty commit. This will safely re-trigger the CI pipeline.
