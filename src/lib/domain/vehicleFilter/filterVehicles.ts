@@ -13,9 +13,12 @@ export const filterVehicles = (
   criteria: FilterCriteria,
 ): Vehicle[] =>
   vehicles
-    .filter((v) => v.status === 'available')
-    .filter((v) => matchesManufacturer(v, criteria.manufacturer))
-    .filter((v) => matchesPriceMax(v, criteria.priceMax))
-    .filter((v) => matchesFuel(v, criteria.fuel))
-    .filter((v) => matchesMaxMileage(v, criteria.maxMileage))
-    .filter((v) => matchesYearFrom(v, criteria.yearFrom));
+    .filter(
+      (v) =>
+        v.status === 'available' &&
+        matchesManufacturer(v, criteria.manufacturer) &&
+        matchesPriceMax(v, criteria.priceMax) &&
+        matchesFuel(v, criteria.fuel) &&
+        matchesMaxMileage(v, criteria.maxMileage) &&
+        matchesYearFrom(v, criteria.yearFrom)
+    ); // Optimization: combine chained filters to prevent intermediate array allocations and leverage short-circuiting
