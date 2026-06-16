@@ -144,10 +144,11 @@ export default function FinancingCalculatorSection() {
 
                 {/* Loan Term */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                  <label htmlFor="loan-term" className="block text-sm font-medium text-slate-700 mb-2">
                     Laufzeit (Monate)
                   </label>
                   <select
+                    id="loan-term"
                     value={loanTerm}
                     onChange={(e) => setLoanTerm(Number(e.target.value))}
                     className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"

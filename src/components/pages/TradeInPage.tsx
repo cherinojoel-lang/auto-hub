@@ -303,10 +303,11 @@ export default function TradeInPage() {
 
               {/* Fuel */}
               <div className="mb-6">
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label htmlFor="tradein-fuel" className="block text-sm font-medium text-foreground mb-2">
                   Kraftstoff
                 </label>
                 <select
+                  id="tradein-fuel"
                   value={formData.fuel}
                   onChange={(e) => setFormData({ ...formData, fuel: e.target.value })}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
