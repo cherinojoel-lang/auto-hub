@@ -3,6 +3,32 @@ import { useNavigate } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
+// Hoist formatter outside component to prevent expensive object re-instantiation on every render
+const currencyFormatter = new Intl.NumberFormat('de-DE', {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+
+// Hoist static array outside component to prevent allocating a new array on every render
+const benefitsList = [
+  {
+    title: 'Individuelle Finanzierungspläne',
+    description: 'Wir passen die Rate an Ihr Budget an',
+  },
+  {
+    title: 'Schnelle Kreditentscheidung',
+    description: 'In der Regel innerhalb von 24 Stunden',
+  },
+  {
+    title: 'Auch ohne Anzahlung möglich',
+    description: 'Flexibel gestaltbare Konditionen',
+  },
+  {
+    title: 'Inzahlungnahme Ihres Altautos',
+    description: 'Wir übernehmen Ihren Gebrauchten',
+  },
+];
+
 export default function FinancingCalculatorSection() {
   const navigate = useNavigate();
   const [purchasePrice, setPurchasePrice] = useState(25000);
@@ -26,10 +52,7 @@ export default function FinancingCalculatorSection() {
   }, [purchasePrice, downPayment, loanTerm, interestRate]);
 
   const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('de-DE', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }).format(value);
+    return currencyFormatter.format(value);
   };
 
   const handleFinancingRequest = () => {
@@ -52,24 +75,7 @@ export default function FinancingCalculatorSection() {
 
             {/* Benefits List */}
             <div className="space-y-6">
-              {[
-                {
-                  title: 'Individuelle Finanzierungspläne',
-                  description: 'Wir passen die Rate an Ihr Budget an',
-                },
-                {
-                  title: 'Schnelle Kreditentscheidung',
-                  description: 'In der Regel innerhalb von 24 Stunden',
-                },
-                {
-                  title: 'Auch ohne Anzahlung möglich',
-                  description: 'Flexibel gestaltbare Konditionen',
-                },
-                {
-                  title: 'Inzahlungnahme Ihres Altautos',
-                  description: 'Wir übernehmen Ihren Gebrauchten',
-                },
-              ].map((benefit, index) => (
+              {benefitsList.map((benefit, index) => (
                 <div key={index} className="flex gap-4">
                   <div className="flex-shrink-0">
                     <ChevronRight className="w-6 h-6 text-red-600 mt-1" />
