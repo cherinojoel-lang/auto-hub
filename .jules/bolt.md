@@ -17,3 +17,6 @@
 ## 2024-05-15 - [Bypassing IntersectionObserver for LCP]
 **Learning:** The `AnimatedElement` component utilizes an `IntersectionObserver` to trigger fade-in animations. Wrapping above-the-fold content within it creates an anti-pattern delaying initial render, directly impacting LCP metrics.
 **Action:** Always modify localized wrapper definitions to accept a `priority` prop. Set this prop to `true` for hero content, enabling an early return that completely bypasses the observer and initializes the component as visible immediately.
+## 2025-02-28 - [Performance] React Component Static Instantiation Hoisting
+**Learning:** Instantiating `Intl.NumberFormat` is notoriously expensive in JavaScript. Doing it repeatedly inside a React component's render loop (especially one with frequent state updates, like a financing calculator using range sliders) is an anti-pattern. Similarly, defining static arrays inline inside the component causes a new array reference to be allocated on every render.
+**Action:** Always hoist stateless, static objects (like `Intl.NumberFormat`) and static arrays outside the component body to prevent expensive object re-instantiation and memory allocation overhead on every render.
