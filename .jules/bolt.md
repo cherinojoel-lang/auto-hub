@@ -17,3 +17,11 @@
 ## 2024-05-15 - [Bypassing IntersectionObserver for LCP]
 **Learning:** The `AnimatedElement` component utilizes an `IntersectionObserver` to trigger fade-in animations. Wrapping above-the-fold content within it creates an anti-pattern delaying initial render, directly impacting LCP metrics.
 **Action:** Always modify localized wrapper definitions to accept a `priority` prop. Set this prop to `true` for hero content, enabling an early return that completely bypasses the observer and initializes the component as visible immediately.
+
+## 2024-05-27 - [Chained Array Methods vs Single Pass]
+**Learning:** Chaining multiple `.filter()` methods creates intermediate arrays which increases memory allocation and garbage collection pressure, especially when filtering large static data sets.
+**Action:** Combine multiple filtering conditions into a single `.filter()` loop utilizing logical `&&` to perform short-circuiting in a single O(N) pass.
+
+## 2024-05-27 - [Memoizing Domain Object Methods safely]
+**Learning:** Deriving vehicle features requires executing multiple Regexes on string concatenations. Doing this on every re-render (or multiple times per vehicle in different components) is highly inefficient.
+**Action:** Utilize a `WeakMap` keyed by the domain object reference (`Vehicle`) to safely cache computationally expensive derivations without introducing unbounded memory leaks.
