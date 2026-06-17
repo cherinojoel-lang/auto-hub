@@ -12,18 +12,37 @@ export const FEATURE_PATTERNS: Array<{ label: string; pattern: RegExp }> = [
   { label: 'Hybrid', pattern: /hybrid/i },
 ];
 
+const imageCountCache = new WeakMap<Vehicle, number>();
+
 export const getVehicleImageCount = (vehicle: Vehicle): number => {
+  if (imageCountCache.has(vehicle)) {
+    return imageCountCache.get(vehicle)!;
+  }
   const images = [vehicle.mainImage, ...(vehicle.gallery || [])].filter(Boolean);
-  return new Set(images).size;
+  const count = new Set(images).size;
+  imageCountCache.set(vehicle, count);
+  return count;
 };
 
+const featureCache = new WeakMap<Vehicle, string[]>();
+
 const deriveFeatures = (vehicle: Vehicle): string[] => {
+  if (featureCache.has(vehicle)) {
+    return featureCache.get(vehicle)!;
+  }
   const source = `${vehicle.title} ${vehicle.description || ''}`;
   const fuel = vehicle.fuel?.trim().toLowerCase();
-  return FEATURE_PATTERNS
-    .filter(({ pattern }) => pattern.test(source))
-    .map(({ label }) => label)
-    .filter((label) => label.toLowerCase() !== fuel);
+
+  // Combine filters and map into a single pass loop using logic from previous rules
+  const features: string[] = [];
+  for (const { label, pattern } of FEATURE_PATTERNS) {
+    if (pattern.test(source) && label.toLowerCase() !== fuel) {
+      features.push(label);
+    }
+  }
+
+  featureCache.set(vehicle, features);
+  return features;
 };
 
 export const getFeatureChips = (vehicle: Vehicle): string[] => deriveFeatures(vehicle).slice(0, 4);
