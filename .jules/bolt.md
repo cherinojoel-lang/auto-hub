@@ -29,3 +29,7 @@
 ## 2024-05-24 - Optimize slugify with Regex
 **Learning:** Chained array allocations like `.split('').map().join('')` in hot code paths create unnecessary overhead.
 **Action:** Replace them with direct string manipulation methods like `.replace()` and a well-crafted Regular Expression.
+
+## 2024-05-24 - Bypass CI Rate Limits
+**Learning:** External CI pipelines (like Gemini AI Code Review) can fail transiently due to rate limits or quotas.
+**Action:** When a CI workflow fails due to a rate limit and modifying the CI configuration is out of scope, use `git commit --amend --no-edit` to generate a new commit SHA and re-trigger the workflow to bypass the transient failure.
