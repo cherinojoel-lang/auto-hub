@@ -209,6 +209,7 @@ export default function TradeInPage() {
                 <input
                   type="text"
                   required
+                  maxLength={100}
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
@@ -224,6 +225,7 @@ export default function TradeInPage() {
                 <input
                   type="tel"
                   required
+                  maxLength={100}
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
@@ -238,6 +240,7 @@ export default function TradeInPage() {
                 </label>
                 <input
                   type="email"
+                  maxLength={100}
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
@@ -252,6 +255,7 @@ export default function TradeInPage() {
                 </label>
                 <input
                   type="text"
+                  maxLength={100}
                   value={formData.brand}
                   onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
@@ -266,6 +270,7 @@ export default function TradeInPage() {
                 </label>
                 <input
                   type="text"
+                  maxLength={100}
                   value={formData.model}
                   onChange={(e) => setFormData({ ...formData, model: e.target.value })}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
@@ -280,6 +285,7 @@ export default function TradeInPage() {
                 </label>
                 <input
                   type="text"
+                  maxLength={100}
                   value={formData.firstRegistration}
                   onChange={(e) => setFormData({ ...formData, firstRegistration: e.target.value })}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
@@ -294,6 +300,7 @@ export default function TradeInPage() {
                 </label>
                 <input
                   type="text"
+                  maxLength={100}
                   value={formData.mileage}
                   onChange={(e) => setFormData({ ...formData, mileage: e.target.value })}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
@@ -328,6 +335,7 @@ export default function TradeInPage() {
                 <textarea
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  maxLength={1000}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50 resize-none"
                   placeholder="Weitere Informationen zu Ihrem Fahrzeug..."
                   rows={4}
