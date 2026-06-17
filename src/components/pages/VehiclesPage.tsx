@@ -15,52 +15,10 @@ import {
   deriveFuelOptions,
 } from '@/lib/domain/vehicleFilter';
 import { getVehicleImageCount, getFeatureChips } from '@/lib/domain/vehicleFeatures';
+import { AnimatedElement } from '@/components/ui/animated-element';
 
 const MANUFACTURER_OPTIONS = deriveManufacturerOptions(vehiclesData);
 const FUEL_OPTIONS = deriveFuelOptions(vehiclesData);
-
-const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
-  children, 
-  className = '',
-  delay = 0 
-}) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    let timeoutId: ReturnType<typeof setTimeout>;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          timeoutId = setTimeout(() => setIsVisible(true), delay);
-          observer.unobserve(el);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    observer.observe(el);
-    return () => {
-      observer.disconnect();
-      if (timeoutId) clearTimeout(timeoutId);
-    };
-  }, [delay]);
-
-  return (
-    <div
-      ref={ref}
-      className={`transition-all duration-700 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-      } ${className}`}
-    >
-      {children}
-    </div>
-  );
-};
 
 export default function VehiclePage() {
   const [searchParams, setSearchParams] = useSearchParams();

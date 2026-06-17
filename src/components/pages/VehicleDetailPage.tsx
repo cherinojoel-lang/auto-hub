@@ -14,45 +14,8 @@ import { Lightbox } from '@/components/ui/lightbox';
 import { WhatsAppCta } from '@/components/ui/whatsapp-cta';
 import { EnvkvDisclosure } from '@/components/EnvkvDisclosure';
 import { getAllFeatures, getTransmission } from '@/lib/domain/vehicleFeatures';
+import { AnimatedElement } from '@/components/ui/animated-element';
 
-const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; priority?: boolean }> = ({
-  children, 
-  className = '',
-  priority = false
-}) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(priority || false);
-
-  useEffect(() => {
-    if (priority) return;
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(el);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      className={`transition-all duration-700 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-      } ${className}`}
-    >
-      {children}
-    </div>
-  );
-};
 
 const SAFE_SERVICE_POINTS = [
   'Persönliche Beratung vor Ort',
