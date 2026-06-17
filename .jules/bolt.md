@@ -17,3 +17,7 @@
 ## 2024-05-15 - [Bypassing IntersectionObserver for LCP]
 **Learning:** The `AnimatedElement` component utilizes an `IntersectionObserver` to trigger fade-in animations. Wrapping above-the-fold content within it creates an anti-pattern delaying initial render, directly impacting LCP metrics.
 **Action:** Always modify localized wrapper definitions to accept a `priority` prop. Set this prop to `true` for hero content, enabling an early return that completely bypasses the observer and initializes the component as visible immediately.
+
+## 2024-05-15 - [WeakMap Caching for Expensive Derived Data]
+**Learning:** Pure functions like `getFeatureChips` and `deriveFeatures` calculate string arrays using regex evaluations based on domain models (`Vehicle`), and these are called frequently during map operations in React render loops (e.g. rendering lists of `VehicleCard`s). Returning newly allocated arrays triggers unnecessary React re-renders if passed down, and chained array methods allocate intermediate memory.
+**Action:** Always wrap expensive, stateless derivation logic in `WeakMap`s keyed by stable domain object references (`Vehicle`), and replace chained array methods with single-pass loops to prevent redundant execution and garbage collection pressure without causing memory leaks.
