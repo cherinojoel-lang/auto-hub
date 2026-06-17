@@ -277,6 +277,7 @@ export default function ContactSection() {
                   loading="lazy"
                   allowFullScreen
                   referrerPolicy="no-referrer-when-downgrade"
+                  sandbox="allow-scripts allow-same-origin"
                   src="https://www.google.com/maps?q=Automobile%20Quick%20Hagener%20Str.%20126a%2058642%20Iserlohn&output=embed"
                   title="Standort Automobile Quick – Google Maps"
                   aria-label="Interaktive Karte: Standort Automobile Quick in Iserlohn-Letmathe"
