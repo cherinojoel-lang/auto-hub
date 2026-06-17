@@ -1,5 +1,5 @@
+import { useEffect } from 'react';
 // WI-HPI
-import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight, MapPin, Phone, Award, Users, Calendar, ShieldCheck, Car } from 'lucide-react';
 import { Image } from '@/components/ui/image';
