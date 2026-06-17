@@ -1,6 +1,5 @@
-import { render, screen, waitFor, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import ContactSection from '../ContactSection';
-import { vi } from 'vitest';
 
 describe('ContactSection', () => {
   it('renders successfully', () => {
