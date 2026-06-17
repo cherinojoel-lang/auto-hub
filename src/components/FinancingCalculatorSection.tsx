@@ -98,10 +98,11 @@ export default function FinancingCalculatorSection() {
               <div className="space-y-6">
                 {/* Purchase Price */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                  <label htmlFor="purchase-price-input" className="block text-sm font-medium text-slate-700 mb-2">
                     Kaufpreis (EUR)
                   </label>
                   <input
+                    id="purchase-price-input"
                     type="number"
                     min="5000"
                     max="100000"
@@ -111,6 +112,7 @@ export default function FinancingCalculatorSection() {
                   />
                   <input
                     type="range"
+                    aria-label="Kaufpreis (EUR) Schieberegler"
                     min="5000"
                     max="100000"
                     value={purchasePrice}
@@ -121,10 +123,11 @@ export default function FinancingCalculatorSection() {
 
                 {/* Down Payment */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                  <label htmlFor="down-payment-input" className="block text-sm font-medium text-slate-700 mb-2">
                     Anzahlung (EUR)
                   </label>
                   <input
+                    id="down-payment-input"
                     type="number"
                     min="0"
                     max={purchasePrice}
@@ -134,6 +137,7 @@ export default function FinancingCalculatorSection() {
                   />
                   <input
                     type="range"
+                    aria-label="Anzahlung (EUR) Schieberegler"
                     min="0"
                     max={purchasePrice}
                     value={downPayment}
@@ -144,10 +148,11 @@ export default function FinancingCalculatorSection() {
 
                 {/* Loan Term */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                  <label htmlFor="loan-term-select" className="block text-sm font-medium text-slate-700 mb-2">
                     Laufzeit (Monate)
                   </label>
                   <select
+                    id="loan-term-select"
                     value={loanTerm}
                     onChange={(e) => setLoanTerm(Number(e.target.value))}
                     className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
@@ -163,10 +168,11 @@ export default function FinancingCalculatorSection() {
 
                 {/* Interest Rate (Read-only) */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                  <label htmlFor="interest-rate-input" className="block text-sm font-medium text-slate-700 mb-2">
                     Zinssatz (%)
                   </label>
                   <input
+                    id="interest-rate-input"
                     type="number"
                     value={interestRate}
                     readOnly
