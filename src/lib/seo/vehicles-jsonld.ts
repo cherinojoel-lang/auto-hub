@@ -51,5 +51,6 @@ export const buildItemListJsonLd = (
     itemListElement: items,
   };
 
-  return JSON.stringify(itemList);
+  // Ensure HTML chars are escaped when injected via Astro's set:html to prevent XSS
+  return JSON.stringify(itemList).replace(/</g, '\\u003c').replace(/>/g, '\\u003e');
 };
