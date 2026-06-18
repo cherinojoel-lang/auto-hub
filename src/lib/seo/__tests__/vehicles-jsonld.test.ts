@@ -57,4 +57,17 @@ describe('buildItemListJsonLd', () => {
     );
     expect(parsed.itemListElement[0].item.image).toBe('https://example.test/foo.webp');
   });
+
+  it('escapes < and > to prevent XSS vulnerabilities', () => {
+    const maliciousTitle = 'BMW M3 </script><script>alert("xss")</script>';
+    const result = buildItemListJsonLd([v('xss', { title: maliciousTitle })], 'https://example.test/x');
+
+    // Check that there are no unescaped < or > characters
+    expect(result).not.toContain('<');
+    expect(result).not.toContain('>');
+
+    // Check that it can still be parsed as valid JSON and contains the unescaped string
+    const parsed = JSON.parse(result);
+    expect(parsed.itemListElement[0].item.name).toBe(maliciousTitle);
+  });
 });
