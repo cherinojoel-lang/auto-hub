@@ -203,12 +203,14 @@ export default function TradeInPage() {
             <form onSubmit={handleSubmit} className="bg-background rounded-lg p-8 shadow-sm border border-neutral-200">
               {/* Name */}
               <div className="mb-6">
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label htmlFor="tradein-name" className="block text-sm font-medium text-foreground mb-2">
                   Name <span className="text-secondary">*</span>
                 </label>
                 <input
                   type="text"
+                  id="tradein-name"
                   required
+                  maxLength={100}
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
@@ -218,12 +220,14 @@ export default function TradeInPage() {
 
               {/* Phone */}
               <div className="mb-6">
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label htmlFor="tradein-phone" className="block text-sm font-medium text-foreground mb-2">
                   Telefon <span className="text-secondary">*</span>
                 </label>
                 <input
                   type="tel"
+                  id="tradein-phone"
                   required
+                  maxLength={50}
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
@@ -233,11 +237,13 @@ export default function TradeInPage() {
 
               {/* Email */}
               <div className="mb-6">
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label htmlFor="tradein-email" className="block text-sm font-medium text-foreground mb-2">
                   E-Mail
                 </label>
                 <input
                   type="email"
+                  id="tradein-email"
+                  maxLength={100}
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
@@ -247,11 +253,13 @@ export default function TradeInPage() {
 
               {/* Brand */}
               <div className="mb-6">
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label htmlFor="tradein-brand" className="block text-sm font-medium text-foreground mb-2">
                   Marke
                 </label>
                 <input
                   type="text"
+                  id="tradein-brand"
+                  maxLength={50}
                   value={formData.brand}
                   onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
@@ -261,11 +269,13 @@ export default function TradeInPage() {
 
               {/* Model */}
               <div className="mb-6">
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label htmlFor="tradein-model" className="block text-sm font-medium text-foreground mb-2">
                   Modell
                 </label>
                 <input
                   type="text"
+                  id="tradein-model"
+                  maxLength={50}
                   value={formData.model}
                   onChange={(e) => setFormData({ ...formData, model: e.target.value })}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
@@ -275,11 +285,13 @@ export default function TradeInPage() {
 
               {/* First Registration */}
               <div className="mb-6">
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label htmlFor="tradein-firstRegistration" className="block text-sm font-medium text-foreground mb-2">
                   Erstzulassung
                 </label>
                 <input
                   type="text"
+                  id="tradein-firstRegistration"
+                  maxLength={20}
                   value={formData.firstRegistration}
                   onChange={(e) => setFormData({ ...formData, firstRegistration: e.target.value })}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
@@ -289,11 +301,13 @@ export default function TradeInPage() {
 
               {/* Mileage */}
               <div className="mb-6">
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label htmlFor="tradein-mileage" className="block text-sm font-medium text-foreground mb-2">
                   Kilometerstand
                 </label>
                 <input
                   type="text"
+                  id="tradein-mileage"
+                  maxLength={20}
                   value={formData.mileage}
                   onChange={(e) => setFormData({ ...formData, mileage: e.target.value })}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
@@ -303,10 +317,11 @@ export default function TradeInPage() {
 
               {/* Fuel */}
               <div className="mb-6">
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label htmlFor="tradein-fuel" className="block text-sm font-medium text-foreground mb-2">
                   Kraftstoff
                 </label>
                 <select
+                  id="tradein-fuel"
                   value={formData.fuel}
                   onChange={(e) => setFormData({ ...formData, fuel: e.target.value })}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
@@ -322,10 +337,12 @@ export default function TradeInPage() {
 
               {/* Message */}
               <div className="mb-6">
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label htmlFor="tradein-message" className="block text-sm font-medium text-foreground mb-2">
                   Nachricht / Anmerkungen
                 </label>
                 <textarea
+                  id="tradein-message"
+                  maxLength={2000}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50 resize-none"
