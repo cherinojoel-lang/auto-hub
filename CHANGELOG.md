@@ -1,5 +1,10 @@
 # Changelog
 
+## [Unreleased] - 2026-06-11 to 2026-06-18
+
+### ⚡ Performance
+- perf: resolve top 3 performance bottlenecks (#302) (`97ba604`)
+
 ## [Unreleased] - 2026-05-15 to 2026-05-21
 
 ### 🚀 Features & Enhancements
