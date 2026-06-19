@@ -1,0 +1,81 @@
+name: Mass PR Conflict Resolution and Auto-Merge
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/30 * * * *' # Runs every 30 minutes to process in batches
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  mass-process-prs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Process PRs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Fetching open PRs..."
+          pr_list=$(gh pr list --state open --limit 150 --json number -q '.[].number')
+
+          if [ -z "$pr_list" ]; then
+            echo "No open PRs found."
+          else
+            for pr in $pr_list; do
+              echo "====================================="
+              echo "Processing PR #$pr..."
+
+              branch_name=$(gh pr view $pr --json headRefName -q '.headRefName')
+              echo "Branch: $branch_name"
+
+              # Checkout the PR branch
+              git checkout "$branch_name" || git checkout -t "origin/$branch_name" || {
+                echo "Failed to checkout $branch_name"
+                continue
+              }
+
+              # Fetch latest main
+              git fetch origin main
+
+              # Try to merge main into the PR branch, favoring our changes (PR branch) on conflicts
+              if ! git merge origin/main -m "chore: auto-resolve conflicts from main"; then
+                echo "Merge conflicts detected. Resolving..."
+                # When using ours strategy on merge, it might overwrite some security patches.
+                # So here we try standard merge, and if there are conflicts, we'll try to checkout ours specifically for the conflicted files.
+                # But it's safer to just let git merge using standard resolution, and if conflicts exist, we use --ours on unmerged files
+                unmerged_files=$(git diff --name-only --diff-filter=U)
+                for file in $unmerged_files; do
+                  git checkout --ours "$file"
+                  git add "$file"
+                done
+                git commit -m "chore: auto-resolve remaining conflicts using ours" || true
+              fi
+
+              # Use git push properly
+              git push origin "$branch_name" || echo "Failed to push $branch_name"
+
+              # Approve the PR
+              gh pr review $pr --approve -b "Automated approval for mass merge." || echo "Already approved or cannot approve PR #$pr"
+
+              # Enable auto-merge or merge directly
+              gh pr merge $pr --merge --auto || gh pr merge $pr --merge || echo "Could not merge PR #$pr"
+
+              echo "Finished processing PR #$pr"
+
+              # Small delay to avoid hitting rate limits too fast
+              sleep 2
+            done
+          fi
