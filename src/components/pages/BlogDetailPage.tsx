@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { BaseCrudService } from '@/integrations';
 import { Image } from '@/components/ui/image';
@@ -56,114 +56,116 @@ export default function BlogDetailPage() {
     return d.toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' });
   };
 
-  const renderContent = (content: string | undefined) => {
-    if (!content) return null;
+  const parsedContent = useMemo(() => {
+    if (!article?.content) return null;
 
-    return (
-      <div className="prose prose-lg max-w-none font-paragraph text-neutral-700 leading-relaxed">
-        {content.split('\n\n').map((paragraph, index) => {
-          // Handle headings
-          if (paragraph.startsWith('# ')) {
-            return (
-              <h1 key={index} className="font-heading text-4xl font-bold text-primary mt-8 mb-4">
-                {paragraph.replace('# ', '')}
-              </h1>
-            );
-          }
-          if (paragraph.startsWith('## ')) {
-            return (
-              <h2 key={index} className="font-heading text-2xl font-bold text-primary mt-6 mb-3">
-                {paragraph.replace('## ', '')}
-              </h2>
-            );
-          }
-          if (paragraph.startsWith('### ')) {
-            return (
-              <h3 key={index} className="font-heading text-xl font-bold text-primary mt-4 mb-2">
-                {paragraph.replace('### ', '')}
-              </h3>
-            );
-          }
-          // Handle lists
-          if (paragraph.startsWith('- ')) {
-            const items = paragraph.split('\n').filter(line => line.startsWith('- '));
-            return (
-              <ul key={index} className="list-disc list-inside space-y-2 my-4">
-                {items.map((item, i) => (
-                  <li key={i} className="text-neutral-700">
-                    {item.replace('- ', '')}
-                  </li>
-                ))}
-              </ul>
-            );
-          }
-          // Handle tables
-          if (paragraph.includes('|')) {
-            const lines = paragraph.split('\n');
-            const headers = lines[0].split('|').map(h => h.trim()).filter(Boolean);
-            const rows = lines.slice(2).map(line => 
-              line.split('|').map(cell => cell.trim()).filter(Boolean)
-            );
-            return (
-              <div key={index} className="overflow-x-auto my-6">
-                <table className="w-full border-collapse border border-neutral-300">
-                  <thead>
-                    <tr className="bg-neutral-100">
-                      {headers.map((header, i) => (
-                        <th key={i} className="border border-neutral-300 px-4 py-2 text-left font-bold">
-                          {header}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {rows.map((row, i) => (
-                      <tr key={i} className="hover:bg-neutral-50">
-                        {row.map((cell, j) => (
-                          <td key={j} className="border border-neutral-300 px-4 py-2">
-                            {cell}
-                          </td>
-                        ))}
-                      </tr>
+    const elements = article.content.split('\n\n').map((paragraph, index) => {
+      // Handle headings
+      if (paragraph.startsWith('# ')) {
+        return (
+          <h1 key={index} className="font-heading text-4xl font-bold text-primary mt-8 mb-4">
+            {paragraph.replace('# ', '')}
+          </h1>
+        );
+      }
+      if (paragraph.startsWith('## ')) {
+        return (
+          <h2 key={index} className="font-heading text-2xl font-bold text-primary mt-6 mb-3">
+            {paragraph.replace('## ', '')}
+          </h2>
+        );
+      }
+      if (paragraph.startsWith('### ')) {
+        return (
+          <h3 key={index} className="font-heading text-xl font-bold text-primary mt-4 mb-2">
+            {paragraph.replace('### ', '')}
+          </h3>
+        );
+      }
+      // Handle lists
+      if (paragraph.startsWith('- ')) {
+        const items = paragraph.split('\n').filter(line => line.startsWith('- '));
+        return (
+          <ul key={index} className="list-disc list-inside space-y-2 my-4">
+            {items.map((item, i) => (
+              <li key={i} className="text-neutral-700">
+                {item.replace('- ', '')}
+              </li>
+            ))}
+          </ul>
+        );
+      }
+      // Handle tables
+      if (paragraph.includes('|')) {
+        const lines = paragraph.split('\n');
+        const headers = lines[0].split('|').map(h => h.trim()).filter(Boolean);
+        const rows = lines.slice(2).map(line =>
+          line.split('|').map(cell => cell.trim()).filter(Boolean)
+        );
+        return (
+          <div key={index} className="overflow-x-auto my-6">
+            <table className="w-full border-collapse border border-neutral-300">
+              <thead>
+                <tr className="bg-neutral-100">
+                  {headers.map((header, i) => (
+                    <th key={i} className="border border-neutral-300 px-4 py-2 text-left font-bold">
+                      {header}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((row, i) => (
+                  <tr key={i} className="hover:bg-neutral-50">
+                    {row.map((cell, j) => (
+                      <td key={j} className="border border-neutral-300 px-4 py-2">
+                        {cell}
+                      </td>
                     ))}
-                  </tbody>
-                </table>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        );
+      }
+      // Handle CTA blocks
+      if (paragraph.includes('[CTA]')) {
+        const ctaMatch = paragraph.match(/\[CTA\](.*?)\[\/CTA\]/);
+        if (ctaMatch) {
+          const ctaText = ctaMatch[1];
+          const linkMatch = ctaText.match(/\[(.*?)\]\((.*?)\)/);
+          if (linkMatch) {
+            return (
+              <div key={index} className="bg-secondary/10 border-l-4 border-secondary p-6 my-6 rounded">
+                <Link
+                  to={linkMatch[2]}
+                  className="inline-block px-6 py-3 bg-secondary text-white rounded-lg font-heading font-bold hover:bg-secondary/90 transition-colors"
+                >
+                  {linkMatch[1]}
+                </Link>
               </div>
             );
           }
-          // Handle CTA blocks
-          if (paragraph.includes('[CTA]')) {
-            const ctaMatch = paragraph.match(/\[CTA\](.*?)\[\/CTA\]/);
-            if (ctaMatch) {
-              const ctaText = ctaMatch[1];
-              const linkMatch = ctaText.match(/\[(.*?)\]\((.*?)\)/);
-              if (linkMatch) {
-                return (
-                  <div key={index} className="bg-secondary/10 border-l-4 border-secondary p-6 my-6 rounded">
-                    <Link
-                      to={linkMatch[2]}
-                      className="inline-block px-6 py-3 bg-secondary text-white rounded-lg font-heading font-bold hover:bg-secondary/90 transition-colors"
-                    >
-                      {linkMatch[1]}
-                    </Link>
-                  </div>
-                );
-              }
-            }
-          }
-          // Regular paragraph
-          if (paragraph.trim()) {
-            return (
-              <p key={index} className="my-4 text-neutral-700 leading-relaxed">
-                {paragraph}
-              </p>
-            );
-          }
-          return null;
-        })}
+        }
+      }
+      // Regular paragraph
+      if (paragraph.trim()) {
+        return (
+          <p key={index} className="my-4 text-neutral-700 leading-relaxed">
+            {paragraph}
+          </p>
+        );
+      }
+      return null;
+    });
+
+    return (
+      <div className="prose prose-lg max-w-none font-paragraph text-neutral-700 leading-relaxed">
+        {elements}
       </div>
     );
-  };
+  }, [article?.content]);
 
   if (isLoading) {
     return (
@@ -234,7 +236,7 @@ export default function BlogDetailPage() {
             </h1>
 
             {/* Content */}
-            {renderContent(article.content)}
+            {parsedContent}
 
             {/* Back Link */}
             <div className="mt-12 pt-6 border-t border-neutral-200">
