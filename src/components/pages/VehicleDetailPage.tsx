@@ -222,14 +222,14 @@ export default function VehicleDetailPage() {
                         <>
                           <button
                             onClick={handlePrevImage}
-                            className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-primary p-2 rounded-full shadow-md transition-all"
+                            className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-primary p-2 rounded-full shadow-md transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                             aria-label="Vorheriges Bild"
                           >
                             <ChevronLeft size={24} />
                           </button>
                           <button
                             onClick={handleNextImage}
-                            className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-primary p-2 rounded-full shadow-md transition-all"
+                            className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-primary p-2 rounded-full shadow-md transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                             aria-label="Nächstes Bild"
                           >
                             <ChevronRight size={24} />
@@ -245,10 +245,12 @@ export default function VehicleDetailPage() {
                             <button
                               key={idx}
                               onClick={() => setCurrentGalleryIndex(idx)}
-                              className={`flex-shrink-0 aspect-video rounded overflow-hidden border-2 transition-all ${
+                              className={`flex-shrink-0 aspect-video rounded overflow-hidden border-2 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
                                 currentGalleryIndex === idx ? 'border-secondary' : 'border-border-line'
                               }`}
                               style={{ width: '96px' }}
+                              aria-label={`Galeriebild ${idx + 1} anzeigen`}
+                              aria-pressed={currentGalleryIndex === idx}
                             >
                               <Image
                                 src={img}
@@ -469,14 +471,14 @@ export default function VehicleDetailPage() {
                             </div>
                             <button
                               onClick={handlePrevImage}
-                              className="absolute left-5 top-1/2 -translate-y-1/2 bg-white/85 hover:bg-white text-primary p-3 rounded-full shadow-md transition-all"
+                              className="absolute left-5 top-1/2 -translate-y-1/2 bg-white/85 hover:bg-white text-primary p-3 rounded-full shadow-md transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                               aria-label="Vorheriges Bild"
                             >
                               <ChevronLeft size={28} />
                             </button>
                             <button
                               onClick={handleNextImage}
-                              className="absolute right-5 top-1/2 -translate-y-1/2 bg-white/85 hover:bg-white text-primary p-3 rounded-full shadow-md transition-all"
+                              className="absolute right-5 top-1/2 -translate-y-1/2 bg-white/85 hover:bg-white text-primary p-3 rounded-full shadow-md transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                               aria-label="Nächstes Bild"
                             >
                               <ChevronRight size={28} />
@@ -490,9 +492,11 @@ export default function VehicleDetailPage() {
                             <button
                               key={idx}
                               onClick={() => setCurrentGalleryIndex(idx)}
-                              className={`aspect-video relative rounded overflow-hidden border-2 transition-all ${
+                              className={`aspect-video relative rounded overflow-hidden border-2 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
                                 currentGalleryIndex === idx ? 'border-secondary' : 'border-border-line'
                               }`}
+                              aria-label={`Galeriebild ${idx + 1} anzeigen`}
+                              aria-pressed={currentGalleryIndex === idx}
                             >
                               <Image
                                 src={img}
