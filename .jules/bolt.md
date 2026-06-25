@@ -25,3 +25,7 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+
+## 2024-05-15 - [Hoist static objects from middleware]
+**Learning:** Re-evaluating static objects like \`Object.entries(SECURITY_HEADERS)\` inside middleware request handlers like \`onRequest\` causes unnecessary memory allocation on every incoming request.
+**Action:** Always hoist static object calculations and arrays outside of the request handler function to optimize middleware performance and reduce memory churn.
