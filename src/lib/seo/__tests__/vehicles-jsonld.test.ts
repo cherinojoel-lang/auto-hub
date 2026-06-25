@@ -57,4 +57,16 @@ describe('buildItemListJsonLd', () => {
     );
     expect(parsed.itemListElement[0].item.image).toBe('https://example.test/foo.webp');
   });
+
+  it('entfernt schädliche HTML-Tags (XSS-Schutz)', () => {
+    const json = buildItemListJsonLd([v('a', { title: 'BMW M3 </script><script>alert("XSS")</script>' })], 'https://www.automobile-quick.de/fahrzeugbestand');
+    expect(json).not.toContain('<script>');
+    expect(json).not.toContain('</script>');
+    expect(json).toContain('\\u003cscript\\u003e');
+    expect(json).toContain('\\u003c/script\\u003e');
+
+    // Check if it is still valid JSON
+    const parsed = JSON.parse(json);
+    expect(parsed.itemListElement[0].item.name).toBe('BMW M3 </script><script>alert("XSS")</script>');
+  });
 });
