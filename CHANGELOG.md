@@ -1,5 +1,35 @@
 # Changelog
 
+## [Unreleased] - 2026-06-18 to 2026-06-25
+
+### ⚡ Performance (Bolt)
+- perf: Combine multiple `filterVehicles` predicates and conditions into a single pass
+- perf: Hoist static `Object.entries` and `SECURITY_HEADERS` calculations outside of middleware request handler
+- perf: Remove artificial simulated 1s delay in contact form submission
+- perf: Memoize blog content markdown parsing using `useMemo`
+- perf: Memoize similar vehicles derivation to prevent waterfall renders
+- perf: Optimize `slugify` with regex
+
+### 🛡️ Security (Sentinel)
+- fix: Resolve XSS vulnerability by escaping HTML chars in JSON-LD script injection
+- chore: Update dependencies to fix security vulnerabilities (npm audit fix)
+- fix: Add sandbox attribute to maps iframe
+
+### 🎨 Accessibility & UI (Palette)
+- feat: Add explicit accessibility labeling (`aria-labels`, `htmlFor`, `id`) to financing calculator and TradeInPage form inputs
+- feat: Add keyboard focus styles and ARIA labels to vehicle image gallery thumbnails
+- feat: Add loading spinners to async form buttons
+
+### 🚀 Features & Enhancements
+- feat(ci): Add mass PR merge and conflict resolution workflow
+- refactor: Extract duplicate `AnimatedElement` to shared UI component
+- chore(main): Release 1.0.0
+
+### 🧹 Code Health
+- chore: Document security scan with zero findings
+- chore: Remove leftover `console.log` from ContactSection
+- chore: Update changelog for the week of 2026-06-11 to 2026-06-18
+
 ## [Unreleased] - 2026-05-15 to 2026-05-21
 
 ### 🚀 Features & Enhancements
