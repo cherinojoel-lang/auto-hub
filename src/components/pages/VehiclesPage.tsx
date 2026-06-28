@@ -183,20 +183,23 @@ export default function VehiclePage() {
             </h2>
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="md:hidden flex min-w-0 max-w-[70%] items-center justify-end gap-2 text-primary font-bold text-sm sm:text-base hover:text-primary/80 transition-colors"
+              className="md:hidden flex min-w-0 max-w-[70%] items-center justify-end gap-2 text-primary font-bold text-sm sm:text-base hover:text-primary/80 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-md px-2 py-1"
+              aria-expanded={showFilters}
+              aria-controls="filters-panel"
             >
               <Filter size={22} />
               <span className="truncate">{showFilters ? 'Schließen' : 'Filter'}</span>
             </button>
           </div>
 
-          <div className={`${showFilters ? 'block' : 'hidden'} md:block`}>
+          <div id="filters-panel" className={`${showFilters ? 'block' : 'hidden'} md:block`}>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 mb-6">
               <div>
-                <label className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
+                <label htmlFor="filter-manufacturer" className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
                   Marke
                 </label>
                 <select
+                  id="filter-manufacturer"
                   value={manufacturer}
                   onChange={(e) => setManufacturer(e.target.value)}
                   className="w-full min-h-12 px-4 py-3 rounded-md border border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
@@ -209,10 +212,11 @@ export default function VehiclePage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
+                <label htmlFor="filter-price" className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
                   Preis
                 </label>
                 <select
+                  id="filter-price"
                   value={priceMax}
                   onChange={(e) => setPriceMax(e.target.value)}
                   className="w-full min-h-12 px-4 py-3 rounded-md border border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
@@ -227,10 +231,11 @@ export default function VehiclePage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
+                <label htmlFor="filter-fuel" className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
                   Kraftstoff
                 </label>
                 <select
+                  id="filter-fuel"
                   value={driveType}
                   onChange={(e) => setDriveType(e.target.value)}
                   className="w-full min-h-12 px-4 py-3 rounded-md border border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
@@ -243,10 +248,11 @@ export default function VehiclePage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
+                <label htmlFor="filter-mileage" className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
                   Kilometerstand
                 </label>
                 <select
+                  id="filter-mileage"
                   value={maxMileage}
                   onChange={(e) => setMaxMileage(e.target.value)}
                   className="w-full min-h-12 px-4 py-3 rounded-md border border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
@@ -261,10 +267,11 @@ export default function VehiclePage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
+                <label htmlFor="filter-year" className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
                   Erstzulassung
                 </label>
                 <select
+                  id="filter-year"
                   value={yearFrom}
                   onChange={(e) => setYearFrom(e.target.value)}
                   className="w-full min-h-12 px-4 py-3 rounded-md border border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
