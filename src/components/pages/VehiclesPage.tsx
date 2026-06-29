@@ -126,7 +126,7 @@ export default function VehiclePage() {
     if (maxMileage) params.set('maxMileage', maxMileage);
     setSearchParams(params);
     setSkip(0);
-    loadVehicle();
+    // Remove loadVehicle() here to avoid duplicate API calls
     setShowFilters(false);
   };
 
@@ -138,7 +138,7 @@ export default function VehiclePage() {
     setMaxMileage('');
     setSearchParams(new URLSearchParams());
     setSkip(0);
-    loadVehicle();
+    // Remove loadVehicle() here to avoid duplicate API calls
   };
 
 

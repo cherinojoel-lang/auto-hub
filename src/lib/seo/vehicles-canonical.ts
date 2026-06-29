@@ -11,15 +11,13 @@ const UMLAUT_MAP: Record<string, string> = {
   ñ: 'n', ç: 'c',
 };
 
+const UMLAUT_REGEX = new RegExp(Object.keys(UMLAUT_MAP).join('|'), 'g');
+
 export const slugify = (raw: string): string => {
-  const folded = raw
-    .split('')
-    .map((ch) => UMLAUT_MAP[ch] ?? ch)
-    .join('')
+  return raw.replace(UMLAUT_REGEX, (match) => UMLAUT_MAP[match] || match)
     .toLocaleLowerCase('de-DE')
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
-  return folded;
 };
 
 const PRICE_BUCKETS = new Set(['15000', '20000', '25000', '40000', '60000', '100000']);
