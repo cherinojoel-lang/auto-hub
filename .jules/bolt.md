@@ -25,3 +25,6 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+## 2024-05-15 - [Middleware Object.entries Optimization]
+**Learning:** In the Cloudflare Pages middleware (`src/middleware.ts`), `Object.entries(SECURITY_HEADERS)` was being called on every incoming request. `SECURITY_HEADERS` is a constant, static object. Calling `Object.entries` inside the request handler means re-evaluating and allocating a new array of arrays on every request, which is an unnecessary overhead in a hot code path.
+**Action:** Always hoist static object calculations (like `Object.entries()` on constant objects) outside the request handler function to prevent unnecessary re-evaluation and memory allocation on every incoming request.
