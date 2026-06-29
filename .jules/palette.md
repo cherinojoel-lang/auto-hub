@@ -4,3 +4,6 @@
 ## 2024-05-31 - Mobile Menu Toggle Accessibility
 **Learning:** The application uses two different patterns for hiding/showing mobile menus: `Header.tsx` conditionally unmounts the `<nav>` node entirely, while `StickyHeader.tsx` keeps the menu in the DOM but hides it using CSS transform classes (`translate-x-full`). This requires different strategies for the `aria-controls` attribute on the toggle buttons to prevent screen readers from pointing to non-existent nodes when unmounted.
 **Action:** When adding accessibility features to toggle buttons, always verify if the target container is hidden via CSS or conditionally unmounted, and set `aria-controls` to `undefined` dynamically when the target is removed from the DOM.
+## 2024-06-29 - Mobile Filter Toggle Accessibility
+**Learning:** Mobile filter toggle buttons frequently lack necessary ARIA state management (`aria-expanded`, `aria-controls`) and proper keyboard focus visibility (`focus-visible:ring-2`) in this app's components, causing screen readers to miss their interaction states.
+**Action:** Always add `aria-expanded`, `aria-controls`, and `focus-visible` styles to stateful UI toggle components, while avoiding the addition of explicit `role="button"` when using native HTML `<button>` elements.
