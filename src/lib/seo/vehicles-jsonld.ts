@@ -51,5 +51,7 @@ export const buildItemListJsonLd = (
     itemListElement: items,
   };
 
-  return JSON.stringify(itemList);
+  return JSON.stringify(itemList)
+    .replace(/</g, '\\u003c')
+    .replace(/>/g, '\\u003e');
 };
