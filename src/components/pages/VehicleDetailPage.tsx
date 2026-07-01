@@ -249,6 +249,7 @@ export default function VehicleDetailPage() {
                                 currentGalleryIndex === idx ? 'border-secondary' : 'border-border-line'
                               }`}
                               style={{ width: '96px' }}
+                              aria-label={`Galeriebild ${idx + 1} anzeigen`}
                             >
                               <Image
                                 src={img}
@@ -493,6 +494,7 @@ export default function VehicleDetailPage() {
                               className={`aspect-video relative rounded overflow-hidden border-2 transition-all ${
                                 currentGalleryIndex === idx ? 'border-secondary' : 'border-border-line'
                               }`}
+                              aria-label={`Galeriebild ${idx + 1} anzeigen`}
                             >
                               <Image
                                 src={img}
