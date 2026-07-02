@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Calendar, Gauge, Zap, Fuel, ArrowLeft, Phone, MapPin, Wrench, ChevronLeft, ChevronRight } from 'lucide-react';
 import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
@@ -65,60 +65,59 @@ const SAFE_SERVICE_POINTS = [
 
 export default function VehicleDetailPage() {
   const { id } = useParams<{ id: string }>();
-  const [vehicle, setVehicle] = useState<Vehicle | null>(null);
-  const [similarVehicle, setSimilarVehicle] = useState<Vehicle[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [currentGalleryIndex, setCurrentGalleryIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const { toast } = useToast();
 
-  useEffect(() => {
-    loadVehicle();
-  }, [id]);
-
-  const loadVehicle = async () => {
-    if (!id) return;
-    
+  // ⚡ Bolt Performance Optimization:
+  // Compute derived state synchronously during render with useMemo to prevent double-renders on initial mount.
+  const { vehicle, similarVehicle } = useMemo(() => {
     try {
-      setIsLoading(true);
       const safeVehicles = Array.isArray(vehiclesData) ? vehiclesData : []; 
       const data = safeVehicles.find((v: Vehicle) => v.id === id) || null;
-      setVehicle(data);
-      setCurrentGalleryIndex(0);
-      
-      // Load similar vehicles
-      setSimilarVehicle(safeVehicles.filter((v: Vehicle) => v.id !== id).slice(0, 4));
-      
-      // Update SEO for vehicle detail page
-      if (data) {
+      const similar = safeVehicles.filter((v: Vehicle) => v.id !== id).slice(0, 4);
+      return { vehicle: data, similarVehicle: similar };
+    } catch (error) {
+      console.error('Error loading vehicle data:', error);
+      return { vehicle: null, similarVehicle: [] };
+    }
+  }, [id]);
+
+  const isLoading = false;
+
+  useEffect(() => {
+    setCurrentGalleryIndex(0);
+
+    // Update SEO for vehicle detail page
+    if (vehicle) {
+      try {
         const title = PAGE_METADATA.vehicleDetail.title
-          .replace('{title}', data.title || 'Fahrzeug')
-          .replace('{manufacturer}', data.make || '')
-          .replace('{model}', data.model || '')
-          .replace('{year}', data.firstRegistration?.toString() || '');
+          .replace('{title}', vehicle.title || 'Fahrzeug')
+          .replace('{manufacturer}', vehicle.make || '')
+          .replace('{model}', vehicle.model || '')
+          .replace('{year}', vehicle.firstRegistration?.toString() || '');
         
         updateMetaTags({
           title: title,
-          description: data.description || `${data.title} - Hochwertiger Gebrauchtwagen bei Automobile Quick in Iserlohn-Letmathe. Faire Preise und persönliche Beratung.`,
-          keywords: `${data.title}, Gebrauchtwagen, ${data.fuel}, Iserlohn, Letmathe`,
-          ogTitle: `${data.title} - Automobile Quick`,
-          ogDescription: data.description || `${data.title} - Hochwertiger Gebrauchtwagen`,
-          ogImage: data.mainImage,
+          description: vehicle.description || `${vehicle.title} - Hochwertiger Gebrauchtwagen bei Automobile Quick in Iserlohn-Letmathe. Faire Preise und persönliche Beratung.`,
+          keywords: `${vehicle.title}, Gebrauchtwagen, ${vehicle.fuel}, Iserlohn, Letmathe`,
+          ogTitle: `${vehicle.title} - Automobile Quick`,
+          ogDescription: vehicle.description || `${vehicle.title} - Hochwertiger Gebrauchtwagen`,
+          ogImage: vehicle.mainImage,
           canonicalUrl: `${SITE_CONFIG.url}/fahrzeugdetail/${id}`,
-          structuredData: getStructuredDataProduct(data),
+          structuredData: getStructuredDataProduct(vehicle),
         });
+      } catch (error) {
+        console.error('Error updating SEO tags:', error);
       }
-    } catch (error) {
-      console.error('Error loading vehicle:', error);
+    } else if (vehicle === null && id) {
       toast({
         title: "Fehler",
         description: "Fahrzeugdaten konnten nicht geladen werden.",
         variant: "destructive",
       });
-    } finally {
-      setIsLoading(false);
     }
-  };
+  }, [id, vehicle, toast]);
 
   const getGalleryImages = () => {
     if (!vehicle) return [];

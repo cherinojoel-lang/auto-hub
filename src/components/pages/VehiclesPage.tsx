@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowRight, Calendar, Camera, Filter, Fuel, Gauge, ShieldCheck, X, Zap } from 'lucide-react';
 import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
@@ -64,18 +64,37 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
 
 export default function VehiclePage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [vehicles, setVehicle] = useState<Vehicle[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [hasNext, setHasNext] = useState(false);
   const [skip, setSkip] = useState(0);
   const [showFilters, setShowFilters] = useState(false);
-
 
   const [manufacturer, setManufacturer] = useState(searchParams.get('manufacturer') || '');
   const [priceMax, setPriceMax] = useState(searchParams.get('priceMax') || '');
   const [driveType, setDriveType] = useState(searchParams.get('driveType') || '');
   const [maxMileage, setMaxMileage] = useState(searchParams.get('maxMileage') || '');
   const [yearFrom, setYearFrom] = useState(searchParams.get('yearFrom') || '');
+
+  // ⚡ Bolt Performance Optimization:
+  // Compute derived state synchronously during render with useMemo to prevent double-renders on initial mount
+  // and subsequent filter changes.
+  const { vehicles, isLoading, hasNext } = useMemo(() => {
+    try {
+      const criteria = FilterCriteriaSchema.parse({
+        manufacturer,
+        priceMax,
+        fuel: driveType,
+        maxMileage,
+        yearFrom,
+      });
+      return {
+        vehicles: filterVehicles(vehiclesData, criteria),
+        isLoading: false,
+        hasNext: false
+      };
+    } catch (error) {
+      console.error('Error filtering vehicles:', error);
+      return { vehicles: [], isLoading: false, hasNext: false };
+    }
+  }, [manufacturer, priceMax, driveType, maxMileage, yearFrom]);
 
   useEffect(() => {
     // Update SEO for vehicles page
@@ -91,31 +110,7 @@ export default function VehiclePage() {
         { name: 'Fahrzeugbestand', url: `${SITE_CONFIG.url}${PAGE_METADATA.vehicles.path}` },
       ]),
     });
-    
-    loadVehicle();
   }, [skip]);
-
-
-  const loadVehicle = async () => {
-    setIsLoading(true);
-    try {
-      const criteria = FilterCriteriaSchema.parse({
-        manufacturer,
-        priceMax,
-        fuel: driveType,
-        maxMileage,
-        yearFrom,
-      });
-      setVehicle(filterVehicles(vehiclesData, criteria));
-      setHasNext(false);
-    } catch (error) {
-      console.error('Error filtering vehicles:', error);
-      setVehicle([]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
 
   const applyFilters = () => {
     const params = new URLSearchParams();
@@ -126,7 +121,6 @@ export default function VehiclePage() {
     if (maxMileage) params.set('maxMileage', maxMileage);
     setSearchParams(params);
     setSkip(0);
-    loadVehicle();
     setShowFilters(false);
   };
 
@@ -138,7 +132,6 @@ export default function VehiclePage() {
     setMaxMileage('');
     setSearchParams(new URLSearchParams());
     setSkip(0);
-    loadVehicle();
   };
 
 
