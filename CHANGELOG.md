@@ -1,5 +1,25 @@
 # Changelog
 
+## [Unreleased] - 2026-06-25 to 2026-07-02
+
+### ⚡ Performance (Bolt)
+- perf: Combine multiple `filterVehicles` conditions into a single pass
+- perf: Hoist static `Object.entries` outside of request middleware
+- perf: Synchronously derive component state using `React.useMemo()` for initial mount efficiency
+- perf: Optimize `slugify` string manipulation
+
+### 🛡️ Security (Sentinel)
+- fix: Resolve XSS vulnerability in JSON-LD structured data injection
+- chore: Update dependencies to fix security vulnerabilities
+- chore: Ignore lockfiles in DevSkim scan
+
+### 🎨 Accessibility & UI (Palette)
+- feat: Add loading spinners to form buttons
+- feat: Add ARIA attributes to VehiclesPage and VehicleDetailPage
+- feat: Improve filter toggle accessibility on mobile
+- feat: Improve form accessibility in financing calculator
+
+
 ## [Unreleased] - 2026-05-15 to 2026-05-21
 
 ### 🚀 Features & Enhancements
