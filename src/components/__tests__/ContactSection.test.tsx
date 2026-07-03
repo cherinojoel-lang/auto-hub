@@ -1,25 +1,44 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import ContactSection from '../ContactSection';
 import { vi } from 'vitest';
-import { BaseCrudService } from '@/integrations';
-
-vi.mock('@/integrations', () => ({
-  BaseCrudService: {
-    create: vi.fn(),
-  },
-}));
-
-const mockIntersectionObserver = vi.fn();
-mockIntersectionObserver.mockReturnValue({
-  observe: () => null,
-  unobserve: () => null,
-  disconnect: () => null
-});
-window.IntersectionObserver = mockIntersectionObserver;
 
 describe('ContactSection', () => {
   it('renders successfully', () => {
     render(<ContactSection />);
     expect(screen.getByRole('heading', { name: /Schnellanfrage/i })).toBeInTheDocument();
+  });
+
+  it('shows the verified contact details', () => {
+    render(<ContactSection />);
+
+    expect(screen.getByText('auto-quick@t-online.de')).toBeInTheDocument();
+    expect(screen.getByText('Sa: 09:00 – 13:00')).toBeInTheDocument();
+  });
+
+  it('handles submission errors', async () => {
+    render(<ContactSection />);
+
+    const nameInput = screen.getByLabelText(/Name \*/i);
+    const emailInput = screen.getByLabelText(/E-Mail \*/i);
+    const submitButton = screen.getByRole('button', { name: /Anfrage senden/i });
+
+    fireEvent.change(nameInput, { target: { value: 'Test User' } });
+    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
+
+    const logSpy = vi.spyOn(console, 'log').mockImplementationOnce(() => {
+      throw new Error('Submission failed');
+    });
+
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      const errorCall = errorSpy.mock.calls.find(call => String(call[0]).includes('Form submission error:'));
+      expect(errorCall).toBeTruthy();
+    });
+
+    logSpy.mockRestore();
+    errorSpy.mockRestore();
   });
 });

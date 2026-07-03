@@ -30,9 +30,6 @@ export const DEFAULT_SEO: SEOConfig = {
 
 export function updateMetaTags(config: SEOConfig) {
   document.documentElement.lang = 'de';
-  document
-    .querySelectorAll('[wix-seo-tags="true"]')
-    .forEach((element) => element.remove());
 
   // Update title
   document.title = config.title;
@@ -126,7 +123,7 @@ export function getStructuredDataOrganization() {
     '@type': 'AutoDealer',
     name: 'Automobile Quick',
     description: 'Gepflegte Gebrauchtwagen in Iserlohn-Letmathe seit 1982. Persönliche Beratung, Fahrzeugankauf und Finanzierung auf Anfrage.',
-    url: 'https://automobilequick.de',
+    url: 'https://www.automobile-quick.de',
     telephone: '+49-2374-912912',
     email: 'auto-quick@t-online.de',
     priceRange: '€',
@@ -168,8 +165,8 @@ export function getStructuredDataProduct(vehicle: any) {
     'name': vehicle.title,
     'description': `${vehicle.title} gebraucht kaufen in Iserlohn-Letmathe. EZ ${vehicle.firstRegistration}, ${vehicle.mileage}, ${vehicle.power}. Top Zustand bei Automobile Quick.`,
     'image': [
-      `https://automobilequick.de${vehicle.mainImage}`,
-      ...(vehicle.gallery || []).slice(1, 5).map((img: string) => `https://automobilequick.de${img}`)
+      `https://www.automobile-quick.de${vehicle.mainImage}`,
+      ...(vehicle.gallery || []).slice(1, 5).map((img: string) => `https://www.automobile-quick.de${img}`)
     ],
     'brand': {
       '@type': 'Brand',
@@ -188,7 +185,7 @@ export function getStructuredDataProduct(vehicle: any) {
       'price': priceValue,
       'priceCurrency': 'EUR',
       'availability': 'https://schema.org/InStock',
-      'url': `https://automobilequick.de/fahrzeugdetail/${vehicle.id}`,
+      'url': `https://www.automobile-quick.de/fahrzeugdetail/${vehicle.id}`,
       'seller': {
         '@type': 'LocalBusiness',
         'name': 'Automobile Quick',

@@ -1,0 +1,13 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "automobile-quick",
+  "compatibility_date": "2026-05-31",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true
+  },
+  "vars": {
+    "PUBLIC_CLARITY_ID": "vsc7jd9d94",
+    "PUBLIC_GSC_VERIFICATION": "nirROusqBNxCLF7xk8jC0pqhCmu9YNd5f9P9-tj_NPw"
+  }
+}

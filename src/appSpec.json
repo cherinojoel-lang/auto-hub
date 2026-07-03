@@ -1,7 +1,7 @@
 {
   "id": "c5e76c95-914a-445d-810a-36890cb7f48d",
-  "initialPrompt": "Create a website inspired by https://www.automobilequick.de/",
-  "siteName": "automobilequick.de",
+  "initialPrompt": "Create a website inspired by https://www.automobile-quick.de/",
+  "siteName": "www.automobile-quick.de",
   "brandBook": {
     "tones": [
       "professional",

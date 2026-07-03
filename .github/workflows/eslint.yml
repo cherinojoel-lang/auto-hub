@@ -1,0 +1,39 @@
+name: ESLint
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  schedule:
+    - cron: "0 0 * * 0"
+
+jobs:
+  eslint:
+    name: Run eslint scanning
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Run ESLint
+        run: npm run lint:scan -- --format @microsoft/eslint-formatter-sarif -o eslint-results.sarif
+
+      - name: Upload ESLint scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v4
+        if: always() && hashFiles('eslint-results.sarif') != ''
+        with:
+          sarif_file: eslint-results.sarif

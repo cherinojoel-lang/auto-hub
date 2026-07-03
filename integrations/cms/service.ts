@@ -1,5 +1,33 @@
-import { items } from "@wix/data";
 import { WixDataItem } from ".";
+
+const unavailableMutation = async () => {
+  throw new Error('Wix CMS is no longer connected.');
+};
+
+const emptyQueryResult = {
+  items: [],
+  totalCount: 0,
+  hasNext: () => false,
+};
+
+const items = {
+  insert: unavailableMutation,
+  update: unavailableMutation,
+  remove: unavailableMutation,
+  insertReference: unavailableMutation,
+  removeReference: unavailableMutation,
+  queryReferenced: async () => emptyQueryResult,
+  query: () => {
+    const query = {
+      eq: () => query,
+      include: () => query,
+      skip: () => query,
+      limit: () => query,
+      find: async () => emptyQueryResult,
+    };
+    return query;
+  },
+};
 
 /**
  * Pagination options for querying collections
@@ -100,11 +128,12 @@ export class BaseCrudService {
       const result = (await items.insert(collectionId, itemData as Record<string, unknown>)) as T;
 
       if (multiReferences && Object.keys(multiReferences).length > 0 && result._id) {
-        for (const [propertyName, refIds] of Object.entries(multiReferences)) {
-          if (Array.isArray(refIds) && refIds.length > 0) {
-            await items.insertReference(collectionId, propertyName, result._id, refIds as string[]);
-          }
-        }
+        const promises = Object.entries(multiReferences)
+          .filter(([_, refIds]) => Array.isArray(refIds) && refIds.length > 0)
+          .map(([propertyName, refIds]) =>
+            items.insertReference(collectionId, propertyName, result._id as string, refIds as string[])
+          );
+        await Promise.all(promises);
       }
 
       return result;
@@ -256,11 +285,12 @@ export class BaseCrudService {
     references: Record<string, string[]>
   ): Promise<void> {
     try {
-      for (const [fieldName, refIds] of Object.entries(references)) {
-        if (refIds.length > 0) {
-          await items.insertReference(collectionId, fieldName, itemId, refIds);
-        }
-      }
+      const promises = Object.entries(references)
+        .filter(([_, refIds]) => refIds.length > 0)
+        .map(([fieldName, refIds]) =>
+          items.insertReference(collectionId, fieldName, itemId, refIds)
+        );
+      await Promise.all(promises);
     } catch (error) {
       console.error(`Error adding references to ${collectionId}:`, error);
       throw new Error(
@@ -281,11 +311,12 @@ export class BaseCrudService {
     references: Record<string, string[]>
   ): Promise<void> {
     try {
-      for (const [fieldName, refIds] of Object.entries(references)) {
-        if (refIds.length > 0) {
-          await items.removeReference(collectionId, fieldName, itemId, refIds);
-        }
-      }
+      const promises = Object.entries(references)
+        .filter(([_, refIds]) => refIds.length > 0)
+        .map(([fieldName, refIds]) =>
+          items.removeReference(collectionId, fieldName, itemId, refIds)
+        );
+      await Promise.all(promises);
     } catch (error) {
       console.error(`Error removing references from ${collectionId}:`, error);
       throw new Error(

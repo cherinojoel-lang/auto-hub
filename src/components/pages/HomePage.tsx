@@ -1,10 +1,8 @@
 // WI-HPI
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronRight, MapPin, Phone, Award, Users, Zap, Calendar, Gauge, Fuel, ShieldCheck, Car } from 'lucide-react';
-import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
+import { ChevronRight, MapPin, Phone, Award, Users, Calendar, ShieldCheck, Car } from 'lucide-react';
 import { Image } from '@/components/ui/image';
-import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { updateMetaTags, getStructuredDataOrganization } from '@/lib/seo';
 import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, generateBusinessSchema, SITE_CONFIG } from '@/lib/seo-config';
@@ -12,26 +10,32 @@ import { PAGE_METADATA, generateBusinessSchema, SITE_CONFIG } from '@/lib/seo-co
 import VehicleInventorySection from '@/components/VehicleInventorySection';
 import ContactSection from '@/components/ContactSection';
 import HowItWorksSection from '@/components/HowItWorksSection';
+import TestimonialsSection from '@/components/TestimonialsSection';
+import { aggregateRating } from '@/data/reviewsData';
 
 // --- Animation Components ---
 
-const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number; direction?: 'up' | 'left' | 'right' | 'none' }> = ({ 
+const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number; direction?: 'up' | 'left' | 'right' | 'none'; priority?: boolean }> = ({
   children, 
   className = '',
   delay = 0,
-  direction = 'up'
+  direction = 'up',
+  priority = false
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(priority || false);
 
   useEffect(() => {
+    if (priority) return;
     const el = ref.current;
     if (!el) return;
+
+    let timeoutId: ReturnType<typeof setTimeout>;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setTimeout(() => setIsVisible(true), delay);
+          timeoutId = setTimeout(() => setIsVisible(true), delay);
           observer.unobserve(el);
         }
       },
@@ -39,7 +43,10 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      if (timeoutId) clearTimeout(timeoutId);
+    };
   }, [delay]);
 
   const getTransform = () => {
@@ -68,11 +75,6 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
 // --- Main Page Component ---
 
 export default function HomePage() {
-  const [vehicles, setVehicle] = useState<Vehicle[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  
-
-
   useEffect(() => {
     // Update SEO for homepage
     updateMetaTags({
@@ -81,28 +83,11 @@ export default function HomePage() {
       keywords: 'Gebrauchtwagen Iserlohn, Gebrauchtwagen Letmathe, Autohaus Iserlohn, Gebrauchtwagen kaufen, Audi Gebrauchtwagen, BMW Gebrauchtwagen, Mercedes Gebrauchtwagen, VW Gebrauchtwagen, Porsche Gebrauchtwagen, Automobile Quick, Fahrzeugbestand, Iserlohn-Letmathe',
       ogTitle: 'Automobile Quick | Gebrauchtwagen in Iserlohn-Letmathe',
       ogDescription: PAGE_METADATA.home.description,
-      ogImage: 'https://static.wixstatic.com/media/32e7c0_d28732f69d9643a7ada1b1be4890a422~mv2.png',
+      ogImage: `${SITE_CONFIG.url}/images/logo-og.png`,
       canonicalUrl: `${SITE_CONFIG.url}/`,
       structuredData: getStructuredDataOrganization(),
     });
-    
-    loadVehicle();
   }, []);
-
-  const loadVehicle = async () => {
-    try {
-      setIsLoading(true);
-      // Use only currently available vehicles for visible inventory sections.
-      const visibleVehicles = vehiclesData.filter(v => v.status === 'available');
-      setVehicle(visibleVehicles);
-    } catch (error) {
-      console.error('Error loading vehicles:', error);
-      // Silently handle error for now, as proper user-facing error state requires UI changes
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
 
   return (
     <div className="min-h-screen flex flex-col bg-background font-paragraph text-foreground overflow-x-hidden">
@@ -120,7 +105,7 @@ export default function HomePage() {
         {/* Background Image with Dark Overlay Gradient */}
         <div className="absolute inset-0 z-0">
           <Image 
-            src="https://static.wixstatic.com/media/32e7c0_72b43166ec7744bdb672b1eef573e535~mv2.png?originWidth=1600&originHeight=896" 
+            src="/images/hero-bg.jpg"
             alt="Automobile Quick Autohaus - Gebrauchtwagen in Iserlohn-Letmathe seit 1982" 
             className="w-full h-full object-cover object-center"
             width={1600}
@@ -133,22 +118,35 @@ export default function HomePage() {
 
         <div className="relative z-10 container mx-auto px-4 max-w-7xl text-left py-10 sm:py-14 lg:py-20 w-full">
           <div className="max-w-[760px]">
-            {/* Headline with animation */}
-            <AnimatedElement direction="up" delay={0}>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl xl:text-[56px] font-heading font-bold text-white mb-5 sm:mb-6 tracking-normal leading-[1.12]">
-                Gebrauchtwagen in Iserlohn-Letmathe
+            {/* Eyebrow */}
+            <AnimatedElement direction="up" delay={0} priority={true}>
+              <p className="text-xs sm:text-sm font-bold uppercase tracking-[0.25em] text-secondary mb-4">
+                Automobile Quick · Iserlohn-Letmathe · seit 1982
+              </p>
+            </AnimatedElement>
+
+            {/* Headline */}
+            <AnimatedElement direction="up" delay={100} priority={true}>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl xl:text-[64px] font-heading font-bold text-white mb-5 sm:mb-6 leading-[1.05]">
+                Gebrauchtwagen,<br />
+                <span className="text-secondary">denen Sie vertrauen.</span>
               </h1>
             </AnimatedElement>
 
-            {/* Subheadline with animation */}
-            <AnimatedElement direction="up" delay={200}>
+            {/* Subheadline mit echtem Trust-Anker */}
+            <AnimatedElement direction="up" delay={200} priority={true}>
               <p className="text-base sm:text-lg md:text-xl text-white/95 font-paragraph font-normal mb-8 sm:mb-10 leading-relaxed max-w-[680px]">
-                Seit 1982 bietet Automobile Quick gepflegte Gebrauchtwagen, echte Fahrzeugbilder und persönliche Beratung direkt vor Ort.
+                Persönlich. Ehrlich. Über {aggregateRating.reviewCount} öffentlich einsehbare Kundenbewertungen
+                mit einer Gesamtnote von{' '}
+                <span className="font-bold text-white">
+                  {aggregateRating.ratingValue.toFixed(2).replace('.', ',')} / 5
+                </span>{' '}
+                Sternen auf mobile.de und AutoScout24.
               </p>
             </AnimatedElement>
 
             {/* CTA Buttons with animation */}
-            <AnimatedElement direction="up" delay={400}>
+            <AnimatedElement direction="up" delay={400} priority={true}>
               <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-8 sm:mb-10 flex-wrap">
                 {/* Primary CTA: Jetzt Fahrzeuge entdecken */}
                 <Link
@@ -181,7 +179,7 @@ export default function HomePage() {
             </AnimatedElement>
 
             {/* Social Proof Strip */}
-            <AnimatedElement direction="up" delay={600}>
+            <AnimatedElement direction="up" delay={600} priority={true}>
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 pt-6 sm:pt-8 border-t border-white/20">
                 {/* Google trust */}
                 <a
@@ -238,175 +236,53 @@ export default function HomePage() {
       <HowItWorksSection />
 
       {/* TRUST BAR */}
-      <section className="bg-white border-b border-gray-200 py-8 sm:py-12">
+      <section className="bg-primary text-white border-b border-white/10 py-8 sm:py-12">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8 text-center">
             <AnimatedElement delay={0}>
               <div className="flex flex-col items-center">
                 <MapPin size={32} className="text-secondary mb-3" />
-                <p className="text-base font-bold text-primary mb-1">Lokal vor Ort</p>
-                <p className="text-xs text-gray-600">Iserlohn-Letmathe</p>
+                <p className="text-base font-bold text-white mb-1">Lokal vor Ort</p>
+                <p className="text-xs text-white/70">Iserlohn-Letmathe</p>
               </div>
             </AnimatedElement>
             <AnimatedElement delay={100}>
               <div className="flex flex-col items-center">
                 <ShieldCheck size={32} className="text-secondary mb-3" />
-                <p className="text-base font-bold text-primary mb-1">Geprüfte</p>
-                <p className="text-xs text-gray-600">Fahrzeuge</p>
+                <p className="text-base font-bold text-white mb-1">Geprüfte</p>
+                <p className="text-xs text-white/70">Fahrzeuge</p>
               </div>
             </AnimatedElement>
             <AnimatedElement delay={200}>
               <div className="flex flex-col items-center">
-                <p className="text-3xl sm:text-4xl font-bold text-primary mb-2">42</p>
-                <p className="text-base font-bold text-primary mb-1">Jahre</p>
-                <p className="text-xs text-gray-600">Erfahrung</p>
+                <p className="text-3xl sm:text-4xl font-bold text-white mb-2">Seit 1982</p>
+                <p className="text-base font-bold text-white mb-1">Jahre</p>
+                <p className="text-xs text-white/70">Erfahrung</p>
               </div>
             </AnimatedElement>
             <AnimatedElement delay={300}>
               <div className="flex flex-col items-center">
                 <Users size={32} className="text-secondary mb-3" />
-                <p className="text-base font-bold text-primary mb-1">Persönliche</p>
-                <p className="text-xs text-gray-600">Beratung</p>
+                <p className="text-base font-bold text-white mb-1">Persönliche</p>
+                <p className="text-xs text-white/70">Beratung</p>
               </div>
             </AnimatedElement>
             <AnimatedElement delay={400}>
               <div className="flex flex-col items-center">
                 <Award size={32} className="text-secondary mb-3" />
-                <p className="text-base font-bold text-primary mb-1">Geprüfte</p>
-                <p className="text-xs text-gray-600">Fahrzeuge</p>
+                <p className="text-base font-bold text-white mb-1">Geprüfte</p>
+                <p className="text-xs text-white/70">Fahrzeuge</p>
               </div>
             </AnimatedElement>
           </div>
         </div>
       </section>
 
-      {/* FEATURED VEHICLES SECTION */}
-      <section className="py-12 sm:py-16 md:py-20 bg-white" id="main-content">
-        <div className="container mx-auto px-4 max-w-7xl">
-          <AnimatedElement>
-            <div className="text-center mb-12 sm:mb-16">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-primary mb-4 sm:mb-6">
-                Aktuelle Fahrzeuge
-              </h2>
-              <p className="text-base sm:text-lg text-gray-600 mb-6">Entdecken Sie unsere neuesten Fahrzeuge mit bester Qualität und fairen Preisen</p>
-              <div className="w-20 sm:w-32 h-1.5 bg-secondary mx-auto rounded-full"></div>
-            </div>
-          </AnimatedElement>
-
-          <div className="relative min-h-[500px]">
-            {/* Always render the grid container for refs to attach safely */}
-            <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 transition-opacity duration-500 ${isLoading ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
-              {isLoading ? (
-                // Loading Skeletons
-                Array.from({ length: 6 }).map((_, i) => (
-                  <div key={`skeleton-${i}`} className="bg-white rounded-md border border-border-line overflow-hidden animate-pulse">
-                    <div className="aspect-[4/3] bg-gray-200"></div>
-                    <div className="p-6 space-y-4">
-                      <div className="h-6 bg-gray-200 rounded w-3/4"></div>
-                      <div className="space-y-2">
-                        <div className="h-4 bg-gray-200 rounded w-full"></div>
-                        <div className="h-4 bg-gray-200 rounded w-5/6"></div>
-                      </div>
-                      <div className="h-8 bg-gray-200 rounded w-1/2 mt-4"></div>
-                    </div>
-                  </div>
-                ))
-              ) : vehicles.length > 0 ? (
-                // Actual Data - Show first 6 vehicles
-                vehicles.slice(0, 6).map((vehicle, index) => (
-                  <AnimatedElement key={vehicle.id} delay={index * 100} direction="up">
-                    <Link
-                      to={`/fahrzeugdetail/${vehicle.id}`}
-                      className="group flex flex-col h-full bg-white rounded-md transition-colors duration-200 overflow-hidden border border-border-line hover:border-secondary/70"
-                    >
-                      {/* Image Container */}
-                      <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
-                        {vehicle.mainImage ? (
-                          <Image
-                            src={vehicle.mainImage}
-                            alt={vehicle.alt || vehicle.title}
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
-                            width={400}
-                            height={300}
-                          />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center text-gray-400 bg-gray-200">
-                            <span className="text-sm font-medium">Bild folgt</span>
-                          </div>
-                        )}
-                        <div className="absolute top-4 left-4 bg-white/95 text-primary px-3 py-1.5 text-xs font-bold rounded-md border border-border-line">
-                          Verfügbar
-                        </div>
-                      </div>
-
-                      {/* Content Container */}
-                      <div className="p-6 flex flex-col flex-grow">
-                        <div className="mb-6 flex-grow">
-                          <h3 className="text-lg sm:text-xl font-bold text-primary leading-tight mb-2 group-hover:text-secondary transition-colors">
-                            {vehicle.title}
-                          </h3>
-                          <p className="text-xs text-gray-500 line-clamp-2 mb-4">
-                            {vehicle.description || 'Gebrauchtwagen | Automatik | Top Zustand'}
-                          </p>
-                          
-                          <div className="grid grid-cols-2 gap-3 text-xs text-gray-600">
-                            <div className="flex items-center gap-2">
-                              <Calendar size={14} className="text-secondary" />
-                              <span>{vehicle.firstRegistration ? `EZ ${vehicle.firstRegistration}` : 'Neu'}</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <Gauge size={14} className="text-secondary" />
-                              <span>{vehicle.mileage ? vehicle.mileage : '0 km'}</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <Zap size={14} className="text-secondary" />
-                              <span>{vehicle.power ? vehicle.power : '-'}</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <Fuel size={14} className="text-secondary" />
-                              <span>{vehicle.fuel || 'Automatik'}</span>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Price Section */}
-                        <div className="pt-6 border-t border-gray-100 mt-auto">
-                          <p className="text-xs text-gray-500 mb-2">Barpreis</p>
-                          <div className="flex items-end justify-between">
-                            <div>
-                              <span className="text-2xl sm:text-3xl font-bold text-primary">
-                                {vehicle.price}
-                              </span>
-                              <p className="text-[10px] text-gray-400 mt-1">inkl. 19% MwSt.</p>
-                            </div>
-                            <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-secondary group-hover:text-white transition-colors">
-                              <ChevronRight size={20} />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </Link>
-                  </AnimatedElement>
-                ))
-              ) : (
-                <div className="col-span-full text-center py-20 text-gray-500">
-                  Keine Fahrzeuge gefunden.
-                </div>
-              )}
-            </div>
-            
-            {/* Loading Overlay (Optional, if you prefer spinner over skeletons) */}
-            {isLoading && (
-              <div className="absolute inset-0 flex items-center justify-center bg-white/50 backdrop-blur-sm z-10">
-                <LoadingSpinner className="w-12 h-12 text-primary" />
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
+      {/* TESTIMONIALS */}
+      <TestimonialsSection />
 
       {/* ABOUT SECTION */}
-      <section className="py-12 sm:py-16 md:py-20 bg-gray-50">
+      <section className="py-12 sm:py-16 md:py-20 bg-surface">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-10">
             <AnimatedElement direction="left">
@@ -435,7 +311,7 @@ export default function HomePage() {
       </section>
 
       {/* TRADE-IN TEASER */}
-      <section className="py-12 sm:py-16 md:py-20 bg-white">
+      <section className="py-12 sm:py-16 md:py-20 bg-surface">
         <div className="container mx-auto px-4 max-w-7xl">
           <AnimatedElement>
             <div className="bg-primary rounded-md p-10 sm:p-14 md:p-16 text-center text-white border-b-4 border-secondary">
@@ -458,7 +334,7 @@ export default function HomePage() {
       </section>
 
       {/* FINANCING TEASER */}
-      <section className="py-12 sm:py-16 md:py-20 bg-gray-50">
+      <section className="py-12 sm:py-16 md:py-20 bg-surface">
         <div className="container mx-auto px-4 max-w-7xl">
           <AnimatedElement>
             <div className="bg-white rounded-md p-10 sm:p-14 md:p-16 text-center border border-border-line border-b-4 border-b-secondary">

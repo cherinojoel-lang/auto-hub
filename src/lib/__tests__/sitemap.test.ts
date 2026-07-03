@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
-import { generateSitemap, type SitemapEntry } from '../sitemap';
+import { describe, it, expect, vi } from 'vitest';
+import { generateSitemap, generateFullSitemap, type SitemapEntry } from '../sitemap';
 
 describe('generateSitemap', () => {
   it('should generate a basic sitemap with minimal entries', () => {
@@ -11,7 +11,7 @@ describe('generateSitemap', () => {
 
     expect(result).toContain('<?xml version="1.0" encoding="UTF-8"?>');
     expect(result).toContain('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
-    expect(result).toContain('<loc>https://automobilequick.de/</loc>');
+    expect(result).toContain('<loc>https://www.automobile-quick.de/</loc>');
     expect(result).not.toContain('<lastmod>');
     expect(result).not.toContain('<changefreq>');
     expect(result).not.toContain('<priority>');
@@ -29,7 +29,7 @@ describe('generateSitemap', () => {
 
     const result = generateSitemap(entries);
 
-    expect(result).toContain('<loc>https://automobilequick.de/vehicles</loc>');
+    expect(result).toContain('<loc>https://www.automobile-quick.de/vehicles</loc>');
     expect(result).toContain('<lastmod>2023-10-27</lastmod>');
     expect(result).toContain('<changefreq>daily</changefreq>');
     expect(result).toContain('<priority>0.9</priority>');
@@ -43,20 +43,20 @@ describe('generateSitemap', () => {
 
     const result = generateSitemap(entries);
 
-    expect(result).toContain('<loc>https://automobilequick.de/about</loc>');
-    expect(result).toContain('<loc>https://automobilequick.decontact</loc>'); // This is how the current implementation works for 'contact'
+    expect(result).toContain('<loc>https://www.automobile-quick.de/about</loc>');
+    expect(result).toContain('<loc>https://www.automobile-quick.decontact</loc>'); // This is how the current implementation works for 'contact'
   });
 
   it('should not modify absolute URLs', () => {
     const entries: SitemapEntry[] = [
       { url: 'http://example.com/other' },
-      { url: 'https://automobilequick.de/specific' }
+      { url: 'https://www.automobile-quick.de/specific' }
     ];
 
     const result = generateSitemap(entries);
 
     expect(result).toContain('<loc>http://example.com/other</loc>');
-    expect(result).toContain('<loc>https://automobilequick.de/specific</loc>');
+    expect(result).toContain('<loc>https://www.automobile-quick.de/specific</loc>');
   });
 
   it('should correctly escape special XML characters in URLs', () => {
@@ -72,6 +72,53 @@ describe('generateSitemap', () => {
     // > -> &gt;
     // " -> &quot;
     // ' -> &apos;
-    expect(result).toContain('<loc>https://automobilequick.de/search?q=cars&amp;sort=price&lt;10000&gt;5000&quot;model&apos;s&quot;</loc>');
+    expect(result).toContain('<loc>https://www.automobile-quick.de/search?q=cars&amp;sort=price&lt;10000&gt;5000&quot;model&apos;s&quot;</loc>');
+  });
+});
+
+
+describe('generateFullSitemap', () => {
+  it('should include available vehicles and filter out others', () => {
+    const vehicles: Parameters<typeof generateFullSitemap>[0] = [
+      { id: 'v1', status: 'available', listingDate: '2024-01-01T12:00:00.000Z' },
+      { id: 'v2', status: 'sold', listingDate: '2024-01-02T12:00:00.000Z' },
+      { id: 'v3', status: 'available', listingDate: '2024-01-03T12:00:00.000Z' }
+    ];
+
+    const result = generateFullSitemap(vehicles);
+
+    expect(result).toContain('<loc>https://www.automobile-quick.de/fahrzeugdetail/v1</loc>');
+    expect(result).toContain('<lastmod>2024-01-01</lastmod>');
+    expect(result).toContain('<loc>https://www.automobile-quick.de/fahrzeugdetail/v3</loc>');
+    expect(result).toContain('<lastmod>2024-01-03</lastmod>');
+    expect(result).not.toContain('<loc>https://www.automobile-quick.de/fahrzeugdetail/v2</loc>');
+    expect(result).not.toContain('<lastmod>2024-01-02</lastmod>');
+  });
+
+  it('should use today\'s date when listingDate is missing', () => {
+    const mockDate = new Date('2024-05-05T12:00:00Z');
+    vi.useFakeTimers();
+    vi.setSystemTime(mockDate);
+
+    const todayStr = mockDate.toISOString().slice(0, 10);
+    const vehicles: Parameters<typeof generateFullSitemap>[0] = [
+      { id: 'v1', status: 'available' }
+    ];
+
+    const result = generateFullSitemap(vehicles);
+
+    expect(result).toContain('<loc>https://www.automobile-quick.de/fahrzeugdetail/v1</loc>');
+    expect(result).toContain(`<lastmod>${todayStr}</lastmod>`);
+
+    vi.useRealTimers();
+  });
+
+  it('should include default sitemap entries even if vehicle list is empty', () => {
+    const result = generateFullSitemap([]);
+
+    expect(result).toContain('<loc>https://www.automobile-quick.de/</loc>');
+    expect(result).toContain('<loc>https://www.automobile-quick.de/fahrzeugbestand</loc>');
+    expect(result).toContain('<loc>https://www.automobile-quick.de/ueber-uns</loc>');
+    expect(result).toContain('<loc>https://www.automobile-quick.de/kontakt</loc>');
   });
 });

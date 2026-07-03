@@ -15,6 +15,7 @@ out
 # generated types
 dist
 .astro/
+.wrangler/
 .wix
 
 # dependencies
@@ -53,3 +54,9 @@ VEHICLE_DISPLAY_FIX_REPORT.md
 pr_desc*.txt
 pr_description.*
 scripts/
+
+# Vitest coverage output
+coverage/
+
+# Local session reports / screenshots (lokal, nicht versionieren)
+reports/

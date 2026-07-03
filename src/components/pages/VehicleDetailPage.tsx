@@ -4,18 +4,27 @@ import { Calendar, Gauge, Zap, Fuel, ArrowLeft, Phone, MapPin, Wrench, ChevronLe
 import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
 import { Image } from '@/components/ui/image';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
+import { useToast } from '@/hooks/use-toast';
+
 import { updateMetaTags, getStructuredDataProduct } from '@/lib/seo';
 import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, generateProductSchema, SITE_CONFIG } from '@/lib/seo-config';
+import CarSchema from '@/components/schemas/CarSchema';
+import { Lightbox } from '@/components/ui/lightbox';
+import { WhatsAppCta } from '@/components/ui/whatsapp-cta';
+import { EnvkvDisclosure } from '@/components/EnvkvDisclosure';
+import { getAllFeatures, getTransmission } from '@/lib/domain/vehicleFeatures';
 
-const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string }> = ({ 
+const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; priority?: boolean }> = ({
   children, 
-  className = '' 
+  className = '',
+  priority = false
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(priority || false);
 
   useEffect(() => {
+    if (priority) return;
     const el = ref.current;
     if (!el) return;
 
@@ -60,6 +69,8 @@ export default function VehicleDetailPage() {
   const [similarVehicle, setSimilarVehicle] = useState<Vehicle[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentGalleryIndex, setCurrentGalleryIndex] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     loadVehicle();
@@ -99,6 +110,11 @@ export default function VehicleDetailPage() {
       }
     } catch (error) {
       console.error('Error loading vehicle:', error);
+      toast({
+        title: "Fehler",
+        description: "Fahrzeugdaten konnten nicht geladen werden.",
+        variant: "destructive",
+      });
     } finally {
       setIsLoading(false);
     }
@@ -118,6 +134,9 @@ export default function VehicleDetailPage() {
   const hasMultipleImages = galleryImages.length > 1;
   const currentImage = galleryImages[currentGalleryIndex] || vehicle?.mainImage;
 
+  const vehicleFeatures = vehicle ? getAllFeatures(vehicle) : [];
+  const transmission = vehicle ? getTransmission(vehicle) : null;
+
   const handlePrevImage = () => {
     setCurrentGalleryIndex(prev => prev === 0 ? galleryImages.length - 1 : prev - 1);
   };
@@ -126,10 +145,25 @@ export default function VehicleDetailPage() {
     setCurrentGalleryIndex(prev => prev === galleryImages.length - 1 ? 0 : prev + 1);
   };
 
+  const openLightbox = () => setLightboxOpen(true);
+  const closeLightbox = () => setLightboxOpen(false);
+  const goToImage = (index: number) => setCurrentGalleryIndex(index);
 
+  const carSchemaData = vehicle ? {
+    id: vehicle.id,
+    brand: vehicle.make,
+    model: vehicle.model,
+    year: parseInt(vehicle.firstRegistration.split('/').pop() || '0'),
+    price: vehicle.priceValue,
+    mileage: parseInt(vehicle.mileage.replace(/\D/g, '')),
+    fuel: vehicle.fuel,
+    description: vehicle.description,
+    imageUrl: vehicle.mainImage ? `${SITE_CONFIG.url}${vehicle.mainImage}` : undefined,
+  } : null;
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      {carSchemaData && <CarSchema vehicle={carSchemaData} />}
       <SeoHead 
         title={vehicle ? `${vehicle.title} - Gebrauchtwagen bei Automobile Quick` : 'Fahrzeug nicht gefunden'}
         description={vehicle?.description || 'Hochwertiger Gebrauchtwagen bei Automobile Quick in Iserlohn-Letmathe'}
@@ -166,7 +200,7 @@ export default function VehicleDetailPage() {
                 {vehicle.mainImage ? (
                   <div className="w-full flex flex-col">
                     {/* Main Image */}
-                    <div className="relative w-full aspect-video overflow-hidden bg-alt-bg">
+                    <div className="relative w-full aspect-video overflow-hidden bg-alt-bg cursor-pointer" onClick={openLightbox}>
                       <Image
                         src={currentImage || vehicle.mainImage}
                         alt={vehicle.alt || vehicle.title}
@@ -334,10 +368,12 @@ export default function VehicleDetailPage() {
                       <p className="font-bold text-primary">{vehicle.fuel}</p>
                     </div>
                   )}
-                  <div className="flex justify-between items-center pb-4 border-b border-border-line">
-                    <p className="text-sm text-text-secondary font-medium">Getriebe</p>
-                    <p className="font-bold text-primary">Automatik</p>
-                  </div>
+                  {transmission && (
+                    <div className="flex justify-between items-center pb-4 border-b border-border-line">
+                      <p className="text-sm text-text-secondary font-medium">Getriebe</p>
+                      <p className="font-bold text-primary">{transmission}</p>
+                    </div>
+                  )}
                   <div className="flex justify-between items-center">
                     <p className="text-sm text-text-secondary font-medium">Standort</p>
                     <p className="font-bold text-primary">Iserlohn-Letmathe</p>
@@ -345,6 +381,23 @@ export default function VehicleDetailPage() {
                 </div>
               </div>
             </div>
+
+            {/* Mobile: Ausstattung */}
+            {vehicleFeatures.length > 0 && (
+              <div className="lg:hidden bg-background border-t border-border-line">
+                <div className="container mx-auto px-4 max-w-7xl py-8">
+                  <h2 className="text-xl font-heading font-bold text-primary mb-6">Ausstattung</h2>
+                  <div className="grid grid-cols-2 gap-3">
+                    {vehicleFeatures.map((feature, idx) => (
+                      <div key={idx} className="flex items-center gap-3 p-3 bg-warm-bg rounded-lg border border-border-line">
+                        <div className="w-2 h-2 bg-secondary rounded-full flex-shrink-0"></div>
+                        <span className="font-medium text-foreground text-sm">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Mobile: Trust Section */}
             <div className="lg:hidden bg-warm-bg border-t border-border-line">
@@ -393,12 +446,12 @@ export default function VehicleDetailPage() {
             </div>
 
             {/* Desktop: Image Gallery Section */}
-            <AnimatedElement className="hidden lg:block container mx-auto px-4 max-w-7xl py-8 sm:py-12">
+            <AnimatedElement className="hidden lg:block container mx-auto px-4 max-w-7xl py-8 sm:py-12" priority={true}>
               <div className="bg-card-bg rounded-lg shadow-lg overflow-hidden border border-border-line">
                 <div className="bg-alt-bg">
                   {vehicle.mainImage ? (
                     <div className="w-full flex flex-col">
-                      <div className="relative w-full aspect-video overflow-hidden bg-alt-bg">
+                      <div className="relative w-full aspect-video overflow-hidden bg-alt-bg cursor-pointer" onClick={openLightbox}>
                         <Image
                           src={currentImage || vehicle.mainImage}
                           alt={vehicle.alt || vehicle.title}
@@ -472,7 +525,7 @@ export default function VehicleDetailPage() {
                 {/* Left Column - Main Content */}
                 <div className="lg:col-span-2 space-y-12">
                   {/* Title & Intro */}
-                  <AnimatedElement>
+                  <AnimatedElement priority={true}>
                     <div>
                       <h2 className="text-4xl sm:text-5xl md:text-6xl font-heading font-bold text-primary mb-6">
                         {vehicle.title}
@@ -534,13 +587,15 @@ export default function VehicleDetailPage() {
                           </div>
                         )}
 
-                        <div className="bg-card-bg p-5 rounded-lg border border-border-line">
-                          <div className="flex items-center gap-3 mb-2">
-                            <Wrench className="text-secondary flex-shrink-0" size={24} />
-                            <p className="text-xs font-bold text-text-secondary uppercase tracking-wide">Getriebe</p>
+                        {transmission && (
+                          <div className="bg-card-bg p-5 rounded-lg border border-border-line">
+                            <div className="flex items-center gap-3 mb-2">
+                              <Wrench className="text-secondary flex-shrink-0" size={24} />
+                              <p className="text-xs font-bold text-text-secondary uppercase tracking-wide">Getriebe</p>
+                            </div>
+                            <p className="font-bold text-lg text-primary">{transmission}</p>
                           </div>
-                          <p className="font-bold text-lg text-primary">Automatik</p>
-                        </div>
+                        )}
 
                         <div className="bg-card-bg p-5 rounded-lg border border-border-line">
                           <div className="flex items-center gap-3 mb-2">
@@ -553,17 +608,40 @@ export default function VehicleDetailPage() {
                     </div>
                   </AnimatedElement>
 
-                  {/* Features/Equipment */}
+                  {/* Features/Equipment — echte abgeleitete Ausstattung */}
                   <AnimatedElement>
                     <div>
                       <h2 className="text-2xl sm:text-3xl font-heading font-bold text-primary mb-6">
                         Ausstattung
                       </h2>
+                      {vehicleFeatures.length > 0 ? (
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                          {vehicleFeatures.map((feature, idx) => (
+                            <div key={idx} className="flex items-center gap-3 p-3 bg-warm-bg rounded-lg border border-border-line">
+                              <div className="w-2 h-2 bg-secondary rounded-full flex-shrink-0"></div>
+                              <span className="font-medium text-foreground">{feature}</span>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="text-text-secondary leading-relaxed font-paragraph">
+                          Ausstattungsdetails nennen wir Ihnen gerne persönlich — rufen Sie an oder fragen Sie unverbindlich an.
+                        </p>
+                      )}
+                    </div>
+                  </AnimatedElement>
+
+                  {/* Service bei Automobile Quick — bewusst getrennt von Fahrzeug-Ausstattung */}
+                  <AnimatedElement>
+                    <div>
+                      <h2 className="text-2xl sm:text-3xl font-heading font-bold text-primary mb-6">
+                        Service bei Automobile Quick
+                      </h2>
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                        {SAFE_SERVICE_POINTS.map((feature, idx) => (
+                        {SAFE_SERVICE_POINTS.map((point, idx) => (
                           <div key={idx} className="flex items-center gap-3 p-3 bg-warm-bg rounded-lg border border-border-line">
                             <div className="w-2 h-2 bg-secondary rounded-full flex-shrink-0"></div>
-                            <span className="font-medium text-foreground">{feature}</span>
+                            <span className="font-medium text-foreground">{point}</span>
                           </div>
                         ))}
                       </div>
@@ -637,7 +715,7 @@ export default function VehicleDetailPage() {
                 {/* Right Column - Desktop Price Box */}
                 <div className="lg:col-span-1">
                   <div className="sticky top-32 w-full">
-                    <AnimatedElement className="bg-card-bg rounded-lg border border-border-line p-6 sm:p-8">
+                    <AnimatedElement className="bg-surface-elevated shadow-md rounded-xl border border-border-line p-6 sm:p-8" priority={true}>
                       {/* Price */}
                       <div className="mb-8">
                         <p className="text-sm text-text-secondary font-medium mb-2">Verkaufspreis</p>
@@ -687,13 +765,49 @@ export default function VehicleDetailPage() {
               </div>
             </div>
 
-            {/* Bottom Spacing for Mobile */}
-            <div className="lg:hidden pb-40"></div>
+            {/* EnVKV — Pflichtangaben */}
+            {vehicle && (
+              <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl pb-8">
+                <EnvkvDisclosure vehicle={vehicle} />
+              </div>
+            )}
+
           </>
         )}
       </div>
 
-      
+      {/* Lightbox */}
+      {lightboxOpen && galleryImages.length > 0 && (
+        <Lightbox
+          images={galleryImages}
+          currentIndex={currentGalleryIndex}
+          alt={vehicle?.alt || vehicle?.title || 'Fahrzeugbild'}
+          onClose={closeLightbox}
+          onNext={handleNextImage}
+          onPrev={handlePrevImage}
+          onGoTo={goToImage}
+        />
+      )}
+
+      {/* Sticky Mobile CTA Bar */}
+      {vehicle && (
+        <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-white border-t border-border-line shadow-[0_-2px_8px_rgba(0,0,0,0.08)] px-4 py-3 flex gap-3">
+          <a
+            href="tel:+492374912912"
+            className="flex-1 flex items-center justify-center gap-2 py-3 bg-primary text-white font-bold rounded-md text-sm hover:bg-primary/90 transition-colors min-h-[48px]"
+            aria-label="Automobile Quick anrufen"
+          >
+            <Phone size={16} />
+            <span>Anrufen</span>
+          </a>
+          <WhatsAppCta
+            vehicleTitle={vehicle.title}
+            className="flex-1 min-h-[48px]"
+          />
+        </div>
+      )}
+      {/* Spacer so footer doesn't hide behind sticky bar */}
+      {vehicle && <div className="h-[76px] lg:hidden" aria-hidden="true" />}
     </div>
   );
 }

@@ -11,14 +11,6 @@ vi.mock('@/components/ui/loading-spinner', () => ({
   LoadingSpinner: () => <div data-testid="loading-spinner">Loading...</div>
 }));
 
-const mockIntersectionObserver = vi.fn();
-mockIntersectionObserver.mockReturnValue({
-  observe: () => null,
-  unobserve: () => null,
-  disconnect: () => null
-});
-window.IntersectionObserver = mockIntersectionObserver;
-
 describe('HomePage', () => {
   it('renders successfully', () => {
     render(
@@ -27,5 +19,20 @@ describe('HomePage', () => {
       </BrowserRouter>
     );
     expect(screen.getAllByText(/Gebrauchtwagen in Iserlohn-Letmathe/i)[0]).toBeInTheDocument();
+  });
+
+  it('does not render self-serving review structured data', () => {
+    render(
+      <BrowserRouter>
+        <HomePage />
+      </BrowserRouter>
+    );
+
+    const jsonLdScripts = Array.from(
+      document.querySelectorAll('script[type="application/ld+json"]')
+    ).map((script) => script.textContent ?? '');
+
+    expect(jsonLdScripts.join('\n')).not.toContain('aggregateRating');
+    expect(jsonLdScripts.join('\n')).not.toContain('"review"');
   });
 });

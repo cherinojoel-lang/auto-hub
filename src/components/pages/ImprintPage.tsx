@@ -120,11 +120,40 @@ export default function ImprintPage() {
                   Datenschutz
                 </h2>
                 <p className="text-foreground/80 leading-relaxed">
-                  Die Nutzung unserer Website ist in der Regel ohne Angabe personenbezogener Daten möglich. 
-                  Soweit auf unseren Seiten personenbezogene Daten (beispielsweise Name, Anschrift oder 
-                  E-Mail-Adressen) erhoben werden, erfolgt dies, soweit möglich, stets auf freiwilliger Basis. 
-                  Diese Daten werden ohne Ihre ausdrückliche Zustimmung nicht an Dritte weitergegeben. 
+                  Die Nutzung unserer Website ist in der Regel ohne Angabe personenbezogener Daten möglich.
+                  Soweit auf unseren Seiten personenbezogene Daten (beispielsweise Name, Anschrift oder
+                  E-Mail-Adressen) erhoben werden, erfolgt dies, soweit möglich, stets auf freiwilliger Basis.
+                  Diese Daten werden ohne Ihre ausdrückliche Zustimmung nicht an Dritte weitergegeben.
                   Bitte beachten Sie unsere <a href="/datenschutz" className="text-primary hover:underline">Datenschutzerklärung</a>.
+                </p>
+              </div>
+
+              <div>
+                <h2 className="text-2xl font-heading font-bold text-foreground mb-4">
+                  Online-Streitbeilegung
+                </h2>
+                <p className="text-foreground/80 leading-relaxed">
+                  Die EU-Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit, die Sie
+                  unter{' '}
+                  <a
+                    href="https://ec.europa.eu/consumers/odr/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline"
+                  >
+                    https://ec.europa.eu/consumers/odr/
+                  </a>{' '}
+                  finden. Unsere E-Mail-Adresse zur Kontaktaufnahme: <a href="mailto:auto-quick@t-online.de" className="text-primary hover:underline">auto-quick@t-online.de</a>.
+                </p>
+              </div>
+
+              <div>
+                <h2 className="text-2xl font-heading font-bold text-foreground mb-4">
+                  Verbraucherstreitbeilegung
+                </h2>
+                <p className="text-foreground/80 leading-relaxed">
+                  Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer
+                  Verbraucherschlichtungsstelle teilzunehmen (§ 36 VSBG).
                 </p>
               </div>
             </div>
