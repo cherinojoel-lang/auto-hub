@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowRight, Calendar, Camera, Filter, Fuel, Gauge, ShieldCheck, X, Zap } from 'lucide-react';
-import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
+import { vehiclesData } from '@/data/vehiclesData.generated';
 import { Image } from '@/components/ui/image';
 import { WhatsAppCta } from '@/components/ui/whatsapp-cta';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
@@ -64,10 +64,7 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
 
 export default function VehiclePage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [vehicles, setVehicle] = useState<Vehicle[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [hasNext, setHasNext] = useState(false);
-  const [skip, setSkip] = useState(0);
+
   const [showFilters, setShowFilters] = useState(false);
 
 
@@ -91,30 +88,25 @@ export default function VehiclePage() {
         { name: 'Fahrzeugbestand', url: `${SITE_CONFIG.url}${PAGE_METADATA.vehicles.path}` },
       ]),
     });
-    
-    loadVehicle();
-  }, [skip]);
+  }, []);
 
-
-  const loadVehicle = async () => {
-    setIsLoading(true);
+  const vehicles = React.useMemo(() => {
     try {
       const criteria = FilterCriteriaSchema.parse({
-        manufacturer,
-        priceMax,
-        fuel: driveType,
-        maxMileage,
-        yearFrom,
+        manufacturer: searchParams.get('manufacturer') || '',
+        priceMax: searchParams.get('priceMax') || '',
+        fuel: searchParams.get('driveType') || '',
+        maxMileage: searchParams.get('maxMileage') || '',
+        yearFrom: searchParams.get('yearFrom') || '',
       });
-      setVehicle(filterVehicles(vehiclesData, criteria));
-      setHasNext(false);
+      return filterVehicles(vehiclesData, criteria);
     } catch (error) {
       console.error('Error filtering vehicles:', error);
-      setVehicle([]);
-    } finally {
-      setIsLoading(false);
+      return [];
     }
-  };
+  }, [searchParams]);
+  const isLoading = false;
+  const hasNext = false;
 
 
   const applyFilters = () => {
@@ -125,8 +117,6 @@ export default function VehiclePage() {
     if (yearFrom) params.set('yearFrom', yearFrom);
     if (maxMileage) params.set('maxMileage', maxMileage);
     setSearchParams(params);
-    setSkip(0);
-    loadVehicle();
     setShowFilters(false);
   };
 
@@ -137,8 +127,6 @@ export default function VehiclePage() {
     setYearFrom('');
     setMaxMileage('');
     setSearchParams(new URLSearchParams());
-    setSkip(0);
-    loadVehicle();
   };
 
 
