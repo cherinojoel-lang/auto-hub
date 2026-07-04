@@ -131,9 +131,7 @@ export default function VehiclePage() {
 
 
 
-  const loadMore = () => {
-    setSkip(prev => prev + 15);
-  };
+
 
   return (
     <div className="min-h-screen flex flex-col bg-background pb-32 md:pb-0">
@@ -426,16 +424,7 @@ export default function VehiclePage() {
                   })}
                 </div>
 
-                {hasNext && (
-                  <div className="text-center mt-12 sm:mt-16">
-                    <button
-                      onClick={loadMore}
-                      className="bg-primary text-white px-10 sm:px-14 py-4 rounded-md font-bold text-base sm:text-lg hover:bg-primary/90 transition-colors duration-200 min-h-[52px]"
-                    >
-                      Mehr Fahrzeuge laden
-                    </button>
-                  </div>
-                )}
+
               </>
             ) : (
               <div className="text-center py-20">
