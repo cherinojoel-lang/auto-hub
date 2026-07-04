@@ -164,6 +164,7 @@ export default function ContactPage() {
                         value={formData.name}
                         onChange={handleChange}
                         required
+                        maxLength={100}
                         className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-primary transition-all"
                         placeholder="Ihr Name"
                       />
@@ -180,6 +181,7 @@ export default function ContactPage() {
                         value={formData.email}
                         onChange={handleChange}
                         required
+                        maxLength={100}
                         className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-primary transition-all"
                         placeholder="ihre.email@beispiel.de"
                       />
@@ -195,21 +197,28 @@ export default function ContactPage() {
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
+                        maxLength={50}
                         className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-primary transition-all"
                         placeholder="+49 123 456789"
                       />
                     </div>
 
                     <div>
-                      <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
-                        Nachricht *
-                      </label>
+                      <div className="flex justify-between items-baseline mb-2">
+                        <label htmlFor="message" className="block text-sm font-medium text-foreground">
+                          Nachricht *
+                        </label>
+                        <span className={`text-xs ${formData.message.length > 1800 ? 'text-primary' : 'text-foreground/50'}`}>
+                          {formData.message.length}/2000
+                        </span>
+                      </div>
                       <textarea
                         id="message"
                         name="message"
                         value={formData.message}
                         onChange={handleChange}
                         required
+                        maxLength={2000}
                         rows={6}
                         className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-primary transition-all resize-none"
                         placeholder="Wie können wir Ihnen helfen?"
