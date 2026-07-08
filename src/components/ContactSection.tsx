@@ -313,6 +313,7 @@ export default function ContactSection() {
                   type="text"
                   id="name"
                   name="name"
+                  maxLength={100}
                   value={formData.name}
                   onChange={handleInputChange}
                   className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-red-600 transition-colors ${
@@ -334,6 +335,7 @@ export default function ContactSection() {
                   type="email"
                   id="email"
                   name="email"
+                  maxLength={100}
                   value={formData.email}
                   onChange={handleInputChange}
                   className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-red-600 transition-colors ${
@@ -355,6 +357,7 @@ export default function ContactSection() {
                   type="tel"
                   id="phone"
                   name="phone"
+                  maxLength={50}
                   value={formData.phone}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:border-red-600 transition-colors"
@@ -364,12 +367,18 @@ export default function ContactSection() {
 
               {/* Message Field */}
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-2">
-                  Nachricht
-                </label>
+                <div className="flex justify-between items-baseline mb-2">
+                  <label htmlFor="message" className="block text-sm font-medium text-slate-700">
+                    Nachricht
+                  </label>
+                  <span className="text-xs text-slate-400">
+                    {formData.message.length}/2000 Zeichen
+                  </span>
+                </div>
                 <textarea
                   id="message"
                   name="message"
+                  maxLength={2000}
                   value={formData.message}
                   onChange={handleInputChange}
                   rows={4}
