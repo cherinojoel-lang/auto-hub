@@ -37,7 +37,7 @@ describe('VehicleDetailPage', () => {
     );
 
     await waitFor(() => {
-      expect(consoleSpy).toHaveBeenCalledWith('Error loading vehicle:', expect.any(Error));
+      expect(consoleSpy).toHaveBeenCalledWith('Error computing vehicle:', expect.any(Error));
     });
 
     await waitFor(() => {
