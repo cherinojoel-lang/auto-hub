@@ -25,3 +25,6 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+## 2024-05-18 - [Optimizing React State in Automobile Quick]
+**Learning:** Derived state based on URL search parameters was triggering a double-render waterfall on the `VehiclesPage` because `useEffect` was setting state after initial mount. Using `useMemo` for derived state computes it synchronously during rendering and bypasses the double render penalty.
+**Action:** Always compute derived state from URL params synchronously using `useMemo` when possible to avoid double-renders and improve initial component mount time.
