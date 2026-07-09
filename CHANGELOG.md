@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased] - 2026-07-02 to 2026-07-09
+
+### 🚀 Features & Enhancements
+- Update Semgrep workflow for code quality analysis (#148)
+
+### 🛡️ Security (Sentinel)
+- fix: escape HTML chars in JSON-LD to prevent XSS (#388)
+
 ## [Unreleased] - 2026-05-15 to 2026-05-21
 
 ### 🚀 Features & Enhancements
