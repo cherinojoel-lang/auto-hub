@@ -313,6 +313,7 @@ export default function ContactSection() {
                   type="text"
                   id="name"
                   name="name"
+                  maxLength={100}
                   value={formData.name}
                   onChange={handleInputChange}
                   className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-red-600 transition-colors ${
@@ -334,6 +335,7 @@ export default function ContactSection() {
                   type="email"
                   id="email"
                   name="email"
+                  maxLength={100}
                   value={formData.email}
                   onChange={handleInputChange}
                   className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-red-600 transition-colors ${
@@ -355,6 +357,7 @@ export default function ContactSection() {
                   type="tel"
                   id="phone"
                   name="phone"
+                  maxLength={50}
                   value={formData.phone}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:border-red-600 transition-colors"
@@ -370,12 +373,23 @@ export default function ContactSection() {
                 <textarea
                   id="message"
                   name="message"
+                  maxLength={2000}
                   value={formData.message}
                   onChange={handleInputChange}
                   rows={4}
+                  aria-describedby="message-counter"
                   className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:border-red-600 transition-colors resize-none"
                   placeholder="Ihre Nachricht..."
                 />
+                <div className="flex justify-end mt-1">
+                  <span
+                    id="message-counter"
+                    aria-live="polite"
+                    className={`text-xs ${formData.message.length >= 2000 ? 'text-red-600 font-medium' : 'text-slate-500'}`}
+                  >
+                    {formData.message.length} / 2000
+                  </span>
+                </div>
               </div>
 
               {/* Submit Button */}
