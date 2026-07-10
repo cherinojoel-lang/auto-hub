@@ -1,3 +1,4 @@
+import React from "react";
 import { Star, Quote, ExternalLink } from 'lucide-react';
 import { featuredReviews, aggregateRating, trustFacts, type Review } from '@/data/reviewsData';
 
@@ -36,6 +37,7 @@ function SourceBadge({ source }: { source: Review['source'] }) {
 }
 
 export default function TestimonialsSection() {
+  const topReviews = React.useMemo(() => featuredReviews.slice(0, 6), []);
   return (
     <section
       aria-labelledby="testimonials-heading"
@@ -108,7 +110,7 @@ export default function TestimonialsSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-          {featuredReviews.slice(0, 6).map((review) => (
+          {topReviews.map((review) => (
             <article
               key={`${review.name}-${review.date}`}
               className="group relative bg-surface-elevated rounded-lg border border-border-line p-6 sm:p-7 card-premium"
