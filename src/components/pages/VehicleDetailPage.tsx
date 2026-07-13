@@ -87,7 +87,16 @@ export default function VehicleDetailPage() {
       setCurrentGalleryIndex(0);
       
       // Load similar vehicles
-      setSimilarVehicle(safeVehicles.filter((v: Vehicle) => v.id !== id).slice(0, 4));
+      // ⚡ Bolt: Performance optimization
+      // Avoids O(N) array iteration and allocation from `.filter().slice()` by breaking early
+      const topSimilar = [];
+      for (const v of safeVehicles) {
+        if (v.id !== id) {
+          topSimilar.push(v);
+          if (topSimilar.length === 4) break;
+        }
+      }
+      setSimilarVehicle(topSimilar);
       
       // Update SEO for vehicle detail page
       if (data) {
