@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Send, Loader2 } from 'lucide-react';
 import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
 import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, SITE_CONFIG } from '@/lib/seo-config';
@@ -204,16 +204,27 @@ export default function ContactPage() {
                       <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
                         Nachricht *
                       </label>
-                      <textarea
-                        id="message"
-                        name="message"
-                        value={formData.message}
-                        onChange={handleChange}
-                        required
-                        rows={6}
-                        className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-primary transition-all resize-none"
-                        placeholder="Wie können wir Ihnen helfen?"
-                      />
+                      <div className="relative">
+                        <textarea
+                          id="message"
+                          name="message"
+                          value={formData.message}
+                          onChange={handleChange}
+                          required
+                          maxLength={2000}
+                          rows={6}
+                          aria-describedby="message-counter"
+                          className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-primary transition-all resize-none"
+                          placeholder="Wie können wir Ihnen helfen?"
+                        />
+                        <div
+                          id="message-counter"
+                          aria-live="polite"
+                          className={`absolute bottom-3 right-3 text-xs ${formData.message.length >= 2000 ? 'text-destructive font-medium' : 'text-foreground/50'}`}
+                        >
+                          {formData.message.length}/2000
+                        </div>
+                      </div>
                     </div>
 
                     <button
@@ -222,7 +233,10 @@ export default function ContactPage() {
                       className="w-full bg-primary text-primary-foreground px-6 py-4 rounded-lg font-medium hover:bg-primary/90 hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {isSubmitting ? (
-                        <>Wird gesendet...</>
+                        <>
+                          <Loader2 size={20} className="animate-spin" />
+                          Wird gesendet...
+                        </>
                       ) : (
                         <>
                           <Send size={20} />
