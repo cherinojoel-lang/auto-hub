@@ -7,3 +7,7 @@
 **Vulnerability:** Stringified JSON injected directly into Astro's `set:html` for `<script type="application/ld+json">` lacked escaping for HTML characters (`<`, `>`).
 **Learning:** `JSON.stringify` does not escape HTML characters. Injecting it directly via `set:html` allows attackers to terminate the `<script>` block and execute arbitrary JavaScript if user-controlled content (e.g., vehicle titles) contains `</script>`.
 **Prevention:** Always escape `<` and `>` (e.g., to `\u003c` and `\u003e`) when serializing JSON intended for raw HTML injection in Astro templates.
+## 2024-07-14 - Add max length constraints to input fields
+**Vulnerability:** Contact forms lacked `maxLength` constraints on their text and email input fields as well as message textareas.
+**Learning:** This exposes the application to potential client-side Denial of Service (DoS) risks and buffer issues if excessively large payloads are submitted, particularly on fields like messages without explicit limits.
+**Prevention:** Always enforce strict input length limits using `maxLength` on form inputs matching their expected data constraints (e.g., 254 for email). For fields allowing larger text (like textareas), provide an accessible character counter to communicate the limit effectively to the user.
