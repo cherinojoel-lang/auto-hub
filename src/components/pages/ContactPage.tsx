@@ -161,6 +161,7 @@ export default function ContactPage() {
                         type="text"
                         id="name"
                         name="name"
+                        maxLength={100}
                         value={formData.name}
                         onChange={handleChange}
                         required
@@ -177,6 +178,7 @@ export default function ContactPage() {
                         type="email"
                         id="email"
                         name="email"
+                        maxLength={254}
                         value={formData.email}
                         onChange={handleChange}
                         required
@@ -193,6 +195,7 @@ export default function ContactPage() {
                         type="tel"
                         id="phone"
                         name="phone"
+                        maxLength={50}
                         value={formData.phone}
                         onChange={handleChange}
                         className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-primary transition-all"
@@ -207,6 +210,8 @@ export default function ContactPage() {
                       <textarea
                         id="message"
                         name="message"
+                        maxLength={2000}
+                        aria-describedby="contact-message-counter"
                         value={formData.message}
                         onChange={handleChange}
                         required
@@ -214,6 +219,15 @@ export default function ContactPage() {
                         className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-primary transition-all resize-none"
                         placeholder="Wie können wir Ihnen helfen?"
                       />
+                      <div className="flex justify-end mt-1">
+                        <span
+                          id="contact-message-counter"
+                          aria-live="polite"
+                          className="text-xs text-foreground/70"
+                        >
+                          {formData.message.length} / 2000 Zeichen
+                        </span>
+                      </div>
                     </div>
 
                     <button
