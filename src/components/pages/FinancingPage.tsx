@@ -194,7 +194,7 @@ export default function FinancingPage() {
                 <label className="block text-sm font-medium text-foreground mb-2">
                   Name <span className="text-secondary">*</span>
                 </label>
-                <input
+                <input maxLength={100}
                   type="text"
                   required
                   value={formData.name}
@@ -209,7 +209,7 @@ export default function FinancingPage() {
                 <label className="block text-sm font-medium text-foreground mb-2">
                   Telefon <span className="text-secondary">*</span>
                 </label>
-                <input
+                <input maxLength={50}
                   type="tel"
                   required
                   value={formData.phone}
@@ -224,7 +224,7 @@ export default function FinancingPage() {
                 <label className="block text-sm font-medium text-foreground mb-2">
                   E-Mail
                 </label>
-                <input
+                <input maxLength={100}
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -238,7 +238,7 @@ export default function FinancingPage() {
                 <label className="block text-sm font-medium text-foreground mb-2">
                   Gewünschtes Fahrzeug
                 </label>
-                <input
+                <input maxLength={100}
                   type="text"
                   value={formData.vehicle}
                   onChange={(e) => setFormData({ ...formData, vehicle: e.target.value })}
@@ -252,7 +252,7 @@ export default function FinancingPage() {
                 <label className="block text-sm font-medium text-foreground mb-2">
                   Nachricht
                 </label>
-                <textarea
+                <textarea maxLength={2000}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50 resize-none"
