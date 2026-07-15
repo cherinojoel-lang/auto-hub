@@ -4,3 +4,6 @@
 ## 2024-05-31 - Mobile Menu Toggle Accessibility
 **Learning:** The application uses two different patterns for hiding/showing mobile menus: `Header.tsx` conditionally unmounts the `<nav>` node entirely, while `StickyHeader.tsx` keeps the menu in the DOM but hides it using CSS transform classes (`translate-x-full`). This requires different strategies for the `aria-controls` attribute on the toggle buttons to prevent screen readers from pointing to non-existent nodes when unmounted.
 **Action:** When adding accessibility features to toggle buttons, always verify if the target container is hidden via CSS or conditionally unmounted, and set `aria-controls` to `undefined` dynamically when the target is removed from the DOM.
+## 2025-02-18 - Added maxLength and character counters to contact textareas
+**Learning:** Textareas with large limits in this application lack character counters and max lengths, creating client-side DoS risks and poor user experience, as users don't know how close they are to the limit.
+**Action:** Always include \`maxLength\` attributes on HTML \`input\` and \`textarea\` fields. For fields with large limits (e.g., textareas with 2000 characters), pair this with a visual character counter, and ensure accessibility by linking them with \`aria-describedby\` and using \`aria-live="polite"\` on the counter element.
