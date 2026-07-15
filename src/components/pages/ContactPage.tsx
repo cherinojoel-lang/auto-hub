@@ -157,7 +157,7 @@ export default function ContactPage() {
                       <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
                         Name *
                       </label>
-                      <input
+                      <input maxLength={100}
                         type="text"
                         id="name"
                         name="name"
@@ -173,7 +173,7 @@ export default function ContactPage() {
                       <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
                         E-Mail *
                       </label>
-                      <input
+                      <input maxLength={100}
                         type="email"
                         id="email"
                         name="email"
@@ -189,7 +189,7 @@ export default function ContactPage() {
                       <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-2">
                         Telefon
                       </label>
-                      <input
+                      <input maxLength={50}
                         type="tel"
                         id="phone"
                         name="phone"
@@ -204,7 +204,7 @@ export default function ContactPage() {
                       <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
                         Nachricht *
                       </label>
-                      <textarea
+                      <textarea maxLength={2000}
                         id="message"
                         name="message"
                         value={formData.message}
