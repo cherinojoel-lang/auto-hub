@@ -1,5 +1,53 @@
 # Changelog
 
+## [Unreleased] - 2026-05-22 to 2026-07-16
+
+### 🚀 Features & Enhancements
+- feat: AutoHub Excellence Plan v1.0 — WhatsApp CTA, Lightbox, Sticky CTA, Filter-UX, Maps, SEO, Error-Handling (`4904282`)
+- feat: SOTA vehicle filter domain + Cloudflare migration (#178) (`96e3ffc`)
+- feat(trust): add explicit profile links and universal agent standard (`57f824d`)
+- feat(trust): echte 204 Kundenbewertungen + Magazin-Hero (#198) (`a11f6b1`)
+- feat(vehicle): real per-vehicle equipment + honest transmission on detail page (`473689d`)
+- feat(vehicle): add getAllFeatures + honest getTransmission helpers (`11d1c07`)
+- feat(cards): Premium Vehicle Cards — Feature-Chips, Icon-Specs, WhatsApp CTA (#205) (`18198c0`)
+- feat(compliance): DSGVO cookie consent banner + extended privacy policy (`f0dc68b`)
+- style(ui): Premium Automotive Visual System — Surface-Tokens, Trust-Bar, Cards, Sektionsrhythmus (#196) (`0c6f60d`)
+
+### ⚡ Performance (Bolt)
+- perf: resolve top 3 performance bottlenecks (#302) (`97ba604`)
+- perf: use Promise.all for concurrent reference updates (#171) (`bf3c97b`)
+- perf: throttle scroll event listeners with requestAnimationFrame (#132) (`48867c9`)
+- perf: code-split Router routes, reduce initial bundle from 623kB (`cef125b`)
+- Bolt: Remove artificial network latency for static data (#114) (`3513951`)
+- Bolt: Refactor frontend filtering to backend data source query in BlogDetailPage (`2b3e2df`)
+
+### 🛡️ Security (Sentinel)
+- Sentinel: [HIGH] Fix CSRF vulnerability by enabling checkOrigin (#85) (`2626ac7`)
+- fix: escape HTML chars in JSON-LD to prevent XSS (#388) (`9e09f0a`)
+- security: fix github actions vulnerabilities (permissions and script injection) (`a2406e9`)
+- chore(security): upgrade Astro Cloudflare stack (#201) (`de9b229`)
+- fix(prod): apply SSR security headers and repair scanners (#199) (`f7df9a9`)
+
+### 🎨 Accessibility & UI (Palette)
+- Palette: [UX improvement] Fix nested button accessibility in vehicle cards (#133) (`d74f90c`)
+- Perf + A11y: framer-motion raus (-120kB), aria-label-Fixes, Hero-preconnect (#135) (`f81c4ed`)
+
+### 🧪 Testing
+- Add tests for generateFullSitemap (#189) (`3d0ff18`)
+- test: add edge cases for useSize hook (#167) (`54db588`)
+- test: add LoadingSpinner component tests (#164) (`53a786d`)
+- test: add unit tests for use-toast reducer (#163) (`92d6782`)
+- test: add tests for getStructuredDataBreadcrumb (#162) (`44e800b`)
+
+### 🧹 Code Health & CI
+- Update Semgrep workflow for code quality analysis (#148) (`4c8f6d1`)
+- Add ESLint JavaScript linter workflow (#152) (`79ec425`)
+- Add DevSkim security linter workflow (#151) (`4371361`)
+- Add Trivy workflow for Docker image & filesystem security scanning (#149) (`2978b8f`)
+- Add OSSAR code scanning workflow (#150) (`5c376f7`)
+- docs: switch autohub review masterprompt to gemini (#243) (`1b2e391`)
+- docs: Add setup.sh and update README.md with installation instructions (#136) (`c737465`)
+
 ## [Unreleased] - 2026-05-15 to 2026-05-21
 
 ### 🚀 Features & Enhancements
