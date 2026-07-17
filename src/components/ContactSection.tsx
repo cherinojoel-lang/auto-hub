@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Phone, MessageCircle, Mail, Clock } from 'lucide-react';
+import { Phone, MessageCircle, Mail, Clock, Loader2 } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 
 function isBusinessOpen() {
@@ -382,8 +382,9 @@ export default function ContactSection() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full px-6 py-3 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full px-6 py-3 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
               >
+                {isSubmitting && <Loader2 className="animate-spin w-5 h-5 mr-2" />}
                 {isSubmitting ? 'Wird gesendet...' : 'Anfrage senden'}
               </button>
 
