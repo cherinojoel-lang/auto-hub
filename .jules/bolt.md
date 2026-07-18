@@ -25,3 +25,7 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+
+## 2024-07-18 - [VehiclesPage Filter Redundancy Optimization]
+**Learning:** The `VehiclesPage` component repeatedly calculated the number of active filters inline during every render using `[manufacturer, priceMax, driveType, maxMileage, yearFrom].filter(Boolean).length` three times per pass. This redundant array allocation and `.filter` execution adds unnecessary overhead, especially as this is evaluated frequently when state updates.
+**Action:** Extract repetitive array derivations that depend on a stable set of state variables into a single `React.useMemo` variable at the component level to avoid repeated computations and array allocations during render cycles.
