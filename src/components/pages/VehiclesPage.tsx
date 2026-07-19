@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowRight, Calendar, Camera, Filter, Fuel, Gauge, ShieldCheck, X, Zap } from 'lucide-react';
 import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
@@ -76,6 +76,11 @@ export default function VehiclePage() {
   const [driveType, setDriveType] = useState(searchParams.get('driveType') || '');
   const [maxMileage, setMaxMileage] = useState(searchParams.get('maxMileage') || '');
   const [yearFrom, setYearFrom] = useState(searchParams.get('yearFrom') || '');
+
+  // Memoize the count of active filters to avoid array allocation on every render
+  const activeFiltersCount = React.useMemo(() => {
+    return [manufacturer, priceMax, driveType, maxMileage, yearFrom].filter(Boolean).length;
+  }, [manufacturer, priceMax, driveType, maxMileage, yearFrom]);
 
   useEffect(() => {
     // Update SEO for vehicles page
@@ -309,17 +314,17 @@ export default function VehiclePage() {
               <p className="text-sm text-text-secondary">
                 <span className="font-bold text-foreground">{vehicles.length}</span>{' '}
                 {vehicles.length === 1 ? 'Fahrzeug' : 'Fahrzeuge'}
-                {[manufacturer, priceMax, driveType, maxMileage, yearFrom].filter(Boolean).length > 0
+                {activeFiltersCount > 0
                   ? ' gefunden'
                   : ' verfügbar'}
               </p>
-              {[manufacturer, priceMax, driveType, maxMileage, yearFrom].filter(Boolean).length > 0 && (
+              {activeFiltersCount > 0 && (
                 <button
                   onClick={clearFilters}
                   className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-secondary border border-secondary rounded-md hover:bg-secondary/5 transition-colors"
                 >
                   <X size={14} />
-                  Filter zurücksetzen ({[manufacturer, priceMax, driveType, maxMileage, yearFrom].filter(Boolean).length})
+                  Filter zurücksetzen ({activeFiltersCount})
                 </button>
               )}
             </div>
