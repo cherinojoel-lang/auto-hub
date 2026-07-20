@@ -105,6 +105,7 @@ export default function FinancingCalculatorSection() {
                     type="number"
                     min="5000"
                     max="100000"
+                    maxLength={10}
                     value={purchasePrice}
                     onChange={(e) => setPurchasePrice(Number(e.target.value))}
                     className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
@@ -128,6 +129,7 @@ export default function FinancingCalculatorSection() {
                     type="number"
                     min="0"
                     max={purchasePrice}
+                    maxLength={10}
                     value={downPayment}
                     onChange={(e) => setDownPayment(Number(e.target.value))}
                     className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
