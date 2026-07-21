@@ -364,14 +364,21 @@ export default function ContactSection() {
 
               {/* Message Field */}
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-2">
-                  Nachricht
-                </label>
+                <div className="flex justify-between items-end mb-2">
+                  <label htmlFor="message" className="block text-sm font-medium text-slate-700">
+                    Nachricht
+                  </label>
+                  <span id="message-counter" aria-live="polite" className="text-xs text-slate-500">
+                    {formData.message.length}/2000
+                  </span>
+                </div>
                 <textarea
                   id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleInputChange}
+                  maxLength={2000}
+                  aria-describedby="message-counter"
                   rows={4}
                   className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:border-red-600 transition-colors resize-none"
                   placeholder="Ihre Nachricht..."
