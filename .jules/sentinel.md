@@ -7,3 +7,7 @@
 **Vulnerability:** Stringified JSON injected directly into Astro's `set:html` for `<script type="application/ld+json">` lacked escaping for HTML characters (`<`, `>`).
 **Learning:** `JSON.stringify` does not escape HTML characters. Injecting it directly via `set:html` allows attackers to terminate the `<script>` block and execute arbitrary JavaScript if user-controlled content (e.g., vehicle titles) contains `</script>`.
 **Prevention:** Always escape `<` and `>` (e.g., to `\u003c` and `\u003e`) when serializing JSON intended for raw HTML injection in Astro templates.
+## 2025-02-28 - [Missing Input Length Limits]
+**Vulnerability:** User inputs and textareas in forms (e.g., `ContactSection.tsx`) lacked `maxLength` attributes, allowing unbounded text input sizes which poses a client-side Denial of Service (DoS) risk and buffer issue.
+**Learning:** React controlled inputs handle state updates on every keystroke, which can degrade performance if arbitrarily large strings are pasted. Furthermore, enforcing input lengths is a defense-in-depth measure.
+**Prevention:** Always include `maxLength` constraints on HTML `input` and `textarea` fields (e.g., 100 for standard inputs, 2000 for message bodies). Pair large limits with an accessible visual character counter (`aria-describedby`, `aria-live="polite"`).
