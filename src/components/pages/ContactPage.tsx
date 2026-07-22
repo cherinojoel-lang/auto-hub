@@ -161,6 +161,7 @@ export default function ContactPage() {
                         type="text"
                         id="name"
                         name="name"
+                        maxLength={100}
                         value={formData.name}
                         onChange={handleChange}
                         required
@@ -177,6 +178,7 @@ export default function ContactPage() {
                         type="email"
                         id="email"
                         name="email"
+                        maxLength={100}
                         value={formData.email}
                         onChange={handleChange}
                         required
@@ -193,6 +195,7 @@ export default function ContactPage() {
                         type="tel"
                         id="phone"
                         name="phone"
+                        maxLength={100}
                         value={formData.phone}
                         onChange={handleChange}
                         className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-primary transition-all"
@@ -201,12 +204,23 @@ export default function ContactPage() {
                     </div>
 
                     <div>
-                      <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
-                        Nachricht *
-                      </label>
+                      <div className="flex justify-between items-baseline mb-2">
+                        <label htmlFor="message" className="block text-sm font-medium text-foreground">
+                          Nachricht *
+                        </label>
+                        <span
+                          id="page-message-counter"
+                          className={`text-xs ${formData.message.length >= 2000 ? 'text-destructive font-bold' : 'text-foreground/60'}`}
+                          aria-live="polite"
+                        >
+                          {formData.message.length} / 2000
+                        </span>
+                      </div>
                       <textarea
                         id="message"
                         name="message"
+                        maxLength={2000}
+                        aria-describedby="page-message-counter"
                         value={formData.message}
                         onChange={handleChange}
                         required
