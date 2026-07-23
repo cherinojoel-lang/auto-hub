@@ -1,5 +1,28 @@
 # Changelog
 
+## [Unreleased] - 2026-07-16 to 2026-07-23
+
+### 🚀 Features & Enhancements
+- feat(ui): add character limits and visual counters to contact forms
+
+### ⚡ Performance (Bolt)
+- Bolt: Extract repeated array filter calculations and derived variables
+- perf: replace .filter().slice() and chained filters with single-pass loops
+- Bolt: Memoize active filters count in VehiclesPage
+
+### 🛡️ Security (Sentinel)
+- Update vulnerable dependencies (npm audit fix) and document security scan results
+- Sentinel: Add input validation, maxLength constraints, and character limits to prevent DoS
+
+### 🎨 Accessibility & UI (Palette)
+- Palette: Add accessible character counter to contact form
+- Palette: Improve accessibility of financing calculator inputs
+- Palette: Add inline loading indicators to action buttons
+
+### 🧪 Testing
+- Add tests for getStructuredDataProduct and generateProductSchema
+- Add test for getStructuredDataOrganization
+
 ## [Unreleased] - 2026-05-15 to 2026-05-21
 
 ### 🚀 Features & Enhancements
