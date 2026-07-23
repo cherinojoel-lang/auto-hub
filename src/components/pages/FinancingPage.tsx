@@ -249,12 +249,24 @@ export default function FinancingPage() {
 
               {/* Message */}
               <div className="mb-6">
-                <label className="block text-sm font-medium text-foreground mb-2">
-                  Nachricht
-                </label>
+                <div className="flex justify-between mb-2">
+                  <label htmlFor="financing-message" className="block text-sm font-medium text-foreground">
+                    Nachricht
+                  </label>
+                  <span
+                    id="financing-message-counter"
+                    className="text-xs text-foreground/60"
+                    aria-live="polite"
+                  >
+                    {formData.message.length} / 2000
+                  </span>
+                </div>
                 <textarea
+                  id="financing-message"
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  maxLength={2000}
+                  aria-describedby="financing-message-counter"
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50 resize-none"
                   placeholder="Weitere Informationen zu Ihrer Finanzierungsanfrage..."
                   rows={4}

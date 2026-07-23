@@ -201,9 +201,18 @@ export default function ContactPage() {
                     </div>
 
                     <div>
-                      <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
-                        Nachricht *
-                      </label>
+                      <div className="flex justify-between mb-2">
+                        <label htmlFor="message" className="block text-sm font-medium text-foreground">
+                          Nachricht *
+                        </label>
+                        <span
+                          id="message-counter"
+                          className="text-xs text-foreground/60"
+                          aria-live="polite"
+                        >
+                          {formData.message.length} / 2000
+                        </span>
+                      </div>
                       <textarea
                         id="message"
                         name="message"
@@ -211,6 +220,8 @@ export default function ContactPage() {
                         onChange={handleChange}
                         required
                         rows={6}
+                        maxLength={2000}
+                        aria-describedby="message-counter"
                         className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-primary transition-all resize-none"
                         placeholder="Wie können wir Ihnen helfen?"
                       />
