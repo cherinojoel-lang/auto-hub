@@ -25,3 +25,6 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+## 2024-05-15 - [React State Waterfall Optimizations]
+**Learning:** Initial renders for routes such as \`VehiclesPage\` and \`VehicleDetailPage\` were utilizing \`useEffect\` after initial mount to loop through simulated mock datasets and compute state synchronously. Because of this, the initial render passes were resulting in empty layout flashes which triggered double-render cascades, greatly increasing Time To Interactive metrics.
+**Action:** When filtering or analyzing purely derived synchronous data, refactor it from \`useEffect\` + \`useState\` into an isolated \`useMemo\` evaluated immediately in the render loop. Always include \`try/catch\` blocks around external data derivations inside \`useMemo\` to prevent throwing unhandled regressions during component testing phases if network layers are mocked to simulate faults.
