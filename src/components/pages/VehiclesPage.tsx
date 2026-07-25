@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowRight, Calendar, Camera, Filter, Fuel, Gauge, ShieldCheck, X, Zap } from 'lucide-react';
 import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
@@ -64,18 +64,36 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
 
 export default function VehiclePage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [vehicles, setVehicle] = useState<Vehicle[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [hasNext, setHasNext] = useState(false);
   const [skip, setSkip] = useState(0);
   const [showFilters, setShowFilters] = useState(false);
-
 
   const [manufacturer, setManufacturer] = useState(searchParams.get('manufacturer') || '');
   const [priceMax, setPriceMax] = useState(searchParams.get('priceMax') || '');
   const [driveType, setDriveType] = useState(searchParams.get('driveType') || '');
   const [maxMileage, setMaxMileage] = useState(searchParams.get('maxMileage') || '');
   const [yearFrom, setYearFrom] = useState(searchParams.get('yearFrom') || '');
+
+  // ⚡ Bolt Performance Optimization: Compute derived state from static collections synchronously during render
+  // using React.useMemo instead of updating state inside a useEffect after initial mount.
+  // This prevents React state waterfall updates (double-renders) and improves initial mount performance.
+  const vehicles = React.useMemo(() => {
+    try {
+      const criteria = FilterCriteriaSchema.parse({
+        manufacturer,
+        priceMax,
+        fuel: driveType,
+        maxMileage,
+        yearFrom,
+      });
+      return filterVehicles(vehiclesData, criteria);
+    } catch (error) {
+      console.error('Error filtering vehicles:', error);
+      return [];
+    }
+  }, [manufacturer, priceMax, driveType, maxMileage, yearFrom, vehiclesData]);
+
+  const isLoading = false;
+  const hasNext = false;
 
   useEffect(() => {
     // Update SEO for vehicles page
@@ -91,30 +109,9 @@ export default function VehiclePage() {
         { name: 'Fahrzeugbestand', url: `${SITE_CONFIG.url}${PAGE_METADATA.vehicles.path}` },
       ]),
     });
-    
-    loadVehicle();
-  }, [skip]);
+  }, []);
 
-
-  const loadVehicle = async () => {
-    setIsLoading(true);
-    try {
-      const criteria = FilterCriteriaSchema.parse({
-        manufacturer,
-        priceMax,
-        fuel: driveType,
-        maxMileage,
-        yearFrom,
-      });
-      setVehicle(filterVehicles(vehiclesData, criteria));
-      setHasNext(false);
-    } catch (error) {
-      console.error('Error filtering vehicles:', error);
-      setVehicle([]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const loadVehicle = async () => {};
 
 
   const applyFilters = () => {
