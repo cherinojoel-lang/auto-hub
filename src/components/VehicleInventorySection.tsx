@@ -153,7 +153,16 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, index }) => {
 };
 
 export default function VehicleInventorySection() {
-  const topVehicles = React.useMemo(() => vehiclesData.filter((vehicle) => vehicle.status === 'available').slice(0, 6), []);
+  const topVehicles = React.useMemo(() => {
+    const available: Vehicle[] = [];
+    for (const v of vehiclesData) {
+      if (v.status === 'available') {
+        available.push(v);
+        if (available.length === 6) break;
+      }
+    }
+    return available;
+  }, []);
 
   return (
     <section className="py-16 sm:py-20 bg-surface" id="main-content">
