@@ -159,6 +159,7 @@ export default function ContactPage() {
                       </label>
                       <input
                         type="text"
+                        maxLength={100}
                         id="name"
                         name="name"
                         value={formData.name}
@@ -175,6 +176,7 @@ export default function ContactPage() {
                       </label>
                       <input
                         type="email"
+                        maxLength={100}
                         id="email"
                         name="email"
                         value={formData.email}
@@ -191,6 +193,7 @@ export default function ContactPage() {
                       </label>
                       <input
                         type="tel"
+                        maxLength={100}
                         id="phone"
                         name="phone"
                         value={formData.phone}
@@ -213,7 +216,16 @@ export default function ContactPage() {
                         rows={6}
                         className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-primary transition-all resize-none"
                         placeholder="Wie können wir Ihnen helfen?"
+                      maxLength={2000}
+                        aria-describedby="message-counter-contactpage"
                       />
+                      <div
+                        id="message-counter-contactpage"
+                        aria-live="polite"
+                        className="text-right text-xs text-foreground/50 mt-1"
+                      >
+                        {formData.message?.length || 0} / 2000
+                      </div>
                     </div>
 
                     <button
