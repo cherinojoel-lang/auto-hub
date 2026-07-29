@@ -210,10 +210,15 @@ export default function ContactPage() {
                         value={formData.message}
                         onChange={handleChange}
                         required
+                        maxLength={2000}
+                        aria-describedby="message-counter"
                         rows={6}
                         className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-primary transition-all resize-none"
                         placeholder="Wie können wir Ihnen helfen?"
                       />
+                      <div id="message-counter" aria-live="polite" className="text-sm text-foreground/70 mt-1 text-right">
+                        {formData.message.length} / 2000 Zeichen
+                      </div>
                     </div>
 
                     <button
