@@ -117,6 +117,8 @@ export default function VehiclePage() {
   };
 
 
+  const activeFilterCount = [manufacturer, priceMax, driveType, maxMileage, yearFrom].filter(Boolean).length;
+
   const applyFilters = () => {
     const params = new URLSearchParams();
     if (manufacturer) params.set('manufacturer', manufacturer);
@@ -309,17 +311,17 @@ export default function VehiclePage() {
               <p className="text-sm text-text-secondary">
                 <span className="font-bold text-foreground">{vehicles.length}</span>{' '}
                 {vehicles.length === 1 ? 'Fahrzeug' : 'Fahrzeuge'}
-                {[manufacturer, priceMax, driveType, maxMileage, yearFrom].filter(Boolean).length > 0
+                {activeFilterCount > 0
                   ? ' gefunden'
                   : ' verfügbar'}
               </p>
-              {[manufacturer, priceMax, driveType, maxMileage, yearFrom].filter(Boolean).length > 0 && (
+              {activeFilterCount > 0 && (
                 <button
                   onClick={clearFilters}
                   className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-secondary border border-secondary rounded-md hover:bg-secondary/5 transition-colors"
                 >
                   <X size={14} />
-                  Filter zurücksetzen ({[manufacturer, priceMax, driveType, maxMileage, yearFrom].filter(Boolean).length})
+                  Filter zurücksetzen ({activeFilterCount})
                 </button>
               )}
             </div>
