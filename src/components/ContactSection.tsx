@@ -135,8 +135,7 @@ export default function ContactSection() {
 
     try {
       console.log('Submitting form...');
-      // Simulate form submission
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      // Form submission logic (no artificial delay)
 
       // Here you would normally send the data to your backend
 
