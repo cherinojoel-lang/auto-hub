@@ -347,6 +347,8 @@ export default function VehiclePage() {
                             width={400}
                             height={300}
                             loading={index < 6 ? 'eager' : 'lazy'}
+                            /* ⚡ Bolt: Adding fetchPriority="high" to eager loaded images to optimize LCP */
+                            {...(index < 6 ? { fetchPriority: "high" } : {})}
                             decoding="async"
                           />
                           <div className="absolute top-3 left-3 bg-white/95 text-primary px-3 py-1.5 text-xs font-bold rounded-md border border-border-line">
