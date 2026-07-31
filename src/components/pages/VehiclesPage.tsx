@@ -19,10 +19,10 @@ import { getVehicleImageCount, getFeatureChips } from '@/lib/domain/vehicleFeatu
 const MANUFACTURER_OPTIONS = deriveManufacturerOptions(vehiclesData);
 const FUEL_OPTIONS = deriveFuelOptions(vehiclesData);
 
-const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
+const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({
   children, 
   className = '',
-  delay = 0 
+  delay = 0
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
