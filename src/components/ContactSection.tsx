@@ -134,7 +134,6 @@ export default function ContactSection() {
     setIsSubmitting(true);
 
     try {
-      console.log('Submitting form...');
       // Simulate form submission
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
