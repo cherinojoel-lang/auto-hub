@@ -4,6 +4,7 @@ import { ArrowRight, Calendar, Camera, Filter, Fuel, Gauge, ShieldCheck, X, Zap 
 import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
 import { Image } from '@/components/ui/image';
 import { WhatsAppCta } from '@/components/ui/whatsapp-cta';
+import { useToast } from '@/hooks/use-toast';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
 import SeoHead from '@/components/SeoHead';
@@ -63,6 +64,7 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
 };
 
 export default function VehiclePage() {
+  const { toast } = useToast();
   const [searchParams, setSearchParams] = useSearchParams();
   const [vehicles, setVehicle] = useState<Vehicle[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -110,6 +112,11 @@ export default function VehiclePage() {
       setHasNext(false);
     } catch (error) {
       console.error('Error filtering vehicles:', error);
+      toast({
+        title: "Fehler",
+        description: "Fahrzeuge konnten nicht gefiltert werden.",
+        variant: "destructive",
+      });
       setVehicle([]);
     } finally {
       setIsLoading(false);
