@@ -25,3 +25,6 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+## 2024-06-17 - Removed artificial delay in form submission
+**Learning:** Hardcoded `setTimeout` delays in form submission handlers significantly slow down the UI response and should be removed or replaced with actual API calls in production environments.
+**Action:** Always check for artificial `setTimeout` delays in `handleSubmit` functions during performance reviews and remove them unless explicitly required for demonstration purposes.
