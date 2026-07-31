@@ -1,5 +1,28 @@
 # Changelog
 
+## [Unreleased] - 2026-07-24 to 2026-07-30
+
+### 🚀 Features & Enhancements
+- feat(contact): add accessible character counter to contact textareas
+
+### ⚡ Performance (Bolt)
+- perf: replace array `.filter().slice()` with O(N) early-break loops for vehicle collections
+- perf: combine chained vehicle filter conditions into a single pass
+- perf: extract and memoize active filters and repeated array derivations in VehiclesPage
+- perf: prevent React state waterfall updates by computing derived state synchronously
+- perf: optimize VehiclesPage filter parsing performance
+
+### 🛡️ Security (Sentinel)
+- security: fix XSS vulnerability in JSON-LD structured data [HIGH]
+- security: add maxLength constraints to form inputs (including contact forms) to mitigate DoS risks [MEDIUM]
+- security: fix Semgrep CI Docker pull failure
+- security: update vulnerable dependencies via npm audit fix
+
+### 🎨 Accessibility & UI (Palette)
+- a11y: add HTML `for` and `id` attributes to FinancingCalculatorSection
+- a11y: improve accessibility labels and focus-visible states for financing calculator form inputs
+
+
 ## [Unreleased] - 2026-05-15 to 2026-05-21
 
 ### 🚀 Features & Enhancements
