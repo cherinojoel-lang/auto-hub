@@ -4,3 +4,7 @@
 ## 2024-05-31 - Mobile Menu Toggle Accessibility
 **Learning:** The application uses two different patterns for hiding/showing mobile menus: `Header.tsx` conditionally unmounts the `<nav>` node entirely, while `StickyHeader.tsx` keeps the menu in the DOM but hides it using CSS transform classes (`translate-x-full`). This requires different strategies for the `aria-controls` attribute on the toggle buttons to prevent screen readers from pointing to non-existent nodes when unmounted.
 **Action:** When adding accessibility features to toggle buttons, always verify if the target container is hidden via CSS or conditionally unmounted, and set `aria-controls` to `undefined` dynamically when the target is removed from the DOM.
+
+## 2026-06-11 - Explicit Form Field Associations
+**Learning:** Found several forms (e.g. FinancingPage) lacking explicit associations between labels and input elements. Implicit association (wrapping) wasn't used, and explicit association via `id` and `htmlFor` was missing. This is a critical accessibility failure for screen reader users who rely on explicitly associated labels to understand the purpose of form fields.
+**Action:** When creating or reviewing forms, always verify that every input element has a unique `id` attribute and its corresponding `label` element uses the `htmlFor` attribute matching that `id`.
