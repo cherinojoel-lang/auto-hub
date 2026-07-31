@@ -24,10 +24,13 @@ const SECURITY_HEADERS: Record<string, string> = {
 
 const IMMUTABLE_ASSET_PATTERN = /^\/(?:_astro\/|.*\.(?:avif|webp|jpe?g|png|svg|gif|ico|woff2?)(?:$|\?))/i;
 
+// Optimization: Hoist Object.entries calculation outside the request handler to avoid unnecessary memory allocation and CPU cycles per request.
+const SECURITY_HEADERS_ENTRIES = Object.entries(SECURITY_HEADERS);
+
 export const onRequest: MiddlewareHandler = async ({ url }, next) => {
   const response = await next();
 
-  for (const [name, value] of Object.entries(SECURITY_HEADERS)) {
+  for (const [name, value] of SECURITY_HEADERS_ENTRIES) {
     response.headers.set(name, value);
   }
 
