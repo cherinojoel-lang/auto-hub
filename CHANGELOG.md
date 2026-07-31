@@ -1,5 +1,40 @@
 # Changelog
 
+## [Unreleased] - 2026-06-04 to 2026-06-11
+
+### 🚀 Features & Enhancements
+- docs: switch autohub review masterprompt to gemini (`1b2e391`)
+
+### ⚡ Performance (Bolt)
+- perf(filter): optimize chained array filter operations and fix CI (`b130714`)
+- Bolt: cache derived vehicle features via WeakMap (`2fcae1f`)
+- perf(blog): extract table parsing from render loop (`20896ce`)
+- perf: bypass quota error and optimize blog articles (`bdf1275`)
+- perf: hoist Intl.NumberFormat out of FinancingCalculatorSection (`71d94ea`, `758bff4`)
+- Bolt: Optimize vehicle filtering & Fix CI (`c05e283`)
+- Bolt: [performance optimization] Improve LCP and remove artificial latency (`e718ca0`)
+- Bolt: [LCP Optimization] Bypass IntersectionObserver for Hero content (`0e7d2f9`, `8c278c9`)
+- Bolt: [performance improvement] Optimize Vehicle Filtering and Feature Derivation (`8e51760`)
+
+### 🛡️ Security (Sentinel)
+- Sentinel: [HIGH] Fix XSS vulnerabilities in JSON-LD injection (`f06845b`, `9ab2b5e`, `86a8530`, `35de91e`, `14a5e4e`, `044888a`)
+- Sentinel: [security improvement] Add maxLength to contact form inputs (`5b35d57`)
+- chore: Security scan documentation (`f2c87fe`)
+
+### 🎨 Accessibility & UI (Palette)
+- Palette: [UX improvement] Explicit form label associations (`800da69`)
+- fix(a11y): improve form accessibility in FinancingCalculatorSection (`c2695a2`, `1e75302`)
+
+### 🧪 Testing
+- test: add Toaster component unit tests (`b7aaed8`)
+
+### 🧹 Code Health & CI
+- chore(ci): Fix/bypass Gemini CLI TerminalQuotaError and rate limits (`67cfee4`, `45f7a55`, `e349d36`, `344c9ed`, `f1c02ae`, `cc85b63`, `f52a74f`, `bfdd341`, `7c7863a`, `1fa2a9d`, `2a55a96`, `43b9a21`, `5dc573b`, `0d0da04`, `74ca200`, `b6d9a0b`)
+- chore(main): release 1.0.0 (`3d224e1`)
+- fix: unhandled error catch block in VehiclesPage (`a0c3396`)
+- code health: Add toast notification for BlogPage fetch errors (`e2675c2`)
+- chore: update changelog for the past week and fix CI (`57fcde0`, `6bb8952`)
+
 ## [Unreleased] - 2026-05-15 to 2026-05-21
 
 ### 🚀 Features & Enhancements
