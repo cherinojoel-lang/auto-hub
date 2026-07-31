@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { BaseCrudService } from '@/integrations';
 import { Image } from '@/components/ui/image';
@@ -50,66 +50,107 @@ export default function BlogDetailPage() {
     fetchArticle();
   }, [slug]);
 
+
+  const parsedContentBlocks = useMemo(() => {
+    if (!article?.content) return [];
+
+    return article.content.split('\n\n').map((paragraph, index) => {
+      // Handle headings
+      if (paragraph.startsWith('# ')) {
+        return { type: 'h1', text: paragraph.replace('# ', ''), index };
+      }
+      if (paragraph.startsWith('## ')) {
+        return { type: 'h2', text: paragraph.replace('## ', ''), index };
+      }
+      if (paragraph.startsWith('### ')) {
+        return { type: 'h3', text: paragraph.replace('### ', ''), index };
+      }
+      // Handle lists
+      if (paragraph.startsWith('- ')) {
+        const items = paragraph.split('\n').filter(line => line.startsWith('- ')).map(item => item.replace('- ', ''));
+        return { type: 'list', items, index };
+      }
+      // Handle tables
+      if (paragraph.includes('|')) {
+        const lines = paragraph.split('\n');
+        const headers = lines[0].split('|').map(h => h.trim()).filter(Boolean);
+        const rows = lines.slice(2).map(line =>
+          line.split('|').map(cell => cell.trim()).filter(Boolean)
+        );
+        return { type: 'table', headers, rows, index };
+      }
+      // Handle CTA blocks
+      if (paragraph.includes('[CTA]')) {
+        const ctaMatch = paragraph.match(/\[CTA\](.*?)\[\/CTA\]/);
+        if (ctaMatch) {
+          const ctaText = ctaMatch[1];
+          const linkMatch = ctaText.match(/\[(.*?)\]\((.*?)\)/);
+          if (linkMatch) {
+            return { type: 'cta', text: linkMatch[1], link: linkMatch[2], index };
+          }
+        }
+      }
+      // Regular paragraph
+      if (paragraph.trim()) {
+        return { type: 'paragraph', text: paragraph, index };
+      }
+      return null;
+    }).filter(Boolean);
+  }, [article?.content]);
+
   const formatDate = (date: Date | string | undefined) => {
     if (!date) return '';
     const d = new Date(date);
     return d.toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' });
   };
 
-  const renderContent = (content: string | undefined) => {
-    if (!content) return null;
+  const renderContent = () => {
+    if (parsedContentBlocks.length === 0) return null;
 
     return (
       <div className="prose prose-lg max-w-none font-paragraph text-neutral-700 leading-relaxed">
-        {content.split('\n\n').map((paragraph, index) => {
-          // Handle headings
-          if (paragraph.startsWith('# ')) {
+        {parsedContentBlocks.map((block) => {
+          if (!block) return null;
+
+          if (block.type === 'h1') {
             return (
-              <h1 key={index} className="font-heading text-4xl font-bold text-primary mt-8 mb-4">
-                {paragraph.replace('# ', '')}
+              <h1 key={block.index} className="font-heading text-4xl font-bold text-primary mt-8 mb-4">
+                {block.text}
               </h1>
             );
           }
-          if (paragraph.startsWith('## ')) {
+          if (block.type === 'h2') {
             return (
-              <h2 key={index} className="font-heading text-2xl font-bold text-primary mt-6 mb-3">
-                {paragraph.replace('## ', '')}
+              <h2 key={block.index} className="font-heading text-2xl font-bold text-primary mt-6 mb-3">
+                {block.text}
               </h2>
             );
           }
-          if (paragraph.startsWith('### ')) {
+          if (block.type === 'h3') {
             return (
-              <h3 key={index} className="font-heading text-xl font-bold text-primary mt-4 mb-2">
-                {paragraph.replace('### ', '')}
+              <h3 key={block.index} className="font-heading text-xl font-bold text-primary mt-4 mb-2">
+                {block.text}
               </h3>
             );
           }
-          // Handle lists
-          if (paragraph.startsWith('- ')) {
-            const items = paragraph.split('\n').filter(line => line.startsWith('- '));
+          if (block.type === 'list') {
             return (
-              <ul key={index} className="list-disc list-inside space-y-2 my-4">
-                {items.map((item, i) => (
+              <ul key={block.index} className="list-disc list-inside space-y-2 my-4">
+                {block.items.map((item, i) => (
                   <li key={i} className="text-neutral-700">
-                    {item.replace('- ', '')}
+                    {item}
                   </li>
                 ))}
               </ul>
             );
           }
-          // Handle tables
-          if (paragraph.includes('|')) {
-            const lines = paragraph.split('\n');
-            const headers = lines[0].split('|').map(h => h.trim()).filter(Boolean);
-            const rows = lines.slice(2).map(line => 
-              line.split('|').map(cell => cell.trim()).filter(Boolean)
-            );
+          if (block.type === 'table') {
             return (
-              <div key={index} className="overflow-x-auto my-6">
+              <div key={block.index} className="overflow-x-auto my-6">
                 <table className="w-full border-collapse border border-neutral-300">
                   <thead>
                     <tr className="bg-neutral-100">
-                      {headers.map((header, i) => (
+                      {block.headers.map((header, i) => (
                         <th key={i} className="border border-neutral-300 px-4 py-2 text-left font-bold">
                           {header}
                         </th>
@@ -117,7 +158,7 @@ export default function BlogDetailPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {rows.map((row, i) => (
+                    {block.rows.map((row, i) => (
                       <tr key={i} className="hover:bg-neutral-50">
                         {row.map((cell, j) => (
                           <td key={j} className="border border-neutral-300 px-4 py-2">
@@ -131,31 +172,22 @@ export default function BlogDetailPage() {
               </div>
             );
           }
-          // Handle CTA blocks
-          if (paragraph.includes('[CTA]')) {
-            const ctaMatch = paragraph.match(/\[CTA\](.*?)\[\/CTA\]/);
-            if (ctaMatch) {
-              const ctaText = ctaMatch[1];
-              const linkMatch = ctaText.match(/\[(.*?)\]\((.*?)\)/);
-              if (linkMatch) {
-                return (
-                  <div key={index} className="bg-secondary/10 border-l-4 border-secondary p-6 my-6 rounded">
-                    <Link
-                      to={linkMatch[2]}
-                      className="inline-block px-6 py-3 bg-secondary text-white rounded-lg font-heading font-bold hover:bg-secondary/90 transition-colors"
-                    >
-                      {linkMatch[1]}
-                    </Link>
-                  </div>
-                );
-              }
-            }
-          }
-          // Regular paragraph
-          if (paragraph.trim()) {
+          if (block.type === 'cta') {
             return (
-              <p key={index} className="my-4 text-neutral-700 leading-relaxed">
-                {paragraph}
+              <div key={block.index} className="bg-secondary/10 border-l-4 border-secondary p-6 my-6 rounded">
+                <Link
+                  to={block.link}
+                  className="inline-block px-6 py-3 bg-secondary text-white rounded-lg font-heading font-bold hover:bg-secondary/90 transition-colors"
+                >
+                  {block.text}
+                </Link>
+              </div>
+            );
+          }
+          if (block.type === 'paragraph') {
+            return (
+              <p key={block.index} className="my-4 text-neutral-700 leading-relaxed">
+                {block.text}
               </p>
             );
           }
@@ -234,7 +266,7 @@ export default function BlogDetailPage() {
             </h1>
 
             {/* Content */}
-            {renderContent(article.content)}
+            {renderContent()}
 
             {/* Back Link */}
             <div className="mt-12 pt-6 border-t border-neutral-200">
