@@ -22,12 +22,17 @@ const SECURITY_HEADERS: Record<string, string> = {
   ].join('; '),
 };
 
+// ⚡ Bolt Optimization: Hoist static object calculations outside the request handler
+// to prevent unnecessary re-evaluation and memory allocation on every incoming request.
+// This saves O(N) array allocation per request.
+const SECURITY_HEADERS_ENTRIES = Object.entries(SECURITY_HEADERS);
+
 const IMMUTABLE_ASSET_PATTERN = /^\/(?:_astro\/|.*\.(?:avif|webp|jpe?g|png|svg|gif|ico|woff2?)(?:$|\?))/i;
 
 export const onRequest: MiddlewareHandler = async ({ url }, next) => {
   const response = await next();
 
-  for (const [name, value] of Object.entries(SECURITY_HEADERS)) {
+  for (const [name, value] of SECURITY_HEADERS_ENTRIES) {
     response.headers.set(name, value);
   }
 
