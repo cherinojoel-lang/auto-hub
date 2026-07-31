@@ -184,13 +184,15 @@ export default function VehiclePage() {
             <button
               onClick={() => setShowFilters(!showFilters)}
               className="md:hidden flex min-w-0 max-w-[70%] items-center justify-end gap-2 text-primary font-bold text-sm sm:text-base hover:text-primary/80 transition-colors"
+              aria-expanded={showFilters}
+              aria-controls="filters-section"
             >
               <Filter size={22} />
               <span className="truncate">{showFilters ? 'Schließen' : 'Filter'}</span>
             </button>
           </div>
 
-          <div className={`${showFilters ? 'block' : 'hidden'} md:block`}>
+          <div id="filters-section" className={`${showFilters ? 'block' : 'hidden'} md:block`}>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 mb-6">
               <div>
                 <label className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
