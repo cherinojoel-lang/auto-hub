@@ -315,6 +315,7 @@ export default function ContactSection() {
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
+                  maxLength={50}
                   className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-red-600 transition-colors ${
                     formErrors.name ? 'border-red-500' : 'border-slate-200'
                   }`}
@@ -336,6 +337,7 @@ export default function ContactSection() {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
+                  maxLength={50}
                   className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-red-600 transition-colors ${
                     formErrors.email ? 'border-red-500' : 'border-slate-200'
                   }`}
@@ -357,6 +359,7 @@ export default function ContactSection() {
                   name="phone"
                   value={formData.phone}
                   onChange={handleInputChange}
+                  maxLength={20}
                   className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:border-red-600 transition-colors"
                   placeholder="+49 (0) 123 / 456789"
                 />
@@ -373,6 +376,7 @@ export default function ContactSection() {
                   value={formData.message}
                   onChange={handleInputChange}
                   rows={4}
+                  maxLength={2000}
                   className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:border-red-600 transition-colors resize-none"
                   placeholder="Ihre Nachricht..."
                 />
