@@ -145,7 +145,11 @@ export default function ContactPage() {
                   </h2>
 
                   {submitSuccess && (
-                    <div className="mb-6 p-4 bg-primary/10 border border-primary/20 rounded-lg">
+                    <div
+                      className="mb-6 p-4 bg-primary/10 border border-primary/20 rounded-lg"
+                      role="status"
+                      aria-live="polite"
+                    >
                       <p className="text-primary font-medium">
                         Vielen Dank für Ihre Nachricht! Wir melden uns schnellstmöglich bei Ihnen.
                       </p>
@@ -210,10 +214,19 @@ export default function ContactPage() {
                         value={formData.message}
                         onChange={handleChange}
                         required
+                        maxLength={2000}
+                        aria-describedby="message-counter"
                         rows={6}
                         className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-primary transition-all resize-none"
                         placeholder="Wie können wir Ihnen helfen?"
                       />
+                      <div
+                        id="message-counter"
+                        aria-live="polite"
+                        className="text-xs text-foreground/60 text-right mt-1"
+                      >
+                        {formData.message.length}/2000 Zeichen
+                      </div>
                     </div>
 
                     <button
