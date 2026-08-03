@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { BaseCrudService } from '@/integrations';
 import { Image } from '@/components/ui/image';
@@ -35,9 +35,9 @@ export default function BlogPage() {
   }, []);
 
   const categories = ['Kaufberatung', 'Finanzierung', 'Autopflege'];
-  const filteredArticles = selectedCategory
+  const filteredArticles = React.useMemo(() => selectedCategory
     ? articles.filter(article => article.category === selectedCategory)
-    : articles;
+    : articles, [articles, selectedCategory]);
 
   const formatDate = (date: Date | string | undefined) => {
     if (!date) return '';
