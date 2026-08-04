@@ -4,3 +4,6 @@
 ## 2024-05-31 - Mobile Menu Toggle Accessibility
 **Learning:** The application uses two different patterns for hiding/showing mobile menus: `Header.tsx` conditionally unmounts the `<nav>` node entirely, while `StickyHeader.tsx` keeps the menu in the DOM but hides it using CSS transform classes (`translate-x-full`). This requires different strategies for the `aria-controls` attribute on the toggle buttons to prevent screen readers from pointing to non-existent nodes when unmounted.
 **Action:** When adding accessibility features to toggle buttons, always verify if the target container is hidden via CSS or conditionally unmounted, and set `aria-controls` to `undefined` dynamically when the target is removed from the DOM.
+## 2024-06-18 - Form TextArea Length and Feedback Accessibility
+**Learning:** Dynamic success messages (like form submissions) must have `role="status"` and `aria-live="polite"` to be announced. Additionally, large textareas benefit heavily from `maxLength` paired with a visual character counter linked via `aria-describedby`, preventing user frustration and ensuring screen reader awareness.
+**Action:** When adding textareas for user input, always pair a `maxLength` attribute with a visual character counter, and ensure dynamic form success states are explicitly marked with `role="status"` and `aria-live="polite"`.

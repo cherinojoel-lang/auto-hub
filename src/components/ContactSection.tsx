@@ -299,7 +299,11 @@ export default function ContactSection() {
               <h3 className="text-2xl font-semibold text-slate-900 mb-6">Schnellanfrage</h3>
 
               {submitSuccess && (
-                <div className="p-4 bg-green-50 border border-green-200 rounded-lg text-green-800 text-sm animate-fade-in">
+                <div
+                  role="status"
+                  aria-live="polite"
+                  className="p-4 bg-green-50 border border-green-200 rounded-lg text-green-800 text-sm animate-fade-in"
+                >
                   Vielen Dank! Wir werden uns in Kürze bei Ihnen melden.
                 </div>
               )}
@@ -373,9 +377,14 @@ export default function ContactSection() {
                   value={formData.message}
                   onChange={handleInputChange}
                   rows={4}
+                  maxLength={2000}
+                  aria-describedby="message-counter"
                   className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:border-red-600 transition-colors resize-none"
                   placeholder="Ihre Nachricht..."
                 />
+                <div id="message-counter" aria-live="polite" className="text-xs text-slate-500 text-right mt-1">
+                  {formData.message.length} / 2000 Zeichen
+                </div>
               </div>
 
               {/* Submit Button */}
