@@ -25,3 +25,6 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+## 2024-05-15 - [Memory Leak in Intersection Observer unobserve]
+**Learning:** Calling `observer.unobserve(el)` where `el` is a captured DOM element closure from a ref causes memory leaks and fails to correctly unobserve the specific element if multiple are processed by the same callback. The IntersectionObserver callback provides the correctly targeted element via `entry.target`.
+**Action:** Always use `entry.target` (e.g. `observer.unobserve(entry.target)`) when unobserving elements inside `IntersectionObserver` callbacks instead of relying on captured DOM variables.
