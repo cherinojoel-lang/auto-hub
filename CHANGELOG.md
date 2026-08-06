@@ -1,5 +1,124 @@
 # Changelog
 
+## [Unreleased] - 2026-05-22 to 2026-08-06
+
+### 🚀 Features & Enhancements
+- Update Semgrep workflow for code quality analysis
+- real per-vehicle equipment + honest transmission on detail page
+- add getAllFeatures + honest getTransmission helpers
+- add explicit profile links and universal agent standard
+- Add toast notification for unhandled error in VehicleDetailPage
+- Premium Vehicle Cards — Feature-Chips, Icon-Specs, WhatsApp CTA
+- improve premium vehicle cards
+- echte 204 Kundenbewertungen + Magazin-Hero
+- EnVKV-Pflichtangaben, ODR-Link, Security-Header + Design-Polish
+- style(ui): Premium Automotive Visual System — Surface-Tokens, Trust-Bar, Cards, Sektionsrhythmus
+- AutoHub Excellence Plan v1.0 — WhatsApp CTA, Lightbox, Sticky CTA, Filter-UX, Maps, SEO, Error-Handling
+- Add ESLint JavaScript linter workflow
+- Add OSSAR code scanning workflow
+- SOTA vehicle filter domain + Cloudflare migration
+- DSGVO cookie consent banner + extended privacy policy
+- SEO- und Branding-Korrekturen
+- Korrektur der Bildgalerie-Begrenzung
+- Fahrzeugbilder, Galerien & mobile Ansichten finalisieren
+- Mobile Fahrzeugdetail- & Bestandsoptimierung
+- Globale Struktur- & Inhaltskorrekturen
+- Mobile Fahrzeugdetailseite optimieren
+- Mobile Fahrzeugdetailansicht reparieren
+- Website-Optimierung für Automobile Quick
+- implement maximum supra-regional seo and new vehicle highlights [SEO-FINAL]
+- implement world-class demo with portal sync and premium ux [DEMO-FINAL]
+- Blog-Struktur & 3 SEO-Artikel
+- Finanzierungs-Sektion & Rechner
+- Sticky Header & FAB
+- SEO & Schema.org Markup
+- How it works Section
+- WhatsApp Button & Contact Section
+- Social-Proof-Sektion
+- Fahrzeugbestand erstellen
+- Create Hero Section
+- Aktualisiere Website mit finalen Projektdaten
+- Fehler auf der Webseite beheben
+
+### ⚡ Performance (Bolt)
+- resolve top 3 performance bottlenecks
+- use Promise.all for concurrent reference updates
+- throttle scroll event listeners with requestAnimationFrame
+- Perf + A11y: framer-motion raus (-120kB), aria-label-Fixes, Hero-preconnect
+- code-split Router routes, reduce initial bundle from 623kB
+- ⚡ Bolt: Remove artificial network latency for static data
+- ⚡ Bolt: Refactor frontend filtering to backend data source query in BlogDetailPage
+
+### 🛡️ Security (Sentinel)
+- chore(test): upgrade Vitest security baseline
+- chore(security): upgrade Astro Cloudflare stack
+- fix(prod): apply SSR security headers and repair scanners
+- Add DevSkim security linter workflow
+- Add Trivy workflow for Docker image & filesystem security scanning
+- Fix CSRF vulnerability by enabling checkOrigin
+- fix github actions vulnerabilities (permissions and script injection)
+- fix: enable checkOrigin for csrf protection
+
+### 🧪 Testing
+- [testing improvement] Add tests for generateFullSitemap
+- refactor(domain): extract vehicleFeatures utility + TDD tests
+- [ContactSection error handling missing test]
+- : add edge cases for useSize hook
+- : add LoadingSpinner component tests
+- : add unit tests for use-toast reducer
+- : add tests for getStructuredDataBreadcrumb
+- fix: resolve failing seo test and forbidden audit terms
+- : add error handling coverage for ContactSection
+- : add error test for HomePage vehicle loading
+- [testing improvement] Add tests for generateSitemap
+- : add tests for generateBusinessSchema in seo-config.ts
+- Add tests for cn utility function
+- add tests for updateMetaTags
+- fix(integrity): align inventory with latest mobile.de status (18 items) [FINAL-SYNC]
+
+### 🐛 Fixes
+- escape HTML chars in JSON-LD to prevent XSS
+- align canonical domain with official site
+- harden autohub mobile conversion and canonicals
+- trust workspace in headless environment
+- LCP eager-loading + imageCount guard + Singular/Plural Foto(s)
+- switch Cloudflare deploy path to Workers
+- disable GitHub Pages Jekyll build
+- resolve infinite loops and server timeouts blocking Vibe Editor
+- 🎨 Palette: [UX improvement] Fix nested button accessibility in vehicle cards
+- resolve uncommitted modifications and prepare for release
+- resolve 13 typescript errors in router and seo-config
+- resolve @wix/editor-elements-definitions 404 + premium design pass
+- resolve PR merge conflicts for gallery preview blockers
+- render full vehicle galleries and finalize preview blockers
+- add explicit .tsx extension to AppRouter import in Astro page
+- resolve phase6b homepage audit failures
+- unblock Wix Vibe build and restore Automobile Quick phase A
+- Resolve merge conflicts by keeping our fixed state
+- resolve build errors and restore Phase A data
+- add git patch series checks for sendemail-validate hook
+- implement sendemail-validate checks
+- Update sendemail-validate to enforce patch criteria
+- 🔒 Fix use of window.location.href for redirection
+- 🔒 Fix insecure email regex validation with zod
+- Fixing blocking errors
+
+### 🧹 Chores & Code Health
+- switch autohub review masterprompt to gemini
+- trigger review after secret update
+- Add setup.sh and update README.md with installation instructions
+- update dependencies to fix vulnerabilities
+- review fix-vibe-build-and-phase-a-data branch
+- inform user about github environment limitations
+- 🧹 [code health] Remove redundant type reference in env.d.ts
+- Information regarding PR merging
+- use Vehicles interface instead of any type for getStructuredDataProduct
+- replace 'any' with 'Vehicle' type
+- extract side-effects from useToast reducer
+- 🧹 [Code Health] Remove console.log from ContactSection.tsx
+- remove any type in VehicleDetailPage.tsx
+
+
 ## [Unreleased] - 2026-05-15 to 2026-05-21
 
 ### 🚀 Features & Enhancements
