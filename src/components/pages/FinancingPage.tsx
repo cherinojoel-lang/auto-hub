@@ -5,15 +5,18 @@ import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, SITE_CONFIG } from '@/lib/seo-config';
 import FinancingCalculatorSection from '@/components/FinancingCalculatorSection';
 
-const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
+const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number; priority?: boolean }> = ({
   children, 
   className = '',
-  delay = 0 
+  delay = 0,
+  priority = false
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  // ⚡ Bolt: Initialize as visible immediately and bypass observer if priority=true to improve LCP
+  const [isVisible, setIsVisible] = useState(priority || false);
 
   useEffect(() => {
+    if (priority) return;
     const el = ref.current;
     if (!el) return;
 
@@ -108,7 +111,7 @@ export default function FinancingPage() {
           />
         </div>
         <div className="container mx-auto px-4 relative z-10 max-w-4xl">
-          <AnimatedElement>
+          <AnimatedElement priority={true}>
             <div className="text-center">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6">
                 Gebrauchtwagen-Finanzierung in Iserlohn-Letmathe
