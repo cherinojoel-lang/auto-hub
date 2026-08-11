@@ -4,15 +4,17 @@ import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
 import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, SITE_CONFIG } from '@/lib/seo-config';
 
-const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
+const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number; priority?: boolean }> = ({
   children, 
   className = '',
-  delay = 0 
+  delay = 0,
+  priority = false
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(priority || false); // ⚡ Bolt: Initialize as visible if priority is true to optimize LCP
 
   useEffect(() => {
+    if (priority) return; // ⚡ Bolt: Bypass IntersectionObserver for priority elements to optimize LCP
     const el = ref.current;
     if (!el) return;
 
@@ -22,7 +24,7 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
       ([entry]) => {
         if (entry.isIntersecting) {
           timeoutId = setTimeout(() => setIsVisible(true), delay);
-          observer.unobserve(el);
+          observer.unobserve(entry.target);
         }
       },
       { threshold: 0.1 }
@@ -33,7 +35,7 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
       observer.disconnect();
       if (timeoutId) clearTimeout(timeoutId);
     };
-  }, [delay]);
+  }, [delay, priority]);
 
   return (
     <div
@@ -115,7 +117,8 @@ export default function TradeInPage() {
           />
         </div>
         <div className="container mx-auto px-4 relative z-10 max-w-4xl">
-          <AnimatedElement>
+          {/* ⚡ Bolt: Added priority={true} to bypass IntersectionObserver and improve LCP */}
+          <AnimatedElement priority={true}>
             <div className="text-center">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6">
                 Auto verkaufen in Iserlohn

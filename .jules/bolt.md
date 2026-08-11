@@ -25,3 +25,6 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+## 2026-08-11 - IntersectionObserver LCP Delay in React
+**Learning:** Using `IntersectionObserver` to reveal React components that are immediately visible "above the fold" (e.g., hero sections, H1 tags) is an anti-pattern that delays the Largest Contentful Paint (LCP). The elements remain un-rendered or invisible until the observer callback fires after hydration.
+**Action:** When creating animated wrapper components (like `AnimatedElement`), add a `priority={true}` prop to early-return from the observer `useEffect` and initialize state as visible for above-the-fold content. Also, ensure the observer unobserves `entry.target` instead of a potentially stale ref to prevent memory leaks.
