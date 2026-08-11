@@ -199,6 +199,7 @@ export default function FinancingPage() {
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  maxLength={100}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
                   placeholder="Ihr Name"
                 />
@@ -214,6 +215,7 @@ export default function FinancingPage() {
                   required
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  maxLength={30}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
                   placeholder="Ihre Telefonnummer"
                 />
@@ -228,6 +230,7 @@ export default function FinancingPage() {
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  maxLength={100}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
                   placeholder="Ihre E-Mail"
                 />
@@ -242,6 +245,7 @@ export default function FinancingPage() {
                   type="text"
                   value={formData.vehicle}
                   onChange={(e) => setFormData({ ...formData, vehicle: e.target.value })}
+                  maxLength={100}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
                   placeholder="z.B. BMW X1, Opel Corsa"
                 />
@@ -255,10 +259,19 @@ export default function FinancingPage() {
                 <textarea
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  maxLength={2000}
+                  aria-describedby="financing-message-counter"
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50 resize-none"
                   placeholder="Weitere Informationen zu Ihrer Finanzierungsanfrage..."
                   rows={4}
                 />
+                <div
+                  id="financing-message-counter"
+                  aria-live="polite"
+                  className="text-right text-xs text-foreground/50 mt-1"
+                >
+                  {formData.message.length} / 2000 Zeichen
+                </div>
               </div>
 
               {/* Submit Button */}
