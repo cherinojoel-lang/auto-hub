@@ -21,10 +21,10 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
   priority = false
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(priority || false);
+  const [isVisible, setIsVisible] = useState(priority || false); // ⚡ Bolt: Initialize as visible if priority is true to optimize LCP
 
   useEffect(() => {
-    if (priority) return;
+    if (priority) return; // ⚡ Bolt: Bypass IntersectionObserver for priority elements to optimize LCP
     const el = ref.current;
     if (!el) return;
 
@@ -32,7 +32,7 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.unobserve(el);
+          observer.unobserve(entry.target);
         }
       },
       { threshold: 0.1 }
