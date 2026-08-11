@@ -211,6 +211,7 @@ export default function TradeInPage() {
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  maxLength={100}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
                   placeholder="Ihr Name"
                 />
@@ -226,6 +227,7 @@ export default function TradeInPage() {
                   required
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  maxLength={30}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
                   placeholder="Ihre Telefonnummer"
                 />
@@ -240,6 +242,7 @@ export default function TradeInPage() {
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  maxLength={100}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
                   placeholder="Ihre E-Mail"
                 />
@@ -254,6 +257,7 @@ export default function TradeInPage() {
                   type="text"
                   value={formData.brand}
                   onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
+                  maxLength={100}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
                   placeholder="z.B. BMW, Opel, Fiat"
                 />
@@ -268,6 +272,7 @@ export default function TradeInPage() {
                   type="text"
                   value={formData.model}
                   onChange={(e) => setFormData({ ...formData, model: e.target.value })}
+                  maxLength={100}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
                   placeholder="z.B. X1, Mokka, 500"
                 />
@@ -282,6 +287,7 @@ export default function TradeInPage() {
                   type="text"
                   value={formData.firstRegistration}
                   onChange={(e) => setFormData({ ...formData, firstRegistration: e.target.value })}
+                  maxLength={20}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
                   placeholder="z.B. 2020"
                 />
@@ -296,6 +302,7 @@ export default function TradeInPage() {
                   type="text"
                   value={formData.mileage}
                   onChange={(e) => setFormData({ ...formData, mileage: e.target.value })}
+                  maxLength={50}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50"
                   placeholder="z.B. 85.000 km"
                 />
@@ -328,10 +335,19 @@ export default function TradeInPage() {
                 <textarea
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  maxLength={2000}
+                  aria-describedby="trade-in-message-counter"
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50 resize-none"
                   placeholder="Weitere Informationen zu Ihrem Fahrzeug..."
                   rows={4}
                 />
+                <div
+                  id="trade-in-message-counter"
+                  aria-live="polite"
+                  className="text-right text-xs text-foreground/50 mt-1"
+                >
+                  {formData.message.length} / 2000 Zeichen
+                </div>
               </div>
 
               {/* Submit Button */}
