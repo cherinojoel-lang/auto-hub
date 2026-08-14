@@ -5,6 +5,7 @@ import { Image } from '@/components/ui/image';
 import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
 import { WhatsAppCta } from '@/components/ui/whatsapp-cta';
 import { getVehicleImageCount, getFeatureChips } from '@/lib/domain/vehicleFeatures';
+import { getTopVehicles } from '@/lib/utils/optimize-collections';
 
 interface VehicleCardProps {
   vehicle: Vehicle;
@@ -153,7 +154,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, index }) => {
 };
 
 export default function VehicleInventorySection() {
-  const topVehicles = React.useMemo(() => vehiclesData.filter((vehicle) => vehicle.status === 'available').slice(0, 6), []);
+  const topVehicles = React.useMemo(() => getTopVehicles(vehiclesData, 6), []);
 
   return (
     <section className="py-16 sm:py-20 bg-surface" id="main-content">
