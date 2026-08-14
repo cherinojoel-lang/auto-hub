@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { Calendar, Gauge, Zap, Fuel, ArrowLeft, Phone, MapPin, Wrench, ChevronLeft, ChevronRight } from 'lucide-react';
 import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
 import { Image } from '@/components/ui/image';
+import { getSimilarVehicles } from '@/lib/utils/optimize-collections';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { useToast } from '@/hooks/use-toast';
 
@@ -87,7 +88,7 @@ export default function VehicleDetailPage() {
       setCurrentGalleryIndex(0);
       
       // Load similar vehicles
-      setSimilarVehicle(safeVehicles.filter((v: Vehicle) => v.id !== id).slice(0, 4));
+      setSimilarVehicle(getSimilarVehicles(safeVehicles, id as string, 4));
       
       // Update SEO for vehicle detail page
       if (data) {
