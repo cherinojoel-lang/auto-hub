@@ -83,6 +83,7 @@ export default function HowItWorksSection() {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
+          // ⚡ Bolt: Prevent memory leaks by using entry.target instead of closed-over DOM element
           observer.unobserve(entry.target);
         }
       },

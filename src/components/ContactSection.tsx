@@ -95,6 +95,8 @@ export default function ContactSection() {
       (entries) => {
         if (entries[0].isIntersecting && !mapLoaded) {
           setMapLoaded(true);
+          // ⚡ Bolt: Prevent memory leaks by using entry.target instead of closed-over DOM element
+          observer.unobserve(entries[0].target);
         }
       },
       { threshold: 0.1 }

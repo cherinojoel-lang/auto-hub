@@ -24,6 +24,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, index }) => {
       ([entry]) => {
         if (entry.isIntersecting) {
           timeoutId = setTimeout(() => setIsVisible(true), index * 100);
+          // ⚡ Bolt: Prevent memory leaks by using entry.target instead of closed-over DOM element
           observer.unobserve(entry.target);
         }
       },
