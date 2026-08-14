@@ -145,7 +145,11 @@ export default function ContactPage() {
                   </h2>
 
                   {submitSuccess && (
-                    <div className="mb-6 p-4 bg-primary/10 border border-primary/20 rounded-lg">
+                    <div
+                      className="mb-6 p-4 bg-primary/10 border border-primary/20 rounded-lg"
+                      role="status"
+                      aria-live="polite"
+                    >
                       <p className="text-primary font-medium">
                         Vielen Dank für Ihre Nachricht! Wir melden uns schnellstmöglich bei Ihnen.
                       </p>
