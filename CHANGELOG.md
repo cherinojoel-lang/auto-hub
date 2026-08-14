@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased] - 2026-06-25 to 2026-07-03
+
+### 🚀 Features & Enhancements
+- fix: escape HTML chars in JSON-LD to prevent XSS (#388) (`9e09f0a`)
+
+### 🧹 Code Health & CI
+- Update Semgrep workflow for code quality analysis (#148) (`4c8f6d1`)
+
 ## [Unreleased] - 2026-05-15 to 2026-05-21
 
 ### 🚀 Features & Enhancements
