@@ -299,7 +299,11 @@ export default function ContactSection() {
               <h3 className="text-2xl font-semibold text-slate-900 mb-6">Schnellanfrage</h3>
 
               {submitSuccess && (
-                <div className="p-4 bg-green-50 border border-green-200 rounded-lg text-green-800 text-sm animate-fade-in">
+                <div
+                  className="p-4 bg-green-50 border border-green-200 rounded-lg text-green-800 text-sm animate-fade-in"
+                  role="status"
+                  aria-live="polite"
+                >
                   Vielen Dank! Wir werden uns in Kürze bei Ihnen melden.
                 </div>
               )}
