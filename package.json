@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.2",
-    "@astrojs/cloudflare": "^13.6.0",
     "@astrojs/react": "^5.0.6",
     "@astrojs/tailwind": "6.0.2",
     "@hookform/resolvers": "5.2.0",
@@ -68,6 +67,7 @@
     "zod": "^3.24.4"
   },
   "devDependencies": {
+    "@astrojs/cloudflare": "^14.2.1",
     "@microsoft/eslint-formatter-sarif": "^3.1.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -78,16 +78,18 @@
     "@vitest/coverage-v8": "^4.1.8",
     "eslint": "^8.57.1",
     "jsdom": "^20.0.0",
+    "miniflare": "^5.20260811.1-alpha",
     "typescript": "^5.8.3",
     "vite": "^6.4.1",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^4.1.8",
-    "wrangler": "^4.95.0"
+    "wrangler": "^4.123.0"
   },
   "overrides": {
     "@astrojs/language-server": "^2.16.10",
     "volar-service-yaml": "^0.0.71",
     "yaml-language-server": "^1.23.0",
-    "yaml": "^2.9.0"
+    "yaml": "^2.9.0",
+    "esbuild": "0.27.3"
   }
 }
