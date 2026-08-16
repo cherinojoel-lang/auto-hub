@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Calendar, Gauge, Zap, Fuel, ArrowLeft, Phone, MapPin, Wrench, ChevronLeft, ChevronRight } from 'lucide-react';
 import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
@@ -32,7 +32,7 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.unobserve(el);
+          observer.unobserve(entry.target);
         }
       },
       { threshold: 0.1 }
@@ -76,18 +76,29 @@ export default function VehicleDetailPage() {
     loadVehicle();
   }, [id]);
 
+  const memoizedVehicleData = React.useMemo(() => {
+    try {
+      const safeVehicles = Array.isArray(vehiclesData) ? vehiclesData : [];
+      const data = safeVehicles.find((v: Vehicle) => v.id === id) || null;
+      const similar = safeVehicles.filter((v: Vehicle) => v.id !== id).slice(0, 4);
+      return { data, similar };
+    } catch (error) {
+      console.error('Error loading vehicle:', error);
+      return { data: null, similar: [] };
+    }
+  }, [id]);
+
   const loadVehicle = async () => {
     if (!id) return;
     
     try {
       setIsLoading(true);
-      const safeVehicles = Array.isArray(vehiclesData) ? vehiclesData : []; 
-      const data = safeVehicles.find((v: Vehicle) => v.id === id) || null;
+      const { data, similar } = memoizedVehicleData;
       setVehicle(data);
       setCurrentGalleryIndex(0);
       
       // Load similar vehicles
-      setSimilarVehicle(safeVehicles.filter((v: Vehicle) => v.id !== id).slice(0, 4));
+      setSimilarVehicle(similar);
       
       // Update SEO for vehicle detail page
       if (data) {
