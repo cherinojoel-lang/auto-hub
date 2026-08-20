@@ -1,5 +1,23 @@
 # Changelog
 
+## [Unreleased] - 2026-08-14 to 2026-08-20
+
+### ⚡ Performance (Bolt)
+- Optimize LCP by enabling early returns in AnimatedElement (`734cb23`)
+- Fix IntersectionObserver memory leaks (`fcc749c`, `b9106be`, `85421fe`)
+- Fix memory leaks and memoize array derivations (`261beed`)
+- Optimize array allocations with early-break loops (`ef98a57`, `c536f71`)
+- Wrap similar vehicles derivation in useMemo to prevent unnecessary array allocations (`1a13f7b`)
+
+### 🛡️ Security (Sentinel)
+- Security fixes and dependency updates (`164a1e6`, `07fae2d`, `d6156af`, `940c06e`, `d84cbfa`)
+- Add input length limits to forms (`d47cff8`)
+- Update @astrojs/cloudflare to resolve runner moduleType missing field error (`2c2fbfb`)
+
+### 🎨 Accessibility & UI (Palette)
+- Add screen reader support for form success messages (`733aa4e`)
+- Improve accessibility of financing calculator form fields (`e141c1b`)
+
 ## [Unreleased] - 2026-05-15 to 2026-05-21
 
 ### 🚀 Features & Enhancements
