@@ -13,32 +13,11 @@ interface VehicleCardProps {
 
 const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, index }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true); // Eagerly load for LCP on homepage
   const imageCount = getVehicleImageCount(vehicle);
   const featureChips = getFeatureChips(vehicle);
 
-  useEffect(() => {
-    let timeoutId: ReturnType<typeof setTimeout>;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          timeoutId = setTimeout(() => setIsVisible(true), index * 100);
-          observer.unobserve(entry.target);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => {
-      observer.disconnect();
-      if (timeoutId) clearTimeout(timeoutId);
-    };
-  }, [index]);
+  // Removed IntersectionObserver to eagerly load for LCP
 
   return (
     <div
