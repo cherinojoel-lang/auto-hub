@@ -32,7 +32,8 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.unobserve(el);
+          // ⚡ Bolt: Prevent memory leaks by using entry.target instead of closed-over DOM element variable
+          observer.unobserve(entry.target);
         }
       },
       { threshold: 0.1 }
