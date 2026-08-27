@@ -14,9 +14,9 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^13.6.0",
+    "@astrojs/cloudflare": "^14.2.5",
     "@astrojs/react": "^5.0.6",
-    "@astrojs/tailwind": "6.0.2",
+    "@astrojs/tailwind": "^6.0.2",
     "@hookform/resolvers": "5.2.0",
     "@radix-ui/react-accordion": "1.2.11",
     "@radix-ui/react-alert-dialog": "1.1.14",
