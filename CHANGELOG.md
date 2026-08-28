@@ -1,5 +1,20 @@
 # Changelog
 
+## [Unreleased] - 2026-08-20 to 2026-08-27
+
+### ⚡ Performance (Bolt)
+- Bolt: Prevent memory leak by using entry.target instead of closed-over DOM element (`073dfb9`, `0935bc8`, `3bc42cc`, `8a1eb02`)
+- Bolt: Performance fixes for memory leaks and LCP (`bf175b6`)
+- Bolt: Memoize static array derivations (`07de5d8`)
+- Bolt: Add priority early-return to AnimatedElement in VehiclesPage (`ce266c4`)
+- Bolt: Optimize LCP by enabling early returns in AnimatedElement (`734cb23`)
+
+### 🛡️ Security (Sentinel)
+- Security patch: Update dependencies (`3289a52`, `5350b9f`, `074dd9d`, `d441bb4`, `f95b1ad`, `c0a60ea`, `95753c6`, `3423e49`, `e61056e`)
+
+### 📝 Documentation
+- docs: update changelog with commits from this week (`4846cef`)
+
 ## [Unreleased] - 2026-05-15 to 2026-05-21
 
 ### 🚀 Features & Enhancements
