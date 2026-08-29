@@ -14,7 +14,6 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^13.6.0",
     "@astrojs/react": "^5.0.6",
     "@astrojs/tailwind": "6.0.2",
     "@hookform/resolvers": "5.2.0",
@@ -68,6 +67,8 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "@astrojs/cloudflare": "^14.2.5",
+    "@cloudflare/vite-plugin": "^1.54.2",
     "@microsoft/eslint-formatter-sarif": "^3.1.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -83,7 +84,7 @@
     "vite": "^6.4.1",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^4.1.11",
-    "wrangler": "^4.95.0"
+    "wrangler": "^4.127.1"
   },
   "overrides": {
     "@astrojs/language-server": "^2.16.10",
