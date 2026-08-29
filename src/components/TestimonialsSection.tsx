@@ -1,3 +1,4 @@
+import React, { useMemo } from 'react';
 import { Star, Quote, ExternalLink } from 'lucide-react';
 import { featuredReviews, aggregateRating, trustFacts, type Review } from '@/data/reviewsData';
 
@@ -36,6 +37,15 @@ function SourceBadge({ source }: { source: Review['source'] }) {
 }
 
 export default function TestimonialsSection() {
+  // ⚡ Bolt: Isolate global derived iterators using useMemo to prevent unnecessary VDOM allocations on re-renders
+  const topReviews = useMemo(() => featuredReviews.slice(0, 6), []);
+  const stats = useMemo(() => [
+    { value: "100 %", label: "Weiterempfehlung" },
+    { value: `${trustFacts.totalReviews}`, label: "Bewertungen gesamt" },
+    { value: `${trustFacts.yearsOnMobileDe}+ Jahre`, label: "auf mobile.de" },
+    { value: "seit 1982", label: "Inhabergeführt" },
+  ], []);
+
   return (
     <section
       aria-labelledby="testimonials-heading"
@@ -91,12 +101,7 @@ export default function TestimonialsSection() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-12 sm:mb-16">
-          {[
-            { value: '100 %', label: 'Weiterempfehlung' },
-            { value: `${trustFacts.totalReviews}`, label: 'Bewertungen gesamt' },
-            { value: `${trustFacts.yearsOnMobileDe}+ Jahre`, label: 'auf mobile.de' },
-            { value: 'seit 1982', label: 'Inhabergeführt' },
-          ].map((stat) => (
+          {stats.map((stat) => (
             <div
               key={stat.label}
               className="text-center p-5 bg-surface-elevated rounded-lg border border-border-line transition-all hover:border-secondary/30"
@@ -108,7 +113,7 @@ export default function TestimonialsSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-          {featuredReviews.slice(0, 6).map((review) => (
+          {topReviews.map((review) => (
             <article
               key={`${review.name}-${review.date}`}
               className="group relative bg-surface-elevated rounded-lg border border-border-line p-6 sm:p-7 card-premium"
