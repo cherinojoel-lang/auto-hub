@@ -193,10 +193,11 @@ export default function VehiclePage() {
           <div className={`${showFilters ? 'block' : 'hidden'} md:block`}>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 mb-6">
               <div>
-                <label className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
+                <label htmlFor="manufacturer" className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
                   Marke
                 </label>
                 <select
+                  id="manufacturer"
                   value={manufacturer}
                   onChange={(e) => setManufacturer(e.target.value)}
                   className="w-full min-h-12 px-4 py-3 rounded-md border border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
@@ -209,10 +210,11 @@ export default function VehiclePage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
+                <label htmlFor="priceMax" className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
                   Preis
                 </label>
                 <select
+                  id="priceMax"
                   value={priceMax}
                   onChange={(e) => setPriceMax(e.target.value)}
                   className="w-full min-h-12 px-4 py-3 rounded-md border border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
@@ -227,10 +229,11 @@ export default function VehiclePage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
+                <label htmlFor="driveType" className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
                   Kraftstoff
                 </label>
                 <select
+                  id="driveType"
                   value={driveType}
                   onChange={(e) => setDriveType(e.target.value)}
                   className="w-full min-h-12 px-4 py-3 rounded-md border border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
@@ -243,10 +246,11 @@ export default function VehiclePage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
+                <label htmlFor="maxMileage" className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
                   Kilometerstand
                 </label>
                 <select
+                  id="maxMileage"
                   value={maxMileage}
                   onChange={(e) => setMaxMileage(e.target.value)}
                   className="w-full min-h-12 px-4 py-3 rounded-md border border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
@@ -261,10 +265,11 @@ export default function VehiclePage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
+                <label htmlFor="yearFrom" className="block text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
                   Erstzulassung
                 </label>
                 <select
+                  id="yearFrom"
                   value={yearFrom}
                   onChange={(e) => setYearFrom(e.target.value)}
                   className="w-full min-h-12 px-4 py-3 rounded-md border border-border-line bg-white text-foreground text-sm focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer font-medium"
