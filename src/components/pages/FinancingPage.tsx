@@ -57,6 +57,7 @@ export default function FinancingPage() {
     message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
   useEffect(() => {
     updateMetaTags({
@@ -79,6 +80,7 @@ export default function FinancingPage() {
     // Simulate form submission
     setTimeout(() => {
       setIsSubmitting(false);
+      setSubmitSuccess(true);
       setFormData({
         name: '',
         phone: '',
@@ -86,6 +88,7 @@ export default function FinancingPage() {
         vehicle: '',
         message: '',
       });
+      setTimeout(() => setSubmitSuccess(false), 5000);
     }, 1000);
   };
 
@@ -189,6 +192,18 @@ export default function FinancingPage() {
 
           <AnimatedElement delay={100}>
             <form onSubmit={handleSubmit} className="bg-background rounded-lg p-8 shadow-sm border border-neutral-200">
+              {submitSuccess && (
+                <div
+                  className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg"
+                  role="status"
+                  aria-live="polite"
+                >
+                  <p className="text-green-800 font-medium">
+                    Vielen Dank für Ihre Anfrage! Wir werden uns in Kürze bei Ihnen melden.
+                  </p>
+                </div>
+              )}
+
               {/* Name */}
               <div className="mb-6">
                 <label className="block text-sm font-medium text-foreground mb-2">
