@@ -1,5 +1,6 @@
 name: Cloudflare Preview
 
+# Repository secrets are evaluated on each newly queued workflow run.
 on:
   push:
     branches:
