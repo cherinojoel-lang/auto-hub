@@ -1,9 +1,11 @@
 import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
-const layout = readFileSync(new URL('../layouts/PublicLayout.astro', import.meta.url), 'utf8');
-const homepage = readFileSync(new URL('../pages/index.astro', import.meta.url), 'utf8');
-const inventory = readFileSync(new URL('../pages/fahrzeuge/index.astro', import.meta.url), 'utf8');
+const read = (path: string) => readFileSync(resolve(process.cwd(), path), 'utf8');
+const layout = read('src/layouts/PublicLayout.astro');
+const homepage = read('src/pages/index.astro');
+const inventory = read('src/pages/fahrzeuge/index.astro');
 
 describe('public owner-preview surface', () => {
   it('does not preload the homepage hero image globally', () => {
