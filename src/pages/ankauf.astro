@@ -2,16 +2,31 @@
 import PublicLayout from '@/layouts/PublicLayout.astro';
 ---
 
-<PublicLayout title="Autoankauf | Automobile Quick" description="Fahrzeugverkauf bei Automobile Quick anfragen." canonicalPath="/ankauf">
-  <section class="mx-auto max-w-5xl px-4 py-14 sm:px-6 lg:px-8">
-    <p class="text-sm font-bold uppercase tracking-[0.18em] text-secondary">Autoankauf</p>
-    <h1 class="mt-3 text-4xl font-black tracking-tight text-primary sm:text-5xl">Fahrzeug verkaufen — ohne Umwege</h1>
-    <p class="mt-6 max-w-3xl text-lg leading-8 text-slate-600">Senden Sie die wichtigsten Fahrzeugdaten. Die Bewertung und ein mögliches Angebot erfolgen persönlich; online entsteht kein verbindlicher Kaufvertrag.</p>
-    <div class="mt-10 grid gap-5 md:grid-cols-3">
-      <article class="card-premium rounded-2xl bg-white p-6"><h2 class="font-extrabold text-primary">1. Daten senden</h2><p class="mt-2 text-sm leading-6 text-slate-600">Fahrzeug, Laufleistung und Kontaktdaten übermitteln.</p></article>
-      <article class="card-premium rounded-2xl bg-white p-6"><h2 class="font-extrabold text-primary">2. Prüfung</h2><p class="mt-2 text-sm leading-6 text-slate-600">Fahrzeugzustand und Marktsituation werden nachvollziehbar geprüft.</p></article>
-      <article class="card-premium rounded-2xl bg-white p-6"><h2 class="font-extrabold text-primary">3. Persönlich klären</h2><p class="mt-2 text-sm leading-6 text-slate-600">Die nächsten Schritte werden direkt abgestimmt.</p></article>
+<PublicLayout title="Auto verkaufen in Iserlohn | Automobile Quick" description="Fahrzeugverkauf bei Automobile Quick in Iserlohn-Letmathe unverbindlich anfragen." canonicalPath="/ankauf">
+  <section class="bg-primary text-white">
+    <div class="section-wrap grid gap-8 py-14 sm:py-18 lg:grid-cols-[1fr_.75fr] lg:items-center lg:py-20">
+      <div>
+        <p class="eyebrow">Autoankauf</p>
+        <h1 class="mt-4 text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">Auto verkaufen in Iserlohn</h1>
+        <p class="mt-5 max-w-3xl text-lg leading-8 text-white/78">Fahrzeugdaten senden, persönliche Bewertung vorbereiten und die nächsten Schritte direkt abstimmen. Die Anfrage ist unverbindlich und kein Online-Kaufvertrag.</p>
+        <a href="/kontakt?topic=trade-in" class="btn-header-primary mt-8">Autoankauf anfragen</a>
+      </div>
+      <div class="overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-2">
+        <img src="/images/autohaus-showroom.jpg" alt="Automobile Quick Fahrzeugpräsentation" class="aspect-[16/10] w-full rounded-xl object-cover" width="900" height="560" loading="lazy" />
+      </div>
     </div>
-    <a href="/kontakt?topic=ankauf" class="btn-premium-secondary mt-10">Ankauf anfragen</a>
+  </section>
+
+  <section class="section-wrap py-14 sm:py-18 lg:py-20">
+    <div class="grid gap-6 md:grid-cols-3">
+      <article class="card-premium rounded-2xl p-6 sm:p-7"><span class="flex h-11 w-11 items-center justify-center rounded-full bg-secondary font-black text-white">1</span><h2 class="mt-5 text-xl font-black text-primary">Fahrzeugdaten senden</h2><p class="mt-3 leading-7 text-slate-600">Marke, Modell, Laufleistung und Kontaktdaten für die erste Einordnung übermitteln.</p></article>
+      <article class="card-premium rounded-2xl p-6 sm:p-7"><span class="flex h-11 w-11 items-center justify-center rounded-full bg-secondary font-black text-white">2</span><h2 class="mt-5 text-xl font-black text-primary">Persönlich prüfen</h2><p class="mt-3 leading-7 text-slate-600">Zustand und relevante Fahrzeugdetails werden vor Ort nachvollziehbar geprüft.</p></article>
+      <article class="card-premium rounded-2xl p-6 sm:p-7"><span class="flex h-11 w-11 items-center justify-center rounded-full bg-secondary font-black text-white">3</span><h2 class="mt-5 text-xl font-black text-primary">Weiteres abstimmen</h2><p class="mt-3 leading-7 text-slate-600">Ein mögliches Angebot und die nächsten Schritte werden direkt besprochen.</p></article>
+    </div>
+
+    <div class="mt-10 rounded-2xl bg-white p-7 shadow-sm sm:p-9 lg:flex lg:items-center lg:justify-between lg:gap-8">
+      <div><h2 class="text-2xl font-black text-primary">Bereit für die erste Einschätzung?</h2><p class="mt-3 max-w-2xl leading-7 text-slate-600">Die Kontaktstrecke ordnet die Anfrage als Autoankauf ein und speichert sie erst dann erfolgreich, wenn ein dauerhafter Lead erzeugt wurde.</p></div>
+      <a href="/kontakt?topic=trade-in" class="btn-premium-secondary mt-6 shrink-0 lg:mt-0">Fahrzeug anbieten</a>
+    </div>
   </section>
 </PublicLayout>
