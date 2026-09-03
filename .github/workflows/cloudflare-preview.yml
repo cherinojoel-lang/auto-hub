@@ -17,6 +17,7 @@ jobs:
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
 
     steps:
       - name: Checkout
@@ -38,6 +39,13 @@ jobs:
 
       - name: Build Astro Worker
         run: npm run build
+
+      - name: Verify secret context diagnostics
+        shell: bash
+        run: |
+          test -n "$GEMINI_API_KEY" && echo "GEMINI_API_KEY is available" || echo "GEMINI_API_KEY is unavailable"
+          test -n "$CLOUDFLARE_API_TOKEN" && echo "CLOUDFLARE_API_TOKEN is available" || echo "CLOUDFLARE_API_TOKEN is unavailable"
+          test -n "$CLOUDFLARE_ACCOUNT_ID" && echo "CLOUDFLARE_ACCOUNT_ID is available" || echo "CLOUDFLARE_ACCOUNT_ID is unavailable"
 
       - name: Verify Cloudflare credentials are configured
         shell: bash
