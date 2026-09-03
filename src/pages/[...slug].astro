@@ -3,6 +3,7 @@ import { Head } from "@/components/Head";
 import AppRouter from "@/components/Router";
 import "@/styles/global.css";
 import { shouldNoindexPreview } from '@/domain/preview';
+import { vehiclesData } from '@/data/vehiclesData.generated';
 
 const hostname = Astro.url.hostname;
 const isPreview = shouldNoindexPreview(hostname);
@@ -27,11 +28,31 @@ if (fahrzeugeMatch) {
     return Astro.redirect(`/fahrzeugdetail/${idMatch[1]}`, 301);
   }
 }
+
+const firstAvailableVehicle = vehiclesData.find((v) => v.status === 'available');
+const firstVehicleImage = firstAvailableVehicle?.mainImage;
+
+// Check for /fahrzeugdetail/:id to preload VDP hero image
+const vdpMatch = pathname.match(/^\/fahrzeugdetail\/([^/]+)$/);
+const vdpVehicle = vdpMatch ? vehiclesData.find((v) => v.id === vdpMatch[1] || v.folder.startsWith(`${vdpMatch[1]}_`)) : null;
+const vdpImage = vdpVehicle?.mainImage;
 ---
 
 <html lang="de" class="w-full h-full">
   <head>
     <Head canonicalUrl={canonicalUrl} isPreview={isPreview} />
+    {pathname === '/' && (
+      <>
+        <link rel="preload" as="image" href="/images/hero-bg-mobile.webp" type="image/webp" media="(max-width: 768px)" fetchpriority="high" />
+        <link rel="preload" as="image" href="/images/hero-bg.webp" type="image/webp" media="(min-width: 769px)" fetchpriority="high" />
+      </>
+    )}
+    {(pathname === '/fahrzeugbestand' || pathname === '/fahrzeuge') && firstVehicleImage && (
+      <link rel="preload" as="image" href={firstVehicleImage} type="image/webp" fetchpriority="high" />
+    )}
+    {vdpImage && (
+      <link rel="preload" as="image" href={vdpImage} type="image/webp" fetchpriority="high" />
+    )}
   </head>
   <body class="w-full h-full bg-background text-foreground overflow-x-hidden">
     <div id="root" class="w-full h-full flex flex-col min-h-screen">

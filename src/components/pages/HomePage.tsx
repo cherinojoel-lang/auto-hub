@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight, MapPin, Phone, Award, Users, Calendar, ShieldCheck, Car } from 'lucide-react';
-import { Image } from '@/components/ui/image';
 import { updateMetaTags, getStructuredDataOrganization } from '@/lib/seo';
 import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, generateBusinessSchema, SITE_CONFIG } from '@/lib/seo-config';
@@ -104,15 +103,20 @@ export default function HomePage() {
       <section className="relative w-full min-h-[calc(100svh-64px)] lg:min-h-[calc(100svh-72px)] flex items-center justify-center overflow-hidden" role="banner" aria-label="Automobile Quick - Gebrauchtwagen in Iserlohn-Letmathe">
         {/* Background Image with Dark Overlay Gradient */}
         <div className="absolute inset-0 z-0">
-          <Image 
-            src="/images/hero-bg.jpg"
-            alt="Automobile Quick Autohaus - Gebrauchtwagen in Iserlohn-Letmathe seit 1982" 
-            className="w-full h-full object-cover object-center"
-            width={1600}
-            height={900}
-            loading="eager"
-            fetchPriority="high"
-          />
+          <picture className="w-full h-full block">
+            <source media="(max-width: 768px)" srcSet="/images/hero-bg-mobile.webp" type="image/webp" />
+            <source media="(min-width: 769px)" srcSet="/images/hero-bg.webp" type="image/webp" />
+            <img 
+              src="/images/hero-bg.webp"
+              alt="Automobile Quick Autohaus - Gebrauchtwagen in Iserlohn-Letmathe seit 1982" 
+              className="w-full h-full object-cover object-center"
+              width={1600}
+              height={900}
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+            />
+          </picture>
           <div className="absolute inset-0 bg-primary/75"></div>
         </div>
 

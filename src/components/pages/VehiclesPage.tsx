@@ -19,15 +19,17 @@ import { getVehicleImageCount, getFeatureChips } from '@/lib/domain/vehicleFeatu
 const MANUFACTURER_OPTIONS = deriveManufacturerOptions(vehiclesData);
 const FUEL_OPTIONS = deriveFuelOptions(vehiclesData);
 
-const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
+const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number; priority?: boolean }> = ({ 
   children, 
   className = '',
-  delay = 0 
+  delay = 0,
+  priority = false
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(priority);
 
   useEffect(() => {
+    if (priority) return;
     const el = ref.current;
     if (!el) return;
 
@@ -48,7 +50,7 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
       observer.disconnect();
       if (timeoutId) clearTimeout(timeoutId);
     };
-  }, [delay]);
+  }, [delay, priority]);
 
   return (
     <div
@@ -64,8 +66,21 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
 
 export default function VehiclePage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [vehicles, setVehicle] = useState<Vehicle[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [vehicles, setVehicle] = useState<Vehicle[]>(() => {
+    try {
+      const criteria = FilterCriteriaSchema.parse({
+        manufacturer: searchParams.get('manufacturer') || '',
+        priceMax: searchParams.get('priceMax') || '',
+        fuel: searchParams.get('driveType') || '',
+        maxMileage: searchParams.get('maxMileage') || '',
+        yearFrom: searchParams.get('yearFrom') || '',
+      });
+      return filterVehicles(vehiclesData, criteria);
+    } catch {
+      return filterVehicles(vehiclesData, {});
+    }
+  });
+  const [isLoading, setIsLoading] = useState(false);
   const [hasNext, setHasNext] = useState(false);
   const [skip, setSkip] = useState(0);
   const [showFilters, setShowFilters] = useState(false);
@@ -336,7 +351,7 @@ export default function VehiclePage() {
                     const imageCount = getVehicleImageCount(vehicle);
                     const featureChips = getFeatureChips(vehicle);
                     return (
-                    <AnimatedElement key={vehicle.id} delay={index * 50}>
+                    <AnimatedElement key={vehicle.id} delay={index * 50} priority={index < 2}>
                       <div className="group flex flex-col h-full bg-surface-elevated shadow-sm rounded-lg hover:shadow-md transition-shadow duration-200 overflow-hidden border border-border-line">
                         {/* Image Container */}
                         <Link to={`/fahrzeugdetail/${vehicle.id}`} className="relative aspect-[4/3] overflow-hidden bg-alt-bg block">
@@ -346,7 +361,8 @@ export default function VehiclePage() {
                             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
                             width={400}
                             height={300}
-                            loading={index < 6 ? 'eager' : 'lazy'}
+                            loading={index < 4 ? 'eager' : 'lazy'}
+                            fetchPriority={index === 0 ? 'high' : 'auto'}
                             decoding="async"
                           />
                           <div className="absolute top-3 left-3 bg-white/95 text-primary px-3 py-1.5 text-xs font-bold rounded-md border border-border-line">

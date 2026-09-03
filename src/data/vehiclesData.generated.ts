@@ -76,7 +76,7 @@ export const vehiclesData: Vehicle[] = [
       "/vehicles/23_renault-scenic-2013/portal_1.webp"
     ],
     "alt": "Renault Scenic 1.2 Tce Paris gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available",
+    "status": "sold",
     "isNew": true,
     "listingDate": "2026-05-22T22:00:00.000Z"
   },
@@ -116,7 +116,7 @@ export const vehiclesData: Vehicle[] = [
       "/vehicles/22_opel-astra-st-2022/portal_1.webp"
     ],
     "alt": "Opel Astra K ST 1.2 Design Tech gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available",
+    "status": "sold",
     "isNew": true,
     "listingDate": "2026-05-21T22:00:00.000Z"
   },
@@ -158,7 +158,7 @@ export const vehiclesData: Vehicle[] = [
       "/vehicles/21_opel-corsa-2016/portal_1.webp"
     ],
     "alt": "Opel Corsa E 1.2 Selektion 3-Türig gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available",
+    "status": "sold",
     "isNew": true,
     "listingDate": "2026-05-20T22:00:00.000Z"
   },
@@ -200,7 +200,7 @@ export const vehiclesData: Vehicle[] = [
       "/vehicles/20_fiat-500-2022/portal_1.webp"
     ],
     "alt": "Fiat 500 1.0 GSE Dolce Vita Mild Hybrid gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available",
+    "status": "sold",
     "isNew": false,
     "listingDate": "2026-05-19T22:00:00.000Z"
   },
@@ -245,7 +245,7 @@ export const vehiclesData: Vehicle[] = [
       "/vehicles/19_nissan-micra-2017/portal_2.webp"
     ],
     "alt": "Nissan Micra 0.9 IG-T Tekna gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available",
+    "status": "sold",
     "isNew": true,
     "listingDate": "2026-05-23T22:00:00.000Z"
   },
@@ -391,7 +391,7 @@ export const vehiclesData: Vehicle[] = [
       "/vehicles/15_fiat-500-dolce-vita-2022/autoscout_23.webp"
     ],
     "alt": "Fiat 500 1.0 GSE Dolce Vita Mild Hybrid gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available",
+    "status": "sold",
     "isNew": false,
     "listingDate": "2026-05-19T22:00:00.000Z"
   },
@@ -475,7 +475,7 @@ export const vehiclesData: Vehicle[] = [
       "/vehicles/12_opel-corsa-e-2018/autoscout_20.webp"
     ],
     "alt": "Opel Corsa E 1.2 Selektion 3-Türig gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available",
+    "status": "sold",
     "isNew": false,
     "listingDate": "2026-05-21T22:00:00.000Z"
   },
@@ -527,7 +527,7 @@ export const vehiclesData: Vehicle[] = [
       "/vehicles/11_opel-corsa-f-2020/portal_2.webp"
     ],
     "alt": "Opel Corsa F 1.2 Elegance gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available",
+    "status": "sold",
     "isNew": false,
     "listingDate": "2026-05-20T22:00:00.000Z"
   },
@@ -758,7 +758,7 @@ export const vehiclesData: Vehicle[] = [
       "/vehicles/05_opel-mokka-2016/autoscout_17.webp"
     ],
     "alt": "Opel Mokka 1.4 Turbo Innovation gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available",
+    "status": "sold",
     "isNew": false,
     "listingDate": "2026-05-19T22:00:00.000Z"
   },
@@ -813,7 +813,7 @@ export const vehiclesData: Vehicle[] = [
       "/vehicles/04_citroen-c3-aircross-2017/portal_2.webp"
     ],
     "alt": "Citroen C3 1.2 Aircross gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available",
+    "status": "sold",
     "isNew": false,
     "listingDate": "2026-05-23T22:00:00.000Z"
   },
@@ -873,7 +873,7 @@ export const vehiclesData: Vehicle[] = [
       "/vehicles/03_opel-mokka-x-2017/portal_3.webp"
     ],
     "alt": "Opel Mokka X 1.4 Turbo Edition gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available",
+    "status": "sold",
     "isNew": false,
     "listingDate": "2026-05-22T22:00:00.000Z"
   },
@@ -984,7 +984,7 @@ export const vehiclesData: Vehicle[] = [
       "/vehicles/01_bmw-x1-2018/portal_10.webp"
     ],
     "alt": "BMW X1 sDrive 18 i Advantage gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available",
+    "status": "sold",
     "isNew": false,
     "listingDate": "2026-05-20T22:00:00.000Z"
   },
@@ -1094,7 +1094,7 @@ export const vehiclesData: Vehicle[] = [
       "/vehicles/14_opel-corsa-automatik-2023/autoscout_24.webp"
     ],
     "alt": "Opel Corsa F 1.2 Automatik Elegance gebraucht bei Automobile Quick in Iserlohn-Letmathe",
-    "status": "available",
+    "status": "sold",
     "isNew": false,
     "listingDate": "2026-05-23T22:00:00.000Z"
   },
@@ -1145,5 +1145,509 @@ export const vehiclesData: Vehicle[] = [
     "status": "sold",
     "isNew": false,
     "listingDate": "2026-05-20T22:00:00.000Z"
+  },
+  {
+    "id": "opel-mokka-2024-6635",
+    "folder": "24_opel-mokka-2024",
+    "make": "Opel",
+    "model": "Mokka",
+    "title": "Opel Mokka 1.2 GS-Line Aut * LED * R.-Kamera * 1.Hand",
+    "price": "19.990 €",
+    "priceValue": 19990,
+    "financing": "ab 192 € mtl.",
+    "firstRegistration": "10/2024",
+    "mileage": "21.000 km",
+    "power": "96 kW / 131 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/24_opel-mokka-2024/mobile_01.webp",
+    "gallery": [
+      "/vehicles/24_opel-mokka-2024/mobile_01.webp"
+    ],
+    "alt": "Opel Mokka 1.2 GS-Line Aut * LED * R.-Kamera * 1.Hand gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": true
+  },
+  {
+    "id": "volkswagen-t-cross-2019-5303",
+    "folder": "25_volkswagen-t-cross-2019",
+    "make": "Volkswagen",
+    "model": "T-Cross",
+    "title": "Volkswagen T-Cross 1.0 TSI Life * Klimaaut., * Navi * Alu *",
+    "price": "14.990 €",
+    "priceValue": 14990,
+    "financing": "ab 144 € mtl.",
+    "firstRegistration": "08/2019",
+    "mileage": "68.400 km",
+    "power": "70 kW / 95 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/25_volkswagen-t-cross-2019/mobile_01.webp",
+    "gallery": [
+      "/vehicles/25_volkswagen-t-cross-2019/mobile_01.webp"
+    ],
+    "alt": "Volkswagen T-Cross 1.0 TSI Life * Klimaaut., * Navi * Alu * gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": true
+  },
+  {
+    "id": "opel-grandland-2018-7089",
+    "folder": "26_opel-grandland-2018",
+    "make": "Opel",
+    "model": "Grandland",
+    "title": "Opel Grandland X 1.2 Edition * Alu * Apple Car Play *",
+    "price": "13.990 €",
+    "priceValue": 13990,
+    "financing": "ab 134 € mtl.",
+    "firstRegistration": "03/2018",
+    "mileage": "74.500 km",
+    "power": "96 kW / 131 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/26_opel-grandland-2018/mobile_01.webp",
+    "gallery": [
+      "/vehicles/26_opel-grandland-2018/mobile_01.webp"
+    ],
+    "alt": "Opel Grandland X 1.2 Edition * Alu * Apple Car Play * gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": true
+  },
+  {
+    "id": "opel-mokka-2015-8512",
+    "folder": "27_opel-mokka-2015",
+    "make": "Opel",
+    "model": "Mokka",
+    "title": "Opel Mokka 1.4 Turbo Edition *Navi 650*Sitzheizung*",
+    "price": "8.990 €",
+    "priceValue": 8990,
+    "financing": "ab 87 € mtl.",
+    "firstRegistration": "05/2015",
+    "mileage": "83.500 km",
+    "power": "103 kW / 140 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/27_opel-mokka-2015/mobile_01.webp",
+    "gallery": [
+      "/vehicles/27_opel-mokka-2015/mobile_01.webp"
+    ],
+    "alt": "Opel Mokka 1.4 Turbo Edition *Navi 650*Sitzheizung* gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": true
+  },
+  {
+    "id": "ford-b-max-2017-1171",
+    "folder": "28_ford-b-max-2017",
+    "make": "Ford",
+    "model": "B-Max",
+    "title": "Ford B-Max 1.0 EcoBoost SYNC Edition aus 1.Hand",
+    "price": "9.990 €",
+    "priceValue": 9990,
+    "financing": "ab 96 € mtl.",
+    "firstRegistration": "04/2017",
+    "mileage": "65.400 km",
+    "power": "74 kW / 101 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/28_ford-b-max-2017/mobile_01.webp",
+    "gallery": [
+      "/vehicles/28_ford-b-max-2017/mobile_01.webp"
+    ],
+    "alt": "Ford B-Max 1.0 EcoBoost SYNC Edition aus 1.Hand gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": true
+  },
+  {
+    "id": "ford-ecosport-2016-6416",
+    "folder": "29_ford-ecosport-2016",
+    "make": "Ford",
+    "model": "EcoSport",
+    "title": "Ford EcoSport 1.0 Titanium * R.-Kamera * PDC *Sitzhei",
+    "price": "8.990 €",
+    "priceValue": 8990,
+    "financing": "ab 87 € mtl.",
+    "firstRegistration": "09/2016",
+    "mileage": "67.300 km",
+    "power": "92 kW / 125 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/29_ford-ecosport-2016/mobile_01.webp",
+    "gallery": [
+      "/vehicles/29_ford-ecosport-2016/mobile_01.webp"
+    ],
+    "alt": "Ford EcoSport 1.0 Titanium * R.-Kamera * PDC *Sitzhei gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": true
+  },
+  {
+    "id": "skoda-fabia-2014-8241",
+    "folder": "30_skoda-fabia-2014",
+    "make": "Skoda",
+    "model": "Fabia",
+    "title": "Skoda Fabia 1.2 TSI Combi Ambition *Klima* PDC*Sitzh.,",
+    "price": "6.990 €",
+    "priceValue": 6990,
+    "financing": "ab 67 € mtl.",
+    "firstRegistration": "05/2014",
+    "mileage": "89.750 km",
+    "power": "63 kW / 86 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/30_skoda-fabia-2014/mobile_01.webp",
+    "gallery": [
+      "/vehicles/30_skoda-fabia-2014/mobile_01.webp"
+    ],
+    "alt": "Skoda Fabia 1.2 TSI Combi Ambition *Klima* PDC*Sitzh., gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": true
+  },
+  {
+    "id": "opel-combo-2019-2816",
+    "folder": "31_opel-combo-2019",
+    "make": "Opel",
+    "model": "Combo",
+    "title": "Opel Combo Life 1.2 Innovation *Navi*Head Up Display*",
+    "price": "15.990 €",
+    "priceValue": 15990,
+    "financing": "ab 154 € mtl.",
+    "firstRegistration": "07/2019",
+    "mileage": "61.650 km",
+    "power": "81 kW / 110 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/31_opel-combo-2019/mobile_01.webp",
+    "gallery": [
+      "/vehicles/31_opel-combo-2019/mobile_01.webp"
+    ],
+    "alt": "Opel Combo Life 1.2 Innovation *Navi*Head Up Display* gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": true
+  },
+  {
+    "id": "opel-adam-2017-8832",
+    "folder": "32_opel-adam-2017",
+    "make": "Opel",
+    "model": "Adam",
+    "title": "Opel Adam 1.4 Jam Sitz* Lenkradheizung*Allwettereifen",
+    "price": "6.990 €",
+    "priceValue": 6990,
+    "financing": "ab 67 € mtl.",
+    "firstRegistration": "10/2017",
+    "mileage": "105.600 km",
+    "power": "64 kW / 87 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/32_opel-adam-2017/mobile_01.webp",
+    "gallery": [
+      "/vehicles/32_opel-adam-2017/mobile_01.webp"
+    ],
+    "alt": "Opel Adam 1.4 Jam Sitz* Lenkradheizung*Allwettereifen gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": true
+  },
+  {
+    "id": "opel-meriva-2016-7856",
+    "folder": "33_opel-meriva-2016",
+    "make": "Opel",
+    "model": "Meriva",
+    "title": "Opel Meriva 1.4 *Color Edition* Navi*Panoramadach*",
+    "price": "9.990 €",
+    "priceValue": 9990,
+    "financing": "ab 96 € mtl.",
+    "firstRegistration": "09/2016",
+    "mileage": "52.500 km",
+    "power": "103 kW / 140 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/33_opel-meriva-2016/mobile_01.webp",
+    "gallery": [
+      "/vehicles/33_opel-meriva-2016/mobile_01.webp"
+    ],
+    "alt": "Opel Meriva 1.4 *Color Edition* Navi*Panoramadach* gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": true
+  },
+  {
+    "id": "opel-adam-2019-9822",
+    "folder": "34_opel-adam-2019",
+    "make": "Opel",
+    "model": "Adam",
+    "title": "Opel Adam 1.4 120 Jahre Klima * Panorama * Alu * PDC",
+    "price": "9.990 €",
+    "priceValue": 9990,
+    "financing": "ab 96 € mtl.",
+    "firstRegistration": "04/2019",
+    "mileage": "69.880 km",
+    "power": "64 kW / 87 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/34_opel-adam-2019/mobile_01.webp",
+    "gallery": [
+      "/vehicles/34_opel-adam-2019/mobile_01.webp"
+    ],
+    "alt": "Opel Adam 1.4 120 Jahre Klima * Panorama * Alu * PDC gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": true
+  },
+  {
+    "id": "renault-clio-2020-8832",
+    "folder": "35_renault-clio-2020",
+    "make": "Renault",
+    "model": "Clio",
+    "title": "Renault Clio V 1.0 Business Ed.,* Navi * LED * Sitzheizu",
+    "price": "11.990 €",
+    "priceValue": 11990,
+    "financing": "ab 115 € mtl.",
+    "firstRegistration": "03/2020",
+    "mileage": "57.100 km",
+    "power": "53 kW / 72 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/35_renault-clio-2020/mobile_01.webp",
+    "gallery": [
+      "/vehicles/35_renault-clio-2020/mobile_01.webp"
+    ],
+    "alt": "Renault Clio V 1.0 Business Ed.,* Navi * LED * Sitzheizu gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": true
+  },
+  {
+    "id": "fiat-tipo-2020-9828",
+    "folder": "36_fiat-tipo-2020",
+    "make": "Fiat",
+    "model": "Tipo",
+    "title": "Fiat Tipo 1.4 Kombi ° Klima ° PDC ° Sitzheizung °",
+    "price": "10.990 €",
+    "priceValue": 10990,
+    "financing": "ab 106 € mtl.",
+    "firstRegistration": "12/2020",
+    "mileage": "69.200 km",
+    "power": "70 kW / 95 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/36_fiat-tipo-2020/mobile_01.webp",
+    "gallery": [
+      "/vehicles/36_fiat-tipo-2020/mobile_01.webp"
+    ],
+    "alt": "Fiat Tipo 1.4 Kombi ° Klima ° PDC ° Sitzheizung ° gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": true
+  },
+  {
+    "id": "opel-mokka-2021-9408",
+    "folder": "37_opel-mokka-2021",
+    "make": "Opel",
+    "model": "Mokka",
+    "title": "Opel Mokka 1.2 GS-Line Aut * LED * R.-Kamera * Navi *",
+    "price": "15.990 €",
+    "priceValue": 15990,
+    "financing": "ab 154 € mtl.",
+    "firstRegistration": "03/2021",
+    "mileage": "40.800 km",
+    "power": "96 kW / 131 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/37_opel-mokka-2021/mobile_01.webp",
+    "gallery": [
+      "/vehicles/37_opel-mokka-2021/mobile_01.webp"
+    ],
+    "alt": "Opel Mokka 1.2 GS-Line Aut * LED * R.-Kamera * Navi * gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": true
+  },
+  {
+    "id": "opel-crossland-2021-6147",
+    "folder": "38_opel-crossland-2021",
+    "make": "Opel",
+    "model": "Crossland",
+    "title": "Opel Crossland X 1.2 Automatik Elegance * R.-Kamera *",
+    "price": "14.990 €",
+    "priceValue": 14990,
+    "financing": "ab 144 € mtl.",
+    "firstRegistration": "06/2021",
+    "mileage": "43.000 km",
+    "power": "96 kW / 131 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/38_opel-crossland-2021/mobile_01.webp",
+    "gallery": [
+      "/vehicles/38_opel-crossland-2021/mobile_01.webp"
+    ],
+    "alt": "Opel Crossland X 1.2 Automatik Elegance * R.-Kamera * gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": true
+  },
+  {
+    "id": "kia-stonic-2022-5045",
+    "folder": "39_kia-stonic-2022",
+    "make": "Kia",
+    "model": "Stonic",
+    "title": "Kia Stonic 1.0 T GDI-Vision *Apple Car Play*BT*Alu*",
+    "price": "14.990 €",
+    "priceValue": 14990,
+    "financing": "ab 144 € mtl.",
+    "firstRegistration": "03/2022",
+    "mileage": "45.000 km",
+    "power": "74 kW / 101 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/39_kia-stonic-2022/mobile_01.webp",
+    "gallery": [
+      "/vehicles/39_kia-stonic-2022/mobile_01.webp"
+    ],
+    "alt": "Kia Stonic 1.0 T GDI-Vision *Apple Car Play*BT*Alu* gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": true
+  },
+  {
+    "id": "fiat-500x-2021-3264",
+    "folder": "40_fiat-500x-2021",
+    "make": "Fiat",
+    "model": "500X",
+    "title": "Fiat 500X 1.4 Cross * Aut., * PDC * Apple Car *1.Hand",
+    "price": "13.990 €",
+    "priceValue": 13990,
+    "financing": "ab 134 € mtl.",
+    "firstRegistration": "11/2021",
+    "mileage": "39.880 km",
+    "power": "110 kW / 150 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/40_fiat-500x-2021/mobile_01.webp",
+    "gallery": [
+      "/vehicles/40_fiat-500x-2021/mobile_01.webp"
+    ],
+    "alt": "Fiat 500X 1.4 Cross * Aut., * PDC * Apple Car *1.Hand gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": true
+  },
+  {
+    "id": "opel-corsa-2023-9364",
+    "folder": "41_opel-corsa-2023",
+    "make": "Opel",
+    "model": "Corsa",
+    "title": "Opel Corsa F 1.2 Elegance * Alu * R.-Kamera * 1.Hand",
+    "price": "10.990 €",
+    "priceValue": 10990,
+    "financing": "ab 106 € mtl.",
+    "firstRegistration": "03/2023",
+    "mileage": "58.250 km",
+    "power": "55 kW / 75 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/41_opel-corsa-2023/mobile_01.webp",
+    "gallery": [
+      "/vehicles/41_opel-corsa-2023/mobile_01.webp"
+    ],
+    "alt": "Opel Corsa F 1.2 Elegance * Alu * R.-Kamera * 1.Hand gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": true
+  },
+  {
+    "id": "ford-focus-2023-7728",
+    "folder": "42_ford-focus-2023",
+    "make": "Ford",
+    "model": "Focus",
+    "title": "Ford Focus 1.0 Titanium Turnier * Navi * LED *1.Hand*",
+    "price": "14.990 €",
+    "priceValue": 14990,
+    "financing": "ab 144 € mtl.",
+    "firstRegistration": "06/2023",
+    "mileage": "33.500 km",
+    "power": "92 kW / 125 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/42_ford-focus-2023/mobile_01.webp",
+    "gallery": [
+      "/vehicles/42_ford-focus-2023/mobile_01.webp"
+    ],
+    "alt": "Ford Focus 1.0 Titanium Turnier * Navi * LED *1.Hand* gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": true
+  },
+  {
+    "id": "peugeot-208-2024-2976",
+    "folder": "43_peugeot-208-2024",
+    "make": "Peugeot",
+    "model": "208",
+    "title": "Peugeot 208 1.2 Active Pure Tech * PDC * Apple Car *",
+    "price": "12.990 €",
+    "priceValue": 12990,
+    "financing": "ab 125 € mtl.",
+    "firstRegistration": "05/2024",
+    "mileage": "55.500 km",
+    "power": "74 kW / 101 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/43_peugeot-208-2024/mobile_01.webp",
+    "gallery": [
+      "/vehicles/43_peugeot-208-2024/mobile_01.webp"
+    ],
+    "alt": "Peugeot 208 1.2 Active Pure Tech * PDC * Apple Car * gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": true
+  },
+  {
+    "id": "peugeot-208-2024-0560",
+    "folder": "44_peugeot-208-2024",
+    "make": "Peugeot",
+    "model": "208",
+    "title": "Peugeot 208 1.2 Active Pure Tech * PDC * Apple Car *",
+    "price": "13.990 €",
+    "priceValue": 13990,
+    "financing": "ab 134 € mtl.",
+    "firstRegistration": "05/2024",
+    "mileage": "35.500 km",
+    "power": "74 kW / 101 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/44_peugeot-208-2024/mobile_01.webp",
+    "gallery": [
+      "/vehicles/44_peugeot-208-2024/mobile_01.webp"
+    ],
+    "alt": "Peugeot 208 1.2 Active Pure Tech * PDC * Apple Car * gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": true
+  },
+  {
+    "id": "fiat-500-2021-2391",
+    "folder": "45_fiat-500-2021",
+    "make": "Fiat",
+    "model": "500",
+    "title": "Fiat 500 1.0 Lounge Mild Hybrid * Navi * 1.Hand *",
+    "price": "11.990 €",
+    "priceValue": 11990,
+    "financing": "ab 115 € mtl.",
+    "firstRegistration": "03/2021",
+    "mileage": "44.800 km",
+    "power": "52 kW / 71 PS",
+    "fuel": "Hybrid (Benzin/Elektro)",
+    "mainImage": "/vehicles/45_fiat-500-2021/mobile_01.webp",
+    "gallery": [
+      "/vehicles/45_fiat-500-2021/mobile_01.webp"
+    ],
+    "alt": "Fiat 500 1.0 Lounge Mild Hybrid * Navi * 1.Hand * gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": true
+  },
+  {
+    "id": "opel-corsa-2023-1584",
+    "folder": "46_opel-corsa-2023",
+    "make": "Opel",
+    "model": "Corsa",
+    "title": "Opel Corsa F 1.2 Elegance * Alu * R.-Kamera * 1.Hand",
+    "price": "12.990 €",
+    "priceValue": 12990,
+    "financing": "ab 125 € mtl.",
+    "firstRegistration": "07/2023",
+    "mileage": "10.240 km",
+    "power": "55 kW / 75 PS",
+    "fuel": "Benzin",
+    "mainImage": "/vehicles/46_opel-corsa-2023/mobile_01.webp",
+    "gallery": [
+      "/vehicles/46_opel-corsa-2023/mobile_01.webp"
+    ],
+    "alt": "Opel Corsa F 1.2 Elegance * Alu * R.-Kamera * 1.Hand gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": true
+  },
+  {
+    "id": "ford-focus-2022-9946",
+    "folder": "47_ford-focus-2022",
+    "make": "Ford",
+    "model": "Focus",
+    "title": "Ford Focus 1.0 Tournier 1.0 EcoBoost Hybrid Aut. 1.Hd",
+    "price": "16.990 €",
+    "priceValue": 16990,
+    "financing": "ab 163 € mtl.",
+    "firstRegistration": "11/2022",
+    "mileage": "17.500 km",
+    "power": "92 kW / 125 PS",
+    "fuel": "Hybrid (Benzin/Elektro)",
+    "mainImage": "/vehicles/47_ford-focus-2022/mobile_01.webp",
+    "gallery": [
+      "/vehicles/47_ford-focus-2022/mobile_01.webp"
+    ],
+    "alt": "Ford Focus 1.0 Tournier 1.0 EcoBoost Hybrid Aut. 1.Hd gebraucht bei Automobile Quick in Iserlohn-Letmathe",
+    "status": "available",
+    "isNew": true
   }
 ];
