@@ -4,7 +4,10 @@
 **Target:** Production-Grade 10/10 Live Readiness
 **Date:** 2026-09-03
 **Working Branch:** `feat/aq-p0-foundation-2026-09-03`
-**Approved Production SHA:** `2b66813` (or subsequent verified HEAD)
+**Approved Production SHA:** `bedf894` (verified preproduction HEAD)
+* **Active Preview Version ID:** `994a5c80-84e2-43f2-8985-9c8a977618be`
+* **Authoritative Vehicle Inventory:** 47 total records (31 active available matching 100% of live mobile.de dealer listings + 16 historical sold records preserved)
+* **Gallery Asset Count:** 649 physical WebP images = 649 manifest entries across all 47 vehicles (0 broken, 0 missing)
 
 ---
 
