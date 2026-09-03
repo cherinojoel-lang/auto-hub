@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from 'react';
+import { type FormEvent, useEffect, useState } from 'react';
 import { extractAttribution, type Attribution } from '@/domain/attribution';
 
 type Props = {
@@ -65,7 +65,8 @@ export default function LeadForm({ vehicleId = '', topic = '' }: Props) {
     event.preventDefault();
     setState({ status: 'submitting' });
 
-    const form = new FormData(event.currentTarget);
+    const formElement = event.currentTarget;
+    const form = new FormData(formElement);
     const privacyAccepted = form.get('privacy_acknowledged') === 'on';
     if (!privacyAccepted) {
       setState({ status: 'error', message: 'Bitte bestätigen Sie die Datenschutzhinweise für die Kontaktanfrage.' });
@@ -104,7 +105,7 @@ export default function LeadForm({ vehicleId = '', topic = '' }: Props) {
 
       if (response.ok && result.ok && result.lead_id) {
         setState({ status: 'success', leadId: result.lead_id });
-        event.currentTarget.reset();
+        formElement.reset();
         return;
       }
 
