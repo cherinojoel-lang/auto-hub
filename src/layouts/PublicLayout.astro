@@ -23,27 +23,45 @@ const canonical = new URL(canonicalPath, site).toString();
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0A1628" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <link rel="preload" as="image" href="/images/hero-bg.jpg" fetchpriority="high" />
     {noindex && <meta name="robots" content="noindex,nofollow" />}
   </head>
   <body class="min-h-screen bg-background text-foreground">
     <a class="skip-to-main" href="#main">Zum Inhalt</a>
 
-    <header class="border-b border-slate-200 bg-white">
-      <div class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-4 sm:px-6 lg:px-8">
-        <a href="/" class="text-lg font-extrabold tracking-tight text-primary" aria-label="Automobile Quick Startseite">
-          Automobile Quick
+    <header class="sticky top-0 z-50 border-b border-white/10 bg-primary/95 text-white shadow-sm backdrop-blur">
+      <div class="mx-auto flex min-h-[72px] max-w-[1600px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+        <a href="/" class="inline-flex min-h-12 items-center text-lg font-black tracking-tight text-white">
+          Automobile <span class="ml-1 text-secondary">Quick</span>
         </a>
-        <nav aria-label="Hauptnavigation" class="hidden gap-5 text-sm font-semibold text-slate-700 md:flex">
-          <a href="/fahrzeuge/" class="hover:text-secondary">Fahrzeuge</a>
-          <a href="/ankauf" class="hover:text-secondary">Ankauf</a>
-          <a href="/finanzierung" class="hover:text-secondary">Finanzierung</a>
-          <a href="/ueber-uns" class="hover:text-secondary">Über uns</a>
-          <a href="/kontakt" class="hover:text-secondary">Kontakt</a>
+
+        <nav aria-label="Hauptnavigation" class="hidden items-center gap-1 text-sm font-bold lg:flex">
+          <a href="/fahrzeuge/" class="nav-link">Fahrzeuge</a>
+          <a href="/ankauf" class="nav-link">Autoankauf</a>
+          <a href="/finanzierung" class="nav-link">Finanzierung</a>
+          <a href="/ueber-uns" class="nav-link">Über uns</a>
+          <a href="/kontakt" class="nav-link">Kontakt</a>
         </nav>
-        <a href="/kontakt" class="btn-premium-secondary text-sm">Anfrage senden</a>
+
+        <div class="hidden items-center gap-3 md:flex">
+          <a href="/fahrzeuge/" class="btn-header-secondary">Fahrzeuge ansehen</a>
+          <a href="/kontakt" class="btn-header-primary">Anfrage senden</a>
+        </div>
+
+        <details class="relative lg:hidden">
+          <summary class="mobile-menu-trigger">Menü</summary>
+          <nav aria-label="Mobile Navigation" class="absolute right-0 top-[calc(100%+12px)] w-[min(22rem,calc(100vw-2rem))] rounded-xl border border-slate-200 bg-white p-3 text-primary shadow-xl">
+            <a href="/fahrzeuge/" class="mobile-nav-link">Fahrzeuge</a>
+            <a href="/ankauf" class="mobile-nav-link">Autoankauf</a>
+            <a href="/finanzierung" class="mobile-nav-link">Finanzierung</a>
+            <a href="/ueber-uns" class="mobile-nav-link">Über uns</a>
+            <a href="/kontakt" class="mobile-nav-link">Kontakt</a>
+          </nav>
+        </details>
       </div>
     </header>
 
@@ -51,18 +69,27 @@ const canonical = new URL(canonicalPath, site).toString();
       <slot />
     </main>
 
-    <footer class="mt-16 border-t border-slate-200 bg-white">
-      <div class="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-2 lg:px-8">
+    <footer class="mt-20 bg-primary text-white">
+      <div class="mx-auto grid max-w-[1600px] gap-10 px-4 py-12 sm:px-6 md:grid-cols-[1.2fr_.8fr] lg:px-8">
         <div>
-          <p class="font-extrabold text-primary">Automobile Quick</p>
-          <p class="mt-2 max-w-xl text-sm leading-6 text-slate-600">
-            Gebrauchtwagen, Fahrzeugankauf und persönliche Beratung. Unternehmensstammdaten werden vor dem Produktionsstart aus der owner-bestätigten Quelle übernommen.
+          <p class="text-xl font-black">Automobile <span class="text-secondary">Quick</span></p>
+          <p class="mt-3 max-w-2xl text-sm leading-7 text-white/75">
+            Gebrauchtwagen, Fahrzeugankauf, Finanzierung und persönliche Beratung in Iserlohn-Letmathe. Produktionsdaten werden erst nach den dokumentierten Source-, Lead-, SEO- und Consent-Gates freigegeben.
           </p>
         </div>
-        <nav aria-label="Rechtliches" class="flex gap-5 text-sm font-semibold md:justify-end">
-          <a href="/impressum" class="hover:text-secondary">Impressum</a>
-          <a href="/datenschutz" class="hover:text-secondary">Datenschutz</a>
-        </nav>
+        <div class="grid grid-cols-2 gap-6 text-sm font-semibold md:justify-self-end">
+          <nav aria-label="Footer Navigation" class="grid gap-2">
+            <a href="/fahrzeuge/" class="footer-link">Fahrzeuge</a>
+            <a href="/ankauf" class="footer-link">Autoankauf</a>
+            <a href="/finanzierung" class="footer-link">Finanzierung</a>
+            <a href="/kontakt" class="footer-link">Kontakt</a>
+          </nav>
+          <nav aria-label="Rechtliches" class="grid gap-2 self-start">
+            <a href="/ueber-uns" class="footer-link">Über uns</a>
+            <a href="/impressum" class="footer-link">Impressum</a>
+            <a href="/datenschutz" class="footer-link">Datenschutz</a>
+          </nav>
+        </div>
       </div>
     </footer>
   </body>
