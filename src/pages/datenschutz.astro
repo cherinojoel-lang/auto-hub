@@ -1,0 +1,23 @@
+---
+import PublicLayout from '@/layouts/PublicLayout.astro';
+---
+
+<PublicLayout title="Datenschutz | Automobile Quick" description="Datenschutzhinweise von Automobile Quick." canonicalPath="/datenschutz" noindex>
+  <section class="mx-auto max-w-4xl px-4 py-14 sm:px-6 lg:px-8">
+    <p class="text-sm font-bold uppercase tracking-[0.18em] text-secondary">Datenschutz</p>
+    <h1 class="mt-3 text-4xl font-black tracking-tight text-primary">Datenschutzhinweise</h1>
+    <div class="mt-8 rounded-2xl border border-amber-300 bg-amber-50 p-6 text-amber-950">
+      <h2 class="font-extrabold">Entwurfsstatus — noch nicht produktionsfreigegeben</h2>
+      <p class="mt-2 text-sm leading-6">Die finale Fassung wird erst nach Verifikation des tatsächlichen Hosting-, Supabase-, Analytics-, Consent-, Call-Tracking- und Lead-Stacks veröffentlicht. Nicht notwendige Tracking-Dienste werden vor Einwilligung nicht geladen.</p>
+    </div>
+    <div class="mt-8 rounded-2xl bg-white p-6 sm:p-8">
+      <h2 class="text-xl font-extrabold text-primary">Vorgesehene Datenschutz-Prinzipien</h2>
+      <ul class="mt-4 grid gap-3 text-sm leading-6 text-slate-600">
+        <li>• Datenminimierung und zweckgebundene Verarbeitung.</li>
+        <li>• Keine Secrets oder Zugangsdaten im Repository.</li>
+        <li>• Lead-Erfolg erst nach dauerhaftem Datenbank-Write.</li>
+        <li>• Nicht notwendiges Tracking nur nach wirksamer Einwilligung.</li>
+      </ul>
+    </div>
+  </section>
+</PublicLayout>
