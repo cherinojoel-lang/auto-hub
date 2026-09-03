@@ -1,0 +1,69 @@
+---
+import '@/styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonicalPath,
+  noindex = false,
+} = Astro.props;
+
+const site = 'https://www.automobile-quick.de';
+const canonical = new URL(canonicalPath, site).toString();
+---
+
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
+  </head>
+  <body class="min-h-screen bg-background text-foreground">
+    <a class="skip-to-main" href="#main">Zum Inhalt</a>
+
+    <header class="border-b border-slate-200 bg-white">
+      <div class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-4 sm:px-6 lg:px-8">
+        <a href="/" class="text-lg font-extrabold tracking-tight text-primary" aria-label="Automobile Quick Startseite">
+          Automobile Quick
+        </a>
+        <nav aria-label="Hauptnavigation" class="hidden gap-5 text-sm font-semibold text-slate-700 md:flex">
+          <a href="/fahrzeuge/" class="hover:text-secondary">Fahrzeuge</a>
+          <a href="/ankauf" class="hover:text-secondary">Ankauf</a>
+          <a href="/finanzierung" class="hover:text-secondary">Finanzierung</a>
+          <a href="/ueber-uns" class="hover:text-secondary">Über uns</a>
+          <a href="/kontakt" class="hover:text-secondary">Kontakt</a>
+        </nav>
+        <a href="/kontakt" class="btn-premium-secondary text-sm">Anfrage senden</a>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="mt-16 border-t border-slate-200 bg-white">
+      <div class="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-2 lg:px-8">
+        <div>
+          <p class="font-extrabold text-primary">Automobile Quick</p>
+          <p class="mt-2 max-w-xl text-sm leading-6 text-slate-600">
+            Gebrauchtwagen, Fahrzeugankauf und persönliche Beratung. Unternehmensstammdaten werden vor dem Produktionsstart aus der owner-bestätigten Quelle übernommen.
+          </p>
+        </div>
+        <nav aria-label="Rechtliches" class="flex gap-5 text-sm font-semibold md:justify-end">
+          <a href="/impressum" class="hover:text-secondary">Impressum</a>
+          <a href="/datenschutz" class="hover:text-secondary">Datenschutz</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>
