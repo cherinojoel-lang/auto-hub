@@ -28,7 +28,6 @@ const canonical = new URL(canonicalPath, site).toString();
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="preload" as="image" href="/images/hero-bg.jpg" fetchpriority="high" />
     {noindex && <meta name="robots" content="noindex,nofollow" />}
   </head>
   <body class="min-h-screen bg-background text-foreground">
@@ -75,7 +74,7 @@ const canonical = new URL(canonicalPath, site).toString();
         <div>
           <p class="text-xl font-black">Automobile <span class="text-secondary">Quick</span></p>
           <p class="mt-3 max-w-2xl text-sm leading-7 text-white/75">
-            Gebrauchtwagen, Fahrzeugankauf, Finanzierung und persönliche Beratung in Iserlohn-Letmathe. Produktionsdaten werden erst nach den dokumentierten Source-, Lead-, SEO- und Consent-Gates freigegeben.
+            Gebrauchtwagen entdecken, Fahrzeugankauf und Finanzierung anfragen und auf kurzem Weg persönlich Kontakt aufnehmen.
           </p>
         </div>
         <div class="grid grid-cols-2 gap-6 text-sm font-semibold md:justify-self-end">

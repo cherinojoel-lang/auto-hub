@@ -37,31 +37,30 @@ const previewVehicles = vehiclesData.filter((vehicle) => vehicle.status === 'ava
     <div class="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
       {previewVehicles.map((vehicle) => (
         <article class="card-premium overflow-hidden rounded-2xl">
-          <a href={`/fahrzeuge/${vehicle.id}`} class="group block">
-            <div class="relative overflow-hidden bg-slate-100">
-              <img src={vehicle.mainImage} alt={vehicle.alt} class="aspect-[16/10] w-full object-cover transition duration-300 group-hover:scale-[1.01]" loading="lazy" width="720" height="450" />
-              {vehicle.isNew && <span class="absolute left-4 top-4 rounded-full bg-primary px-3 py-1.5 text-xs font-black text-white">Neu in der Preview</span>}
-            </div>
-            <div class="p-5 sm:p-6">
-              <p class="text-xs font-black uppercase tracking-[0.16em] text-secondary">{vehicle.make}</p>
-              <h2 class="mt-2 min-h-[3.5rem] text-xl font-black leading-7 text-primary group-hover:underline">{vehicle.title}</h2>
-
-              <p class="mt-5 text-3xl font-black tracking-tight text-primary">{vehicle.price}</p>
-              {vehicle.financing && <p class="mt-1 text-sm font-bold text-slate-500">{vehicle.financing}</p>}
-
-              <dl class="mt-5 grid grid-cols-2 gap-x-4 gap-y-4 border-y border-slate-200 py-5 text-sm">
-                <div><dt class="text-slate-500">Erstzulassung</dt><dd class="mt-1 font-extrabold text-primary">{vehicle.firstRegistration}</dd></div>
-                <div><dt class="text-slate-500">Laufleistung</dt><dd class="mt-1 font-extrabold text-primary">{vehicle.mileage}</dd></div>
-                <div><dt class="text-slate-500">Leistung</dt><dd class="mt-1 font-extrabold text-primary">{vehicle.power}</dd></div>
-                <div><dt class="text-slate-500">Kraftstoff</dt><dd class="mt-1 font-extrabold text-primary">{vehicle.fuel}</dd></div>
-              </dl>
-
-              <div class="mt-5 grid grid-cols-2 gap-3">
-                <span class="btn-premium-primary">Details</span>
-                <span class="btn-premium-secondary">Anfragen</span>
-              </div>
-            </div>
+          <a href={`/fahrzeuge/${vehicle.id}`} class="group block overflow-hidden bg-slate-100">
+            <img src={vehicle.mainImage} alt={vehicle.alt} class="aspect-[16/10] w-full object-cover transition duration-300 group-hover:scale-[1.01]" loading="lazy" width="720" height="450" />
           </a>
+          <div class="p-5 sm:p-6">
+            <p class="text-xs font-black uppercase tracking-[0.16em] text-secondary">{vehicle.make}</p>
+            <h2 class="mt-2 min-h-[3.5rem] text-xl font-black leading-7 text-primary">
+              <a href={`/fahrzeuge/${vehicle.id}`} class="hover:underline">{vehicle.title}</a>
+            </h2>
+
+            <p class="mt-5 text-3xl font-black tracking-tight text-primary">{vehicle.price}</p>
+            {vehicle.financing && <p class="mt-1 text-sm font-bold text-slate-500">{vehicle.financing}</p>}
+
+            <dl class="mt-5 grid grid-cols-2 gap-x-4 gap-y-4 border-y border-slate-200 py-5 text-sm">
+              <div><dt class="text-slate-500">Erstzulassung</dt><dd class="mt-1 font-extrabold text-primary">{vehicle.firstRegistration}</dd></div>
+              <div><dt class="text-slate-500">Laufleistung</dt><dd class="mt-1 font-extrabold text-primary">{vehicle.mileage}</dd></div>
+              <div><dt class="text-slate-500">Leistung</dt><dd class="mt-1 font-extrabold text-primary">{vehicle.power}</dd></div>
+              <div><dt class="text-slate-500">Kraftstoff</dt><dd class="mt-1 font-extrabold text-primary">{vehicle.fuel}</dd></div>
+            </dl>
+
+            <div class="mt-5 grid grid-cols-2 gap-3">
+              <a href={`/fahrzeuge/${vehicle.id}`} class="btn-premium-primary">Details</a>
+              <a href={`/kontakt?vehicle_id=${encodeURIComponent(vehicle.id)}&topic=vehicle`} class="btn-premium-secondary">Anfragen</a>
+            </div>
+          </div>
         </article>
       ))}
     </div>
