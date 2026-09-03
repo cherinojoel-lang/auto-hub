@@ -1,5 +1,27 @@
 # Changelog
 
+## [Unreleased] - 2026-08-28 to 2026-09-03
+
+### ⚡ Performance (Bolt)
+- Prevent memory leaks in IntersectionObserver callbacks by using entry.target
+- Optimize array iterations for top/similar vehicles by replacing full array filter with early-exit loops
+- Memoize global derived arrays in TestimonialsSection to optimize renders
+
+### 🎨 Accessibility & UI (Palette)
+- Improve accessibility of financing calculator form and inputs
+- Add explicit label associations and ARIA live regions
+- Add accessible success messages to forms
+
+### 🛡️ Security (Sentinel)
+- Update dependencies to resolve vulnerabilities and security findings
+- Remove unsafe-eval from CSP
+- Add input length limits to prevent abuse
+
+### 🚀 Features & Enhancements
+- docs(migration): update live manifest with authoritative inventory count and preview version
+- fix: update Wrangler and dependencies to resolve Astro worker moduleType error
+- docs: update changelog with commits from this week
+
 ## [Unreleased] - 2026-05-15 to 2026-05-21
 
 ### 🚀 Features & Enhancements
