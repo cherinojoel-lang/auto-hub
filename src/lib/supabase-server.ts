@@ -35,7 +35,7 @@ export async function captureLead(lead: NormalizedLead): Promise<string> {
     throw new BackendUnavailableError();
   }
 
-  const result = await response.json<unknown>();
+  const result: unknown = await response.json();
   if (typeof result !== 'string' || !/^[0-9a-f-]{36}$/i.test(result)) {
     throw new BackendUnavailableError();
   }
