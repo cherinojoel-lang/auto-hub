@@ -1,9 +1,11 @@
 ---
+import { env } from 'cloudflare:workers';
 import PublicLayout from '@/layouts/PublicLayout.astro';
 import LeadForm from '@/components/islands/LeadForm';
 
 const vehicleId = Astro.url.searchParams.get('vehicle_id') ?? '';
 const topic = Astro.url.searchParams.get('topic') ?? '';
+const turnstileSiteKey = typeof env.TURNSTILE_SITE_KEY === 'string' ? env.TURNSTILE_SITE_KEY : '';
 ---
 
 <PublicLayout
@@ -15,20 +17,20 @@ const topic = Astro.url.searchParams.get('topic') ?? '';
     <div class="section-wrap py-12 sm:py-16 lg:py-20">
       <p class="eyebrow">Kontakt</p>
       <h1 class="mt-4 max-w-4xl text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">Schnell zur passenden Rückmeldung</h1>
-      <p class="mt-5 max-w-3xl text-lg leading-8 text-white/78">Fahrzeug, Besichtigung oder Finanzierung direkt mit Kontext anfragen. Eine erfolgreiche Bestätigung wird erst angezeigt, wenn die Anfrage dauerhaft gespeichert wurde.</p>
+      <p class="mt-5 max-w-3xl text-lg leading-8 text-white/78">Fahrzeug, Besichtigung oder Finanzierung direkt mit Kontext anfragen. Eine erfolgreiche Bestätigung wird erst angezeigt, wenn Spam-Schutz und dauerhafte Speicherung erfolgreich abgeschlossen sind.</p>
     </div>
   </section>
 
   <section class="section-wrap py-10 sm:py-14 lg:py-16">
     <div class="grid gap-8 lg:grid-cols-[1fr_.72fr]">
-      <LeadForm client:load vehicleId={vehicleId} topic={topic} />
+      <LeadForm client:load vehicleId={vehicleId} topic={topic} turnstileSiteKey={turnstileSiteKey} />
 
       <aside class="self-start rounded-2xl bg-primary p-6 text-white sm:p-8 lg:sticky lg:top-28">
         <p class="eyebrow">So funktioniert die Anfrage</p>
         <h2 class="mt-3 text-2xl font-black">Persönlich statt kompliziert</h2>
         <ol class="mt-6 grid gap-5 text-sm leading-6 text-white/78">
           <li class="grid grid-cols-[2.5rem_1fr] gap-3"><span class="flex h-10 w-10 items-center justify-center rounded-full bg-secondary font-black text-white">1</span><span><strong class="block text-white">Anliegen senden</strong>Fahrzeugbezug wird automatisch mitgegeben, wenn Sie von einer Fahrzeugseite kommen.</span></li>
-          <li class="grid grid-cols-[2.5rem_1fr] gap-3"><span class="flex h-10 w-10 items-center justify-center rounded-full bg-secondary font-black text-white">2</span><span><strong class="block text-white">Dauerhaft gespeichert</strong>Erst nach erfolgreicher Speicherung erzeugt das System eine Lead-Referenz.</span></li>
+          <li class="grid grid-cols-[2.5rem_1fr] gap-3"><span class="flex h-10 w-10 items-center justify-center rounded-full bg-secondary font-black text-white">2</span><span><strong class="block text-white">Spam-Schutz + Speicherung</strong>Die Anfrage wird serverseitig geprüft und erst danach als dauerhafter Lead gespeichert.</span></li>
           <li class="grid grid-cols-[2.5rem_1fr] gap-3"><span class="flex h-10 w-10 items-center justify-center rounded-full bg-secondary font-black text-white">3</span><span><strong class="block text-white">Persönliche Bearbeitung</strong>Der operative Vertriebsprozess wird vor Produktionsstart Ende-zu-Ende getestet und freigegeben.</span></li>
         </ol>
         <div class="mt-7 border-t border-white/15 pt-6 text-xs leading-5 text-white/60">
