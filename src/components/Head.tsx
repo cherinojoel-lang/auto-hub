@@ -1,4 +1,4 @@
-export const Head = ({ canonicalUrl }: { canonicalUrl?: string }) => {
+export const Head = ({ canonicalUrl, isPreview }: { canonicalUrl?: string, isPreview?: boolean }) => {
   const currentCanonical = canonicalUrl || "https://www.automobile-quick.de/";
 
   return (
@@ -10,7 +10,13 @@ export const Head = ({ canonicalUrl }: { canonicalUrl?: string }) => {
       {/* SEO Meta Tags */}
       <meta name="description" content="Hochwertige Gebrauchtwagen mit persönlicher Beratung. Automobile Quick - Ihr Autohaus seit 1982 in Iserlohn-Letmathe." />
       <meta name="keywords" content="Gebrauchtwagen, Autohaus, Iserlohn, Letmathe, Automobile Quick, Fahrzeuge, Audi, BMW, Mercedes, VW" />
-      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+      
+      {isPreview ? (
+        <meta name="robots" content="noindex,nofollow" />
+      ) : (
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+      )}
+      
       <meta name="author" content="Automobile Quick" />
       <meta name="language" content="de" />
       <meta name="revisit-after" content="7 days" />

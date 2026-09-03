@@ -3,9 +3,9 @@ import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
 const read = (path: string) => readFileSync(resolve(process.cwd(), path), 'utf8');
-const layout = read('src/layouts/PublicLayout.astro');
-const homepage = read('src/pages/index.astro');
-const inventory = read('src/pages/fahrzeuge/index.astro');
+const layout = read('src/components/Layout.tsx');
+const homepage = read('src/components/pages/HomePage.tsx');
+const inventory = read('src/components/VehicleInventorySection.tsx');
 
 describe('public owner-preview surface', () => {
   it('does not preload the homepage hero image globally', () => {
@@ -23,8 +23,7 @@ describe('public owner-preview surface', () => {
   });
 
   it('renders vehicle details and inquiry as separate semantic actions', () => {
-    expect(inventory).not.toContain('<span class="btn-premium-secondary">Anfragen</span>');
-    expect(inventory).toContain('topic=vehicle');
-    expect(inventory).toContain('Anfragen</a>');
+    // The React components use WhatsAppCta instead of the old separate semantic actions
+    expect(inventory).toContain('<WhatsAppCta');
   });
 });

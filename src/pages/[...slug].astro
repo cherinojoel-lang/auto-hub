@@ -1,22 +1,41 @@
 ---
-import PublicLayout from '@/layouts/PublicLayout.astro';
+import { Head } from "@/components/Head";
+import AppRouter from "@/components/Router";
+import "@/styles/global.css";
+import { shouldNoindexPreview } from '@/domain/preview';
 
-Astro.response.status = 404;
+const hostname = Astro.url.hostname;
+const isPreview = shouldNoindexPreview(hostname);
+const pathname = Astro.url.pathname;
+const canonicalUrl = Astro.url.href;
+
+// Handle legacy/new compatibility redirects securely
+if (pathname === '/fahrzeuge' || pathname === '/fahrzeuge/') {
+  return Astro.redirect('/fahrzeugbestand', 301);
+}
+if (pathname === '/ankauf' || pathname === '/ankauf/') {
+  return Astro.redirect('/autoankauf', 301);
+}
+
+// Check for /fahrzeuge/:slug
+const fahrzeugeMatch = pathname.match(/^\/fahrzeuge\/([^/]+)$/);
+if (fahrzeugeMatch) {
+  const fullSlug = fahrzeugeMatch[1];
+  // extract ID from the slug (e.g. 17_fiat-500-hybrid-2024 -> 17)
+  const idMatch = fullSlug.match(/^(\d+)_/);
+  if (idMatch) {
+    return Astro.redirect(`/fahrzeugdetail/${idMatch[1]}`, 301);
+  }
+}
 ---
 
-<PublicLayout
-  title="Seite nicht gefunden | Automobile Quick"
-  description="Die angeforderte Seite wurde nicht gefunden."
-  canonicalPath={Astro.url.pathname}
-  noindex
->
-  <section class="section-wrap py-20 text-center sm:py-28">
-    <p class="eyebrow">404</p>
-    <h1 class="mt-4 text-4xl font-black tracking-tight text-primary sm:text-5xl">Diese Seite gibt es nicht.</h1>
-    <p class="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-600">Nutzen Sie den Fahrzeugbestand oder die Kontaktseite, um direkt weiterzukommen.</p>
-    <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-      <a href="/fahrzeuge/" class="btn-premium-primary">Fahrzeuge ansehen</a>
-      <a href="/kontakt" class="btn-premium-secondary">Kontakt aufnehmen</a>
+<html lang="de" class="w-full h-full">
+  <head>
+    <Head canonicalUrl={canonicalUrl} isPreview={isPreview} />
+  </head>
+  <body class="w-full h-full bg-background text-foreground overflow-x-hidden">
+    <div id="root" class="w-full h-full flex flex-col min-h-screen">
+      <AppRouter client:only="react" />
     </div>
-  </section>
-</PublicLayout>
+  </body>
+</html>
