@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { normalizeLeadInput } from '@/domain/lead';
+import { normalizeLeadInput, type NormalizedLead } from '@/domain/lead';
 import { BackendUnavailableError, captureLead } from '@/lib/supabase-server';
 
 export const prerender = false;
@@ -23,7 +23,7 @@ export const POST: APIRoute = async ({ request }) => {
     return json({ ok: false, error: 'invalid_json' }, 400);
   }
 
-  let lead;
+  let lead: NormalizedLead;
   try {
     lead = normalizeLeadInput((raw ?? {}) as Record<string, unknown>);
   } catch (error) {
