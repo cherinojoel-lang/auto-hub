@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { isPreviewHost, shouldNoindexPreview } from './preview';
+import { isPreviewHost, isPreviewModeEnabled, shouldNoindexPreview } from './preview';
 
 describe('preview host contract', () => {
   it('treats workers.dev and localhost hosts as preview contexts', () => {
@@ -18,5 +18,14 @@ describe('preview host contract', () => {
     expect(shouldNoindexPreview('automobile-quick-preview.example.workers.dev')).toBe(true);
     expect(shouldNoindexPreview('localhost')).toBe(true);
     expect(shouldNoindexPreview('www.automobile-quick.de')).toBe(false);
+  });
+
+  it('enables explicit preview mode only for true-like values', () => {
+    expect(isPreviewModeEnabled('true')).toBe(true);
+    expect(isPreviewModeEnabled('1')).toBe(true);
+    expect(isPreviewModeEnabled('TRUE')).toBe(true);
+    expect(isPreviewModeEnabled('false')).toBe(false);
+    expect(isPreviewModeEnabled('0')).toBe(false);
+    expect(isPreviewModeEnabled(undefined)).toBe(false);
   });
 });
