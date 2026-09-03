@@ -3,6 +3,7 @@
   "name": "automobile-quick",
   "compatibility_date": "2026-05-31",
   "compatibility_flags": ["nodejs_compat"],
+  "preview_urls": true,
   "observability": {
     "enabled": true
   },
