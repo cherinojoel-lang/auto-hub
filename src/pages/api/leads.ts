@@ -1,5 +1,7 @@
 import type { APIRoute } from 'astro';
+import { env } from 'cloudflare:workers';
 import { normalizeLeadInput, type NormalizedLead } from '@/domain/lead';
+import { isPreviewModeEnabled } from '@/domain/preview';
 import { BackendUnavailableError, captureLead } from '@/lib/supabase-server';
 import {
   TurnstileRejectedError,
@@ -8,6 +10,8 @@ import {
 } from '@/lib/turnstile-server';
 
 export const prerender = false;
+
+const runtimeEnv = env;
 
 function json(body: unknown, status = 200) {
   return new Response(JSON.stringify(body), {
@@ -20,6 +24,10 @@ function json(body: unknown, status = 200) {
 }
 
 export const POST: APIRoute = async ({ request }) => {
+  if (isPreviewModeEnabled(runtimeEnv.AQ_PREVIEW_MODE)) {
+    return json({ ok: false, error: 'preview_mode' }, 503);
+  }
+
   let raw: Record<string, unknown>;
 
   try {
