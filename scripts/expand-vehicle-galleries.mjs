@@ -1,17 +1,23 @@
-#!/usr/bin/env node
-// Expands gallery[] to include ALL physical files per vehicle folder.
-// Reads public/vehicles/<folder>/ (deterministic sort), updates
-// src/data/vehiclesData.generated.ts in-place. mainImage stays.
-// Safe to re-run; idempotent.
+import fs from 'fs';
+import path from 'path';
 
-import fs from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+/**
+ * expand-vehicle-galleries.mjs
+ *
+ * Scans `public/vehicles/<folder>/` for all physical image files and synchronises
+ * the `gallery` array (and `mainImage`) in `src/data/vehiclesData.generated.ts`.
+ *
+ * Rules:
+ *  1. Only existing physical files (.webp, .jpg, .jpeg, .png) are included.
+ *  2. Sort order is deterministic (natural numeric sort: 01, 02, 10, ...).
+ *  3. `mainImage` is placed first in the gallery.
+ *  4. If `mainImage` does not exist on disk, it is updated to the first physical file.
+ *  5. No duplicate entries.
+ */
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.resolve(__dirname, '..');
-const DATA_FILE = path.join(ROOT, 'src/data/vehiclesData.generated.ts');
-const VEHICLES_DIR = path.join(ROOT, 'public/vehicles');
+const PROJECT_ROOT = process.cwd();
+const DATA_FILE = path.join(PROJECT_ROOT, 'src/data/vehiclesData.generated.ts');
+const VEHICLES_DIR = path.join(PROJECT_ROOT, 'public/vehicles');
 
 const IMAGE_EXT = /\.(webp|jpe?g|png)$/i;
 
@@ -29,18 +35,15 @@ function readPhysicalFiles(folder) {
 
 function buildGalleryArrayLiteral(folder, mainImage, files) {
   const fullPaths = files.map((f) => `/vehicles/${folder}/${f}`);
-  // Put mainImage first if it is one of the physical files
   const ordered = mainImage && fullPaths.includes(mainImage)
     ? [mainImage, ...fullPaths.filter((p) => p !== mainImage)]
     : fullPaths;
   return ordered;
 }
 
-// Locate each vehicle object block and rewrite the gallery array.
 function rewriteDataFile() {
   let src = fs.readFileSync(DATA_FILE, 'utf8');
 
-  // Match: "folder": "<x>", up to "gallery": [...] within the same object.
   const objectRegex = /"folder":\s*"([^"]+)"[\s\S]*?"mainImage":\s*"([^"]*)"[\s\S]*?"gallery":\s*\[([\s\S]*?)\]/g;
 
   let totalBefore = 0;
@@ -53,14 +56,14 @@ function rewriteDataFile() {
 
     const files = readPhysicalFiles(folder);
     if (files.length === 0) {
-      // keep as is
       totalAfter += oldEntries;
       return match;
     }
-    const ordered = buildGalleryArrayLiteral(folder, mainImage, files);
+    const fullPaths = files.map((f) => `/vehicles/${folder}/${f}`);
+    const resolvedMain = (mainImage && fullPaths.includes(mainImage)) ? mainImage : fullPaths[0];
+    const ordered = buildGalleryArrayLiteral(folder, resolvedMain, files);
 
-    if (ordered.length === oldEntries && ordered.every((p, i) => match.includes(`"${p}"`))) {
-      // already complete and ordered identically
+    if (ordered.length === oldEntries && resolvedMain === mainImage && ordered.every((p, i) => match.includes(`"${p}"`))) {
       totalAfter += oldEntries;
       return match;
     }
@@ -70,8 +73,11 @@ function rewriteDataFile() {
     totalAfter += ordered.length;
     touched += 1;
 
-    // Reconstruct: keep prefix up to "gallery":, replace bracket content
-    return match.replace(/"gallery":\s*\[[\s\S]*?\]/, `"gallery": [\n${newArr}\n    ]`);
+    let updated = match;
+    if (resolvedMain !== mainImage) {
+      updated = updated.replace(/"mainImage":\s*"[^"]*"/, `"mainImage": "${resolvedMain}"`);
+    }
+    return updated.replace(/"gallery":\s*\[[\s\S]*?\]/, `"gallery": [\n${newArr}\n    ]`);
   });
 
   fs.writeFileSync(DATA_FILE, src);
