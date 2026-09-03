@@ -1,18 +1,39 @@
 ---
 import PublicLayout from '@/layouts/PublicLayout.astro';
+
+const vehicleId = Astro.url.searchParams.get('vehicle_id') ?? '';
+const contactHref = vehicleId ? `/kontakt?topic=finance&vehicle_id=${encodeURIComponent(vehicleId)}` : '/kontakt?topic=finance';
 ---
 
-<PublicLayout title="Finanzierung | Automobile Quick" description="Finanzierungsmöglichkeiten für Gebrauchtwagen bei Automobile Quick besprechen." canonicalPath="/finanzierung">
-  <section class="mx-auto max-w-5xl px-4 py-14 sm:px-6 lg:px-8">
-    <p class="text-sm font-bold uppercase tracking-[0.18em] text-secondary">Finanzierung</p>
-    <h1 class="mt-3 text-4xl font-black tracking-tight text-primary sm:text-5xl">Finanzierung passend zum Fahrzeug besprechen</h1>
-    <p class="mt-6 max-w-3xl text-lg leading-8 text-slate-600">Die Website bereitet die Anfrage vor. Konditionen, Bonitätsprüfung und ein mögliches Finanzierungsangebot entstehen erst im individuellen Prozess mit dem jeweiligen Finanzierungspartner.</p>
-    <div class="mt-10 rounded-2xl bg-white p-7 sm:p-9">
-      <h2 class="text-2xl font-extrabold text-primary">Für eine schnelle Rückmeldung</h2>
-      <ul class="mt-5 grid gap-3 text-slate-600 sm:grid-cols-2">
-        <li>• gewünschtes Fahrzeug</li><li>• gewünschte Monatsrate</li><li>• mögliche Anzahlung</li><li>• bevorzugte Laufzeit</li>
-      </ul>
-      <a href="/kontakt?topic=finanzierung" class="btn-premium-secondary mt-8">Finanzierung anfragen</a>
+<PublicLayout title="Gebrauchtwagen-Finanzierung in Iserlohn-Letmathe | Automobile Quick" description="Finanzierungsmöglichkeiten für Gebrauchtwagen bei Automobile Quick unverbindlich besprechen." canonicalPath="/finanzierung">
+  <section class="bg-primary text-white">
+    <div class="section-wrap py-14 sm:py-18 lg:py-20">
+      <p class="eyebrow">Finanzierung</p>
+      <h1 class="mt-4 max-w-5xl text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">Gebrauchtwagen-Finanzierung in Iserlohn-Letmathe</h1>
+      <p class="mt-5 max-w-3xl text-lg leading-8 text-white/78">Wunschfahrzeug und Rahmenbedingungen unverbindlich übermitteln. Konditionen, Bonitätsprüfung und ein mögliches Angebot entstehen erst im individuellen Prozess mit dem Finanzierungspartner.</p>
+      <a href={contactHref} class="btn-header-primary mt-8">Finanzierung anfragen</a>
+    </div>
+  </section>
+
+  <section class="section-wrap py-14 sm:py-18 lg:py-20">
+    <div class="grid gap-6 lg:grid-cols-[1.05fr_.95fr]">
+      <article class="card-premium rounded-2xl p-7 sm:p-9">
+        <p class="eyebrow">Für eine schnelle Einordnung</p>
+        <h2 class="mt-3 text-2xl font-black text-primary">Diese Angaben helfen bei der Beratung</h2>
+        <ul class="mt-6 grid gap-4 text-slate-600 sm:grid-cols-2">
+          <li class="rounded-xl bg-slate-50 p-4"><strong class="block text-primary">Wunschfahrzeug</strong><span class="mt-1 block text-sm">Fahrzeug oder Fahrzeug-ID</span></li>
+          <li class="rounded-xl bg-slate-50 p-4"><strong class="block text-primary">Monatsrate</strong><span class="mt-1 block text-sm">Gewünschter Rahmen</span></li>
+          <li class="rounded-xl bg-slate-50 p-4"><strong class="block text-primary">Anzahlung</strong><span class="mt-1 block text-sm">Falls vorgesehen</span></li>
+          <li class="rounded-xl bg-slate-50 p-4"><strong class="block text-primary">Laufzeit</strong><span class="mt-1 block text-sm">Bevorzugter Zeitraum</span></li>
+        </ul>
+      </article>
+
+      <aside class="rounded-2xl bg-primary p-7 text-white sm:p-9">
+        <p class="eyebrow">Wichtig</p>
+        <h2 class="mt-3 text-2xl font-black">Unverbindliche Anfrage, kein Online-Kreditabschluss</h2>
+        <p class="mt-4 leading-7 text-white/75">Die Website nimmt lediglich Ihre Anfrage entgegen. Sie erteilt keine Kreditzusage und schließt keinen Finanzierungsvertrag online ab.</p>
+        <a href={contactHref} class="btn-header-primary mt-7">Persönlich beraten lassen</a>
+      </aside>
     </div>
   </section>
 </PublicLayout>
