@@ -1,5 +1,6 @@
 ---
 import '@/styles/global.css';
+import ConsentManager from '@/components/islands/ConsentManager';
 
 interface Props {
   title: string;
@@ -92,5 +93,7 @@ const canonical = new URL(canonicalPath, site).toString();
         </div>
       </div>
     </footer>
+
+    <ConsentManager client:idle />
   </body>
 </html>
