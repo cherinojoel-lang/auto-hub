@@ -7,8 +7,12 @@
   "observability": {
     "enabled": true
   },
-  "vars": {
-    "PUBLIC_CLARITY_ID": "vsc7jd9d94",
-    "PUBLIC_GSC_VERIFICATION": "nirROusqBNxCLF7xk8jC0pqhCmu9YNd5f9P9-tj_NPw"
+  "secrets": {
+    "required": [
+      "SUPABASE_URL",
+      "SUPABASE_SECRET_KEY",
+      "TURNSTILE_SITE_KEY",
+      "TURNSTILE_SECRET_KEY"
+    ]
   }
 }
