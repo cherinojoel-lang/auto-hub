@@ -1,31 +1,39 @@
 ---
 import PublicLayout from '@/layouts/PublicLayout.astro';
+import LeadForm from '@/components/islands/LeadForm';
 
 const vehicleId = Astro.url.searchParams.get('vehicle_id') ?? '';
 const topic = Astro.url.searchParams.get('topic') ?? '';
 ---
 
-<PublicLayout title="Kontakt | Automobile Quick" description="Kontakt zu Automobile Quick aufnehmen." canonicalPath="/kontakt">
-  <section class="mx-auto max-w-5xl px-4 py-14 sm:px-6 lg:px-8">
-    <p class="text-sm font-bold uppercase tracking-[0.18em] text-secondary">Kontakt</p>
-    <h1 class="mt-3 text-4xl font-black tracking-tight text-primary sm:text-5xl">Schnell zur passenden Rückmeldung</h1>
-    <p class="mt-6 max-w-3xl text-lg leading-8 text-slate-600">Der finale Lead-Endpunkt wird erst aktiviert, wenn die dedizierte AQ-Supabase-Datenbank verifiziert angebunden ist. Bis dahin zeigt die Preview bewusst keinen scheinbar erfolgreichen Versand.</p>
+<PublicLayout
+  title="Kontakt & Anfrage | Automobile Quick"
+  description="Automobile Quick kontaktieren: Fahrzeuganfrage, Besichtigung, Finanzierung oder allgemeine Rückmeldung."
+  canonicalPath="/kontakt"
+>
+  <section class="bg-primary text-white">
+    <div class="section-wrap py-12 sm:py-16 lg:py-20">
+      <p class="eyebrow">Kontakt</p>
+      <h1 class="mt-4 max-w-4xl text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">Schnell zur passenden Rückmeldung</h1>
+      <p class="mt-5 max-w-3xl text-lg leading-8 text-white/78">Fahrzeug, Besichtigung oder Finanzierung direkt mit Kontext anfragen. Eine erfolgreiche Bestätigung wird erst angezeigt, wenn die Anfrage dauerhaft gespeichert wurde.</p>
+    </div>
+  </section>
 
-    <div class="mt-10 grid gap-8 lg:grid-cols-[1fr_.7fr]">
-      <form class="rounded-2xl bg-white p-6 sm:p-8" aria-describedby="preview-note">
-        <div class="grid gap-5 sm:grid-cols-2">
-          <label class="grid gap-2 text-sm font-semibold text-primary">Name<input class="rounded-lg border border-slate-300 px-4 py-3" name="name" autocomplete="name" /></label>
-          <label class="grid gap-2 text-sm font-semibold text-primary">Telefon oder E-Mail<input class="rounded-lg border border-slate-300 px-4 py-3" name="contact" /></label>
+  <section class="section-wrap py-10 sm:py-14 lg:py-16">
+    <div class="grid gap-8 lg:grid-cols-[1fr_.72fr]">
+      <LeadForm client:load vehicleId={vehicleId} topic={topic} />
+
+      <aside class="self-start rounded-2xl bg-primary p-6 text-white sm:p-8 lg:sticky lg:top-28">
+        <p class="eyebrow">So funktioniert die Anfrage</p>
+        <h2 class="mt-3 text-2xl font-black">Persönlich statt kompliziert</h2>
+        <ol class="mt-6 grid gap-5 text-sm leading-6 text-white/78">
+          <li class="grid grid-cols-[2.5rem_1fr] gap-3"><span class="flex h-10 w-10 items-center justify-center rounded-full bg-secondary font-black text-white">1</span><span><strong class="block text-white">Anliegen senden</strong>Fahrzeugbezug wird automatisch mitgegeben, wenn Sie von einer Fahrzeugseite kommen.</span></li>
+          <li class="grid grid-cols-[2.5rem_1fr] gap-3"><span class="flex h-10 w-10 items-center justify-center rounded-full bg-secondary font-black text-white">2</span><span><strong class="block text-white">Dauerhaft gespeichert</strong>Erst nach erfolgreicher Speicherung erzeugt das System eine Lead-Referenz.</span></li>
+          <li class="grid grid-cols-[2.5rem_1fr] gap-3"><span class="flex h-10 w-10 items-center justify-center rounded-full bg-secondary font-black text-white">3</span><span><strong class="block text-white">Persönliche Bearbeitung</strong>Der operative Vertriebsprozess wird vor Produktionsstart Ende-zu-Ende getestet und freigegeben.</span></li>
+        </ol>
+        <div class="mt-7 border-t border-white/15 pt-6 text-xs leading-5 text-white/60">
+          Telefon-, E-Mail-, WhatsApp- und Öffnungszeiten werden erst aus der owner-bestätigten kanonischen Unternehmensquelle in die Produktionsfassung übernommen.
         </div>
-        <label class="mt-5 grid gap-2 text-sm font-semibold text-primary">Nachricht<textarea class="min-h-36 rounded-lg border border-slate-300 px-4 py-3" name="message">{vehicleId ? `Anfrage zum Fahrzeug ${vehicleId}` : topic ? `Thema: ${topic}` : ''}</textarea></label>
-        <input type="hidden" name="vehicle_id" value={vehicleId} />
-        <button type="button" class="btn-premium-secondary mt-6 opacity-60" aria-disabled="true">Versand nach Backend-Freigabe</button>
-        <p id="preview-note" class="mt-4 text-xs leading-5 text-slate-500">Preview: Kein Lead wird verworfen oder als erfolgreich angenommen, solange das persistente Backend nicht verifiziert ist.</p>
-      </form>
-
-      <aside class="rounded-2xl border border-slate-200 bg-slate-50 p-6 sm:p-8">
-        <h2 class="text-xl font-extrabold text-primary">Direkte Kontaktwege</h2>
-        <p class="mt-3 leading-7 text-slate-600">Telefon-, E-Mail- und WhatsApp-Daten werden vor dem Produktionsstart aus der owner-bestätigten kanonischen Unternehmensquelle eingesetzt und Ende-zu-Ende getestet.</p>
       </aside>
     </div>
   </section>
