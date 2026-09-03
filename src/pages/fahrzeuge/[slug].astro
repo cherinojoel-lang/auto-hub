@@ -1,0 +1,63 @@
+---
+import PublicLayout from '@/layouts/PublicLayout.astro';
+import { vehiclesData } from '@/data/vehiclesData.generated';
+
+const slug = Astro.params.slug ?? '';
+const vehicle = vehiclesData.find((item) => item.id === slug && item.status === 'available');
+
+if (!vehicle) {
+  Astro.response.status = 404;
+}
+---
+
+<PublicLayout
+  title={vehicle ? `${vehicle.make} ${vehicle.model} | Automobile Quick` : 'Fahrzeug nicht gefunden | Automobile Quick'}
+  description={vehicle ? `${vehicle.title}. Fahrzeugdetail im nicht autoritativen Preview-Modus.` : 'Das angeforderte Fahrzeug wurde nicht gefunden.'}
+  canonicalPath={`/fahrzeuge/${slug}`}
+  noindex
+>
+  <section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    {vehicle ? (
+      <>
+        <div class="mb-6 rounded-xl border border-amber-300 bg-amber-50 px-5 py-4 text-sm leading-6 text-amber-950" role="status">
+          Preview-Modus: Diese Fahrzeugdaten sind noch nicht als autoritative Live-Daten freigegeben.
+        </div>
+        <div class="grid gap-10 lg:grid-cols-[1.15fr_.85fr]">
+          <div>
+            <img src={vehicle.mainImage} alt={vehicle.alt} class="aspect-[4/3] w-full rounded-2xl bg-white object-cover" />
+            {vehicle.gallery.length > 1 && (
+              <div class="mt-4 grid grid-cols-3 gap-3 sm:grid-cols-4">
+                {vehicle.gallery.slice(1, 9).map((image, index) => (
+                  <img src={image} alt={`${vehicle.make} ${vehicle.model} Ansicht ${index + 2}`} class="aspect-[4/3] w-full rounded-xl object-cover" loading="lazy" />
+                ))}
+              </div>
+            )}
+          </div>
+
+          <article class="self-start rounded-2xl bg-white p-6 shadow-sm sm:p-8">
+            <p class="text-sm font-bold uppercase tracking-[0.15em] text-secondary">{vehicle.make}</p>
+            <h1 class="mt-2 text-3xl font-black leading-tight text-primary">{vehicle.title}</h1>
+            <p class="mt-5 text-3xl font-black text-primary">{vehicle.price}</p>
+            <dl class="mt-7 grid grid-cols-2 gap-x-6 gap-y-5 border-y border-slate-200 py-6 text-sm">
+              <div><dt class="font-semibold text-slate-500">Erstzulassung</dt><dd class="mt-1 font-bold text-primary">{vehicle.firstRegistration}</dd></div>
+              <div><dt class="font-semibold text-slate-500">Laufleistung</dt><dd class="mt-1 font-bold text-primary">{vehicle.mileage}</dd></div>
+              <div><dt class="font-semibold text-slate-500">Leistung</dt><dd class="mt-1 font-bold text-primary">{vehicle.power}</dd></div>
+              <div><dt class="font-semibold text-slate-500">Kraftstoff</dt><dd class="mt-1 font-bold text-primary">{vehicle.fuel}</dd></div>
+            </dl>
+            <div class="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+              <a href={`/kontakt?vehicle_id=${encodeURIComponent(vehicle.id)}`} class="btn-premium-secondary">Zum Fahrzeug anfragen</a>
+              <a href="/finanzierung" class="btn-premium-primary">Finanzierung</a>
+            </div>
+            <p class="mt-5 text-xs leading-5 text-slate-500">Eine Anfrage ist kein Kaufvertrag und keine verbindliche Reservierung.</p>
+          </article>
+        </div>
+      </>
+    ) : (
+      <div class="mx-auto max-w-2xl py-20 text-center">
+        <h1 class="text-3xl font-black text-primary">Fahrzeug nicht gefunden</h1>
+        <p class="mt-4 text-slate-600">Der Eintrag ist nicht verfügbar oder wurde aus dem Preview-Bestand entfernt.</p>
+        <a href="/fahrzeuge/" class="btn-premium-primary mt-8">Zur Fahrzeugübersicht</a>
+      </div>
+    )}
+  </section>
+</PublicLayout>
