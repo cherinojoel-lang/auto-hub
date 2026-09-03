@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { Phone, MessageCircle, Mail, Clock } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
+import { submitLead } from '@/lib/lead-client';
 
 function isBusinessOpen() {
   const now = new Date();
@@ -82,6 +83,7 @@ export default function ContactSection() {
   const [formErrors, setFormErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const mapRef = useRef<HTMLDivElement>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
 
@@ -132,21 +134,31 @@ export default function ContactSection() {
     }
 
     setIsSubmitting(true);
+    setSubmitError(null);
 
     try {
       console.log('Submitting form...');
-      // Simulate form submission
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const res = await submitLead({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone || undefined,
+        message: formData.message || undefined,
+        intent: 'general',
+      });
 
-      // Here you would normally send the data to your backend
-
-      setSubmitSuccess(true);
-      setFormData({ name: '', email: '', phone: '', message: '' });
-
-      // Reset success message after 3 seconds
-      setTimeout(() => setSubmitSuccess(false), 3000);
+      if (res.success) {
+        setSubmitSuccess(true);
+        setSubmitError(null);
+        setFormData({ name: '', email: '', phone: '', message: '' });
+        setTimeout(() => setSubmitSuccess(false), 5000);
+      } else {
+        setSubmitSuccess(false);
+        setSubmitError(res.error);
+      }
     } catch (error) {
       console.error('Form submission error:', error);
+      setSubmitSuccess(false);
+      setSubmitError('Ihre Anfrage konnte nicht übermittelt werden. Bitte rufen Sie uns direkt an: +49 (0) 2374 / 912912.');
     } finally {
       setIsSubmitting(false);
     }
@@ -166,16 +178,16 @@ export default function ContactSection() {
   const nextOpeningTime = getNextOpeningTime();
 
   return (
-    <section className="w-full bg-white py-20 px-6">
+    <section className="w-full bg-surface py-16 sm:py-20 px-4 sm:px-6">
       <div className="max-w-5xl mx-auto">
         {/* Two Column Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Left Column - Contact Information */}
           <div>
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">
+            <h2 className="text-3xl sm:text-4xl font-heading font-bold text-foreground mb-4">
               Kontaktieren Sie uns
             </h2>
-            <p className="text-base text-slate-500 mb-8">
+            <p className="text-base text-text-secondary mb-8">
               Wir beraten Sie persönlich und unverbindlich. Rufen Sie an, schreiben Sie per
               WhatsApp oder nutzen Sie unser Formular.
             </p>
@@ -183,18 +195,18 @@ export default function ContactSection() {
             {/* Contact Cards */}
             <div className="space-y-4">
               {/* Phone Card */}
-              <div className="bg-slate-50 rounded-3xl p-5 flex items-start gap-4 transition-transform duration-200 hover:-translate-y-1">
+              <div className="bg-white rounded-xl p-5 border border-border-line flex items-start gap-4 transition-transform duration-200 hover:-translate-y-0.5 shadow-sm">
                 <div className="flex-shrink-0">
-                  <Phone size={24} className="text-red-600" />
+                  <Phone size={24} className="text-secondary" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm text-slate-500 mb-1">Telefon</p>
-                  <p className="text-lg font-semibold text-slate-900 mb-2">
+                  <p className="text-xs text-text-secondary mb-1">Telefon</p>
+                  <p className="text-base sm:text-lg font-bold text-foreground mb-1">
                     +49 (0) 2374 / 912912
                   </p>
                   <a
                     href="tel:+492374912912"
-                    className="text-sm font-medium text-red-600 hover:text-red-700 transition-colors"
+                    className="text-sm font-bold text-secondary hover:text-cta-hover transition-colors"
                   >
                     Jetzt anrufen
                   </a>
@@ -202,20 +214,20 @@ export default function ContactSection() {
               </div>
 
               {/* WhatsApp Card */}
-              <div className="bg-green-50 rounded-3xl p-5 flex items-start gap-4 transition-transform duration-200 hover:-translate-y-1">
+              <div className="bg-white rounded-xl p-5 border border-border-line flex items-start gap-4 transition-transform duration-200 hover:-translate-y-0.5 shadow-sm">
                 <div className="flex-shrink-0">
                   <MessageCircle size={24} className="text-green-600" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm text-slate-500 mb-1">WhatsApp</p>
-                  <p className="text-lg font-semibold text-slate-900 mb-2">
+                  <p className="text-xs text-text-secondary mb-1">WhatsApp</p>
+                  <p className="text-base sm:text-lg font-bold text-foreground mb-1">
                     Schnelle Antwort garantiert
                   </p>
                   <a
                     href="https://wa.me/492374912912?text=Hallo%20Automobile%20Quick,%20ich%20interessiere%20mich%20für%20ein%20Fahrzeug."
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm font-medium text-green-700 hover:text-green-800 transition-colors"
+                    className="text-sm font-bold text-green-700 hover:text-green-800 transition-colors"
                   >
                     Nachricht senden
                   </a>
@@ -223,18 +235,18 @@ export default function ContactSection() {
               </div>
 
               {/* Email Card */}
-              <div className="bg-slate-50 rounded-3xl p-5 flex items-start gap-4 transition-transform duration-200 hover:-translate-y-1">
+              <div className="bg-white rounded-xl p-5 border border-border-line flex items-start gap-4 transition-transform duration-200 hover:-translate-y-0.5 shadow-sm">
                 <div className="flex-shrink-0">
-                  <Mail size={24} className="text-slate-900" />
+                  <Mail size={24} className="text-primary" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm text-slate-500 mb-1">E-Mail</p>
-                  <p className="text-lg font-semibold text-slate-900 mb-2">
+                  <p className="text-xs text-text-secondary mb-1">E-Mail</p>
+                  <p className="text-base sm:text-lg font-bold text-foreground mb-1">
                     auto-quick@t-online.de
                   </p>
                   <a
                     href="mailto:auto-quick@t-online.de"
-                    className="text-sm font-medium text-slate-900 hover:text-slate-700 transition-colors"
+                    className="text-sm font-bold text-primary hover:underline transition-colors"
                   >
                     E-Mail schreiben
                   </a>
@@ -242,21 +254,21 @@ export default function ContactSection() {
               </div>
 
               {/* Opening Hours Card */}
-              <div className="bg-slate-50 rounded-3xl p-5 flex items-start gap-4 transition-transform duration-200 hover:-translate-y-1">
+              <div className="bg-white rounded-xl p-5 border border-border-line flex items-start gap-4 transition-transform duration-200 hover:-translate-y-0.5 shadow-sm">
                 <div className="flex-shrink-0">
-                  <Clock size={24} className="text-slate-900" />
+                  <Clock size={24} className="text-primary" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm text-slate-500 mb-1">Öffnungszeiten</p>
-                  <p className="text-sm text-slate-900 mb-1">Mo–Fr: 09:00 – 18:00</p>
-                  <p className="text-sm text-slate-900 mb-2">Sa: 09:00 – 13:00</p>
+                  <p className="text-xs text-text-secondary mb-1">Öffnungszeiten</p>
+                  <p className="text-sm font-medium text-foreground mb-1">Mo–Fr: 09:00 – 18:00</p>
+                  <p className="text-sm font-medium text-foreground mb-2">Sa: 09:00 – 13:00</p>
                   <div className="flex items-center gap-2">
                     <div
                       className={`w-2 h-2 rounded-full ${
                         isOpen ? 'bg-green-500' : 'bg-slate-400'
                       }`}
                     />
-                    <span className="text-sm font-medium text-slate-900">
+                    <span className="text-xs font-bold text-foreground">
                       {isOpen ? 'Jetzt geöffnet' : `Geschlossen — öffnet ${nextOpeningTime}`}
                     </span>
                   </div>
@@ -268,7 +280,7 @@ export default function ContactSection() {
           {/* Right Column - Map and Form */}
           <div>
             {/* Google Maps */}
-            <div ref={mapRef} className="mb-6 rounded-3xl overflow-hidden h-80">
+            <div ref={mapRef} className="mb-6 rounded-xl overflow-hidden h-72 border border-border-line shadow-sm">
               {mapLoaded && (
                 <iframe
                   width="100%"
@@ -289,24 +301,30 @@ export default function ContactSection() {
               href="https://www.google.com/maps/dir/?api=1&destination=Hagener+Str.+126a,+58642+Iserlohn"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full mb-8 px-6 py-3 bg-white border border-slate-200 text-slate-900 font-medium rounded-lg hover:bg-slate-50 transition-colors text-center"
+              className="block w-full mb-6 px-6 py-3 bg-white border border-border-line text-foreground font-bold rounded-md hover:bg-alt-bg transition-colors text-center text-sm shadow-sm"
             >
               Route berechnen
             </a>
 
             {/* Contact Form */}
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <h3 className="text-2xl font-semibold text-slate-900 mb-6">Schnellanfrage</h3>
+            <form onSubmit={handleSubmit} className="space-y-4 bg-white p-6 rounded-xl border border-border-line shadow-sm">
+              <h3 className="text-xl sm:text-2xl font-heading font-bold text-foreground mb-4">Schnellanfrage</h3>
 
               {submitSuccess && (
-                <div className="p-4 bg-green-50 border border-green-200 rounded-lg text-green-800 text-sm animate-fade-in">
-                  Vielen Dank! Wir werden uns in Kürze bei Ihnen melden.
+                <div role="status" className="p-4 bg-green-50 border border-green-200 rounded-md text-green-800 text-sm font-medium">
+                  Vielen Dank! Ihre Anfrage ist eingegangen. Wir melden uns schnellstmöglich bei Ihnen.
+                </div>
+              )}
+
+              {submitError && (
+                <div role="alert" className="p-4 bg-amber-50 border border-amber-300 rounded-md text-amber-900 text-sm font-medium">
+                  {submitError}
                 </div>
               )}
 
               {/* Name Field */}
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-2">
+                <label htmlFor="name" className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
                   Name *
                 </label>
                 <input
@@ -315,19 +333,19 @@ export default function ContactSection() {
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-red-600 transition-colors ${
-                    formErrors.name ? 'border-red-500' : 'border-slate-200'
+                  className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-colors text-sm ${
+                    formErrors.name ? 'border-red-500 bg-red-50/50' : 'border-border-line'
                   }`}
                   placeholder="Ihr Name"
                 />
                 {formErrors.name && (
-                  <p className="text-red-600 text-sm mt-1">{formErrors.name}</p>
+                  <p className="text-red-600 text-xs mt-1 font-medium">{formErrors.name}</p>
                 )}
               </div>
 
               {/* Email Field */}
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">
+                <label htmlFor="email" className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
                   E-Mail *
                 </label>
                 <input
@@ -336,19 +354,19 @@ export default function ContactSection() {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-red-600 transition-colors ${
-                    formErrors.email ? 'border-red-500' : 'border-slate-200'
+                  className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-colors text-sm ${
+                    formErrors.email ? 'border-red-500 bg-red-50/50' : 'border-border-line'
                   }`}
                   placeholder="ihre.email@example.com"
                 />
                 {formErrors.email && (
-                  <p className="text-red-600 text-sm mt-1">{formErrors.email}</p>
+                  <p className="text-red-600 text-xs mt-1 font-medium">{formErrors.email}</p>
                 )}
               </div>
 
               {/* Phone Field */}
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-slate-700 mb-2">
+                <label htmlFor="phone" className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
                   Telefon
                 </label>
                 <input
@@ -357,14 +375,14 @@ export default function ContactSection() {
                   name="phone"
                   value={formData.phone}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:border-red-600 transition-colors"
-                  placeholder="+49 (0) 123 / 456789"
+                  className="w-full px-4 py-3 border border-border-line rounded-md focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-colors text-sm"
+                  placeholder="+49 (0) 2374 / 912912"
                 />
               </div>
 
               {/* Message Field */}
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-2">
+                <label htmlFor="message" className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
                   Nachricht
                 </label>
                 <textarea
@@ -373,8 +391,8 @@ export default function ContactSection() {
                   value={formData.message}
                   onChange={handleInputChange}
                   rows={4}
-                  className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:border-red-600 transition-colors resize-none"
-                  placeholder="Ihre Nachricht..."
+                  className="w-full px-4 py-3 border border-border-line rounded-md focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-colors text-sm resize-none"
+                  placeholder="Ihre Nachricht an uns..."
                 />
               </div>
 
@@ -382,15 +400,15 @@ export default function ContactSection() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full px-6 py-3 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full px-6 py-3.5 bg-secondary text-white font-bold rounded-md hover:bg-cta-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px] text-base"
               >
                 {isSubmitting ? 'Wird gesendet...' : 'Anfrage senden'}
               </button>
 
               {/* Privacy Notice */}
-              <p className="text-xs text-slate-500 text-center">
+              <p className="text-xs text-text-secondary text-center">
                 Mit dem Absenden stimmen Sie unserer{' '}
-                <a href="/datenschutz" className="text-slate-700 hover:text-slate-900 underline">
+                <a href="/datenschutz" className="text-primary hover:underline font-medium">
                   Datenschutzerklärung
                 </a>{' '}
                 zu.
