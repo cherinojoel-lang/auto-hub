@@ -1,6 +1,6 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import MobileFloatingActionBar from '../MobileFloatingActionBar';
 
 describe('MobileFloatingActionBar', () => {
@@ -18,7 +18,10 @@ describe('MobileFloatingActionBar', () => {
     );
   });
 
-  it('uses a contextual filter action instead of a redundant vehicles action on inventory', () => {
+  it('uses a contextual filter action that actually requests the inventory filter drawer', () => {
+    const openFilters = vi.fn();
+    window.addEventListener('aq:open-inventory-filters', openFilters);
+
     render(
       <MemoryRouter initialEntries={['/fahrzeugbestand']}>
         <MobileFloatingActionBar />
@@ -26,10 +29,12 @@ describe('MobileFloatingActionBar', () => {
     );
 
     expect(screen.queryByRole('link', { name: 'Fahrzeuge' })).not.toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Filter' })).toHaveAttribute(
-      'href',
-      '/fahrzeugbestand#main-content'
-    );
+
+    const filterButton = screen.getByRole('button', { name: 'Filter öffnen' });
+    fireEvent.click(filterButton);
+
+    expect(openFilters).toHaveBeenCalledTimes(1);
+    window.removeEventListener('aq:open-inventory-filters', openFilters);
   });
 
   it('stays hidden on vehicle detail pages because that page has its own CTA bar', () => {
