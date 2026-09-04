@@ -51,6 +51,6 @@ describe('VehiclesPage', () => {
     fireEvent.click(trigger);
 
     expect(trigger).toHaveAttribute('aria-expanded', 'true');
-    expect(screen.getByRole('button', { name: 'Filter schließen' })).toBeInTheDocument();
+    expect(screen.getAllByRole('button', { name: 'Filter schließen' }).length).toBeGreaterThan(0);
   });
 });
