@@ -18,23 +18,23 @@ describe('MobileFloatingActionBar', () => {
     );
   });
 
-  it('uses a contextual filter action that actually requests the inventory filter drawer', () => {
-    const openFilters = vi.fn();
-    window.addEventListener('aq:open-inventory-filters', openFilters);
+  it('uses a contextual filter action that opens the inventory filter trigger', () => {
+    const onOpen = vi.fn();
 
     render(
       <MemoryRouter initialEntries={['/fahrzeugbestand']}>
+        <button type="button" aria-controls="vehicle-filters" onClick={onOpen}>
+          Page filter trigger
+        </button>
         <MobileFloatingActionBar />
       </MemoryRouter>
     );
 
     expect(screen.queryByRole('link', { name: 'Fahrzeuge' })).not.toBeInTheDocument();
 
-    const filterButton = screen.getByRole('button', { name: 'Filter öffnen' });
-    fireEvent.click(filterButton);
+    fireEvent.click(screen.getByRole('button', { name: 'Filter öffnen' }));
 
-    expect(openFilters).toHaveBeenCalledTimes(1);
-    window.removeEventListener('aq:open-inventory-filters', openFilters);
+    expect(onOpen).toHaveBeenCalledTimes(1);
   });
 
   it('stays hidden on vehicle detail pages because that page has its own CTA bar', () => {
