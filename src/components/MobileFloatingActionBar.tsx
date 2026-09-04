@@ -11,6 +11,17 @@ export default function MobileFloatingActionBar() {
   const itemClass =
     'flex min-h-14 flex-1 flex-col items-center justify-center gap-1 text-xs font-bold transition-colors';
 
+  const openInventoryFilters = () => {
+    const trigger = document.querySelector<HTMLButtonElement>(
+      'button[aria-controls="vehicle-filters"]',
+    );
+
+    if (!trigger) return;
+
+    trigger.click();
+    trigger.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  };
+
   return (
     <nav
       className="fixed bottom-0 left-0 right-0 z-50 border-t border-border-line bg-white md:hidden"
@@ -51,14 +62,15 @@ export default function MobileFloatingActionBar() {
         </Link>
 
         {isInventoryPage ? (
-          <Link
-            to="/fahrzeugbestand#main-content"
+          <button
+            type="button"
+            onClick={openInventoryFilters}
             className={`${itemClass} text-primary`}
-            aria-label="Filter"
+            aria-label="Filter öffnen"
           >
             <Filter size={20} aria-hidden="true" />
             <span>Filter</span>
-          </Link>
+          </button>
         ) : (
           <Link
             to="/fahrzeugbestand"
