@@ -1,8 +1,7 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import VehiclesPage from '../VehiclesPage';
 import { BaseCrudService } from '@/integrations';
-import * as vehiclesDataModule from '@/data/vehiclesData.generated';
 import { vi } from 'vitest';
 
 vi.mock('@/integrations', () => ({
@@ -36,5 +35,22 @@ describe('VehiclesPage', () => {
     await waitFor(() => {
       expect(screen.getByText('Aktuelle Gebrauchtwagen in Iserlohn-Letmathe')).toBeInTheDocument();
     });
+  });
+
+  it('exposes a compact accessible mobile filter trigger', async () => {
+    render(
+      <BrowserRouter>
+        <VehiclesPage />
+      </BrowserRouter>
+    );
+
+    const trigger = await screen.findByRole('button', { name: 'Filter öffnen' });
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    expect(trigger).toHaveAttribute('aria-controls', 'vehicle-filters');
+
+    fireEvent.click(trigger);
+
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    expect(screen.getByRole('button', { name: 'Filter schließen' })).toBeInTheDocument();
   });
 });
