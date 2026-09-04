@@ -13,6 +13,16 @@
       "id": "4aaf6d82144f414aa070c03e06df8f8e"
     }
   ],
+  "routes": [
+    {
+      "pattern": "www.automobile-quick.de",
+      "custom_domain": true
+    },
+    {
+      "pattern": "automobile-quick.de",
+      "custom_domain": true
+    }
+  ],
   "secrets": {
     "required": [
       "SUPABASE_URL",
@@ -20,16 +30,5 @@
       "TURNSTILE_SITE_KEY",
       "TURNSTILE_SECRET_KEY"
     ]
-  },
-  "env": {
-    "preview": {
-      "name": "automobile-quick-preview",
-      "kv_namespaces": [
-        {
-          "binding": "SESSION",
-          "id": "4aaf6d82144f414aa070c03e06df8f8e"
-        }
-      ]
-    }
   }
 }
