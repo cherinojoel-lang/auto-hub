@@ -16,10 +16,7 @@ export default function MobileFloatingActionBar() {
       'button[aria-controls="vehicle-filters"]',
     );
 
-    if (!trigger) return;
-
-    trigger.click();
-    trigger.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    trigger?.click();
   };
 
   return (
