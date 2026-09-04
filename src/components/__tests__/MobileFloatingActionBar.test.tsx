@@ -18,6 +18,20 @@ describe('MobileFloatingActionBar', () => {
     );
   });
 
+  it('uses a contextual filter action instead of a redundant vehicles action on inventory', () => {
+    render(
+      <MemoryRouter initialEntries={['/fahrzeugbestand']}>
+        <MobileFloatingActionBar />
+      </MemoryRouter>
+    );
+
+    expect(screen.queryByRole('link', { name: 'Fahrzeuge' })).not.toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Filter' })).toHaveAttribute(
+      'href',
+      '/fahrzeugbestand#main-content'
+    );
+  });
+
   it('stays hidden on vehicle detail pages because that page has its own CTA bar', () => {
     render(
       <MemoryRouter initialEntries={['/fahrzeugdetail/bmw-320d']}>
