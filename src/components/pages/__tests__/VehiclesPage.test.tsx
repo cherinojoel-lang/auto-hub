@@ -53,4 +53,23 @@ describe('VehiclesPage', () => {
     expect(trigger).toHaveAttribute('aria-expanded', 'true');
     expect(screen.getAllByRole('button', { name: 'Filter schließen' }).length).toBeGreaterThan(0);
   });
+
+  it('opens the mobile filter drawer when the global quick-action requests it', async () => {
+    render(
+      <BrowserRouter>
+        <VehiclesPage />
+      </BrowserRouter>
+    );
+
+    expect(await screen.findByRole('button', { name: 'Filter öffnen' })).toHaveAttribute(
+      'aria-expanded',
+      'false'
+    );
+
+    window.dispatchEvent(new Event('aq:open-inventory-filters'));
+
+    await waitFor(() => {
+      expect(screen.getAllByRole('button', { name: 'Filter schließen' }).length).toBeGreaterThan(0);
+    });
+  });
 });
