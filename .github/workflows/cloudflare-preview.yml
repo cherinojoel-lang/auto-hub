@@ -1,6 +1,7 @@
 name: Cloudflare Preview
 
-# Repository secrets are evaluated on each newly queued workflow run.
+# Every feature-branch push is verified first, then uploaded as a non-production
+# version of the canonical Automobile Quick Worker. No production deployment occurs.
 on:
   push:
     branches:
@@ -12,13 +13,12 @@ permissions:
 
 jobs:
   preview:
-    name: Upload non-production Worker preview
+    name: Verify and upload owner-review preview
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
 
     steps:
       - name: Checkout
@@ -41,18 +41,11 @@ jobs:
       - name: Build Astro Worker
         run: npm run build
 
-      - name: Verify secret context diagnostics
-        shell: bash
-        run: |
-          test -n "$GEMINI_API_KEY" && echo "GEMINI_API_KEY is available" || echo "GEMINI_API_KEY is unavailable"
-          test -n "$CLOUDFLARE_API_TOKEN" && echo "CLOUDFLARE_API_TOKEN is available" || echo "CLOUDFLARE_API_TOKEN is unavailable"
-          test -n "$CLOUDFLARE_ACCOUNT_ID" && echo "CLOUDFLARE_ACCOUNT_ID is available" || echo "CLOUDFLARE_ACCOUNT_ID is unavailable"
-
       - name: Verify Cloudflare credentials are configured
         shell: bash
         run: |
           test -n "$CLOUDFLARE_API_TOKEN" || { echo "CLOUDFLARE_API_TOKEN is not configured"; exit 1; }
           test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "CLOUDFLARE_ACCOUNT_ID is not configured"; exit 1; }
 
-      - name: Upload preview version only
-        run: npx wrangler versions upload --config dist/server/wrangler.json --preview-alias aq-preview
+      - name: Upload owner-review preview version only
+        run: npx wrangler versions upload --config dist/server/wrangler.json --preview-alias owner-review
