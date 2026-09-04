@@ -23,8 +23,19 @@ const SECURITY_HEADERS: Record<string, string> = {
 };
 
 const IMMUTABLE_ASSET_PATTERN = /^\/(?:_astro\/|.*\.(?:avif|webp|jpe?g|png|svg|gif|ico|woff2?)(?:$|\?))/i;
+const CANONICAL_HOST = 'www.automobile-quick.de';
+const APEX_HOST = 'automobile-quick.de';
 
 export const onRequest: MiddlewareHandler = async ({ url }, next) => {
+  // Preserve the long-established www host as the single production canonical.
+  // workers.dev preview hosts are intentionally unaffected.
+  if (url.hostname.toLowerCase() === APEX_HOST) {
+    const canonicalUrl = new URL(url);
+    canonicalUrl.hostname = CANONICAL_HOST;
+    canonicalUrl.protocol = 'https:';
+    return Response.redirect(canonicalUrl.toString(), 308);
+  }
+
   const response = await next();
 
   for (const [name, value] of Object.entries(SECURITY_HEADERS)) {
