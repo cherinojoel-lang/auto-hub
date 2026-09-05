@@ -95,6 +95,7 @@ export default function ContactSection() {
       (entries) => {
         if (entries[0].isIntersecting && !mapLoaded) {
           setMapLoaded(true);
+          observer.unobserve(entries[0].target);
         }
       },
       { threshold: 0.1 }
