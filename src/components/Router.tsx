@@ -17,7 +17,7 @@ const PrivacyPage = React.lazy(() => import('@/components/pages/PrivacyPage'));
 const BlogPage = React.lazy(() => import('@/components/pages/BlogPage'));
 const BlogDetailPage = React.lazy(() => import('@/components/pages/BlogDetailPage'));
 
-const router = createBrowserRouter([
+export const routes = [
   {
     path: "/",
     element: <Layout />,
@@ -161,11 +161,21 @@ const router = createBrowserRouter([
       },
     ],
   },
-], {
-  basename: import.meta.env.BASE_NAME,
-});
+];
+
+let routerInstance: ReturnType<typeof createBrowserRouter> | null = null;
+export function getRouter() {
+  if (!routerInstance && typeof window !== "undefined") {
+    routerInstance = createBrowserRouter(routes, {
+      basename: import.meta.env.BASE_NAME,
+    });
+  }
+  return routerInstance;
+}
 
 export default function AppRouter() {
+  const router = getRouter();
+  if (!router) return null;
   return (
     <RouterProvider router={router} />
   );

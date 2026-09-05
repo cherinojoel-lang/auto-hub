@@ -58,3 +58,8 @@ coverage/
 
 # Local session reports / screenshots (lokal, nicht versionieren)
 reports/
+
+# Cloudflare local secrets & CLI
+.dev.vars
+.omg/
+
