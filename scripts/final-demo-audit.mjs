@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const REPO_ROOT = '/Users/joelcherinodiaz/Developer/Playground/auto-hub-work';
+const REPO_ROOT = process.cwd();
 const DATA_FILE = path.join(REPO_ROOT, 'src/data/vehiclesData.generated.ts');
 
 async function finalAudit() {

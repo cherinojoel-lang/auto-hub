@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-rc1] - 2026-09-05
+### Added
+- Pre-production hardening complete (PR #635).
+- 31/31 mobile.de active inventory parity verified; 16 sold vehicles archived.
+- 649 WebP gallery images mapped and validated without broken links.
+- Cloudflare preview live at https://owner-review-automobile-quick-preview.hsb-boden.workers.dev.
+
 ## [Unreleased] - 2026-05-15 to 2026-05-21
 
 ### 🚀 Features & Enhancements

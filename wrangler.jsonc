@@ -3,11 +3,32 @@
   "name": "automobile-quick",
   "compatibility_date": "2026-05-31",
   "compatibility_flags": ["nodejs_compat"],
+  "preview_urls": true,
   "observability": {
     "enabled": true
   },
-  "vars": {
-    "PUBLIC_CLARITY_ID": "vsc7jd9d94",
-    "PUBLIC_GSC_VERIFICATION": "nirROusqBNxCLF7xk8jC0pqhCmu9YNd5f9P9-tj_NPw"
+  "kv_namespaces": [
+    {
+      "binding": "SESSION",
+      "id": "4aaf6d82144f414aa070c03e06df8f8e"
+    }
+  ],
+  "routes": [
+    {
+      "pattern": "www.automobile-quick.de",
+      "custom_domain": true
+    },
+    {
+      "pattern": "automobile-quick.de",
+      "custom_domain": true
+    }
+  ],
+  "secrets": {
+    "required": [
+      "SUPABASE_URL",
+      "SUPABASE_SECRET_KEY",
+      "TURNSTILE_SITE_KEY",
+      "TURNSTILE_SECRET_KEY"
+    ]
   }
 }

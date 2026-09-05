@@ -1,6 +1,6 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import MobileFloatingActionBar from '../MobileFloatingActionBar';
 
 describe('MobileFloatingActionBar', () => {
@@ -16,6 +16,25 @@ describe('MobileFloatingActionBar', () => {
       'href',
       expect.stringContaining('https://wa.me/492374912912')
     );
+  });
+
+  it('uses a contextual filter action that opens the inventory filter trigger', () => {
+    const onOpen = vi.fn();
+
+    render(
+      <MemoryRouter initialEntries={['/fahrzeugbestand']}>
+        <button type="button" aria-controls="vehicle-filters" onClick={onOpen}>
+          Page filter trigger
+        </button>
+        <MobileFloatingActionBar />
+      </MemoryRouter>
+    );
+
+    expect(screen.queryByRole('link', { name: 'Fahrzeuge' })).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Filter öffnen' }));
+
+    expect(onOpen).toHaveBeenCalledTimes(1);
   });
 
   it('stays hidden on vehicle detail pages because that page has its own CTA bar', () => {

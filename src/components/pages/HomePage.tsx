@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight, MapPin, Phone, Award, Users, Calendar, ShieldCheck, Car } from 'lucide-react';
-import { Image } from '@/components/ui/image';
 import { updateMetaTags, getStructuredDataOrganization } from '@/lib/seo';
 import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, generateBusinessSchema, SITE_CONFIG } from '@/lib/seo-config';
@@ -104,15 +103,20 @@ export default function HomePage() {
       <section className="relative w-full min-h-[calc(100svh-64px)] lg:min-h-[calc(100svh-72px)] flex items-center justify-center overflow-hidden" role="banner" aria-label="Automobile Quick - Gebrauchtwagen in Iserlohn-Letmathe">
         {/* Background Image with Dark Overlay Gradient */}
         <div className="absolute inset-0 z-0">
-          <Image 
-            src="/images/hero-bg.jpg"
-            alt="Automobile Quick Autohaus - Gebrauchtwagen in Iserlohn-Letmathe seit 1982" 
-            className="w-full h-full object-cover object-center"
-            width={1600}
-            height={900}
-            loading="eager"
-            fetchPriority="high"
-          />
+          <picture className="w-full h-full block">
+            <source media="(max-width: 768px)" srcSet="/images/hero-bg-mobile.webp" type="image/webp" />
+            <source media="(min-width: 769px)" srcSet="/images/hero-bg.webp" type="image/webp" />
+            <img 
+              src="/images/hero-bg.webp"
+              alt="Automobile Quick Autohaus - Gebrauchtwagen in Iserlohn-Letmathe seit 1982" 
+              className="w-full h-full object-cover object-center"
+              width={1600}
+              height={900}
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+            />
+          </picture>
           <div className="absolute inset-0 bg-primary/75"></div>
         </div>
 
@@ -227,8 +231,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ... keep existing code (SEARCH SECTION removed for lead-focused homepage) ... */}
-
       {/* VEHICLE INVENTORY SECTION */}
       <VehicleInventorySection />
 
@@ -236,42 +238,35 @@ export default function HomePage() {
       <HowItWorksSection />
 
       {/* TRUST BAR */}
-      <section className="bg-primary text-white border-b border-white/10 py-8 sm:py-12">
+      <section className="bg-primary text-white border-b border-white/10 py-10 sm:py-14">
         <div className="container mx-auto px-4 max-w-7xl">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8 text-center">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 text-center">
             <AnimatedElement delay={0}>
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center p-3">
                 <MapPin size={32} className="text-secondary mb-3" />
-                <p className="text-base font-bold text-white mb-1">Lokal vor Ort</p>
-                <p className="text-xs text-white/70">Iserlohn-Letmathe</p>
+                <p className="text-base sm:text-lg font-bold text-white mb-1">Lokal vor Ort</p>
+                <p className="text-xs sm:text-sm text-white/70">Hagener Str. 126a, Iserlohn</p>
               </div>
             </AnimatedElement>
             <AnimatedElement delay={100}>
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center p-3">
                 <ShieldCheck size={32} className="text-secondary mb-3" />
-                <p className="text-base font-bold text-white mb-1">Geprüfte</p>
-                <p className="text-xs text-white/70">Fahrzeuge</p>
+                <p className="text-base sm:text-lg font-bold text-white mb-1">Werkstattgeprüft</p>
+                <p className="text-xs sm:text-sm text-white/70">Jedes Fahrzeug gründlich inspiziert</p>
               </div>
             </AnimatedElement>
             <AnimatedElement delay={200}>
-              <div className="flex flex-col items-center">
-                <p className="text-3xl sm:text-4xl font-bold text-white mb-2">Seit 1982</p>
-                <p className="text-base font-bold text-white mb-1">Jahre</p>
-                <p className="text-xs text-white/70">Erfahrung</p>
+              <div className="flex flex-col items-center p-3">
+                <Calendar size={32} className="text-secondary mb-3" />
+                <p className="text-base sm:text-lg font-bold text-white mb-1">Seit 1982</p>
+                <p className="text-xs sm:text-sm text-white/70">Über 40 Jahre Erfahrung</p>
               </div>
             </AnimatedElement>
             <AnimatedElement delay={300}>
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center p-3">
                 <Users size={32} className="text-secondary mb-3" />
-                <p className="text-base font-bold text-white mb-1">Persönliche</p>
-                <p className="text-xs text-white/70">Beratung</p>
-              </div>
-            </AnimatedElement>
-            <AnimatedElement delay={400}>
-              <div className="flex flex-col items-center">
-                <Award size={32} className="text-secondary mb-3" />
-                <p className="text-base font-bold text-white mb-1">Geprüfte</p>
-                <p className="text-xs text-white/70">Fahrzeuge</p>
+                <p className="text-base sm:text-lg font-bold text-white mb-1">Persönliche Beratung</p>
+                <p className="text-xs sm:text-sm text-white/70">Inhabergeführt & verlässlich</p>
               </div>
             </AnimatedElement>
           </div>
@@ -282,28 +277,46 @@ export default function HomePage() {
       <TestimonialsSection />
 
       {/* ABOUT SECTION */}
-      <section className="py-12 sm:py-16 md:py-20 bg-surface">
+      <section className="py-14 sm:py-20 bg-surface">
         <div className="container mx-auto px-4 max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-10">
+          <div className="text-center mb-12">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-secondary mb-2">Automobile Quick</p>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-foreground">
+              Ihr Partner für gute Gebrauchtwagen in Iserlohn-Letmathe
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
             <AnimatedElement direction="left">
-              <div className="bg-white p-8 sm:p-10 rounded-md border border-border-line border-l-4 border-l-secondary h-full">
-                <Award size={44} className="mb-6 text-secondary" />
-                <h3 className="text-xl sm:text-2xl font-heading font-bold mb-4 text-primary">Geprüfte Fahrzeuge</h3>
-                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">Alle Fahrzeuge werden sorgfältig geprüft und inspiziert, um höchste Qualitätsstandards zu gewährleisten.</p>
+              <div className="bg-white p-8 rounded-xl border border-border-line shadow-sm h-full flex flex-col justify-between">
+                <div>
+                  <Award size={36} className="mb-4 text-secondary" />
+                  <h3 className="text-lg sm:text-xl font-heading font-bold mb-3 text-primary">Unabhängig & Fair</h3>
+                  <p className="text-sm text-text-secondary leading-relaxed">
+                    Als freier Händler ohne Bindung an einzelne Hersteller bieten wir geprüfte Fahrzeuge zu marktgerechten Konditionen ohne unnötige Aufschläge.
+                  </p>
+                </div>
               </div>
             </AnimatedElement>
             <AnimatedElement direction="up" delay={100}>
-              <div className="bg-white p-8 sm:p-10 rounded-md border border-border-line border-l-4 border-l-secondary h-full">
-                <Users size={44} className="mb-6 text-secondary" />
-                <h3 className="text-xl sm:text-2xl font-heading font-bold mb-4 text-primary">Persönliche Beratung</h3>
-                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">Unser erfahrenes Team berät Sie kompetent und fair – ganz nach Ihren individuellen Wünschen und Anforderungen.</p>
+              <div className="bg-white p-8 rounded-xl border border-border-line shadow-sm h-full flex flex-col justify-between">
+                <div>
+                  <ShieldCheck size={36} className="mb-4 text-secondary" />
+                  <h3 className="text-lg sm:text-xl font-heading font-bold mb-3 text-primary">Geprüfte Qualität</h3>
+                  <p className="text-sm text-text-secondary leading-relaxed">
+                    Sorgfältige Durchsicht vor Übergabe. Echte Fahrzeugbilder, transparente Historie und verlässliche Angaben zeichnen unseren Bestand aus.
+                  </p>
+                </div>
               </div>
             </AnimatedElement>
             <AnimatedElement direction="right" delay={200}>
-              <div className="bg-white p-8 sm:p-10 rounded-md border border-border-line border-l-4 border-l-secondary h-full">
-                <Award size={44} className="mb-6 text-secondary" />
-                <h3 className="text-xl sm:text-2xl font-heading font-bold mb-4 text-primary">Seit 1982</h3>
-                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">Ein verlässlicher Partner für hochwertige Gebrauchtwagen in Iserlohn-Letmathe und der Region.</p>
+              <div className="bg-white p-8 rounded-xl border border-border-line shadow-sm h-full flex flex-col justify-between">
+                <div>
+                  <Users size={36} className="mb-4 text-secondary" />
+                  <h3 className="text-lg sm:text-xl font-heading font-bold mb-3 text-primary">Ehrlicher Kontakt</h3>
+                  <p className="text-sm text-text-secondary leading-relaxed">
+                    Von der ersten Besichtigung bis zur Zulassung sind wir Ihr verlässlicher Partner für hochwertige Gebrauchtwagen in Iserlohn-Letmathe und der Region – seit 1982.
+                  </p>
+                </div>
               </div>
             </AnimatedElement>
           </div>
@@ -314,7 +327,7 @@ export default function HomePage() {
       <section className="py-12 sm:py-16 md:py-20 bg-surface">
         <div className="container mx-auto px-4 max-w-7xl">
           <AnimatedElement>
-            <div className="bg-primary rounded-md p-10 sm:p-14 md:p-16 text-center text-white border-b-4 border-secondary">
+            <div className="bg-primary rounded-xl p-10 sm:p-14 md:p-16 text-center text-white border-b-4 border-secondary shadow-sm">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold mb-6 sm:mb-8">
                 Sie möchten Ihr Auto verkaufen?
               </h2>
@@ -337,12 +350,12 @@ export default function HomePage() {
       <section className="py-12 sm:py-16 md:py-20 bg-surface">
         <div className="container mx-auto px-4 max-w-7xl">
           <AnimatedElement>
-            <div className="bg-white rounded-md p-10 sm:p-14 md:p-16 text-center border border-border-line border-b-4 border-b-secondary">
+            <div className="bg-white rounded-xl p-10 sm:p-14 md:p-16 text-center border border-border-line border-b-4 border-b-secondary shadow-sm">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-primary mb-6 sm:mb-8">
                 Flexible Finanzierungslösungen
               </h2>
-              <p className="text-base sm:text-lg text-gray-600 mb-10 sm:mb-12 max-w-2xl mx-auto leading-relaxed">
-                Wir bieten attraktive Finanzierungsmöglichkeiten für Ihren Traumwagen. Lassen Sie sich von unserem Team beraten.
+              <p className="text-base sm:text-lg text-text-secondary mb-10 sm:mb-12 max-w-2xl mx-auto leading-relaxed">
+                Wir bieten attraktive Finanzierungsmöglichkeiten für Ihren Gebrauchtwagen. Lassen Sie sich von unserem Team beraten.
               </p>
               <Link
                 to="/finanzierung"
@@ -356,11 +369,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CONTACT SECTION - NEW REDESIGNED CONTACT SECTION */}
+      {/* CONTACT SECTION */}
       <ContactSection />
-
-      {/* ... keep existing code (old CONTACT & LOCATION SECTION removed) ... */}
-
-     </div>
+    </div>
   );
 }

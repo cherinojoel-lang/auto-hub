@@ -66,7 +66,7 @@ export default function AboutPage() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-background font-paragraph text-foreground">
       <SeoHead 
         title={PAGE_METADATA.about.title}
         description={PAGE_METADATA.about.description}
@@ -77,40 +77,32 @@ export default function AboutPage() {
       </a>
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-accent via-accent to-primary/20 text-background py-20 md:py-28 overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px)',
-              backgroundSize: '30px 30px',
-            }}
-          />
-        </div>
-        <div className="container mx-auto px-4 relative z-10">
+      <section className="relative bg-primary text-white py-16 md:py-24 overflow-hidden">
+        <div className="container mx-auto px-4 relative z-10 max-w-4xl text-center">
           <AnimatedElement>
-            <div className="max-w-3xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6">
-                Über uns
-              </h1>
-              <p className="text-xl md:text-2xl text-background/90">
-                Ihr vertrauensvoller Partner für hochwertige Gebrauchtwagen in Iserlohn-Letmathe
-              </p>
-            </div>
+            <p className="text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-secondary mb-3">
+              Automobile Quick · Iserlohn-Letmathe
+            </p>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-4">
+              Über uns
+            </h1>
+            <p className="text-base sm:text-lg md:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
+              Ihr vertrauensvoller Partner für hochwertige Gebrauchtwagen in Iserlohn-Letmathe seit 1982.
+            </p>
           </AnimatedElement>
         </div>
       </section>
 
       {/* Mission Section */}
-      <section className="py-20 bg-gradient-to-b from-background to-secondary/5">
+      <section className="py-16 md:py-20 bg-surface" id="main-content">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <AnimatedElement>
-              <div className="bg-background rounded-3xl p-8 md:p-12 shadow-lg border border-border/50">
-                <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-6 text-center">
+              <div className="bg-white rounded-xl p-8 md:p-12 shadow-sm border border-border-line">
+                <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-6 text-center">
                   Automobile Quick in Iserlohn-Letmathe
                 </h2>
-                <div className="space-y-6 text-lg text-foreground/80 leading-relaxed">
+                <div className="space-y-6 text-base text-text-secondary leading-relaxed">
                   <p>
                     Unser tägliches Ziel ist es, unseren Kunden möglichst viel Auto für einen fairen Preis anzubieten. 
                     Dieses Ziel realisieren wir durch Vertragsungebundenheit und somit einer enormen Fixkostenersparnis 
@@ -118,13 +110,13 @@ export default function AboutPage() {
                   </p>
                   <p>
                     Neben unserem Preiskonzept streben wir mit jedem Kunden eine langfristige Zusammenarbeit an und sind 
-                    daran interessiert, Sie vollumfänglich fair und in Ihrem eigenem Interesse gut zu beraten.
+                    daran interessiert, Sie vollumfänglich fair und in Ihrem eigenen Interesse gut zu beraten.
                   </p>
-                  <div className="bg-primary/5 rounded-2xl p-6 border-l-4 border-primary mt-8">
-                    <p className="text-xl font-heading font-bold text-primary mb-2">
+                  <div className="bg-alt-bg rounded-lg p-6 border-l-4 border-secondary mt-8">
+                    <p className="text-lg font-heading font-bold text-primary mb-2">
                       Wir sind für Sie da!
                     </p>
-                    <p className="text-foreground/80">
+                    <p className="text-foreground text-sm leading-relaxed">
                       In jedem Fall: Wir freuen uns sehr, Sie persönlich kennen zu lernen und in unserem Geschäft begrüßen zu dürfen!
                     </p>
                   </div>
@@ -136,58 +128,58 @@ export default function AboutPage() {
       </section>
 
       {/* Values Section */}
-      <section className="py-20 bg-secondary/5">
+      <section className="py-16 md:py-20 bg-background">
         <div className="container mx-auto px-4">
           <AnimatedElement>
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-4">
+              <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-3">
                 Unsere Werte
               </h2>
-              <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
-                Was uns auszeichnet und warum Kunden uns vertrauen
+              <p className="text-base text-text-secondary max-w-2xl mx-auto">
+                Was uns auszeichnet und warum Kunden uns seit 1982 vertrauen
               </p>
             </div>
           </AnimatedElement>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-5xl mx-auto">
             <AnimatedElement delay={100}>
-              <div className="bg-background rounded-2xl p-8 shadow-lg border border-border/50 hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
-                  <Award className="text-primary" size={32} />
+              <div className="bg-white rounded-xl p-8 shadow-sm border border-border-line h-full flex flex-col items-start">
+                <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mb-6 text-secondary">
+                  <Award size={28} />
                 </div>
-                <h3 className="text-xl font-heading font-bold text-foreground mb-3">
+                <h3 className="text-lg font-heading font-bold text-foreground mb-3">
                   Faire Preise
                 </h3>
-                <p className="text-foreground/70 leading-relaxed">
+                <p className="text-text-secondary text-sm leading-relaxed">
                   Durch Vertragsungebundenheit können wir Ihnen erstklassige Fahrzeuge zu besonders fairen Konditionen anbieten.
                 </p>
               </div>
             </AnimatedElement>
 
             <AnimatedElement delay={200}>
-              <div className="bg-background rounded-2xl p-8 shadow-lg border border-border/50 hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
-                  <Users className="text-primary" size={32} />
+              <div className="bg-white rounded-xl p-8 shadow-sm border border-border-line h-full flex flex-col items-start">
+                <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mb-6 text-secondary">
+                  <Users size={28} />
                 </div>
-                <h3 className="text-xl font-heading font-bold text-foreground mb-3">
+                <h3 className="text-lg font-heading font-bold text-foreground mb-3">
                   Persönliche Beratung
                 </h3>
-                <p className="text-foreground/70 leading-relaxed">
+                <p className="text-text-secondary text-sm leading-relaxed">
                   Wir nehmen uns Zeit für Sie und beraten Sie umfassend, fair und in Ihrem eigenen Interesse.
                 </p>
               </div>
             </AnimatedElement>
 
             <AnimatedElement delay={300}>
-              <div className="bg-background rounded-2xl p-8 shadow-lg border border-border/50 hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
-                  <Target className="text-primary" size={32} />
+              <div className="bg-white rounded-xl p-8 shadow-sm border border-border-line h-full flex flex-col items-start">
+                <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mb-6 text-secondary">
+                  <Target size={28} />
                 </div>
-                <h3 className="text-xl font-heading font-bold text-foreground mb-3">
+                <h3 className="text-lg font-heading font-bold text-foreground mb-3">
                   Langfristige Partnerschaft
                 </h3>
-                <p className="text-foreground/70 leading-relaxed">
-                  Wir streben mit jedem Kunden eine langfristige Zusammenarbeit an, die auf Vertrauen basiert.
+                <p className="text-text-secondary text-sm leading-relaxed">
+                  Wir streben mit jedem Kunden eine langfristige Zusammenarbeit an, die auf gegenseitigem Vertrauen basiert.
                 </p>
               </div>
             </AnimatedElement>
@@ -196,15 +188,15 @@ export default function AboutPage() {
       </section>
 
       {/* Location Section */}
-      <section className="py-20 bg-gradient-to-b from-background to-secondary/5">
+      <section className="py-16 md:py-20 bg-surface">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
             <AnimatedElement>
               <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-4">
+                <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-3">
                   Besuchen Sie uns
                 </h2>
-                <p className="text-lg text-foreground/70">
+                <p className="text-base text-text-secondary">
                   Wir freuen uns auf Ihren Besuch in Iserlohn-Letmathe
                 </p>
               </div>
@@ -212,27 +204,31 @@ export default function AboutPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <AnimatedElement delay={100}>
-                <div className="bg-background rounded-2xl p-8 shadow-lg border border-border/50">
-                  <h3 className="text-2xl font-heading font-bold text-foreground mb-6">
+                <div className="bg-white rounded-xl p-8 shadow-sm border border-border-line h-full">
+                  <h3 className="text-xl font-heading font-bold text-foreground mb-6">
                     Kontaktinformationen
                   </h3>
                   <div className="space-y-4">
                     <div className="flex items-start gap-4">
-                      <MapPin className="text-primary flex-shrink-0 mt-1" size={24} />
+                      <div className="w-10 h-10 bg-secondary/10 text-secondary rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <MapPin size={20} />
+                      </div>
                       <div>
-                        <p className="font-medium text-foreground">Adresse</p>
-                        <p className="text-foreground/70">Hagener Str. 126a</p>
-                        <p className="text-foreground/70">58642 Iserlohn</p>
+                        <p className="font-bold text-foreground text-sm">Adresse</p>
+                        <p className="text-text-secondary text-sm">Hagener Str. 126a</p>
+                        <p className="text-text-secondary text-sm">58642 Iserlohn-Letmathe</p>
                       </div>
                     </div>
 
                     <div className="flex items-start gap-4">
-                      <Phone className="text-primary flex-shrink-0 mt-1" size={24} />
+                      <div className="w-10 h-10 bg-secondary/10 text-secondary rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Phone size={20} />
+                      </div>
                       <div>
-                        <p className="font-medium text-foreground">Telefon</p>
+                        <p className="font-bold text-foreground text-sm">Telefon</p>
                         <a 
                           href="tel:+492374912912"
-                          className="text-foreground/70 hover:text-primary transition-colors"
+                          className="text-text-secondary hover:text-primary transition-colors text-sm"
                         >
                           +49 (0) 2374 / 912912
                         </a>
@@ -240,12 +236,14 @@ export default function AboutPage() {
                     </div>
 
                     <div className="flex items-start gap-4">
-                      <Mail className="text-primary flex-shrink-0 mt-1" size={24} />
+                      <div className="w-10 h-10 bg-secondary/10 text-secondary rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Mail size={20} />
+                      </div>
                       <div>
-                        <p className="font-medium text-foreground">E-Mail</p>
+                        <p className="font-bold text-foreground text-sm">E-Mail</p>
                         <a 
                           href="mailto:auto-quick@t-online.de"
-                          className="text-foreground/70 hover:text-primary transition-colors"
+                          className="text-text-secondary hover:text-primary transition-colors text-sm"
                         >
                           auto-quick@t-online.de
                         </a>
@@ -253,11 +251,13 @@ export default function AboutPage() {
                     </div>
 
                     <div className="flex items-start gap-4">
-                      <Clock className="text-primary flex-shrink-0 mt-1" size={24} />
+                      <div className="w-10 h-10 bg-secondary/10 text-secondary rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Clock size={20} />
+                      </div>
                       <div>
-                        <p className="font-medium text-foreground">Öffnungszeiten</p>
-                        <p className="text-foreground/70">Mo-Fr: 9:00 - 18:00 Uhr</p>
-                        <p className="text-foreground/70">Sa: 09:00 - 13:00 Uhr</p>
+                        <p className="font-bold text-foreground text-sm">Öffnungszeiten</p>
+                        <p className="text-text-secondary text-sm">Mo–Fr: 09:00 – 18:00 Uhr</p>
+                        <p className="text-text-secondary text-sm">Sa: 09:00 – 13:00 Uhr</p>
                       </div>
                     </div>
                   </div>
@@ -265,33 +265,34 @@ export default function AboutPage() {
               </AnimatedElement>
 
               <AnimatedElement delay={200}>
-                <div className="bg-background rounded-2xl p-8 shadow-lg border border-border/50">
-                  <h3 className="text-2xl font-heading font-bold text-foreground mb-6">
-                    Anfahrt
-                  </h3>
-                  <div className="aspect-video bg-secondary/10 rounded-lg overflow-hidden mb-6">
-                    <iframe
-                      src="https://www.google.com/maps?q=Automobile%20Quick%20Hagener%20Str.%20126a%2058642%20Iserlohn&output=embed"
-                      width="100%"
-                      height="100%"
-                      style={{ border: 0 }}
-                      allowFullScreen
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                      title="Standort Automobile Quick"
-                      aria-label="Interaktive Karte: Standort Automobile Quick in Iserlohn-Letmathe"
-                    />
+                <div className="bg-white rounded-xl p-8 shadow-sm border border-border-line h-full flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-xl font-heading font-bold text-foreground mb-4">
+                      Anfahrt
+                    </h3>
+                    <div className="aspect-video bg-alt-bg rounded-lg overflow-hidden mb-4 border border-border-line">
+                      <iframe
+                        src="https://www.google.com/maps?q=Automobile%20Quick%20Hagener%20Str.%20126a%2058642%20Iserlohn&output=embed"
+                        width="100%"
+                        height="100%"
+                        style={{ border: 0 }}
+                        allowFullScreen
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        title="Standort Automobile Quick"
+                        aria-label="Karte: Standort Automobile Quick in Iserlohn-Letmathe"
+                      />
+                    </div>
+                    <p className="text-text-secondary text-sm mb-4 leading-relaxed">
+                      Unser Autohaus befindet sich in verkehrsgünstiger Lage in Iserlohn-Letmathe. Parkplätze sind direkt vor Ort vorhanden.
+                    </p>
                   </div>
-                  <p className="text-foreground/70 mb-4">
-                    Unser Autohaus befindet sich in verkehrsgünstiger Lage in Iserlohn-Letmathe. 
-                    Parkplätze sind direkt vor Ort vorhanden.
-                  </p>
                   <Link
                     to="/kontakt"
-                    className="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all duration-200"
+                    className="inline-flex items-center gap-2 text-primary font-bold hover:underline text-sm"
                   >
-                    Termin vereinbaren
-                    <ChevronRight size={20} />
+                    Kontakt aufnehmen
+                    <ChevronRight size={18} />
                   </Link>
                 </div>
               </AnimatedElement>
@@ -301,35 +302,32 @@ export default function AboutPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-secondary/5">
-        <div className="container mx-auto px-4">
+      <section className="py-16 md:py-20 bg-background">
+        <div className="container mx-auto px-4 max-w-4xl text-center">
           <AnimatedElement>
-            <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-6">
-                Bereit für Ihr neues Fahrzeug?
-              </h2>
-              <p className="text-lg text-foreground/70 mb-8">
-                Entdecken Sie unsere große Auswahl an hochwertigen Gebrauchtwagen oder kontaktieren Sie uns für eine persönliche Beratung.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  to="/fahrzeugbestand"
-                  className="bg-primary text-primary-foreground px-8 py-4 rounded-lg font-medium hover:bg-primary/90 hover:shadow-lg transition-all duration-200"
-                >
-                  Fahrzeuge ansehen
-                </Link>
-                <Link
-                  to="/kontakt"
-                  className="bg-secondary/10 text-foreground px-8 py-4 rounded-lg font-medium hover:bg-secondary/20 transition-all duration-200"
-                >
-                  Kontakt aufnehmen
-                </Link>
-              </div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-foreground mb-4">
+              Bereit für Ihr neues Fahrzeug?
+            </h2>
+            <p className="text-base text-text-secondary mb-8 max-w-2xl mx-auto">
+              Entdecken Sie unsere Auswahl an geprüften Gebrauchtwagen oder kontaktieren Sie uns für eine persönliche Beratung.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                to="/fahrzeugbestand"
+                className="px-8 py-3.5 bg-primary text-white font-bold rounded-md hover:bg-primary/90 transition-colors text-base min-h-[48px] inline-flex items-center justify-center"
+              >
+                Fahrzeuge ansehen
+              </Link>
+              <Link
+                to="/kontakt"
+                className="px-8 py-3.5 bg-secondary text-white font-bold rounded-md hover:bg-cta-hover transition-colors text-base min-h-[48px] inline-flex items-center justify-center"
+              >
+                Kontakt aufnehmen
+              </Link>
             </div>
           </AnimatedElement>
         </div>
       </section>
-
     </div>
   );
 }
