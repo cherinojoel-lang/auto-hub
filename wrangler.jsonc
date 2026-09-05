@@ -1,6 +1,7 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "automobile-quick",
+  "account_id": "043ec899a435f150995d89f402ed7b12",
   "compatibility_date": "2026-05-31",
   "compatibility_flags": ["nodejs_compat"],
   "preview_urls": true,
@@ -10,7 +11,7 @@
   "kv_namespaces": [
     {
       "binding": "SESSION",
-      "id": "4aaf6d82144f414aa070c03e06df8f8e"
+      "id": "a70a11f47ea1472fa95557e5d37ae763"
     }
   ],
   "routes": [
@@ -22,13 +23,5 @@
       "pattern": "automobile-quick.de",
       "custom_domain": true
     }
-  ],
-  "secrets": {
-    "required": [
-      "SUPABASE_URL",
-      "SUPABASE_SECRET_KEY",
-      "TURNSTILE_SITE_KEY",
-      "TURNSTILE_SECRET_KEY"
-    ]
-  }
+  ]
 }
