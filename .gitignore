@@ -29,7 +29,6 @@ node_modules
 # jetbrains setting folder
 .idea/
 .messages.json
-docs/*
 
 # Memory files
 */.vibe/ignored/*
@@ -53,7 +52,6 @@ JULES.md
 VEHICLE_DISPLAY_FIX_REPORT.md
 pr_desc*.txt
 pr_description.*
-scripts/
 
 # Vitest coverage output
 coverage/
