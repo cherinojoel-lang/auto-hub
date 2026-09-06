@@ -17,6 +17,12 @@ describe('parseMileageKm', () => {
   it('return null für Garbage', () => {
     expect(parseMileageKm('keine Angabe')).toBeNull();
   });
+  it('return null für null', () => {
+    expect(parseMileageKm(null)).toBeNull();
+  });
+  it('return null für undefined', () => {
+    expect(parseMileageKm(undefined)).toBeNull();
+  });
 });
 
 describe('parseYearFromRegistration', () => {
