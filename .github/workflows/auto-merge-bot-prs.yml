@@ -1,0 +1,147 @@
+name: Auto-Merge Bot PRs
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_run:
+    workflows: ['CI Checks']
+    types: [completed]
+
+permissions:
+  pull-requests: write
+  contents: write
+  checks: read
+  statuses: read
+
+jobs:
+  auto-merge:
+    name: Auto-Merge Bot PRs
+    runs-on: ubuntu-latest
+    if: github.actor == 'google-labs-jules[bot]'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check PR Status
+        id: check-status
+        run: |
+          PR_NUMBER="${{ github.event.pull_request.number }}"
+          
+          if [ -z "$PR_NUMBER" ]; then
+            echo "No PR number found, skipping"
+            exit 0
+          fi
+          
+          # Get PR details
+          PR_DATA=$(gh pr view $PR_NUMBER --json state,statusCheckRollup,isDraft)
+          STATE=$(echo "$PR_DATA" | jq -r '.state')
+          DRAFT=$(echo "$PR_DATA" | jq -r '.isDraft')
+          
+          echo "state=$STATE" >> $GITHUB_OUTPUT
+          echo "draft=$DRAFT" >> $GITHUB_OUTPUT
+          
+          # Check if all checks passed
+          CHECK_STATUSES=$(echo "$PR_DATA" | jq -r '.statusCheckRollup[].status' | sort | uniq)
+          
+          if echo "$CHECK_STATUSES" | grep -q "FAILURE"; then
+            echo "❌ Some checks failed"
+            exit 1
+          elif echo "$CHECK_STATUSES" | grep -q "PENDING"; then
+            echo "⏳ Some checks still running"
+            exit 0
+          else
+            echo "✅ All checks passed"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Auto-Merge Security PRs
+        if: |
+          steps.check-status.outputs.state == 'OPEN' &&
+          steps.check-status.outputs.draft == 'false' &&
+          (contains(github.event.pull_request.title, 'security') ||
+          contains(github.event.pull_request.title, 'Security') ||
+          contains(github.event.pull_request.title, '🔒') ||
+          contains(github.event.pull_request.title, '🛡️'))
+        run: |
+          gh pr merge ${{ github.event.pull_request.number }} \
+            --auto \
+            --squash \
+            --delete-branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Auto-Merge Performance PRs
+        if: |
+          steps.check-status.outputs.state == 'OPEN' &&
+          steps.check-status.outputs.draft == 'false' &&
+          (contains(github.event.pull_request.title, '⚡') ||
+          contains(github.event.pull_request.title, 'Optimize') ||
+          contains(github.event.pull_request.title, 'performance'))
+        run: |
+          gh pr merge ${{ github.event.pull_request.number }} \
+            --auto \
+            --squash \
+            --delete-branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Auto-Merge Accessibility PRs
+        if: |
+          steps.check-status.outputs.state == 'OPEN' &&
+          steps.check-status.outputs.draft == 'false' &&
+          (contains(github.event.pull_request.title, '🎨') ||
+          contains(github.event.pull_request.title, 'accessibility') ||
+          contains(github.event.pull_request.title, 'Accessibility') ||
+          contains(github.event.pull_request.title, 'Palette'))
+        run: |
+          gh pr merge ${{ github.event.pull_request.number }} \
+            --auto \
+            --squash \
+            --delete-branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Auto-Merge Test PRs
+        if: |
+          steps.check-status.outputs.state == 'OPEN' &&
+          steps.check-status.outputs.draft == 'false' &&
+          (contains(github.event.pull_request.title, '🧪') ||
+          contains(github.event.pull_request.title, 'test') ||
+          contains(github.event.pull_request.title, 'Test'))
+        run: |
+          gh pr merge ${{ github.event.pull_request.number }} \
+            --auto \
+            --squash \
+            --delete-branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Auto-Merge Documentation PRs
+        if: |
+          steps.check-status.outputs.state == 'OPEN' &&
+          steps.check-status.outputs.draft == 'false' &&
+          (contains(github.event.pull_request.title, 'docs:') ||
+          contains(github.event.pull_request.title, 'changelog'))
+        run: |
+          gh pr merge ${{ github.event.pull_request.number }} \
+            --auto \
+            --squash \
+            --delete-branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Auto-Merge Chore PRs
+        if: |
+          steps.check-status.outputs.state == 'OPEN' &&
+          steps.check-status.outputs.draft == 'false' &&
+          contains(github.event.pull_request.title, 'chore:')
+        run: |
+          gh pr merge ${{ github.event.pull_request.number }} \
+            --auto \
+            --squash \
+            --delete-branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
