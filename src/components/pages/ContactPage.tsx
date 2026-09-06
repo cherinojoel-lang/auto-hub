@@ -1,47 +1,16 @@
-import { useState, useRef, useEffect } from 'react';
-import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
 import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, SITE_CONFIG } from '@/lib/seo-config';
+import { submitLead } from '@/lib/lead-client';
 
-const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
-  children, 
+const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({
+  children,
   className = '',
-  delay = 0 
 }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    let timeoutId: ReturnType<typeof setTimeout>;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          timeoutId = setTimeout(() => setIsVisible(true), delay);
-          observer.unobserve(el);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    observer.observe(el);
-    return () => {
-      observer.disconnect();
-      if (timeoutId) clearTimeout(timeoutId);
-    };
-  }, [delay]);
-
   return (
-    <div
-      ref={ref}
-      className={`transition-all duration-700 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-      } ${className}`}
-    >
+    <div className={`transition-all duration-700 ${className}`}>
       {children}
     </div>
   );
@@ -56,9 +25,9 @@ export default function ContactPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Update SEO for contact page
     updateMetaTags({
       title: PAGE_METADATA.contact.title,
       description: PAGE_METADATA.contact.description,
@@ -76,17 +45,32 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError(null);
 
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitSuccess(true);
-      setFormData({ name: '', email: '', phone: '', message: '' });
-      
-      setTimeout(() => {
+    try {
+      const res = await submitLead({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone || undefined,
+        message: formData.message || undefined,
+        intent: 'general',
+      });
+
+      if (res.success) {
+        setSubmitSuccess(true);
+        setSubmitError(null);
+        setFormData({ name: '', email: '', phone: '', message: '' });
+        setTimeout(() => setSubmitSuccess(false), 5000);
+      } else {
         setSubmitSuccess(false);
-      }, 5000);
-    }, 1000);
+        setSubmitError(res.error || 'Ihre Anfrage konnte nicht gesendet werden.');
+      }
+    } catch {
+      setSubmitSuccess(false);
+      setSubmitError('Ihre Nachricht konnte nicht übermittelt werden. Bitte rufen Sie uns direkt an: +49 (0) 2374 / 912912.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -97,8 +81,8 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <SeoHead 
+    <div className="min-h-screen flex flex-col bg-background font-paragraph text-foreground">
+      <SeoHead
         title={PAGE_METADATA.contact.title}
         description={PAGE_METADATA.contact.description}
         url={`${SITE_CONFIG.url}${PAGE_METADATA.contact.path}`}
@@ -108,229 +92,197 @@ export default function ContactPage() {
       </a>
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-accent via-accent to-primary/20 text-background py-20 md:py-28 overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px)',
-              backgroundSize: '30px 30px',
-            }}
-          />
-        </div>
-        <div className="container mx-auto px-4 relative z-10">
+      <section className="relative bg-primary text-white py-16 md:py-24 overflow-hidden">
+        <div className="container mx-auto px-4 relative z-10 max-w-4xl text-center">
           <AnimatedElement>
-            <div className="max-w-3xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6">
-                Kontakt & Anfahrt
-              </h1>
-              <p className="text-xl md:text-2xl text-background/90">
-                Wir freuen uns auf Ihre Nachricht
-              </p>
-            </div>
+            <p className="text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-secondary mb-3">
+              Automobile Quick · Iserlohn-Letmathe
+            </p>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-4">
+              Kontakt & Anfahrt
+            </h1>
+            <p className="text-base sm:text-lg md:text-xl text-white/90 leading-relaxed max-w-2xl mx-auto">
+              Wir freuen uns auf Ihren Besuch oder Ihre Nachricht. Persönliche Beratung direkt vor Ort.
+            </p>
           </AnimatedElement>
         </div>
       </section>
 
       {/* Contact Form & Info Section */}
-      <section className="py-20 bg-gradient-to-b from-background to-secondary/5" id="main-content">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Contact Form */}
-              <AnimatedElement>
-                <div className="bg-background rounded-2xl p-8 shadow-lg border border-border/50">
-                  <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-6">
-                    Senden Sie uns eine Nachricht
-                  </h2>
-
-                  {submitSuccess && (
-                    <div className="mb-6 p-4 bg-primary/10 border border-primary/20 rounded-lg">
-                      <p className="text-primary font-medium">
-                        Vielen Dank für Ihre Nachricht! Wir melden uns schnellstmöglich bei Ihnen.
-                      </p>
-                    </div>
-                  )}
-
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
-                        Name *
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-primary transition-all"
-                        placeholder="Ihr Name"
-                      />
-                    </div>
-
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
-                        E-Mail *
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-primary transition-all"
-                        placeholder="ihre.email@beispiel.de"
-                      />
-                    </div>
-
-                    <div>
-                      <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-2">
-                        Telefon
-                      </label>
-                      <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-primary transition-all"
-                        placeholder="+49 123 456789"
-                      />
-                    </div>
-
-                    <div>
-                      <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
-                        Nachricht *
-                      </label>
-                      <textarea
-                        id="message"
-                        name="message"
-                        value={formData.message}
-                        onChange={handleChange}
-                        required
-                        rows={6}
-                        className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-primary transition-all resize-none"
-                        placeholder="Wie können wir Ihnen helfen?"
-                      />
-                    </div>
-
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full bg-primary text-primary-foreground px-6 py-4 rounded-lg font-medium hover:bg-primary/90 hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      {isSubmitting ? (
-                        <>Wird gesendet...</>
-                      ) : (
-                        <>
-                          <Send size={20} />
-                          Nachricht senden
-                        </>
-                      )}
-                    </button>
-                  </form>
-                </div>
-              </AnimatedElement>
-
-              {/* Contact Information */}
-              <div className="space-y-6">
-                <AnimatedElement delay={100}>
-                  <div className="bg-background rounded-2xl p-8 shadow-lg border border-border/50">
-                    <h2 className="text-2xl font-heading font-bold text-foreground mb-6">
-                      Kontaktinformationen
-                    </h2>
-                    <div className="space-y-6">
-                      <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                          <MapPin className="text-primary" size={24} />
-                        </div>
-                        <div>
-                          <p className="font-medium text-foreground mb-1">Adresse</p>
-                          <p className="text-foreground/70">Hagener Str. 126a</p>
-                          <p className="text-foreground/70">58642 Iserlohn</p>
-                        </div>
-                      </div>
-
-                      <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                          <Phone className="text-primary" size={24} />
-                        </div>
-                        <div>
-                          <p className="font-medium text-foreground mb-1">Telefon</p>
-                          <a 
-                            href="tel:+492374912912"
-                            className="text-foreground/70 hover:text-primary transition-colors"
-                          >
-                            +49 (0) 2374 / 912912
-                          </a>
-                        </div>
-                      </div>
-
-                      <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                          <Mail className="text-primary" size={24} />
-                        </div>
-                        <div>
-                          <p className="font-medium text-foreground mb-1">E-Mail</p>
-                          <a 
-                            href="mailto:auto-quick@t-online.de"
-                            className="text-foreground/70 hover:text-primary transition-colors"
-                          >
-                            auto-quick@t-online.de
-                          </a>
-                        </div>
-                      </div>
-
-                      <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                          <Clock className="text-primary" size={24} />
-                        </div>
-                        <div>
-                          <p className="font-medium text-foreground mb-1">Öffnungszeiten</p>
-                          <p className="text-foreground/70">Mo-Fr: 9:00 - 18:00 Uhr</p>
-                          <p className="text-foreground/70">Sa: 09:00 - 13:00 Uhr</p>
-                          <p className="text-foreground/70">So: Geschlossen</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </AnimatedElement>
-
-                <AnimatedElement delay={200}>
-                  <div className="bg-primary/5 rounded-2xl p-8 border border-primary/20">
-                    <h3 className="text-xl font-heading font-bold text-foreground mb-4">
-                      Persönlicher Besuch
-                    </h3>
-                    <p className="text-foreground/80 leading-relaxed">
-                      Wir laden Sie herzlich ein, uns in unserem Autohaus in Iserlohn-Letmathe zu besuchen. 
-                      Vor Ort können Sie unsere Fahrzeuge in Ruhe besichtigen und eine Probefahrt vereinbaren. 
-                      Parkplätze sind direkt vor Ort vorhanden.
-                    </p>
-                  </div>
-                </AnimatedElement>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Map Section */}
-      <section className="py-20 bg-secondary/5">
-        <div className="container mx-auto px-4">
-          <AnimatedElement>
-            <div className="max-w-5xl mx-auto">
-              <div className="text-center mb-8">
-                <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-4">
-                  So finden Sie uns
+      <section className="py-16 md:py-20 bg-surface" id="main-content">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+            {/* Contact Form */}
+            <AnimatedElement>
+              <div className="bg-white rounded-xl p-8 border border-border-line shadow-sm">
+                <h2 className="text-2xl sm:text-3xl font-heading font-bold text-foreground mb-4">
+                  Senden Sie uns eine Nachricht
                 </h2>
-                <p className="text-lg text-foreground/70">
-                  Hagener Str. 126a, 58642 Iserlohn
+                <p className="text-sm text-text-secondary mb-6">
+                  Nutzen Sie das Kontaktformular für Fragen zu Fahrzeugen, Besichtigungen oder allgemeinen Anliegen.
                 </p>
+
+                {submitSuccess && (
+                  <div role="status" className="mb-6 p-4 bg-green-50 border border-green-200 rounded-md text-green-800 text-sm font-medium">
+                    Vielen Dank für Ihre Nachricht! Wir melden uns schnellstmöglich bei Ihnen.
+                  </div>
+                )}
+
+                {submitError && (
+                  <div role="alert" className="mb-6 p-4 bg-amber-50 border border-amber-300 rounded-md text-amber-900 text-sm font-medium">
+                    {submitError}
+                  </div>
+                )}
+
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  <div>
+                    <label htmlFor="name" className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
+                      Name *
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      required
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-border-line rounded-md focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary text-sm"
+                      placeholder="Ihr vollständiger Name"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="email" className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
+                      E-Mail *
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      required
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-border-line rounded-md focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary text-sm"
+                      placeholder="ihre.email@example.com"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="phone" className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
+                      Telefon
+                    </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-border-line rounded-md focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary text-sm"
+                      placeholder="+49 (0) 123 / 456789"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="message" className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
+                      Nachricht *
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      required
+                      rows={5}
+                      value={formData.message}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-border-line rounded-md focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary text-sm resize-none"
+                      placeholder="Ihre Nachricht an uns..."
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full py-3.5 bg-secondary text-white font-bold rounded-md hover:bg-cta-hover transition-colors disabled:opacity-50 min-h-[48px] text-base"
+                  >
+                    {isSubmitting ? 'Wird gesendet...' : 'Nachricht absenden'}
+                  </button>
+
+                  <p className="text-xs text-text-secondary text-center">
+                    Mit dem Absenden stimmen Sie unserer{' '}
+                    <a href="/datenschutz" className="text-primary hover:underline font-medium">
+                      Datenschutzerklärung
+                    </a>{' '}
+                    zu.
+                  </p>
+                </form>
               </div>
-              <div className="bg-background rounded-2xl shadow-lg overflow-hidden border border-border/50">
-                <div className="aspect-video">
+            </AnimatedElement>
+
+            {/* Contact Information */}
+            <AnimatedElement delay={200}>
+              <div className="space-y-6">
+                <div className="bg-white rounded-xl p-8 border border-border-line shadow-sm">
+                  <h3 className="text-xl sm:text-2xl font-heading font-bold text-foreground mb-6">
+                    Kontaktdaten
+                  </h3>
+
+                  <div className="space-y-5">
+                    <div className="flex items-start gap-4">
+                      <div className="w-10 h-10 bg-secondary/10 text-secondary rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <MapPin size={20} />
+                      </div>
+                      <div>
+                        <p className="font-bold text-foreground text-sm">Adresse</p>
+                        <p className="text-text-secondary text-sm">Hagener Str. 126a</p>
+                        <p className="text-text-secondary text-sm">58642 Iserlohn-Letmathe</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-4">
+                      <div className="w-10 h-10 bg-secondary/10 text-secondary rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Phone size={20} />
+                      </div>
+                      <div>
+                        <p className="font-bold text-foreground text-sm">Telefon</p>
+                        <a
+                          href="tel:+492374912912"
+                          className="text-text-secondary hover:text-primary transition-colors text-sm"
+                        >
+                          +49 (0) 2374 / 912912
+                        </a>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-4">
+                      <div className="w-10 h-10 bg-secondary/10 text-secondary rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Mail size={20} />
+                      </div>
+                      <div>
+                        <p className="font-bold text-foreground text-sm">E-Mail</p>
+                        <a
+                          href="mailto:auto-quick@t-online.de"
+                          className="text-text-secondary hover:text-primary transition-colors text-sm"
+                        >
+                          auto-quick@t-online.de
+                        </a>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-4">
+                      <div className="w-10 h-10 bg-secondary/10 text-secondary rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Clock size={20} />
+                      </div>
+                      <div>
+                        <p className="font-bold text-foreground text-sm">Öffnungszeiten</p>
+                        <p className="text-text-secondary text-sm">Mo–Fr: 09:00 – 18:00 Uhr</p>
+                        <p className="text-text-secondary text-sm">Sa: 09:00 – 13:00 Uhr</p>
+                        <p className="text-text-secondary text-xs mt-1">Besichtigung jederzeit nach Absprache</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Google Maps Embed */}
+                <div className="bg-white rounded-xl overflow-hidden border border-border-line shadow-sm h-72">
                   <iframe
                     src="https://www.google.com/maps?q=Automobile%20Quick%20Hagener%20Str.%20126a%2058642%20Iserlohn&output=embed"
                     width="100%"
@@ -339,27 +291,15 @@ export default function ContactPage() {
                     allowFullScreen
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
-                    title="Automobile Quick – Hagener Str. 126a, 58642 Iserlohn"
-                    aria-label="Karte: Automobile Quick Standort in Iserlohn-Letmathe"
+                    title="Standort Automobile Quick"
+                    aria-label="Karte: Standort Automobile Quick in Iserlohn-Letmathe"
                   />
                 </div>
-                <div className="p-4 border-t border-border-line flex justify-end">
-                  <a
-                    href="https://maps.app.goo.gl/zuvHCS86UcA9VTdv6"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-secondary text-sm font-bold hover:underline"
-                  >
-                    <MapPin size={14} />
-                    In Google Maps öffnen
-                  </a>
-                </div>
               </div>
-            </div>
-          </AnimatedElement>
+            </AnimatedElement>
+          </div>
         </div>
       </section>
-
     </div>
   );
 }

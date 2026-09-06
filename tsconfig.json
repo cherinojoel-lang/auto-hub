@@ -40,7 +40,6 @@
     ".astro/types.d.ts"
   ],
   "exclude": [
-    "integrations/cms/cms-ecom",
     "integrations/cms/service.ts",
     "integrations/cms/types.ts",
     "integrations/members"

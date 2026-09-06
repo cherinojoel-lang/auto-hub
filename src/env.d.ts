@@ -18,6 +18,10 @@ declare global {
   }
 }
 
+declare module 'cloudflare:workers' {
+  export const env: Record<string, string | undefined>;
+}
+
 declare module "react-router-dom" {
   export interface IndexRouteObject {
     routeMetadata?: RouteMetadata;
