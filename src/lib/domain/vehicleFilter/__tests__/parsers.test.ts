@@ -14,6 +14,10 @@ describe('parseMileageKm', () => {
   it('return null für leeren String', () => {
     expect(parseMileageKm('')).toBeNull();
   });
+  it('return null für null oder undefined', () => {
+    expect(parseMileageKm(null)).toBeNull();
+    expect(parseMileageKm(undefined)).toBeNull();
+  });
   it('return null für Garbage', () => {
     expect(parseMileageKm('keine Angabe')).toBeNull();
   });
