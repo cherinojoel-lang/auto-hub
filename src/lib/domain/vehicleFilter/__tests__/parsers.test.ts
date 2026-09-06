@@ -33,6 +33,28 @@ describe('parseYearFromRegistration', () => {
     expect(parseYearFromRegistration('')).toBeNull();
     expect(parseYearFromRegistration('NEU')).toBeNull();
   });
+  it('return null für undefined/null', () => {
+    expect(parseYearFromRegistration(undefined)).toBeNull();
+    expect(parseYearFromRegistration(null)).toBeNull();
+  });
+  it('return null für Jahre unter 1900', () => {
+    expect(parseYearFromRegistration('1899')).toBeNull();
+    expect(parseYearFromRegistration('12/1850')).toBeNull();
+  });
+  it('parsed genau 1900 (untere Grenze)', () => {
+    expect(parseYearFromRegistration('1900')).toBe(1900);
+  });
+  it('return null für Jahre in ferner Zukunft', () => {
+    const farFuture = new Date().getFullYear() + 2;
+    expect(parseYearFromRegistration(farFuture.toString())).toBeNull();
+  });
+  it('parsed aktuelles Jahr und nächstes Jahr', () => {
+    const currentYear = new Date().getFullYear();
+    expect(parseYearFromRegistration(currentYear.toString())).toBe(currentYear);
+
+    const nextYear = currentYear + 1;
+    expect(parseYearFromRegistration(nextYear.toString())).toBe(nextYear);
+  });
 });
 
 describe('parsePriceValue', () => {
