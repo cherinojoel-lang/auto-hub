@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 import MobileFloatingActionBar from '../MobileFloatingActionBar';
 
 describe('MobileFloatingActionBar', () => {
-  it('shows verified call and WhatsApp actions on mobile routes', () => {
+  it('shows verified call and contact actions on mobile routes', () => {
     render(
       <MemoryRouter initialEntries={['/kontakt']}>
         <MobileFloatingActionBar />
@@ -12,10 +12,7 @@ describe('MobileFloatingActionBar', () => {
     );
 
     expect(screen.getByRole('link', { name: /anrufen/i })).toHaveAttribute('href', 'tel:+492374912912');
-    expect(screen.getByRole('link', { name: /whatsapp/i })).toHaveAttribute(
-      'href',
-      expect.stringContaining('https://wa.me/492374912912')
-    );
+    expect(screen.queryByRole('link', { name: /whatsapp/i })).not.toBeInTheDocument();
   });
 
   it('stays hidden on vehicle detail pages because that page has its own CTA bar', () => {

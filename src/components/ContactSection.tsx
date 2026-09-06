@@ -177,7 +177,7 @@ export default function ContactSection() {
             </h2>
             <p className="text-base text-slate-500 mb-8">
               Wir beraten Sie persönlich und unverbindlich. Rufen Sie an, schreiben Sie per
-              WhatsApp oder nutzen Sie unser Formular.
+              E-Mail oder nutzen Sie unser Formular.
             </p>
 
             {/* Contact Cards */}
@@ -201,23 +201,21 @@ export default function ContactSection() {
                 </div>
               </div>
 
-              {/* WhatsApp Card */}
+              {/* Contact Form Card */}
               <div className="bg-green-50 rounded-3xl p-5 flex items-start gap-4 transition-transform duration-200 hover:-translate-y-1">
                 <div className="flex-shrink-0">
                   <MessageCircle size={24} className="text-green-600" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm text-slate-500 mb-1">WhatsApp</p>
+                  <p className="text-sm text-slate-500 mb-1">Kontaktformular</p>
                   <p className="text-lg font-semibold text-slate-900 mb-2">
                     Schnelle Antwort garantiert
                   </p>
                   <a
-                    href="https://wa.me/492374912912?text=Hallo%20Automobile%20Quick,%20ich%20interessiere%20mich%20für%20ein%20Fahrzeug."
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="#kontaktformular"
                     className="text-sm font-medium text-green-700 hover:text-green-800 transition-colors"
                   >
-                    Nachricht senden
+                    Zum Formular
                   </a>
                 </div>
               </div>
@@ -295,7 +293,7 @@ export default function ContactSection() {
             </a>
 
             {/* Contact Form */}
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form id="kontaktformular" onSubmit={handleSubmit} className="space-y-4 scroll-mt-24">
               <h3 className="text-2xl font-semibold text-slate-900 mb-6">Schnellanfrage</h3>
 
               {submitSuccess && (

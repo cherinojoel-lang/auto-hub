@@ -1,4 +1,4 @@
-import { Phone, MessageSquare, Car, MessageCircle } from 'lucide-react';
+import { Phone, MessageSquare, Car } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 export default function MobileFloatingActionBar() {
@@ -25,18 +25,6 @@ export default function MobileFloatingActionBar() {
         >
           <Phone size={20} />
           <span className="text-[10px] font-bold">Anrufen</span>
-        </a>
-
-        {/* WhatsApp Button */}
-        <a
-          href="https://wa.me/492374912912?text=Hallo%20Automobile%20Quick,%20ich%20habe%20eine%20allgemeine%20Anfrage."
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex flex-col items-center justify-center flex-1 h-full gap-1 transition-colors text-[#25D366]"
-          aria-label="WhatsApp"
-        >
-          <MessageCircle size={20} />
-          <span className="text-[10px] font-bold">WhatsApp</span>
         </a>
 
         {/* Contact Button */}

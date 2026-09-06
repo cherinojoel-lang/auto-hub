@@ -3,6 +3,33 @@
 ## Start Here
 Use `/Users/joelcherinodiaz/AI-Memory-Hub/projects/auto-hub` as the working directory.
 
+## 2026-09-06 — WhatsApp removed (unregistered number)
+The dealership's phone number (`+49 2374 912912`) is **not registered as a
+WhatsApp Business account**, so every `wa.me/492374912912` link on the site
+was a dead end for visitors. Removed WhatsApp everywhere and replaced it with
+channels that are actually verified to work:
+- `WhatsAppButton` (floating desktop bubble) — deleted, no replacement; the
+  sticky call CTA in the header already covers that role.
+- `MobileFloatingActionBar` — WhatsApp slot removed, now 3 actions (Anrufen,
+  Anfrage, Fahrzeuge).
+- `src/components/ui/whatsapp-cta.tsx` → replaced by
+  `src/components/ui/inquiry-cta.tsx` (`InquiryCta`): same props/call sites
+  (`VehicleInventorySection`, `VehiclesPage`, `VehicleDetailPage`), but opens
+  a `mailto:` to `auto-quick@t-online.de` with the vehicle pre-filled instead
+  of a `wa.me` link.
+- `ContactSection` — WhatsApp card replaced by a "Kontaktformular" card that
+  jumps to `#kontaktformular` (added `id="kontaktformular"` +
+  `scroll-mt-24` on the form so the sticky header doesn't cover it on
+  arrival); intro copy no longer mentions WhatsApp.
+- Do not re-add a `wa.me` link before that number (or a new one) is confirmed
+  registered with WhatsApp — verify by opening the link, not just by asking.
+
+Also reviewed on request: in-page navigation (`Header`, `Footer`,
+`MobileFloatingActionBar`) uses React Router `Link`, and `src/lib/scroll-to-top.tsx`
+already handles both cases correctly — plain route change scrolls to top,
+and a `location.hash` present scrolls the matching element into view. No fix
+needed there; the new `#kontaktformular` anchor exercises that same path.
+
 ## Current Correction Pass
 On 2026-06-07 the repo was audited against current public sources and corrected for:
 - Saturday hours: `09:00-13:00`.

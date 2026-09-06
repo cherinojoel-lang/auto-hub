@@ -3,7 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowRight, Calendar, Camera, Filter, Fuel, Gauge, ShieldCheck, X, Zap } from 'lucide-react';
 import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
 import { Image } from '@/components/ui/image';
-import { WhatsAppCta } from '@/components/ui/whatsapp-cta';
+import { InquiryCta } from '@/components/ui/inquiry-cta';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
 import SeoHead from '@/components/SeoHead';
@@ -424,7 +424,7 @@ export default function VehiclePage() {
                               Fahrzeug ansehen
                               <ArrowRight size={16} />
                             </Link>
-                            <WhatsAppCta
+                            <InquiryCta
                               vehicleTitle={vehicle.title}
                               compact
                               variant="subtle"
