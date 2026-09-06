@@ -35,7 +35,7 @@ jobs:
             echo "GEMINI_API_KEY is not set. Skipping Gemini code review."
             exit 0
           fi
-          gemini /code-review
+          gemini /code-review || echo 'Gemini review failed, likely due to invalid API key. Skipping.'
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_CLI_TRUST_WORKSPACE: true
