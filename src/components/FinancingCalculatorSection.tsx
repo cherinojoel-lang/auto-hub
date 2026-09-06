@@ -33,12 +33,16 @@ export default function FinancingCalculatorSection() {
   };
 
   const handleFinancingRequest = () => {
-    // Navigate to financing page or open contact form
-    navigate('/finanzierung');
+    const form = document.getElementById('finanzierungs-formular');
+    if (form) {
+      form.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate('/finanzierung#finanzierungs-formular');
+    }
   };
 
   return (
-    <section className="w-full bg-gradient-to-r from-slate-900 to-slate-700 py-16 md:py-24">
+    <section className="w-full bg-gradient-to-b from-primary to-accent py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
           {/* Left Column - Text & Benefits */}
@@ -72,7 +76,7 @@ export default function FinancingCalculatorSection() {
               ].map((benefit, index) => (
                 <div key={index} className="flex gap-4">
                   <div className="flex-shrink-0">
-                    <ChevronRight className="w-6 h-6 text-red-600 mt-1" />
+                    <ChevronRight className="w-6 h-6 text-secondary mt-1" />
                   </div>
                   <div>
                     <h3 className="text-white font-semibold mb-1">
@@ -90,7 +94,7 @@ export default function FinancingCalculatorSection() {
           {/* Right Column - Calculator */}
           <div className="flex items-center justify-center">
             <div className="w-full bg-white rounded-2xl shadow-lg p-8">
-              <h3 className="text-2xl font-bold text-slate-900 mb-8">
+              <h3 className="text-2xl font-bold text-foreground mb-8">
                 Monatsrate berechnen
               </h3>
 
@@ -107,7 +111,7 @@ export default function FinancingCalculatorSection() {
                     max="100000"
                     value={purchasePrice}
                     onChange={(e) => setPurchasePrice(Number(e.target.value))}
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-border-line rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent min-h-12"
                   />
                   <input
                     type="range"
@@ -115,7 +119,7 @@ export default function FinancingCalculatorSection() {
                     max="100000"
                     value={purchasePrice}
                     onChange={(e) => setPurchasePrice(Number(e.target.value))}
-                    className="w-full mt-2 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-red-600"
+                    className="w-full mt-2 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-secondary"
                   />
                 </div>
 
@@ -130,7 +134,7 @@ export default function FinancingCalculatorSection() {
                     max={purchasePrice}
                     value={downPayment}
                     onChange={(e) => setDownPayment(Number(e.target.value))}
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-border-line rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent min-h-12"
                   />
                   <input
                     type="range"
@@ -138,7 +142,7 @@ export default function FinancingCalculatorSection() {
                     max={purchasePrice}
                     value={downPayment}
                     onChange={(e) => setDownPayment(Number(e.target.value))}
-                    className="w-full mt-2 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-red-600"
+                    className="w-full mt-2 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-secondary"
                   />
                 </div>
 
@@ -150,7 +154,7 @@ export default function FinancingCalculatorSection() {
                   <select
                     value={loanTerm}
                     onChange={(e) => setLoanTerm(Number(e.target.value))}
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-border-line rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent min-h-12"
                   >
                     <option value={12}>12 Monate</option>
                     <option value={24}>24 Monate</option>
@@ -170,7 +174,7 @@ export default function FinancingCalculatorSection() {
                     type="number"
                     value={interestRate}
                     readOnly
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg bg-slate-50 text-slate-600 cursor-not-allowed"
+                    className="w-full px-4 py-3 border border-border-line rounded-lg bg-slate-50 text-slate-600 cursor-not-allowed min-h-12"
                   />
                 </div>
               </div>
@@ -182,7 +186,7 @@ export default function FinancingCalculatorSection() {
                 </p>
                 <p
                   aria-live="polite"
-                  className="text-4xl font-bold text-red-600 mb-4"
+                  className="text-4xl font-bold text-secondary mb-4"
                 >
                   {formatCurrency(monthlyRate)} EUR / Monat
                 </p>
@@ -191,7 +195,7 @@ export default function FinancingCalculatorSection() {
                 </p>
                 <Button
                   onClick={handleFinancingRequest}
-                  className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 rounded-lg transition-colors"
+                  className="w-full bg-secondary hover:bg-cta-hover text-white font-bold py-3 min-h-[48px] rounded-lg transition-colors"
                 >
                   Finanzierungsberatung anfragen
                 </Button>
