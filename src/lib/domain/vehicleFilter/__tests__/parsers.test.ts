@@ -45,4 +45,17 @@ describe('parsePriceValue', () => {
   it('return null für leeren String', () => {
     expect(parsePriceValue('')).toBeNull();
   });
+  it('return null für undefined', () => {
+    expect(parsePriceValue(undefined)).toBeNull();
+  });
+  it('return null für null', () => {
+    expect(parsePriceValue(null)).toBeNull();
+  });
+  it('return null für Garbage ohne Ziffern', () => {
+    expect(parsePriceValue('keine Angabe')).toBeNull();
+  });
+  it('extrahiert Preis trotz abweichendem Whitespace', () => {
+    expect(parsePriceValue(' 15.000€')).toBe(15000);
+    expect(parsePriceValue('15 000 €')).toBe(15000);
+  });
 });
