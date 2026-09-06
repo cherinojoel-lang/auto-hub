@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { isPreviewHost, isPreviewModeEnabled, shouldNoindexPreview } from './preview';
+import { isPreviewHost, isPreviewModeEnabled, shouldNoindexPreview, resolveEffectiveHost } from './preview';
 
 describe('preview host contract', () => {
   it('treats workers.dev and localhost hosts as preview contexts', () => {
@@ -18,6 +18,16 @@ describe('preview host contract', () => {
     expect(shouldNoindexPreview('automobile-quick-preview.example.workers.dev')).toBe(true);
     expect(shouldNoindexPreview('localhost')).toBe(true);
     expect(shouldNoindexPreview('www.automobile-quick.de')).toBe(false);
+  });
+
+  it('resolves effective host from X-Forwarded-Host header', () => {
+    const headers = new Headers({ 'x-forwarded-host': 'www.automobile-quick.de' });
+    expect(resolveEffectiveHost(headers, 'automobile-quick.workers.dev')).toBe('www.automobile-quick.de');
+    expect(shouldNoindexPreview('automobile-quick.workers.dev', headers)).toBe(false);
+
+    const recordHeaders = { 'x-forwarded-host': 'automobile-quick.de:443' };
+    expect(resolveEffectiveHost(recordHeaders, 'automobile-quick.workers.dev')).toBe('automobile-quick.de');
+    expect(shouldNoindexPreview('automobile-quick.workers.dev', recordHeaders)).toBe(false);
   });
 
   it('enables explicit preview mode only for true-like values', () => {

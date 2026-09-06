@@ -2,13 +2,13 @@
 import { Head } from "@/components/Head";
 import AppRouterIsomorphic from "@/components/AppRouterIsomorphic";
 import "@/styles/global.css";
-import { shouldNoindexPreview } from "@/domain/preview";
+import { shouldNoindexPreview, resolveEffectiveHost } from "@/domain/preview";
 import { vehiclesData } from "@/data/vehiclesData.generated";
 
-const hostname = Astro.url.hostname;
-const isPreview = shouldNoindexPreview(hostname);
+const effectiveHost = resolveEffectiveHost(Astro.request.headers, Astro.url.hostname);
+const isPreview = shouldNoindexPreview(effectiveHost);
 const pathname = Astro.url.pathname;
-const canonicalUrl = Astro.url.href;
+const canonicalUrl = new URL(pathname, "https://www.automobile-quick.de").toString();
 
 // Handle legacy/new compatibility redirects securely
 if (pathname === "/fahrzeuge" || pathname === "/fahrzeuge/") {
