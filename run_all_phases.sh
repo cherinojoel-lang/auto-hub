@@ -21,8 +21,8 @@ echo -e "${C_CYAN}  Stack: Astro 5 SSR + Cloudflare D1 + KV + Workers AI + Asset
 echo -e "${C_CYAN}  Standard: Radikale Ehrlichkeit & 100% Fakten-basierte Evidenz ${C_RESET}"
 echo -e "${C_CYAN}================================================================${C_RESET}"
 
-WORKTREE="/Users/joelcherinodiaz/KI-System/02_Projects/active/auto-hub/.worktrees/infra-stack-maximization"
-cd "$WORKTREE"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
 
 # 1. Environment & Auth Setup
 echo -e "\n${C_BLUE}▶ [Schritt 1/6] Validiere Cloudflare-Credentials & Environment...${C_RESET}"
