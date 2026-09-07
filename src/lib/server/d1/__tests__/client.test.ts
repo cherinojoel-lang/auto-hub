@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { D1Client } from '../client';
-import type { D1Database } from '@cloudflare/workers-types';
+import type { D1Database } from '../types';
 
 describe('D1Client', () => {
   const createMockDb = (results: unknown[] = [], firstResult: unknown = null) => {

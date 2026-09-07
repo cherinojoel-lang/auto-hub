@@ -1,7 +1,6 @@
-import type { D1Database } from '@cloudflare/workers-types';
 import type {
   D1CustomerReviewRow,
-  D1LeadInquiryRow,
+  D1Database,
   D1VehicleImageRow,
   D1VehicleRow,
   LeadInquiryInsert,

@@ -75,3 +75,25 @@ export interface VehicleQueryFilter {
   limit?: number;
   offset?: number;
 }
+
+export interface D1Result<T = unknown> {
+  results?: T[];
+  success: boolean;
+  error?: string;
+  meta?: Record<string, unknown>;
+}
+
+export interface D1PreparedStatement {
+  bind(...values: unknown[]): D1PreparedStatement;
+  first<T = unknown>(colName?: string): Promise<T | null>;
+  all<T = unknown>(): Promise<D1Result<T>>;
+  run<T = unknown>(): Promise<D1Result<T>>;
+}
+
+export interface D1Database {
+  prepare(query: string): D1PreparedStatement;
+  dump(): Promise<ArrayBuffer>;
+  batch<T = unknown>(statements: D1PreparedStatement[]): Promise<D1Result<T>[]>;
+  exec(query: string): Promise<{ count: number; duration: number }>;
+}
+
