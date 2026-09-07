@@ -35,7 +35,7 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
       ([entry]) => {
         if (entry.isIntersecting) {
           timeoutId = setTimeout(() => setIsVisible(true), delay);
-          observer.unobserve(el);
+          observer.unobserve(entry.target); // ⚡ Bolt: Use entry.target instead of closed-over variable to prevent memory leak
         }
       },
       { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
