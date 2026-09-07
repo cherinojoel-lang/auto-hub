@@ -40,7 +40,7 @@ export const POST: APIRoute = async ({ request }) => {
     return json({ ok: false, error: 'ai_binding_unavailable' }, 503);
   }
 
-  const prompt = `Du bist ein professioneller Automobil-Verkaufsexperte für das Autohaus Automobile Quick in Castrop-Rauxel.
+  const prompt = `Du bist ein professioneller Automobil-Verkaufsexperte für das Autohaus Automobile Quick in Iserlohn-Letmathe.
 Erstelle für folgendes Fahrzeug eine prägnante, verkaufsfördernde Beschreibung auf Deutsch:
 Fahrzeug: ${body.make} ${body.model}
 ${body.year ? `Erstzulassung/Baujahr: ${body.year}` : ''}

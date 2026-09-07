@@ -4,18 +4,17 @@ import { ScrollToTop } from '@/lib/scroll-to-top';
 import ErrorPage from '@/integrations/errorHandlers/ErrorPage';
 import Layout from '@/components/Layout';
 import HomePage from '@/components/pages/HomePage';
+import VehiclesPage from '@/components/pages/VehiclesPage';
+import VehicleDetailPage from '@/components/pages/VehicleDetailPage';
+import AboutPage from '@/components/pages/AboutPage';
+import ContactPage from '@/components/pages/ContactPage';
+import TradeInPage from '@/components/pages/TradeInPage';
+import FinancingPage from '@/components/pages/FinancingPage';
+import ImprintPage from '@/components/pages/ImprintPage';
+import PrivacyPage from '@/components/pages/PrivacyPage';
+import BlogPage from '@/components/pages/BlogPage';
+import BlogDetailPage from '@/components/pages/BlogDetailPage';
 import RouteLoader from '@/components/RouteLoader';
-
-const VehiclesPage = React.lazy(() => import('@/components/pages/VehiclesPage'));
-const VehicleDetailPage = React.lazy(() => import('@/components/pages/VehicleDetailPage'));
-const AboutPage = React.lazy(() => import('@/components/pages/AboutPage'));
-const ContactPage = React.lazy(() => import('@/components/pages/ContactPage'));
-const TradeInPage = React.lazy(() => import('@/components/pages/TradeInPage'));
-const FinancingPage = React.lazy(() => import('@/components/pages/FinancingPage'));
-const ImprintPage = React.lazy(() => import('@/components/pages/ImprintPage'));
-const PrivacyPage = React.lazy(() => import('@/components/pages/PrivacyPage'));
-const BlogPage = React.lazy(() => import('@/components/pages/BlogPage'));
-const BlogDetailPage = React.lazy(() => import('@/components/pages/BlogDetailPage'));
 
 export const routes = [
   {
