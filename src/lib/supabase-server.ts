@@ -21,15 +21,26 @@ export async function captureLead(lead: NormalizedLead): Promise<string> {
     throw new BackendUnavailableError();
   }
 
-  const response = await fetch(`${supabaseUrl}/rest/v1/rpc/capture_aq_lead`, {
-    method: 'POST',
-    headers: {
-      apikey: secretKey,
-      'content-type': 'application/json',
-      accept: 'application/json',
-    },
-    body: JSON.stringify({ payload: lead }),
-  });
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 8000);
+
+  let response: Response;
+  try {
+    response = await fetch(`${supabaseUrl}/rest/v1/rpc/capture_aq_lead`, {
+      method: 'POST',
+      headers: {
+        apikey: secretKey,
+        'content-type': 'application/json',
+        accept: 'application/json',
+      },
+      body: JSON.stringify({ payload: lead }),
+      signal: controller.signal,
+    });
+  } catch {
+    throw new BackendUnavailableError();
+  } finally {
+    clearTimeout(timeout);
+  }
 
   if (!response.ok) {
     throw new BackendUnavailableError();
