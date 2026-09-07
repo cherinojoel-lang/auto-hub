@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitest/config'
+import { configDefaults, defineConfig } from 'vitest/config'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { resolve } from 'node:path'
 
@@ -15,6 +15,7 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./vitest.setup.ts'],
     testTimeout: 30000,
+    exclude: [...configDefaults.exclude, '**/.worktrees/**', '**/worktrees/**'],
   },
   esbuild: {
     target: 'node20',
