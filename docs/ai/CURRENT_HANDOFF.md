@@ -2,7 +2,8 @@
 
 ## Start Here
 - **Basis-Repo:** `/Users/joelcherinodiaz/KI-System/02_Projects/active/auto-hub`
-- **Branch:** `main` (Synchronisiert mit `origin/main`, PR #659 gemerged)
+- **Branch:** `main` (Synchronisiert mit `origin/main`)
+- **Live Edge Deployment:** `https://automobile-quick.cherinojoel.workers.dev` (Aktiv, HTTP/2 200 OK)
 
 ## Aktueller Architektur- & Maximierungs-Stand
 1. **Cloudflare Edge Ingestion:** Astro 5 SSR auf `@astrojs/cloudflare` mit 4 Bindings:
