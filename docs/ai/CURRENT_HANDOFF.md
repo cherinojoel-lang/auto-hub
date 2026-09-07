@@ -1,9 +1,8 @@
 # Current Handoff: Automobile Quick / AutoHub
 
 ## Start Here
-- **Aktiver Worktree:** `/Users/joelcherinodiaz/KI-System/02_Projects/active/auto-hub/.worktrees/infra-stack-maximization`
 - **Basis-Repo:** `/Users/joelcherinodiaz/KI-System/02_Projects/active/auto-hub`
-- **Branch:** `main`
+- **Branch:** `main` (Synchronisiert mit `origin/main`, PR #659 gemerged)
 
 ## Aktueller Architektur- & Maximierungs-Stand
 1. **Cloudflare Edge Ingestion:** Astro 5 SSR auf `@astrojs/cloudflare` mit 4 Bindings:
@@ -12,11 +11,12 @@
    - `AI`: Workers AI (`@cf/meta/llama-3.1-8b-instruct`)
    - `ASSETS`: Statische Assets via Cloudflare Workers Assets (735 Client-Dateien)
 2. **Qualitäts- und Test-Gate:**
-   - Vitest Tests zu 100% grün (0 Fehler).
+   - Vitest Tests: 35 Test-Dateien, 174/174 Tests bestanden (0 Fehler).
    - Multi-Platform Sync Mapper für mobile.de und AutoScout24 implementiert und getestet.
    - Lead Capture mit Turnstile Replay-Schutz implementiert und getestet.
 3. **Automatisierter Execution Runner:**
    - `run_all_phases.sh` (sowie Symlinks `run`, `run_all_phases.`, und `npm run phases`) führt alle 6 Phasen inklusive echtem DNS-Audit durch.
+
 
 ## 2026-09-06 — E-Mail-Integrität & WhatsApp-Entfernung
 Die Telefonnummer (`+49 2374 912912`) ist kein registrierter WhatsApp-Business-Account. Unregistrierte WhatsApp-Links wurden entfernt und durch direkte E-Mail-Anfragen an `auto-quick@t-online.de` ersetzt:
