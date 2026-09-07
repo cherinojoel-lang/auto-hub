@@ -59,6 +59,10 @@ coverage/
 # Local session reports / screenshots (lokal, nicht versionieren)
 reports/
 
+# Git worktrees
+.worktrees/
+worktrees/
+
 # Cloudflare local secrets & CLI
 .dev.vars
 .omg/

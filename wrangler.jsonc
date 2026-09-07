@@ -5,6 +5,7 @@
   "compatibility_date": "2026-05-31",
   "compatibility_flags": ["nodejs_compat"],
   "preview_urls": true,
+  "workers_dev": true,
   "observability": {
     "enabled": true
   },
@@ -14,6 +15,16 @@
       "id": "a70a11f47ea1472fa95557e5d37ae763"
     }
   ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "auto-quick-db",
+      "database_id": "e2a8a3fa-fb7d-4411-bef2-ff28365b80dc"
+    }
+  ],
+  "ai": {
+    "binding": "AI"
+  },
   "routes": [
     {
       "pattern": "www.automobile-quick.de",

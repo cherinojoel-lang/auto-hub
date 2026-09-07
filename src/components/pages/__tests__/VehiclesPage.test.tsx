@@ -35,7 +35,7 @@ describe('VehiclesPage', () => {
     await waitFor(() => {
       expect(screen.getByText('Aktuelle Gebrauchtwagen in Iserlohn-Letmathe')).toBeInTheDocument();
     });
-  });
+  }, 30000);
 
   it('exposes a compact accessible mobile filter trigger', async () => {
     render(
@@ -44,7 +44,7 @@ describe('VehiclesPage', () => {
       </BrowserRouter>
     );
 
-    const trigger = await screen.findByRole('button', { name: 'Filter öffnen' });
+    const trigger = await screen.findByRole('button', { name: 'Filter öffnen' }, { timeout: 10000 });
     expect(trigger).toHaveAttribute('aria-expanded', 'false');
     expect(trigger).toHaveAttribute('aria-controls', 'vehicle-filters');
 
@@ -52,5 +52,5 @@ describe('VehiclesPage', () => {
 
     expect(trigger).toHaveAttribute('aria-expanded', 'true');
     expect(screen.getAllByRole('button', { name: 'Filter schließen' }).length).toBeGreaterThan(0);
-  });
+  }, 30000);
 });

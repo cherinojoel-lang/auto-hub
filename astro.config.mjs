@@ -11,7 +11,7 @@ export default defineConfig({
   site: 'https://www.automobile-quick.de',
   base: "/",
   adapter: cloudflare({
-    platformProxy: { enabled: true },
+    remoteBindings: !process.env.CI,
     imageService: "passthrough",
   }),
   integrations: [

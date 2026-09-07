@@ -113,7 +113,7 @@ export default function HomePage() {
               width={1600}
               height={900}
               loading="eager"
-              fetchPriority="high"
+              {...({ fetchpriority: 'high' } as any)}
               decoding="async"
             />
           </picture>
