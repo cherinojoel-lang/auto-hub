@@ -1,42 +1,30 @@
 # Project Status: Automobile Quick / AutoHub
 
-Last verified: 2026-06-07
+Last verified: 2026-09-07
 
 ## Current State
-- Local canonical path: `/Users/joelcherinodiaz/AI-Memory-Hub/projects/auto-hub`
-- Git branch: `main`
-- Last observed commit before current fixes: `4ac3930 Merge pull request #217 from cherinojoel-lang/feat/final-best-practice-hardening`
-- Worktree state at start of 2026-06-07 audit: clean.
-- Deployment target: Cloudflare Pages/Workers via `wrangler.jsonc` project name `automobile-quick`.
-- Remote: `https://github.com/cherinojoel-lang/auto-hub.git`
+- Local canonical path: `/Users/joelcherinodiaz/KI-System/02_Projects/active/auto-hub/.worktrees/infra-stack-maximization`
+- Git branch: `feat/infra-stack-maximization`
+- Head Commit: `7c2ab78`
+- Deployment target: Cloudflare Pages/Workers via `wrangler.jsonc` (Project: `automobile-quick`)
+- Account: `cherinojoel@gmail.com` (`043ec899a435f150995d89f402ed7b12`)
+- Zone: `automobile-quick.de` (Status: `pending` DNS delegation at registrar)
 
-## Verified Public Business Data
-- Company: Automobile Quick
-- Location: Hagener Str. 126a, 58642 Iserlohn-Letmathe
-- Telephone: `+49 (0)2374 912912`
-- Email: `auto-quick@t-online.de`
-- Opening hours: Monday-Friday `09:00-18:00`, Saturday `09:00-13:00`
-- Founded/positioning: since 1982 in Iserlohn-Letmathe
+## Architecture & Edge Maximization
+- **Framework:** Astro 5 SSR mit React 18 & TypeScript
+- **Edge Runtime:** Cloudflare Workers via `@astrojs/cloudflare`
+- **Database:** Cloudflare D1 (`auto-quick-db`, Region EEUR / Frankfurt, 5 Tabellen)
+- **Session:** Cloudflare KV (`SESSION`)
+- **AI Ingestion:** Cloudflare Workers AI (`@cf/meta/llama-3.1-8b-instruct`)
+- **Security:** Cloudflare Turnstile Server Verification (300s Replay-Schutz)
+- **Multi-Platform Sync:** Mapper für mobile.de & AutoScout24 Inventory
 
-## Verified Public Review Data
-- mobile.de: 157 reviews, 5-star profile.
-- AutoScout24: 48 reviews, 4.9 rating, 100% recommendation.
-- Site-visible combined rating data: 205 publicly visible reviews, weighted rating 4.98.
-- LocalBusiness/AutoDealer JSON-LD must not include self-serving `review`, `aggregateRating`, or `reviewCount`.
+## Verification Evidence
+- Vitest Suite: 36 Test-Dateien, 175 Tests bestanden (0 Fehler)
+- D1 Database: Online in Frankfurt (FRA/EEUR), `table_count = 5`
+- Astro Build: 17 Module, 735 Assets generiert in `dist/`
+- Deploy Dry-Run: Alle 4 Bindings validiert
 
-## Current Work Scope
-1. Keep this repo as the active AutoHub code truth unless the user explicitly switches projects.
-2. Keep contact, opening-hours, review, and schema data aligned with current public sources.
-3. Use reviews as visible trust proof with external source links, but avoid unsupported rich-result claims.
-4. Continue design optimization through a copy-paste master prompt after this correction pass.
-
-## Additional Local Hardening Under Review
-- Hero image source changed from `/images/hero-bg.png` to existing `/images/hero-bg.jpg`.
-- `ContactSection` map iframe accessibility attributes added.
-- Initial canonical link now uses production-domain route canonical before React hydration.
-- Mobile floating CTA bar mounted globally and excluded from vehicle detail pages.
-
-## Known Open Decisions
-- Confirm final production routing and whether both `www.automobile-quick.de` and `automobile-quick.de` should be maintained.
-- Confirm whether a real domain email should replace `auto-quick@t-online.de` later; do not change it without source confirmation.
-- Confirm whether a live CRM/form backend should replace the current simulated inquiry flow.
+## Open Tasks for Full Public Release
+1. Nameserver-Umschaltung bei Registrar All-Inkl von `ns5/ns6.kasserver.com` auf `johnathan.ns.cloudflare.com` & `norah.ns.cloudflare.com`.
+2. Ausführung von `npx wrangler deploy --config dist/server/wrangler.json` nach Zone-Aktivierung.
