@@ -56,7 +56,7 @@ describe('POST /api/ai/enrich', () => {
     expect(mockAiRun).toHaveBeenCalledWith(
       '@cf/meta/llama-3.1-8b-instruct',
       expect.objectContaining({
-        prompt: expect.stringContaining('Audi A4 Avant'),
+        prompt: expect.stringContaining('Iserlohn-Letmathe'),
       })
     );
   });

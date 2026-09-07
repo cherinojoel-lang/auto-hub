@@ -2,6 +2,8 @@ import type { APIRoute } from 'astro';
 import { env } from 'cloudflare:workers';
 import { normalizeLeadInput, type NormalizedLead } from '@/domain/lead';
 import { isPreviewModeEnabled } from '@/domain/preview';
+import { D1Client } from '@/lib/server/d1/client';
+import type { D1Database } from '@/lib/server/d1/types';
 import { BackendUnavailableError, captureLead } from '@/lib/supabase-server';
 import {
   TurnstileRejectedError,
@@ -64,7 +66,24 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   try {
-    const leadId = await captureLead(lead);
+    let leadId: string;
+    const d1Database = (runtimeEnv as unknown as { DB?: D1Database }).DB;
+
+    if (d1Database) {
+      const d1 = new D1Client(d1Database);
+      leadId = await d1.insertLeadInquiry({
+        vehicle_id: lead.vehicle_id,
+        inquiry_type: lead.intent,
+        customer_name: lead.name,
+        customer_email: lead.email ?? '',
+        customer_phone: lead.phone,
+        message: lead.message,
+        turnstile_verified: true,
+      });
+    } else {
+      leadId = await captureLead(lead);
+    }
+
     return json({ ok: true, lead_id: leadId }, 201);
   } catch (error) {
     if (error instanceof BackendUnavailableError) {
