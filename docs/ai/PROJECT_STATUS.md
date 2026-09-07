@@ -5,9 +5,11 @@ Last verified: 2026-09-07
 ## Current State
 - Local canonical path: `/Users/joelcherinodiaz/KI-System/02_Projects/active/auto-hub`
 - Git branch: `main` (Synchronisiert mit `origin/main`)
-- PR Status: PR #659 erfolgreich via Squash-Merge in `main` gemerged (`85d89b9`)
-- Deployment target: Cloudflare Pages/Workers via `wrangler.jsonc` (Project: `automobile-quick`)
+- PR Status: PR #659 & PR #662 gemerged
+- Live Edge Worker URL: `https://automobile-quick.cherinojoel.workers.dev` (Version `f4d9740f-4028-43bf-afb1-02ec6e3bfbaa`, HTTP/2 200 OK)
+- Deployment target: Cloudflare Workers via `wrangler.jsonc` (Worker: `automobile-quick`)
 - Account: `cherinojoel@gmail.com` (`043ec899a435f150995d89f402ed7b12`)
+- Custom Domains: `automobile-quick.de` & `www.automobile-quick.de` als Trigger registriert
 - Zone: `automobile-quick.de` (Status: `pending` DNS delegation at registrar All-Inkl)
 
 ## Architecture & Edge Maximization
