@@ -1,7 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import WhatsAppButton from '@/components/WhatsAppButton';
 import CookieConsentBanner from '@/components/CookieConsentBanner';
 import { DynamicCanonical } from '@/components/DynamicCanonical';
 import MobileFloatingActionBar from '@/components/MobileFloatingActionBar';
@@ -15,7 +14,6 @@ export default function Layout() {
         <Outlet />
       </main>
       <Footer />
-      <WhatsAppButton />
       <MobileFloatingActionBar />
       <CookieConsentBanner />
     </div>

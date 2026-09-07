@@ -23,7 +23,9 @@ describe('public owner-preview surface', () => {
   });
 
   it('renders vehicle details and inquiry as separate semantic actions', () => {
-    // The React components use WhatsAppCta instead of the old separate semantic actions
-    expect(inventory).toContain('<WhatsAppCta');
+    // The React components use InquiryCta (e-mail) instead of the old separate
+    // semantic actions — WhatsApp was removed because the dealership's number
+    // is not registered as a WhatsApp Business account.
+    expect(inventory).toContain('<InquiryCta');
   });
 });

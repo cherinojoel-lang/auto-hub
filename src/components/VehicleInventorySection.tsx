@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Calendar, Camera, Fuel, Gauge, ShieldCheck, Zap } from 'lucide-react';
 import { Image } from '@/components/ui/image';
 import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
-import { WhatsAppCta } from '@/components/ui/whatsapp-cta';
+import { InquiryCta } from '@/components/ui/inquiry-cta';
 import { getVehicleImageCount, getFeatureChips } from '@/lib/domain/vehicleFeatures';
 
 interface VehicleCardProps {
@@ -139,7 +139,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, index }) => {
               Fahrzeug ansehen
               <ArrowRight size={16} />
             </Link>
-            <WhatsAppCta
+            <InquiryCta
               vehicleTitle={vehicle.title}
               compact
               variant="subtle"

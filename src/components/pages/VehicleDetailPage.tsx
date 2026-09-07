@@ -11,7 +11,7 @@ import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, generateProductSchema, SITE_CONFIG } from '@/lib/seo-config';
 import CarSchema from '@/components/schemas/CarSchema';
 import { Lightbox } from '@/components/ui/lightbox';
-import { WhatsAppCta } from '@/components/ui/whatsapp-cta';
+import { InquiryCta } from '@/components/ui/inquiry-cta';
 import { EnvkvDisclosure } from '@/components/EnvkvDisclosure';
 import { getAllFeatures, getTransmission } from '@/lib/domain/vehicleFeatures';
 
@@ -800,7 +800,7 @@ export default function VehicleDetailPage() {
             <Phone size={16} />
             <span>Anrufen</span>
           </a>
-          <WhatsAppCta
+          <InquiryCta
             vehicleTitle={vehicle.title}
             className="flex-1 min-h-[48px]"
           />
