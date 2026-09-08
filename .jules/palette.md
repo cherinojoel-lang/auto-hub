@@ -4,3 +4,6 @@
 ## 2024-05-31 - Mobile Menu Toggle Accessibility
 **Learning:** The application uses two different patterns for hiding/showing mobile menus: `Header.tsx` conditionally unmounts the `<nav>` node entirely, while `StickyHeader.tsx` keeps the menu in the DOM but hides it using CSS transform classes (`translate-x-full`). This requires different strategies for the `aria-controls` attribute on the toggle buttons to prevent screen readers from pointing to non-existent nodes when unmounted.
 **Action:** When adding accessibility features to toggle buttons, always verify if the target container is hidden via CSS or conditionally unmounted, and set `aria-controls` to `undefined` dynamically when the target is removed from the DOM.
+## 2026-09-08 - Supplementary Form Input Accessibility
+**Learning:** When a form field (like Kaufpreis) uses both a primary number input and a supplementary range slider under a single visual label, screen readers struggle to associate them correctly without explicit id/htmlFor and aria-label properties, and sliders often lack keyboard focus indicators.
+**Action:** Always assign id and htmlFor exclusively to the primary input. Provide the supplementary input with an explicit aria-label and focus-visible styling classes for keyboard navigation.
