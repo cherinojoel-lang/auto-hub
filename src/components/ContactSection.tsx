@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Phone, MessageCircle, Mail, Clock } from 'lucide-react';
+import { Phone, MessageCircle, Mail, Clock, Loader2 } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { submitLead } from '@/lib/lead-client';
 
@@ -398,8 +398,10 @@ export default function ContactSection() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full px-6 py-3.5 bg-secondary text-white font-bold rounded-md hover:bg-cta-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px] text-base"
+                className="w-full px-6 py-3.5 bg-secondary text-white font-bold rounded-md hover:bg-cta-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px] text-base flex items-center justify-center gap-2"
+                aria-live="polite"
               >
+                {isSubmitting && <Loader2 className="w-5 h-5 animate-spin" aria-hidden="true" />}
                 {isSubmitting ? 'Wird gesendet...' : 'Anfrage senden'}
               </button>
 
