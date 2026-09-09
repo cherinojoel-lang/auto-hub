@@ -23,8 +23,7 @@ const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string;
       ([entry]) => {
         if (entry.isIntersecting) {
           timeoutId = setTimeout(() => setIsVisible(true), delay);
-          // ⚡ Bolt: Fix IntersectionObserver memory leak by unobserving entry.target instead of closed-over element variable
-          observer.unobserve(entry.target);
+          observer.unobserve(el);
         }
       },
       { threshold: 0.1 }
