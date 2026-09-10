@@ -186,13 +186,13 @@ export default function FinancingPage() {
 
             <form onSubmit={handleSubmit} className="bg-white p-8 rounded-xl border border-border-line shadow-sm space-y-5">
               {submitSuccess && (
-                <div role="status" className="p-4 bg-green-50 border border-green-200 rounded-md text-green-800 text-sm font-medium">
+                <div role="status" aria-live="polite" className="p-4 bg-green-50 border border-green-200 rounded-md text-green-800 text-sm font-medium">
                   Vielen Dank! Ihre Anfrage ist eingegangen. Wir melden uns zeitnah mit einer persönlichen Einschätzung bei Ihnen.
                 </div>
               )}
 
               {submitError && (
-                <div role="alert" className="p-4 bg-amber-50 border border-amber-300 rounded-md text-amber-900 text-sm font-medium">
+                <div role="alert" aria-live="assertive" className="p-4 bg-amber-50 border border-amber-300 rounded-md text-amber-900 text-sm font-medium">
                   {submitError}
                 </div>
               )}

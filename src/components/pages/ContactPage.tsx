@@ -123,13 +123,13 @@ export default function ContactPage() {
                 </p>
 
                 {submitSuccess && (
-                  <div role="status" className="mb-6 p-4 bg-green-50 border border-green-200 rounded-md text-green-800 text-sm font-medium">
+                  <div role="status" aria-live="polite" className="mb-6 p-4 bg-green-50 border border-green-200 rounded-md text-green-800 text-sm font-medium">
                     Vielen Dank für Ihre Nachricht! Wir melden uns schnellstmöglich bei Ihnen.
                   </div>
                 )}
 
                 {submitError && (
-                  <div role="alert" className="mb-6 p-4 bg-amber-50 border border-amber-300 rounded-md text-amber-900 text-sm font-medium">
+                  <div role="alert" aria-live="assertive" className="mb-6 p-4 bg-amber-50 border border-amber-300 rounded-md text-amber-900 text-sm font-medium">
                     {submitError}
                   </div>
                 )}
