@@ -154,7 +154,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, index }) => {
 
 export default function VehicleInventorySection() {
   const topVehicles = React.useMemo(() => {
-    const result = [];
+    const result: Vehicle[] = [];
     for (const vehicle of vehiclesData) {
       if (vehicle.status === 'available') {
         result.push(vehicle);

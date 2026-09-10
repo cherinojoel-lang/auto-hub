@@ -87,7 +87,7 @@ export default function VehicleDetailPage() {
       setCurrentGalleryIndex(0);
       
       // Load similar vehicles
-      const similar = [];
+      const similar: Vehicle[] = [];
       for (const v of safeVehicles) {
         if (v.id !== id) {
           similar.push(v);
