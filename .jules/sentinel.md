@@ -7,3 +7,8 @@
 **Vulnerability:** Stringified JSON injected directly into Astro's `set:html` for `<script type="application/ld+json">` lacked escaping for HTML characters (`<`, `>`).
 **Learning:** `JSON.stringify` does not escape HTML characters. Injecting it directly via `set:html` allows attackers to terminate the `<script>` block and execute arbitrary JavaScript if user-controlled content (e.g., vehicle titles) contains `</script>`.
 **Prevention:** Always escape `<` and `>` (e.g., to `\u003c` and `\u003e`) when serializing JSON intended for raw HTML injection in Astro templates.
+
+## 2024-05-18 - Missing Timeout on Server-Side Fetch
+**Vulnerability:** A `fetch` request to an external API (Supabase) in the Cloudflare Workers environment was missing an explicit timeout.
+**Learning:** The standard JavaScript/Workers `fetch` API does not have a default timeout. If the external service hangs, the request hangs indefinitely, leading to resource exhaustion.
+**Prevention:** Always implement an `AbortController` with a `setTimeout` for external API requests, especially in serverless/Workers environments.
