@@ -102,10 +102,11 @@ export default function FinancingCalculatorSection() {
               <div className="space-y-6">
                 {/* Purchase Price */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                  <label htmlFor="calc-purchase-price" className="block text-sm font-medium text-slate-700 mb-2">
                     Kaufpreis (EUR)
                   </label>
                   <input
+                    id="calc-purchase-price"
                     type="number"
                     min="5000"
                     max="100000"
@@ -114,6 +115,11 @@ export default function FinancingCalculatorSection() {
                     className="w-full px-4 py-3 border border-border-line rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent min-h-12"
                   />
                   <input
+                    id="calc-price-range"
+                    aria-label="Kaufpreis Schieberegler"
+                    aria-valuemin={5000}
+                    aria-valuemax={100000}
+                    aria-valuenow={purchasePrice}
                     type="range"
                     min="5000"
                     max="100000"
@@ -125,10 +131,11 @@ export default function FinancingCalculatorSection() {
 
                 {/* Down Payment */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                  <label htmlFor="calc-down-payment" className="block text-sm font-medium text-slate-700 mb-2">
                     Anzahlung (EUR)
                   </label>
                   <input
+                    id="calc-down-payment"
                     type="number"
                     min="0"
                     max={purchasePrice}
@@ -137,6 +144,11 @@ export default function FinancingCalculatorSection() {
                     className="w-full px-4 py-3 border border-border-line rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent min-h-12"
                   />
                   <input
+                    id="calc-down-payment-range"
+                    aria-label="Anzahlung Schieberegler"
+                    aria-valuemin={0}
+                    aria-valuemax={purchasePrice}
+                    aria-valuenow={downPayment}
                     type="range"
                     min="0"
                     max={purchasePrice}
@@ -148,10 +160,11 @@ export default function FinancingCalculatorSection() {
 
                 {/* Loan Term */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                  <label htmlFor="calc-loan-term" className="block text-sm font-medium text-slate-700 mb-2">
                     Laufzeit (Monate)
                   </label>
                   <select
+                    id="calc-loan-term"
                     value={loanTerm}
                     onChange={(e) => setLoanTerm(Number(e.target.value))}
                     className="w-full px-4 py-3 border border-border-line rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent min-h-12"
@@ -167,10 +180,11 @@ export default function FinancingCalculatorSection() {
 
                 {/* Interest Rate (Read-only) */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                  <label htmlFor="calc-interest-rate" className="block text-sm font-medium text-slate-700 mb-2">
                     Zinssatz (%)
                   </label>
                   <input
+                    id="calc-interest-rate"
                     type="number"
                     value={interestRate}
                     readOnly

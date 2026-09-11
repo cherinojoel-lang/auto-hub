@@ -4,17 +4,8 @@ import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
 import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, SITE_CONFIG } from '@/lib/seo-config';
 import { submitLead } from '@/lib/lead-client';
+import { AnimatedElement } from '@/components/ui/animated-element';
 
-const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({
-  children,
-  className = '',
-}) => {
-  return (
-    <div className={`transition-all duration-700 ${className}`}>
-      {children}
-    </div>
-  );
-};
 
 export default function TradeInPage() {
   const [formData, setFormData] = useState({

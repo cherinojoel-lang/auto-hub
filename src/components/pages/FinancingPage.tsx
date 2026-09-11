@@ -5,17 +5,8 @@ import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, SITE_CONFIG } from '@/lib/seo-config';
 import FinancingCalculatorSection from '@/components/FinancingCalculatorSection';
 import { submitLead } from '@/lib/lead-client';
+import { AnimatedElement } from '@/components/ui/animated-element';
 
-const AnimatedElement: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ 
-  children, 
-  className = '',
-}) => {
-  return (
-    <div className={`transition-all duration-700 ${className}`}>
-      {children}
-    </div>
-  );
-};
 
 export default function FinancingPage() {
   const [formData, setFormData] = useState({
@@ -198,10 +189,11 @@ export default function FinancingPage() {
               )}
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
+                <label htmlFor="financing-name" className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
                   Name *
                 </label>
                 <input
+                  id="financing-name"
                   type="text"
                   required
                   value={formData.name}
@@ -213,10 +205,11 @@ export default function FinancingPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
+                  <label htmlFor="financing-phone" className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
                     Telefon *
                   </label>
                   <input
+                    id="financing-phone"
                     type="tel"
                     required
                     value={formData.phone}
@@ -227,10 +220,11 @@ export default function FinancingPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
+                  <label htmlFor="financing-email" className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
                     E-Mail
                   </label>
                   <input
+                    id="financing-email"
                     type="email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -241,10 +235,11 @@ export default function FinancingPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
+                <label htmlFor="financing-vehicle" className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
                   Gewünschtes Fahrzeug
                 </label>
                 <input
+                  id="financing-vehicle"
                   type="text"
                   value={formData.vehicle}
                   onChange={(e) => setFormData({ ...formData, vehicle: e.target.value })}
@@ -254,10 +249,11 @@ export default function FinancingPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
+                <label htmlFor="financing-message" className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
                   Nachricht / Anmerkungen
                 </label>
                 <textarea
+                  id="financing-message"
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   rows={3}
@@ -269,6 +265,7 @@ export default function FinancingPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
+                aria-busy={isSubmitting}
                 className="w-full py-3.5 bg-secondary text-white font-bold rounded-md hover:bg-cta-hover transition-colors disabled:opacity-50 min-h-[48px] text-base"
               >
                 {isSubmitting ? 'Wird gesendet...' : 'Finanzierung anfragen'}

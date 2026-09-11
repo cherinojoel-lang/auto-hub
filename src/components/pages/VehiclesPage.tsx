@@ -12,7 +12,7 @@ import {
   X,
   Zap,
 } from 'lucide-react';
-import { vehiclesData, type Vehicle } from '@/data/vehiclesData.generated';
+import { vehiclesData } from '@/data/vehiclesData.generated';
 import { Image } from '@/components/ui/image';
 import { InquiryCta } from '@/components/ui/inquiry-cta';
 import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
