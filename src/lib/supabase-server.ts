@@ -21,24 +21,32 @@ export async function captureLead(lead: NormalizedLead): Promise<string> {
     throw new BackendUnavailableError();
   }
 
-  const response = await fetch(`${supabaseUrl}/rest/v1/rpc/capture_aq_lead`, {
-    method: 'POST',
-    headers: {
-      apikey: secretKey,
-      'content-type': 'application/json',
-      accept: 'application/json',
-    },
-    body: JSON.stringify({ payload: lead }),
-  });
+  try {
+    const response = await fetch(`${supabaseUrl}/rest/v1/rpc/capture_aq_lead`, {
+      method: 'POST',
+      headers: {
+        apikey: secretKey,
+        'content-type': 'application/json',
+        accept: 'application/json',
+      },
+      body: JSON.stringify({ payload: lead }),
+      signal: AbortSignal.timeout(5000),
+    });
 
-  if (!response.ok) {
+    if (!response.ok) {
+      throw new BackendUnavailableError();
+    }
+
+    const result: unknown = await response.json();
+    if (typeof result !== 'string' || !/^[0-9a-f-]{36}$/i.test(result)) {
+      throw new BackendUnavailableError();
+    }
+
+    return result;
+  } catch (error) {
+    if (error instanceof BackendUnavailableError) {
+      throw error;
+    }
     throw new BackendUnavailableError();
   }
-
-  const result: unknown = await response.json();
-  if (typeof result !== 'string' || !/^[0-9a-f-]{36}$/i.test(result)) {
-    throw new BackendUnavailableError();
-  }
-
-  return result;
 }
