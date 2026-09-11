@@ -1,5 +1,24 @@
 # Changelog
 
+## [Unreleased] - 2026-09-06 to 2026-09-10
+
+### 🚀 Features & Enhancements
+- Implement isomorphic AppRouter with StaticRouter for complete server-side HTML (Phase 3) (#650)
+- Cloudflare D1, Workers AI, Turnstile & Multi-Platform Sync (#659)
+- Direct D1 lead capture, Iserlohn prompt alignment & chunk optimization (#664)
+
+### 🐛 Bug Fixes
+- Remove broken WhatsApp links + add missing docs/ai SSoT files (#647)
+
+### 🧹 Code Health & Maintenance
+- Excise dead Wix CMS-ecom integration, fix ESLint rule crash and track migration scripts (#648)
+- Bind worker and KV namespace to personal account (#649)
+
+### 📚 Documentation
+- Align handoff & status with merged main, dynamic runner script (#662)
+- Record live Cloudflare Workers deployment URL & triggers (#663)
+
+
 ## [1.0.0-rc1] - 2026-09-05
 ### Added
 - Pre-production hardening complete (PR #635).
