@@ -12,7 +12,8 @@
     "check": "npx astro check --js-only",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "phases": "./run_all_phases.sh"
+    "phases": "./run_all_phases.sh",
+    "test": "vitest run"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.2",
