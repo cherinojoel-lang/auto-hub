@@ -7,3 +7,7 @@
 **Vulnerability:** Stringified JSON injected directly into Astro's `set:html` for `<script type="application/ld+json">` lacked escaping for HTML characters (`<`, `>`).
 **Learning:** `JSON.stringify` does not escape HTML characters. Injecting it directly via `set:html` allows attackers to terminate the `<script>` block and execute arbitrary JavaScript if user-controlled content (e.g., vehicle titles) contains `</script>`.
 **Prevention:** Always escape `<` and `>` (e.g., to `\u003c` and `\u003e`) when serializing JSON intended for raw HTML injection in Astro templates.
+## 2025-03-08 - Fix Content Security Policy for Cloudflare Turnstile
+**Vulnerability:** The Content-Security-Policy (CSP) headers lacked rules to allow `https://challenges.cloudflare.com` for `script-src` and `frame-src`.
+**Learning:** Security controls like Cloudflare Turnstile might be inadvertently blocked by the site's own CSP, leaving forms vulnerable to spam/abuse.
+**Prevention:** Always verify that CSP headers include all necessary third-party domains used by security services (like captchas or bot mitigation).
