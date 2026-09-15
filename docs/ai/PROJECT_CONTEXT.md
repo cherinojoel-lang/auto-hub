@@ -16,8 +16,13 @@ See `docs/ai/SOURCES.md` for the public sources these facts were verified
 against, and `docs/ai/PROJECT_STATUS.md` for the latest verified snapshot.
 
 ## Tech stack
-- **Framework:** Astro 6.x with the React integration (originates from the
-  "Wixstro" Wix Astro template — see root `README.md`)
+- **Framework:** Astro 7.x with the React integration (originates from the
+  "Wixstro" Wix Astro template — see root `README.md`). Routing is a single
+  Astro catch-all (`src/pages/[...slug].astro`) that server-renders an
+  isomorphic React Router app (`src/components/AppRouterIsomorphic.tsx`,
+  `react-router-dom` `StaticRouter`) rather than per-route `.astro` files —
+  legacy `/fahrzeuge` and `/ankauf` URLs 301-redirect to `/fahrzeugbestand`
+  and `/autoankauf`.
 - **UI:** React 18, Tailwind CSS, Radix UI components
 - **Forms/validation:** React Hook Form + Zod
 - **Testing:** Vitest

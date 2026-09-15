@@ -1,5 +1,16 @@
 # Automobile Quick Premium Implementation Plan
 
+> **Status (reconciled 2026-09-15): SUPERSEDED / HISTORICAL.** Tasks 1, 2, 6
+> and 7 (lead domain, `/api/leads`, `LeadForm`, `ConsentManager`/attribution)
+> shipped and now use Cloudflare D1 as the primary store (Supabase as
+> fallback — see `src/pages/api/leads.ts`), beyond what this plan describes.
+> Tasks 3-5 as written (editing `src/layouts/PublicLayout.astro`,
+> `src/pages/index.astro`, `src/pages/fahrzeuge/*.astro` directly) no longer
+> match the codebase: routing was rebuilt around a single Astro catch-all
+> (`src/pages/[...slug].astro`) rendering an isomorphic React Router app —
+> see `docs/ai/PROJECT_CONTEXT.md`. Do not use this file's checkboxes to
+> drive further work; read current source instead. Kept for history only.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Deliver the premium Wix-derived visual system in Astro 6 with durable lead capture, consent-safe attribution and verified preview quality.
