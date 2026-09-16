@@ -60,6 +60,11 @@ function splitMarketplaceTitle(title: string) {
     title: parts[0] || title,
     highlights: parts.slice(1, 4),
   };
+  // Bounded cache to prevent memory leaks in SSR
+  if (titleCache.size >= 500) {
+    const firstKey = titleCache.keys().next().value;
+    if (firstKey !== undefined) titleCache.delete(firstKey);
+  }
   titleCache.set(title, result);
   return result;
 }
