@@ -25,3 +25,6 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+## 2026-09-16 - [Extract String Allocations from Render Loop]
+**Learning:** Functions like `getTransmission` or `splitMarketplaceTitle` were executing regex patterns (`pattern.test`) and allocating multiple strings (`.split('*')`) inside the `.map` render loop of lists, which destroys performance during list rendering and UI filtering.
+**Action:** Always wrap these expensive data-derivation functions in a `WeakMap` or `Map` cache to guarantee O(1) reads during re-renders, vastly decreasing execution and layout block times.
