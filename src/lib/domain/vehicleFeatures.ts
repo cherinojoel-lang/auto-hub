@@ -47,7 +47,8 @@ export const getAllFeatures = (vehicle: Vehicle): string[] => deriveFeatures(veh
 const transmissionCache = new WeakMap<Vehicle, string | null>();
 
 export const getTransmission = (vehicle: Vehicle): string | null => {
-  if (transmissionCache.has(vehicle)) return transmissionCache.get(vehicle)!;
+  const cached = transmissionCache.get(vehicle);
+  if (cached !== undefined) return cached;
   const source = `${vehicle.title} ${vehicle.description || ''}`;
   const automatik = FEATURE_PATTERNS.find((f) => f.label === 'Automatik');
   const result = automatik && automatik.pattern.test(source) ? 'Automatik' : null;
