@@ -15,7 +15,8 @@ export const FEATURE_PATTERNS: Array<{ label: string; pattern: RegExp }> = [
 const imageCountCache = new WeakMap<Vehicle, number>();
 
 export const getVehicleImageCount = (vehicle: Vehicle): number => {
-  if (imageCountCache.has(vehicle)) return imageCountCache.get(vehicle)!;
+  const cached = imageCountCache.get(vehicle);
+  if (cached !== undefined) return cached;
   const images = [vehicle.mainImage, ...(vehicle.gallery || [])].filter(Boolean);
   const count = new Set(images).size;
   imageCountCache.set(vehicle, count);
