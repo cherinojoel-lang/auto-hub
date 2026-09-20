@@ -1,5 +1,15 @@
 # Automobile Quick P0 Foundation Implementation Plan
 
+> **Status (reconciled 2026-09-15): SUPERSEDED / HISTORICAL.** The
+> architecture note below ("move purchase-relevant rendering away from the
+> React `client:only` catch-all into Astro routes") describes the opposite
+> of what shipped: routing was later rebuilt around a single Astro catch-all
+> (`src/pages/[...slug].astro`) server-rendering an isomorphic React Router
+> app (`src/components/AppRouterIsomorphic.tsx`) — see
+> `docs/ai/PROJECT_CONTEXT.md`. Lead storage is now Cloudflare D1 primary
+> with Supabase fallback, not Supabase-only. Do not use this file to drive
+> further work; read current source instead. Kept for history only.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Make the existing AutoHub repository deployable as a verified Astro 6 / Cloudflare Workers website with server-rendered purchase routes, guarded inventory, durable lead contracts, SEO/consent hooks and CI evidence.
