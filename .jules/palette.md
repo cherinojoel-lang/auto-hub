@@ -4,3 +4,6 @@
 ## 2024-05-31 - Mobile Menu Toggle Accessibility
 **Learning:** The application uses two different patterns for hiding/showing mobile menus: `Header.tsx` conditionally unmounts the `<nav>` node entirely, while `StickyHeader.tsx` keeps the menu in the DOM but hides it using CSS transform classes (`translate-x-full`). This requires different strategies for the `aria-controls` attribute on the toggle buttons to prevent screen readers from pointing to non-existent nodes when unmounted.
 **Action:** When adding accessibility features to toggle buttons, always verify if the target container is hidden via CSS or conditionally unmounted, and set `aria-controls` to `undefined` dynamically when the target is removed from the DOM.
+## 2026-09-21 - Accessible Form Validation
+**Learning:** When using custom React state for form errors (like `formErrors.name`), visual styling is not enough. Screen readers do not automatically associate dynamically injected error text with the input field that caused the error.
+**Action:** Explicitly link dynamic error messages to inputs using `aria-describedby` (matching the error element's `id`), mark the input with `aria-invalid="true"`, and assign `role="alert"` to the error element to ensure robust screen reader support.
