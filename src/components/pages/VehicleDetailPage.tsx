@@ -50,7 +50,16 @@ export default function VehicleDetailPage() {
       setCurrentGalleryIndex(0);
       
       // Load similar vehicles
-      setSimilarVehicle(safeVehicles.filter((v: Vehicle) => v.id !== id).slice(0, 4));
+      const similar = [];
+      // ⚡ Bolt: Optimized to prevent O(N) array allocation.
+      // Early exit reduces runtime from O(N) to O(K) where K is max 4 elements.
+      for (const v of safeVehicles) {
+        if (v.id !== id) {
+          similar.push(v);
+          if (similar.length >= 4) break;
+        }
+      }
+      setSimilarVehicle(similar);
       
       // Update SEO for vehicle detail page
       if (data) {
