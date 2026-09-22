@@ -185,7 +185,7 @@ export default function TradeInPage() {
 
             <form onSubmit={handleSubmit} className="bg-white p-8 rounded-xl border border-border-line shadow-sm space-y-5">
               {submitSuccess && (
-                <div role="status" className="p-4 bg-green-50 border border-green-200 rounded-md text-green-800 text-sm font-medium">
+                <div role="status" aria-live="polite" className="p-4 bg-green-50 border border-green-200 rounded-md text-green-800 text-sm font-medium">
                   Vielen Dank! Ihre Anfrage ist eingegangen. Wir prüfen die Daten und melden uns schnellstmöglich.
                 </div>
               )}
