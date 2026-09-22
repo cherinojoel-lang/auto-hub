@@ -326,6 +326,7 @@ export default function ContactSection() {
                   Name *
                 </label>
                 <input
+                  maxLength={100}
                   type="text"
                   id="name"
                   name="name"
@@ -347,6 +348,7 @@ export default function ContactSection() {
                   E-Mail *
                 </label>
                 <input
+                  maxLength={100}
                   type="email"
                   id="email"
                   name="email"
@@ -368,6 +370,7 @@ export default function ContactSection() {
                   Telefon
                 </label>
                 <input
+                  maxLength={50}
                   type="tel"
                   id="phone"
                   name="phone"
@@ -384,6 +387,8 @@ export default function ContactSection() {
                   Nachricht
                 </label>
                 <textarea
+                  maxLength={2000}
+                  aria-describedby="message-counter"
                   id="message"
                   name="message"
                   value={formData.message}
@@ -392,6 +397,13 @@ export default function ContactSection() {
                   className="w-full px-4 py-3 border border-border-line rounded-md focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-colors text-sm resize-none"
                   placeholder="Ihre Nachricht an uns..."
                 />
+                <div
+                  id="message-counter"
+                  aria-live="polite"
+                  className="text-xs text-right text-slate-500 mt-1"
+                >
+                  {formData.message.length} / 2000
+                </div>
               </div>
 
               {/* Submit Button */}
