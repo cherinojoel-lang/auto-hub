@@ -28,3 +28,6 @@
 ## 2024-05-19 - [Optimize string array mapping]
 **Learning:** Replaced `raw.split('').map(...).join('')` with a Regex replace in `slugify`, because splitting a string into an array, mapping over every character, and joining it back is extremely inefficient compared to regex substitution. Also added a bounded Map cache to save computation on repeated values without risking memory leaks.
 **Action:** When performing character replacement on strings, prefer `string.replace(regex, replacer)` over array splitting/joining for better performance, and cache results of frequent pure functions using a bounded size limit.
+## 2024-05-19 - [CI Workflows]
+**Learning:** Node.js 20 is deprecated in GitHub Actions runner, which might lead to confusing output, but for tasks like the `gemini-review.yml`, a 401 UNAUTHENTICATED error is actually due to missing `GEMINI_API_KEY` repository secret, and updating Node version wouldn't fix the authentication issue. It is not something we can resolve with codebase changes.
+**Action:** Ignore missing secrets in CI environments, as they do not reflect codebase vulnerabilities or bugs. Document this in the PR description when requested to fix them.
