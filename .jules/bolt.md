@@ -25,3 +25,6 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+## 2024-05-19 - [Optimize string array mapping]
+**Learning:** Replaced `raw.split('').map(...).join('')` with a Regex replace in `slugify`, because splitting a string into an array, mapping over every character, and joining it back is extremely inefficient compared to regex substitution. Also added a bounded Map cache to save computation on repeated values without risking memory leaks.
+**Action:** When performing character replacement on strings, prefer `string.replace(regex, replacer)` over array splitting/joining for better performance, and cache results of frequent pure functions using a bounded size limit.
