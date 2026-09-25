@@ -78,6 +78,7 @@
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/parser": "^7.18.0",
     "@vitest/coverage-v8": "^4.1.8",
+    "esbuild": "^0.28.2",
     "eslint": "^8.57.1",
     "jsdom": "^20.0.0",
     "typescript": "^5.8.3",
@@ -90,6 +91,7 @@
     "@astrojs/language-server": "^2.16.10",
     "volar-service-yaml": "^0.0.71",
     "yaml-language-server": "^1.23.0",
-    "yaml": "^2.9.0"
+    "yaml": "^2.9.0",
+    "esbuild": "^0.28.2"
   }
 }
