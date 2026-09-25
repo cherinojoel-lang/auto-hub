@@ -1,5 +1,10 @@
 # Changelog
 
+## [Unreleased] - 2026-09-17 to 2026-09-24
+
+### 🐛 Bug Fixes & Chores
+- fix: patch critical Astro dependency chain, reconcile stale superpowers plans (#697) (`5e9b278`)
+
 ## [1.0.0-rc1] - 2026-09-05
 ### Added
 - Pre-production hardening complete (PR #635).
