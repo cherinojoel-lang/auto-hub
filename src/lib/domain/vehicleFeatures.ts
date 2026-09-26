@@ -12,9 +12,18 @@ export const FEATURE_PATTERNS: Array<{ label: string; pattern: RegExp }> = [
   { label: 'Hybrid', pattern: /hybrid/i },
 ];
 
+const imageCountCache = new WeakMap<Vehicle, number>();
+
+// ⚡ Bolt: Cache image counting logic to prevent repeated Set allocations during list rendering
 export const getVehicleImageCount = (vehicle: Vehicle): number => {
+  const cached = imageCountCache.get(vehicle);
+  if (cached !== undefined) {
+    return cached;
+  }
   const images = [vehicle.mainImage, ...(vehicle.gallery || [])].filter(Boolean);
-  return new Set(images).size;
+  const count = new Set(images).size;
+  imageCountCache.set(vehicle, count);
+  return count;
 };
 
 const featuresCache = new WeakMap<Vehicle, string[]>();
@@ -38,8 +47,17 @@ export const getFeatureChips = (vehicle: Vehicle): string[] => deriveFeatures(ve
 
 export const getAllFeatures = (vehicle: Vehicle): string[] => deriveFeatures(vehicle);
 
+const transmissionCache = new WeakMap<Vehicle, string | null>();
+
+// ⚡ Bolt: Cache regex evaluation for transmission to avoid O(N) regex tests per render loop
 export const getTransmission = (vehicle: Vehicle): string | null => {
+  const cached = transmissionCache.get(vehicle);
+  if (cached !== undefined) {
+    return cached;
+  }
   const source = `${vehicle.title} ${vehicle.description || ''}`;
   const automatik = FEATURE_PATTERNS.find((f) => f.label === 'Automatik');
-  return automatik && automatik.pattern.test(source) ? 'Automatik' : null;
+  const result = automatik && automatik.pattern.test(source) ? 'Automatik' : null;
+  transmissionCache.set(vehicle, result);
+  return result;
 };
