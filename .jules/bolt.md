@@ -25,3 +25,7 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+
+## 2026-09-26 - [Symlink Path Issues in CI]
+**Learning:** Checking out files named `run_all_phases.` with a trailing dot fails on Windows CI environments with 'invalid path' exit code 128. Git tries to handle it as a regular file path, causing the checkout to fail.
+**Action:** Always delete symlinks or files with trailing dots that break cross-platform repository operations in CI pipelines to maintain build stability.
