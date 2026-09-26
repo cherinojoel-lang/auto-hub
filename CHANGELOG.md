@@ -1,5 +1,10 @@
 # Changelog
 
+## [Unreleased] - 2026-09-26
+### Changed
+- Retired the preview worker `automobile-quick-preview` in the HSB Cloudflare account (account separation: HSB account holds HSB only). Production runs in the private account at https://automobile-quick.de.
+- `scripts/verify_preview_health.sh` and `scripts/verify-responsive.mjs` now target `PREVIEW_URL` (default https://automobile-quick.de).
+
 ## [1.0.0-rc1] - 2026-09-05
 ### Added
 - Pre-production hardening complete (PR #635).

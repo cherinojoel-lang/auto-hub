@@ -2,6 +2,7 @@ import { spawn } from 'child_process';
 
 const chromePath = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const port = 9222;
+const baseUrl = process.env.PREVIEW_URL ?? 'https://automobile-quick.de';
 
 const chrome = spawn(chromePath, [
   `--remote-debugging-port=${port}`,
@@ -18,7 +19,7 @@ try {
   const versionData = await versionResp.json();
   console.log('Chrome CDP connected:', versionData.Browser);
 
-  const newTabResp = await fetch(`http://127.0.0.1:${port}/json/new?https://owner-review-automobile-quick-preview.hsb-boden.workers.dev`, { method: 'PUT' });
+  const newTabResp = await fetch(`http://127.0.0.1:${port}/json/new?${baseUrl}`, { method: 'PUT' });
   const tabData = await newTabResp.json();
   const wsUrl = tabData.webSocketDebuggerUrl;
 
@@ -61,7 +62,7 @@ try {
   let checks = 0;
 
   for (const page of pages) {
-    const url = `https://owner-review-automobile-quick-preview.hsb-boden.workers.dev${page.path}`;
+    const url = `${baseUrl}${page.path}`;
     await send('Page.navigate', { url });
     await new Promise(r => setTimeout(r, 2000)); // wait for React hydration
 
