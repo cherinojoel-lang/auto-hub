@@ -47,9 +47,11 @@ function registrationTimestamp(value?: string) {
 
 const titleCache = new Map<string, { title: string; highlights: string[] }>();
 
+// ⚡ Bolt: Bounded cache (size 500) for expensive string splitting to reduce JS heap allocations
 function splitMarketplaceTitle(title: string) {
-  if (titleCache.has(title)) {
-    return titleCache.get(title)!;
+  const cached = titleCache.get(title);
+  if (cached !== undefined) {
+    return cached;
   }
 
   const parts = title
@@ -63,7 +65,10 @@ function splitMarketplaceTitle(title: string) {
   };
 
   if (titleCache.size >= 500) {
-    titleCache.delete(titleCache.keys().next().value!);
+    const firstKey = titleCache.keys().next().value;
+    if (firstKey !== undefined) {
+      titleCache.delete(firstKey);
+    }
   }
   titleCache.set(title, result);
 

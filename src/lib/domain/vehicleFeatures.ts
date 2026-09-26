@@ -14,9 +14,11 @@ export const FEATURE_PATTERNS: Array<{ label: string; pattern: RegExp }> = [
 
 const imageCountCache = new WeakMap<Vehicle, number>();
 
+// ⚡ Bolt: Cache image counting logic to prevent repeated Set allocations during list rendering
 export const getVehicleImageCount = (vehicle: Vehicle): number => {
-  if (imageCountCache.has(vehicle)) {
-    return imageCountCache.get(vehicle)!;
+  const cached = imageCountCache.get(vehicle);
+  if (cached !== undefined) {
+    return cached;
   }
   const images = [vehicle.mainImage, ...(vehicle.gallery || [])].filter(Boolean);
   const count = new Set(images).size;
@@ -47,9 +49,11 @@ export const getAllFeatures = (vehicle: Vehicle): string[] => deriveFeatures(veh
 
 const transmissionCache = new WeakMap<Vehicle, string | null>();
 
+// ⚡ Bolt: Cache regex evaluation for transmission to avoid O(N) regex tests per render loop
 export const getTransmission = (vehicle: Vehicle): string | null => {
-  if (transmissionCache.has(vehicle)) {
-    return transmissionCache.get(vehicle)!;
+  const cached = transmissionCache.get(vehicle);
+  if (cached !== undefined) {
+    return cached;
   }
   const source = `${vehicle.title} ${vehicle.description || ''}`;
   const automatik = FEATURE_PATTERNS.find((f) => f.label === 'Automatik');

@@ -25,7 +25,3 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
-
-## 2026-09-26 - [Caching Regex and String Operations]
-**Learning:** Functions like `getTransmission` and `splitMarketplaceTitle` were redundantly parsing strings and evaluating regular expressions on every React render cycle. Bounded `Map` caching for strings and `WeakMap` for objects effectively eliminate this CPU overhead. Unbounded maps for strings can cause memory leaks.
-**Action:** Always wrap purely derived, stable computations in React lists with a cache (like `WeakMap` for objects or a bounded `Map` for strings) to minimize CPU cycles and optimize re-renders.
