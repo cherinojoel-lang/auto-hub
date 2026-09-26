@@ -197,10 +197,11 @@ export default function TradeInPage() {
               )}
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
+                <label htmlFor="tradein-name" className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
                   Name *
                 </label>
                 <input
+                  id="tradein-name"
                   type="text"
                   required
                   value={formData.name}
@@ -212,10 +213,11 @@ export default function TradeInPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
+                  <label htmlFor="tradein-phone" className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
                     Telefon *
                   </label>
                   <input
+                    id="tradein-phone"
                     type="tel"
                     required
                     value={formData.phone}
@@ -225,10 +227,11 @@ export default function TradeInPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
+                  <label htmlFor="tradein-email" className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
                     E-Mail
                   </label>
                   <input
+                    id="tradein-email"
                     type="email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -240,10 +243,11 @@ export default function TradeInPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
+                  <label htmlFor="tradein-brand" className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
                     Marke
                   </label>
                   <input
+                    id="tradein-brand"
                     type="text"
                     value={formData.brand}
                     onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
@@ -252,10 +256,11 @@ export default function TradeInPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
+                  <label htmlFor="tradein-model" className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
                     Modell
                   </label>
                   <input
+                    id="tradein-model"
                     type="text"
                     value={formData.model}
                     onChange={(e) => setFormData({ ...formData, model: e.target.value })}
@@ -267,10 +272,11 @@ export default function TradeInPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
+                  <label htmlFor="tradein-firstRegistration" className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
                     Erstzulassung
                   </label>
                   <input
+                    id="tradein-firstRegistration"
                     type="text"
                     value={formData.firstRegistration}
                     onChange={(e) => setFormData({ ...formData, firstRegistration: e.target.value })}
@@ -279,10 +285,11 @@ export default function TradeInPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
+                  <label htmlFor="tradein-mileage" className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
                     Kilometerstand
                   </label>
                   <input
+                    id="tradein-mileage"
                     type="text"
                     value={formData.mileage}
                     onChange={(e) => setFormData({ ...formData, mileage: e.target.value })}
@@ -291,10 +298,11 @@ export default function TradeInPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
+                  <label htmlFor="tradein-fuel" className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
                     Kraftstoff
                   </label>
                   <select
+                    id="tradein-fuel"
                     value={formData.fuel}
                     onChange={(e) => setFormData({ ...formData, fuel: e.target.value })}
                     className="w-full px-4 py-3 border border-border-line rounded-md focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary text-sm bg-white"
@@ -309,10 +317,11 @@ export default function TradeInPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
+                <label htmlFor="tradein-message" className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
                   Nachricht / Zustand / Ausstattung
                 </label>
                 <textarea
+                  id="tradein-message"
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   rows={3}
