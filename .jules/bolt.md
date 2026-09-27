@@ -25,3 +25,6 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+## 2026-09-27 - [O(1) Map Caching Size Limit]
+**Learning:** Implementing `Map` or `WeakMap` caches for expensive purely derived operations in components/utils (e.g. `splitMarketplaceTitle`) vastly improves performance and reduces redundant block time. However, using standard `Map` with unbounded string keys without explicitly evicting older items introduces a severe risk of memory leaks and OOM crashes, especially in environments without an automatic expiration mechanism.
+**Action:** When creating a `Map`-based cache, always restrict its size explicitly (e.g. `if (cache.size >= 500) cache.delete(cache.keys().next().value)`) or consider `WeakMap` where object references allow for organic garbage collection.
