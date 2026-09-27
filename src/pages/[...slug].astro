@@ -4,6 +4,7 @@ import AppRouterIsomorphic from "@/components/AppRouterIsomorphic";
 import "@/styles/global.css";
 import { shouldNoindexPreview, resolveEffectiveHost } from "@/domain/preview";
 import { vehiclesData } from "@/data/vehiclesData.generated";
+import { buildItemListJsonLd, buildSingleVehicleJsonLd } from "@/lib/seo/vehicles-jsonld";
 
 const effectiveHost = resolveEffectiveHost(Astro.request.headers, Astro.url.hostname);
 const isPreview = shouldNoindexPreview(effectiveHost);
@@ -34,11 +35,20 @@ const firstVehicleImage = firstAvailableVehicle?.mainImage;
 const vdpMatch = pathname.match(/^\/fahrzeugdetail\/([^/]+)$/);
 const vdpVehicle = vdpMatch ? vehiclesData.find((v) => v.id === vdpMatch[1] || v.folder.startsWith(`${vdpMatch[1]}_`)) : null;
 const vdpImage = vdpVehicle?.mainImage;
+
+// Structured Data (JSON-LD) for SEO
+const isInventoryPage = pathname === "/fahrzeugbestand" || pathname === "/fahrzeuge";
+const jsonLd = isInventoryPage 
+  ? buildItemListJsonLd(vehiclesData, canonicalUrl) 
+  : vdpVehicle 
+    ? buildSingleVehicleJsonLd(vdpVehicle, canonicalUrl) 
+    : null;
 ---
 
 <html lang="de" class="w-full h-full">
   <head>
     <Head canonicalUrl={canonicalUrl} isPreview={isPreview} />
+    {jsonLd && <script type="application/ld+json" set:html={jsonLd} />}
     {pathname === "/" && (
       <>
         <link rel="preload" as="image" href="/images/hero-bg-mobile.webp" type="image/webp" media="(max-width: 768px)" fetchpriority="high" />

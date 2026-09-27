@@ -126,7 +126,7 @@ export default function HowItWorksSection() {
   return (
     <section
       ref={ref}
-      className="py-16 md:py-20 bg-surface-muted"
+      className="py-16 md:py-24 bg-card-bg border-y border-border-line/40"
       aria-label="So funktioniert's - Unser Prozess"
     >
       <div className="container mx-auto px-6 max-w-5xl">
@@ -152,7 +152,7 @@ export default function HowItWorksSection() {
         {/* Desktop: Steps with connecting line */}
         <div className="hidden md:block relative mb-12">
           {/* Connecting Line */}
-          <div className="absolute top-6 left-0 right-0 h-0.5 bg-gray-200 z-0"></div>
+          <div className="absolute top-6 left-[12.5%] right-[12.5%] h-0.5 bg-border-line z-0"></div>
 
           {/* Steps Grid */}
           <div className="grid grid-cols-4 gap-8 relative z-10">
@@ -173,7 +173,7 @@ export default function HowItWorksSection() {
         {/* Mobile: Steps with vertical connecting line */}
         <div className="md:hidden relative mb-12">
           {/* Vertical Connecting Line */}
-          <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gray-200 z-0"></div>
+          <div className="absolute left-6 top-6 bottom-6 w-0.5 bg-border-line z-0"></div>
 
           {/* Steps Stack */}
           <div className="space-y-8 relative z-10">
@@ -201,7 +201,7 @@ export default function HowItWorksSection() {
           {/* Primary Button */}
           <Link
             to="/fahrzeugbestand"
-            className="px-8 py-3 bg-secondary text-white font-bold rounded-sm hover:bg-red-700 transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-2xl transform hover:-translate-y-0.5 text-base min-h-[48px] whitespace-nowrap"
+            className="px-8 py-3 bg-secondary text-white font-bold rounded-sm hover:bg-cta-hover transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-sm hover:shadow-md transform hover:-translate-y-0.5 text-base min-h-[48px] whitespace-nowrap"
             aria-label="Fahrzeuge entdecken - Zu unserem Fahrzeugbestand"
           >
             Fahrzeuge entdecken
@@ -210,7 +210,7 @@ export default function HowItWorksSection() {
           {/* Secondary Button */}
           <Link
             to="/kontakt"
-            className="px-8 py-3 bg-transparent border-2 border-secondary text-secondary font-bold rounded-sm hover:bg-secondary hover:text-white transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-2xl transform hover:-translate-y-0.5 text-base min-h-[48px] whitespace-nowrap"
+            className="px-8 py-3 bg-transparent border-2 border-secondary text-secondary font-bold rounded-sm hover:bg-secondary hover:text-white transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-sm hover:shadow-md transform hover:-translate-y-0.5 text-base min-h-[48px] whitespace-nowrap"
             aria-label="Beratungstermin vereinbaren - Kontaktformular"
           >
             Beratungstermin vereinbaren

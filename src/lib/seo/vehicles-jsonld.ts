@@ -54,3 +54,15 @@ export const buildItemListJsonLd = (
   // Prevent XSS when injecting via set:html by escaping < and >
   return JSON.stringify(itemList).replace(/</g, '\\u003c').replace(/>/g, '\\u003e');
 };
+
+export const buildSingleVehicleJsonLd = (
+  vehicle: Vehicle,
+  pageUrl: string,
+): string => {
+  const origin = new URL(pageUrl).origin;
+  const product = {
+    '@context': 'https://schema.org',
+    ...vehicleToProduct(vehicle, origin),
+  };
+  return JSON.stringify(product).replace(/</g, '\\u003c').replace(/>/g, '\\u003e');
+};
