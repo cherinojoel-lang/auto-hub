@@ -47,6 +47,10 @@ export const routes = [
         },
       },
       {
+        path: "fahrzeuge",
+        element: <Navigate to="/fahrzeugbestand" replace />,
+      },
+      {
         path: "fahrzeugdetail/:id",
         element: (
           <Suspense fallback={<RouteLoader />}>
@@ -93,6 +97,10 @@ export const routes = [
         handle: {
           pageIdentifier: 'trade-in',
         },
+      },
+      {
+        path: "ankauf",
+        element: <Navigate to="/autoankauf" replace />,
       },
       {
         path: "finanzierung",

@@ -42,10 +42,12 @@ export default function AppRouterIsomorphic({ pathname }: AppRouterIsomorphicPro
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path="fahrzeugbestand" element={<VehiclesPage />} />
+          <Route path="fahrzeuge" element={<Navigate to="/fahrzeugbestand" replace />} />
           <Route path="fahrzeugdetail/:id" element={<VehicleDetailPage />} />
           <Route path="ueber-uns" element={<AboutPage />} />
           <Route path="kontakt" element={<ContactPage />} />
           <Route path="autoankauf" element={<TradeInPage />} />
+          <Route path="ankauf" element={<Navigate to="/autoankauf" replace />} />
           <Route path="finanzierung" element={<FinancingPage />} />
           <Route path="impressum" element={<ImprintPage />} />
           <Route path="datenschutz" element={<PrivacyPage />} />
