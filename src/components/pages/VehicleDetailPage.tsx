@@ -45,12 +45,12 @@ export default function VehicleDetailPage() {
     try {
       setIsLoading(true);
       const safeVehicles = Array.isArray(vehiclesData) ? vehiclesData : []; 
-      const data = safeVehicles.find((v: Vehicle) => v.id === id) || null;
+      const data = safeVehicles.find((v: Vehicle) => v.id === id || v.folder === id || v.folder.startsWith(`${id}_`)) || null;
       setVehicle(data);
       setCurrentGalleryIndex(0);
       
       // Load similar vehicles
-      setSimilarVehicle(safeVehicles.filter((v: Vehicle) => v.id !== id).slice(0, 4));
+      setSimilarVehicle(safeVehicles.filter((v: Vehicle) => v.id !== id && !v.folder.startsWith(`${id}_`)).slice(0, 4));
       
       // Update SEO for vehicle detail page
       if (data) {
