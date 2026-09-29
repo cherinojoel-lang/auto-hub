@@ -45,16 +45,34 @@ function registrationTimestamp(value?: string) {
   return Number.isFinite(year) ? new Date(year, 0, 1).getTime() : 0;
 }
 
+// ⚡ Bolt Optimization:
+// Caching the result of splitMarketplaceTitle prevents repeated string splitting and array
+// allocations during render loops. We use a bounded Map (max 500) to prevent memory leaks
+// in SSR or long-lived sessions, while returning stable object references to aid React diffing.
+const titleCache = new Map<string, { title: string; highlights: string[] }>();
+
 function splitMarketplaceTitle(title: string) {
+  if (titleCache.has(title)) {
+    return titleCache.get(title)!;
+  }
+
   const parts = title
     .split('*')
     .map((part) => part.trim())
     .filter(Boolean);
 
-  return {
+  const result = {
     title: parts[0] || title,
     highlights: parts.slice(1, 4),
   };
+
+  // Enforce size limit to prevent unbounded memory growth
+  if (titleCache.size >= 500) {
+    titleCache.delete(titleCache.keys().next().value!);
+  }
+  titleCache.set(title, result);
+
+  return result;
 }
 
 export default function VehiclesPage() {
