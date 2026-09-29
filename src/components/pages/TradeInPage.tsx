@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { FileText, CheckCircle, Handshake } from 'lucide-react';
+import { FileText, CheckCircle, Handshake, Loader2 } from 'lucide-react';
 import { updateMetaTags, getStructuredDataBreadcrumb } from '@/lib/seo';
 import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, SITE_CONFIG } from '@/lib/seo-config';
@@ -324,8 +324,10 @@ export default function TradeInPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-3.5 bg-secondary text-white font-bold rounded-md hover:bg-cta-hover transition-colors disabled:opacity-50 min-h-[48px] text-base"
+                aria-busy={isSubmitting}
+                className="w-full py-3.5 bg-secondary text-white font-bold rounded-md hover:bg-cta-hover transition-colors disabled:opacity-50 min-h-[48px] text-base flex items-center justify-center gap-2"
               >
+                {isSubmitting && <Loader2 className="w-5 h-5 animate-spin" />}
                 {isSubmitting ? 'Wird gesendet...' : 'Unverbindliche Anfrage senden'}
               </button>
 
