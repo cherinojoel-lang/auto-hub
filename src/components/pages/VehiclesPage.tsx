@@ -54,6 +54,9 @@ const titleCache = new Map<string, { title: string; highlights: string[] }>();
 function splitMarketplaceTitle(title: string) {
   const cached = titleCache.get(title);
   if (cached) {
+    // Re-insert to act as LRU
+    titleCache.delete(title);
+    titleCache.set(title, cached);
     return cached;
   }
 
