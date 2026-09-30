@@ -15,6 +15,7 @@ import { Lightbox } from '@/components/ui/lightbox';
 import { InquiryCta } from '@/components/ui/inquiry-cta';
 import { EnvkvDisclosure } from '@/components/EnvkvDisclosure';
 import { getAllFeatures, getTransmission } from '@/lib/domain/vehicleFeatures';
+import VehicleFinancingCalculator from '@/components/VehicleFinancingCalculator';
 
 
 const SAFE_SERVICE_POINTS = [
@@ -259,15 +260,14 @@ export default function VehicleDetailPage() {
               </div>
             </div>
 
-            {/* Mobile: Financing Box */}
+            {/* Mobile: Interactive Financing & Trust Box */}
             <div className="lg:hidden bg-card-bg border-t border-border-line">
               <div className="container mx-auto px-4 max-w-7xl py-6">
-                <div className="p-4 rounded-lg border border-border-line bg-card-bg">
-                  <p className="text-sm font-bold mb-3 text-foreground">Finanzierung auf Anfrage</p>
-                  <p className="text-sm leading-relaxed text-text-secondary">
-                    Wir prüfen passende Finanzierungsoptionen gerne persönlich.
-                  </p>
-                </div>
+                <VehicleFinancingCalculator
+                  vehiclePrice={vehicle.priceValue || 0}
+                  vehicleTitle={vehicle.title}
+                  vehicleId={vehicle.id}
+                />
               </div>
             </div>
 
@@ -673,6 +673,15 @@ export default function VehicleDetailPage() {
                       </div>
                     </AnimatedElement>
                   )}
+
+                  {/* Interactive Financing Calculator Section */}
+                  <AnimatedElement>
+                    <VehicleFinancingCalculator
+                      vehiclePrice={vehicle.priceValue || 0}
+                      vehicleTitle={vehicle.title}
+                      vehicleId={vehicle.id}
+                    />
+                  </AnimatedElement>
                 </div>
 
                 {/* Right Column - Desktop Price Box */}
@@ -680,18 +689,19 @@ export default function VehicleDetailPage() {
                   <div className="sticky top-32 w-full">
                     <AnimatedElement className="bg-surface-elevated shadow-md rounded-xl border border-border-line p-6 sm:p-8" priority={true}>
                       {/* Price */}
-                      <div className="mb-8">
+                      <div className="mb-6">
                         <p className="text-sm text-text-secondary font-medium mb-2">Verkaufspreis</p>
                         <p className="text-5xl sm:text-6xl font-bold text-secondary">
                           {vehicle.price}
                         </p>
                       </div>
 
-                      {/* Financing */}
-                      <div className="mb-8 p-4 rounded-lg border border-border-line bg-card-bg">
-                        <p className="text-sm font-bold mb-3 text-foreground">Finanzierung auf Anfrage</p>
-                        <p className="text-sm leading-relaxed text-text-secondary">
-                          Wir prüfen passende Finanzierungsoptionen gerne persönlich.
+                      {/* Financing Quick Rate */}
+                      <div className="mb-6 p-4 rounded-xl border border-secondary/30 bg-secondary/5">
+                        <p className="text-xs font-bold uppercase tracking-wider text-secondary mb-1">Finanzierungsbeispiel</p>
+                        <p className="text-2xl font-extrabold text-foreground">{vehicle.financing || 'ab 77 € / Mt.'}</p>
+                        <p className="text-xs text-text-secondary mt-1">
+                          Ohne Anzahlung · Bis zu 84 Monate · 150-Punkte-Check
                         </p>
                       </div>
 

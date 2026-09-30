@@ -5,7 +5,7 @@ import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, SITE_CONFIG } from '@/lib/seo-config';
 import { submitLead } from '@/lib/lead-client';
 import { AnimatedElement } from '@/components/ui/animated-element';
-
+import TurnstileWidget from '@/components/TurnstileWidget';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -14,6 +14,7 @@ export default function ContactPage() {
     phone: '',
     message: '',
   });
+  const [turnstileToken, setTurnstileToken] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -45,12 +46,14 @@ export default function ContactPage() {
         phone: formData.phone || undefined,
         message: formData.message || undefined,
         intent: 'general',
+        turnstile_token: turnstileToken || undefined,
       });
 
       if (res.success) {
         setSubmitSuccess(true);
         setSubmitError(null);
         setFormData({ name: '', email: '', phone: '', message: '' });
+        setTurnstileToken('');
         setTimeout(() => setSubmitSuccess(false), 5000);
       } else {
         setSubmitSuccess(false);
@@ -99,35 +102,44 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Contact Form & Info Section */}
-      <section className="py-16 md:py-20 bg-surface" id="main-content">
+      {/* Main Content */}
+      <section id="main-content" className="py-16 md:py-24">
         <div className="container mx-auto px-4 max-w-6xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
             {/* Contact Form */}
             <AnimatedElement>
               <div className="bg-white rounded-xl p-8 border border-border-line shadow-sm">
-                <h2 className="text-2xl sm:text-3xl font-heading font-bold text-foreground mb-4">
-                  Senden Sie uns eine Nachricht
+                <h2 className="text-2xl sm:text-3xl font-heading font-bold text-foreground mb-2">
+                  Schreiben Sie uns
                 </h2>
-                <p className="text-sm text-text-secondary mb-6">
-                  Nutzen Sie das Kontaktformular für Fragen zu Fahrzeugen, Besichtigungen oder allgemeinen Anliegen.
+                <p className="text-text-secondary text-sm mb-6">
+                  Wir melden uns schnellstmöglich bei Ihnen zurück.
                 </p>
 
                 {submitSuccess && (
-                  <div role="status" className="mb-6 p-4 bg-green-50 border border-green-200 rounded-md text-green-800 text-sm font-medium">
-                    Vielen Dank für Ihre Nachricht! Wir melden uns schnellstmöglich bei Ihnen.
+                  <div
+                    role="alert"
+                    className="p-4 mb-6 bg-green-50 border border-green-200 text-green-800 rounded-md text-sm"
+                  >
+                    Vielen Dank für Ihre Nachricht! Wir werden uns schnellstmöglich bei Ihnen melden.
                   </div>
                 )}
 
                 {submitError && (
-                  <div role="alert" className="mb-6 p-4 bg-amber-50 border border-amber-300 rounded-md text-amber-900 text-sm font-medium">
+                  <div
+                    role="alert"
+                    className="p-4 mb-6 bg-red-50 border border-red-200 text-red-800 rounded-md text-sm"
+                  >
                     {submitError}
                   </div>
                 )}
 
-                <form onSubmit={handleSubmit} className="space-y-5">
+                <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
-                    <label htmlFor="name" className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
+                    <label
+                      htmlFor="name"
+                      className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5"
+                    >
                       Name *
                     </label>
                     <input
@@ -143,8 +155,11 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="email" className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
-                      E-Mail *
+                    <label
+                      htmlFor="email"
+                      className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5"
+                    >
+                      E-Mail-Adresse *
                     </label>
                     <input
                       type="email"
@@ -154,13 +169,16 @@ export default function ContactPage() {
                       value={formData.email}
                       onChange={handleChange}
                       className="w-full px-4 py-3 border border-border-line rounded-md focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary text-sm"
-                      placeholder="ihre.email@example.com"
+                      placeholder="ihre.email@beispiel.de"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="phone" className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
-                      Telefon
+                    <label
+                      htmlFor="phone"
+                      className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5"
+                    >
+                      Telefonnummer (optional)
                     </label>
                     <input
                       type="tel"
@@ -169,13 +187,16 @@ export default function ContactPage() {
                       value={formData.phone}
                       onChange={handleChange}
                       className="w-full px-4 py-3 border border-border-line rounded-md focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary text-sm"
-                      placeholder="+49 (0) 123 / 456789"
+                      placeholder="z. B. 0171 1234567"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="message" className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
-                      Nachricht *
+                    <label
+                      htmlFor="message"
+                      className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5"
+                    >
+                      Ihre Nachricht *
                     </label>
                     <textarea
                       id="message"
@@ -188,6 +209,9 @@ export default function ContactPage() {
                       placeholder="Ihre Nachricht an uns..."
                     />
                   </div>
+
+                  {/* Cloudflare Turnstile Spam-Schutz */}
+                  <TurnstileWidget onToken={setTurnstileToken} />
 
                   <button
                     type="submit"

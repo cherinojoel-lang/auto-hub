@@ -5,7 +5,7 @@ import SeoHead from '@/components/SeoHead';
 import { PAGE_METADATA, SITE_CONFIG } from '@/lib/seo-config';
 import { submitLead } from '@/lib/lead-client';
 import { AnimatedElement } from '@/components/ui/animated-element';
-
+import TurnstileWidget from '@/components/TurnstileWidget';
 
 export default function TradeInPage() {
   const [formData, setFormData] = useState({
@@ -19,6 +19,7 @@ export default function TradeInPage() {
     fuel: '',
     message: '',
   });
+  const [turnstileToken, setTurnstileToken] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -59,6 +60,7 @@ export default function TradeInPage() {
         phone: formData.phone || undefined,
         message: vehicleSummary,
         intent: 'trade-in',
+        turnstile_token: turnstileToken || undefined,
       });
 
       if (res.success) {
@@ -75,10 +77,11 @@ export default function TradeInPage() {
           fuel: '',
           message: '',
         });
+        setTurnstileToken('');
         setTimeout(() => setSubmitSuccess(false), 5000);
       } else {
         setSubmitSuccess(false);
-        setSubmitError(res.error || 'Ihre Anfrage konnte nicht übermittelt werden.');
+        setSubmitError(res.error || 'Ihre Anfrage konnte nicht gesendet werden.');
       }
     } catch {
       setSubmitSuccess(false);
@@ -95,6 +98,10 @@ export default function TradeInPage() {
         description={PAGE_METADATA.tradeIn.description}
         url={`${SITE_CONFIG.url}${PAGE_METADATA.tradeIn.path}`}
       />
+      <a href="#main-content" className="skip-to-main">
+        Zum Hauptinhalt springen
+      </a>
+
       {/* Hero Section */}
       <section className="relative bg-primary text-white py-16 md:py-24 overflow-hidden">
         <div className="container mx-auto px-4 relative z-10 max-w-4xl text-center">
@@ -102,118 +109,103 @@ export default function TradeInPage() {
             <p className="text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-secondary mb-3">
               Automobile Quick · Iserlohn-Letmathe
             </p>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6">
-              Auto verkaufen in Iserlohn
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-4">
+              Fahrzeug verkaufen
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-white/90 leading-relaxed max-w-2xl mx-auto">
-              Sie möchten Ihr Fahrzeug verkaufen? Automobile Quick prüft Ihr Fahrzeug persönlich vor Ort und erstellt ein faires Angebot. Senden Sie uns die wichtigsten Fahrzeugdaten oder vereinbaren Sie direkt einen Termin.
+              Faire Preise, transparente Bewertung und unkomplizierte Abwicklung. Verkaufen Sie Ihr Auto direkt vor Ort.
             </p>
           </AnimatedElement>
         </div>
       </section>
 
-      {/* Process Section */}
-      <section className="py-16 md:py-20 bg-surface">
-        <div className="container mx-auto px-4 max-w-5xl">
-          <AnimatedElement>
-            <div className="text-center mb-12">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-foreground mb-3">
-                Ablauf in 3 einfachen Schritten
-              </h2>
-              <p className="text-text-secondary text-base">Unkompliziert, transparent und ohne lange Wartezeiten</p>
-            </div>
-          </AnimatedElement>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <AnimatedElement delay={100}>
-              <div className="bg-white border border-border-line rounded-xl p-8 text-center shadow-sm h-full flex flex-col items-center">
-                <div className="w-14 h-14 bg-secondary/10 text-secondary rounded-full flex items-center justify-center mb-6">
-                  <FileText size={28} />
+      {/* Main Content */}
+      <section id="main-content" className="py-16 md:py-24">
+        <div className="container mx-auto px-4 max-w-4xl">
+          {/* Steps */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <AnimatedElement>
+              <div className="bg-white rounded-xl p-6 border border-border-line text-center shadow-sm h-full flex flex-col items-center">
+                <div className="w-12 h-12 bg-secondary/10 text-secondary rounded-full flex items-center justify-center mb-4">
+                  <FileText size={24} />
                 </div>
-                <h3 className="text-lg font-heading font-bold text-foreground mb-3">
-                  1. Fahrzeugdaten senden
-                </h3>
-                <p className="text-text-secondary text-sm leading-relaxed">
-                  Füllen Sie das Online-Formular mit den wichtigsten Daten Ihres Autos aus oder rufen Sie uns direkt an.
+                <h3 className="text-lg font-heading font-bold text-foreground mb-2">1. Daten senden</h3>
+                <p className="text-text-secondary text-sm">
+                  Füllen Sie unser kurzes Formular mit den wichtigsten Fahrzeugdaten aus.
+                </p>
+              </div>
+            </AnimatedElement>
+
+            <AnimatedElement delay={100}>
+              <div className="bg-white rounded-xl p-6 border border-border-line text-center shadow-sm h-full flex flex-col items-center">
+                <div className="w-12 h-12 bg-secondary/10 text-secondary rounded-full flex items-center justify-center mb-4">
+                  <CheckCircle size={24} />
+                </div>
+                <h3 className="text-lg font-heading font-bold text-foreground mb-2">2. Bewertung erhalten</h3>
+                <p className="text-text-secondary text-sm">
+                  Wir prüfen Ihre Angaben und erstellen ein faires, unverbindliches Angebot.
                 </p>
               </div>
             </AnimatedElement>
 
             <AnimatedElement delay={200}>
-              <div className="bg-white border border-border-line rounded-xl p-8 text-center shadow-sm h-full flex flex-col items-center">
-                <div className="w-14 h-14 bg-secondary/10 text-secondary rounded-full flex items-center justify-center mb-6">
-                  <CheckCircle size={28} />
+              <div className="bg-white rounded-xl p-6 border border-border-line text-center shadow-sm h-full flex flex-col items-center">
+                <div className="w-12 h-12 bg-secondary/10 text-secondary rounded-full flex items-center justify-center mb-4">
+                  <Handshake size={24} />
                 </div>
-                <h3 className="text-lg font-heading font-bold text-foreground mb-3">
-                  2. Bewertung vor Ort
-                </h3>
-                <p className="text-text-secondary text-sm leading-relaxed">
-                  Wir begutachten Ihr Fahrzeug persönlich und transparent bei uns in Iserlohn-Letmathe.
-                </p>
-              </div>
-            </AnimatedElement>
-
-            <AnimatedElement delay={300}>
-              <div className="bg-white border border-border-line rounded-xl p-8 text-center shadow-sm h-full flex flex-col items-center">
-                <div className="w-14 h-14 bg-secondary/10 text-secondary rounded-full flex items-center justify-center mb-6">
-                  <Handshake size={28} />
-                </div>
-                <h3 className="text-lg font-heading font-bold text-foreground mb-3">
-                  3. Faires Angebot
-                </h3>
-                <p className="text-text-secondary text-sm leading-relaxed">
-                  Sie erhalten ein faires Ankaufangebot. Auf Wunsch übernehmen wir auch die Abmeldung für Sie.
+                <h3 className="text-lg font-heading font-bold text-foreground mb-2">3. Auszahlung</h3>
+                <p className="text-text-secondary text-sm">
+                  Bei Einigung erfolgt die Übergabe und sofortige, sichere Bezahlung vor Ort.
                 </p>
               </div>
             </AnimatedElement>
           </div>
-        </div>
-      </section>
 
-      {/* Form Section */}
-      <section className="py-16 md:py-20 bg-background" id="ankauf-formular">
-        <div className="container mx-auto px-4 max-w-2xl">
+          {/* Form */}
           <AnimatedElement>
-            <div className="text-center mb-10">
-              <h2 className="text-2xl sm:text-3xl font-heading font-bold text-foreground mb-3">
-                Unverbindliche Ankaufanfrage
+            <form onSubmit={handleSubmit} className="bg-white rounded-xl p-8 border border-border-line shadow-sm space-y-6">
+              <h2 className="text-2xl sm:text-3xl font-heading font-bold text-foreground mb-2">
+                Fahrzeugdaten eingeben
               </h2>
-              <p className="text-text-secondary text-sm">
-                Tragen Sie hier die Eckdaten Ihres Fahrzeugs ein. Wir melden uns zeitnah bei Ihnen.
+              <p className="text-text-secondary text-sm mb-6">
+                Teilen Sie uns die wichtigsten Eckdaten mit. Wir melden uns zeitnah mit einer Einschätzung.
               </p>
-            </div>
 
-            <form onSubmit={handleSubmit} className="bg-white p-8 rounded-xl border border-border-line shadow-sm space-y-5">
               {submitSuccess && (
-                <div role="status" className="p-4 bg-green-50 border border-green-200 rounded-md text-green-800 text-sm font-medium">
-                  Vielen Dank! Ihre Anfrage ist eingegangen. Wir prüfen die Daten und melden uns schnellstmöglich.
+                <div
+                  role="alert"
+                  className="p-4 mb-6 bg-green-50 border border-green-200 text-green-800 rounded-md text-sm"
+                >
+                  Vielen Dank für Ihre Anfrage! Wir prüfen die Angaben und melden uns zeitnah bei Ihnen.
                 </div>
               )}
 
               {submitError && (
-                <div role="alert" className="p-4 bg-amber-50 border border-amber-300 rounded-md text-amber-900 text-sm font-medium">
+                <div
+                  role="alert"
+                  className="p-4 mb-6 bg-red-50 border border-red-200 text-red-800 rounded-md text-sm"
+                >
                   {submitError}
                 </div>
               )}
 
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
-                  Name *
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-3 border border-border-line rounded-md focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary text-sm"
-                  placeholder="Ihr vollständiger Name"
-                />
-              </div>
-
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
-                    Telefon *
+                    Name *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="w-full px-4 py-3 border border-border-line rounded-md focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary text-sm"
+                    placeholder="Ihr vollständiger Name"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
+                    Telefonnummer *
                   </label>
                   <input
                     type="tel"
@@ -221,21 +213,22 @@ export default function TradeInPage() {
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     className="w-full px-4 py-3 border border-border-line rounded-md focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary text-sm"
-                    placeholder="+49 (0) 123 / 456789"
+                    placeholder="z. B. 0171 1234567"
                   />
                 </div>
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
-                    E-Mail
-                  </label>
-                  <input
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-4 py-3 border border-border-line rounded-md focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary text-sm"
-                    placeholder="ihre.email@example.com"
-                  />
-                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-text-secondary mb-1.5">
+                  E-Mail-Adresse (optional)
+                </label>
+                <input
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="w-full px-4 py-3 border border-border-line rounded-md focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary text-sm"
+                  placeholder="ihre.email@example.com"
+                />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -275,7 +268,7 @@ export default function TradeInPage() {
                     value={formData.firstRegistration}
                     onChange={(e) => setFormData({ ...formData, firstRegistration: e.target.value })}
                     className="w-full px-4 py-3 border border-border-line rounded-md focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary text-sm"
-                    placeholder="z. B. 2019"
+                    placeholder="z. B. 05/2018"
                   />
                 </div>
                 <div>
@@ -287,7 +280,7 @@ export default function TradeInPage() {
                     value={formData.mileage}
                     onChange={(e) => setFormData({ ...formData, mileage: e.target.value })}
                     className="w-full px-4 py-3 border border-border-line rounded-md focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary text-sm"
-                    placeholder="z. B. 75.000"
+                    placeholder="z. B. 85.000"
                   />
                 </div>
                 <div>
@@ -320,6 +313,9 @@ export default function TradeInPage() {
                   placeholder="Besonderheiten, Vorschäden, Ausstattung..."
                 />
               </div>
+
+              {/* Cloudflare Turnstile Spam-Schutz */}
+              <TurnstileWidget onToken={setTurnstileToken} />
 
               <button
                 type="submit"
