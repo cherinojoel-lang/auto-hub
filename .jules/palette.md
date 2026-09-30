@@ -7,3 +7,6 @@
 ## 2026-09-30 - Form Accessibility Pattern in AutoHub
 **Learning:** Found a specific pattern in the application's forms (e.g., `ContactSection.tsx`) where inline error messages were rendered conditionally without explicit ARIA linkage (`aria-describedby`) or semantic roles.
 **Action:** Always link conditionally rendered error elements to their inputs via `id` and `aria-describedby`, set `aria-invalid={!!hasError}` on the input, and ensure the error text has `role="alert"`.
+## 2026-09-30 - CI Failure: Invalid Windows Symlink
+**Learning:** Found an invalid symlink (`run_all_phases.`) ending with a dot that was causing the `actions/checkout` step to fail on Windows GitHub Actions runners with exit code 128 (invalid path).
+**Action:** Remove the invalid symlink (`git rm`) as it is unsupported on Windows and breaks CI workflows.
