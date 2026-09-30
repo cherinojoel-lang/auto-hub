@@ -12,11 +12,13 @@ export const FEATURE_PATTERNS: Array<{ label: string; pattern: RegExp }> = [
   { label: 'Hybrid', pattern: /hybrid/i },
 ];
 
+// Optimization: Cache expensive array allocations and Set lookups keyed by the vehicle object to avoid O(N) operations per render cycle
 const imageCountCache = new WeakMap<Vehicle, number>();
 
 export const getVehicleImageCount = (vehicle: Vehicle): number => {
-  if (imageCountCache.has(vehicle)) {
-    return imageCountCache.get(vehicle)!;
+  const cached = imageCountCache.get(vehicle);
+  if (cached !== undefined) {
+    return cached;
   }
   const images = [vehicle.mainImage, ...(vehicle.gallery || [])].filter(Boolean);
   const count = new Set(images).size;
@@ -45,11 +47,13 @@ export const getFeatureChips = (vehicle: Vehicle): string[] => deriveFeatures(ve
 
 export const getAllFeatures = (vehicle: Vehicle): string[] => deriveFeatures(vehicle);
 
+// Optimization: Cache expensive regex test matching against derived string allocations to minimize string processing during list renders
 const transmissionCache = new WeakMap<Vehicle, string | null>();
 
 export const getTransmission = (vehicle: Vehicle): string | null => {
-  if (transmissionCache.has(vehicle)) {
-    return transmissionCache.get(vehicle)!;
+  const cached = transmissionCache.get(vehicle);
+  if (cached !== undefined) {
+    return cached;
   }
   const source = `${vehicle.title} ${vehicle.description || ''}`;
   const automatik = FEATURE_PATTERNS.find((f) => f.label === 'Automatik');
