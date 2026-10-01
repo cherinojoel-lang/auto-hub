@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-PREVIEW_URL="https://owner-review-automobile-quick-preview.hsb-boden.workers.dev"
+PREVIEW_URL="${PREVIEW_URL:-https://automobile-quick.de}"
 
 echo "Checking Preview Health at $PREVIEW_URL..."
 HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$PREVIEW_URL")
