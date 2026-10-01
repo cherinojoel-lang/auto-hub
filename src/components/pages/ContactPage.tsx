@@ -118,7 +118,8 @@ export default function ContactPage() {
 
                 {submitSuccess && (
                   <div
-                    role="alert"
+                    role="status"
+                    aria-live="polite"
                     className="p-4 mb-6 bg-green-50 border border-green-200 text-green-800 rounded-md text-sm"
                   >
                     Vielen Dank für Ihre Nachricht! Wir werden uns schnellstmöglich bei Ihnen melden.
@@ -128,6 +129,7 @@ export default function ContactPage() {
                 {submitError && (
                   <div
                     role="alert"
+                    aria-live="assertive"
                     className="p-4 mb-6 bg-red-50 border border-red-200 text-red-800 rounded-md text-sm"
                   >
                     {submitError}
