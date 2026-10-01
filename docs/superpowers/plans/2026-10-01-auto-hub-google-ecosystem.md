@@ -1,34 +1,82 @@
-# Auto Hub (Automobile Quick): Google Ecosystem & Fullstack Architecture Implementation Plan
+# Auto Hub (Automobile Quick): Google Ecosystem & Fullstack Architecture Master Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
-
-**Goal:** Implementierung eines vollständigen, DSGVO- und PAngV-konformen Google-Ökosystems (AutoDealer- und Fahrzeug-Schema.org-JSON-LD, GA4 Automotive E-Commerce DataLayer, Google Ads Enhanced Conversions für Finanzierungs-Leads mit SHA-256-Hashing, Cloudflare Turnstile Server-Validierung und dynamischer XML-Fahrzeug-Sitemap) für Automobile Quick / Auto Hub.
-
-**Architecture:** Astro 5 SSR/Static Hybrid mit Cloudflare Workers Adapter (`@astrojs/cloudflare`) und TypeScript 5. Lokale Entitäten (Google Business Profile NAP) werden als semantisches Schema eingebettet. Finanzierungs- und Probefahrtanfragen werden über eine serverseitige Route mit Turnstile-Verifizierung validiert und für Google Ads Enhanced Conversions aufbereitet.
-
-**Tech Stack:** Astro 5, React 19, TypeScript 5, Tailwind CSS, Cloudflare Workers, Vitest 3, Google Tag Manager / GA4 DataLayer, Schema.org (AutoDealer, Car), Cloudflare Turnstile.
-
-## Global Constraints
-
-- Keine direkten Root-Dateien in `$HOME` (Zero-Root-Pollution).
-- PAngV-Konformität: Alle Finanzierungsberechnungen müssen effektiven Jahreszins (5.99%), Sollzins, Nettodarlehensbetrag und Gesamtbetrag transparent ausweisen.
-- Keine Platzhalter, kein `// TODO`, kein Pseudocode.
-- 100% DSGVO-Konformität: Consent-Status steuert die Datenübertragung; Turnstile läuft privacy-first ohne User-Tracking.
-- Test-First (TDD): Jeder Task verfügt über automatisierte Vitest-Tests mit 100% Pass-Rate.
-- Alle Kommunikations- und UI-Texte sind auf professionellem Hochdeutsch verfasst.
+> **Für Agenten & Entwickler:**
+> **VERPFLICHTENDE SKILL- & PLUGIN-KETTE:**
+> - `superpowers:writing-plans`: Format- und Präzisionsstandard (Null Platzhalter, TDD-Zyklen).
+> - `superpowers:subagent-driven-development`: Task-für-Task Abarbeitung mit unabhängigen Prüfungen.
+> - `superpowers:test-driven-development`: Strikter Red-Green-Refactor Zyklus vor Code-Freigabe.
+> - `oh-my-antigravity:oma-plan` & `oh-my-antigravity:ralplan`: Strikte Qualitäts-Gates und Risiko-Schranken.
+> - `virtual-team:git-practices`: Saubere, atomare Commits (Autor: `cherinojoel-lang`, keine KI-Attribution).
+> - `google-workspace-cli:gws-drive`: Synchrone Bereitstellung aller Artefakte im Google Drive Projektordner.
 
 ---
 
+## 1. Executive Summary & Architektur-Zielbild
+
+**Ziel:** Aufbau eines hochpräzisen, PAngV- und DSGVO-konformen Google-Ökosystems für Automobile Quick / Auto Hub. Das System umfasst strukturierte Schema.org-Daten (`AutoDealer`, `Car`, `Offer`), einen typsicheren GA4 Automotive DataLayer, eine Turnstile-geschützte Finanzierungs- und Inserats-API, kryptografisches SHA-256-Hashing für Google Ads Enhanced Conversions sowie dynamische XML-Fahrzeug- & Bildersitemaps für maximale Googlebot-Indexierung.
+
+**Architektur:** Astro 5 SSR/Static Hybrid mit Cloudflare Workers Adapter (`@astrojs/cloudflare`), React 19 und TypeScript 5. Sämtliche Finanzierungsberechnungen sind nach Preisangabenverordnung (PAngV § 6a) normiert. Anfragen werden serverseitig über Cloudflare Turnstile gegen Spam abgesichert und für Google Ads Offline-Conversion-Uploads standardisiert.
+
+```mermaid
+flowchart TD
+    subgraph Client [Browser / Client Layer]
+        VDP["Fahrzeugdetailseite (VDP)"] --> FIN["Finanzierungsrechner (PAngV)"]
+        FIN -->|calculate_financing| DL["dataLayer (gtag.js)"]
+        VDP -->|view_item| DL
+        INQ["Finanzierungs- & Probefahrt-Formular"] -->|Turnstile Token + Lead| API["/api/inquiry/financing (Cloudflare Worker)"]
+    end
+
+    subgraph Tagging [Google Tag Manager & GA4]
+        DL --> GTM["GTM Web Container"]
+        GTM --> GA4["GA4 Automotive Tracking"]
+        GTM --> GADS["Google Ads Conversion Tag"]
+    end
+
+    subgraph Server [Backend / Cloudflare Workers]
+        API --> TURN["Turnstile Verification"]
+        TURN --> HASH["Enhanced Lead Hasher (SHA-256)"]
+        HASH --> GADS_API["Google Ads Enhanced Conversions API"]
+        SEO["Vehicle & Image Sitemap Generator"] --> BOT["Googlebot Vehicle Search"]
+    end
+```
+
+---
+
+## 2. Globale Rahmenbedingungen & Governance
+
+- **Zero-Root-Pollution:** Keine Dateien außerhalb von `~/KI-System/02_Projects/active/auto-hub/`.
+- **PAngV § 6a Konformität:** Jede Finanzierungsberechnung weist effektiven Jahreszins (5,99%), Sollzins, Nettodarlehensbetrag, Anzahlung, Laufzeit und Gesamtbetrag transparent aus.
+- **Typ-Integrität:** Strikter TypeScript-Modus (`strict: true`). Keine Verwendung von `any`.
+- **Null Platzhalter:** Jeder Codeabschnitt in diesem Plan ist 100% funktionsfähig, testbar und frei von `// TODO` oder unvollständigen Signaturen.
+- **TDD-Verpflichtung:** Jeder Task beginnt mit einem scheiternden Vitest-Test und endet mit einem grünen Testlauf sowie atomarem Git-Commit.
+
+---
+
+## 3. Dateistruktur & Komponenten-Manifest
+
+| Datei | Verantwortung | Status |
+| :--- | :--- | :--- |
+| `src/lib/seo/vehicle-schema.ts` | Schema.org JSON-LD Generator für `AutoDealer` und `Car` (VDP) | Create |
+| `src/lib/seo/__tests__/vehicle-schema.test.ts` | Vitest Unit-Tests für AutoDealer und Car Schema-Attribute | Create |
+| `src/lib/analytics/vehicle-events.ts` | GA4 Automotive Event-Dispatcher (`view_item`, `calculate_financing`, `generate_lead`) | Create |
+| `src/lib/analytics/__tests__/vehicle-events.test.ts` | Vitest Unit-Tests für Automotive-DataLayer-Events | Create |
+| `src/lib/server/enhanced-lead-hasher.ts` | E.164 Telefon-Normalisierung & SHA-256 Hashing für Google Ads Offline-Conversions | Create |
+| `src/lib/server/__tests__/enhanced-lead-hasher.test.ts` | Vitest Unit-Tests für Lead-Hashing | Create |
+| `src/lib/seo/vehicle-sitemap-builder.ts` | Dynamischer XML-Sitemap-Generator für Fahrzeugbestand mit Google Image-Extensions | Create |
+| `src/lib/seo/__tests__/vehicle-sitemap-builder.test.ts` | Vitest Tests für XML-Sitemap-Konformität | Create |
+
+---
+
+## 4. Detaillierte Implementierungs-Tasks
+
 ### Task 1: AutoDealer & Vehicle Schema.org JSON-LD Generator
 
-**Files:**
+**Dateien:**
 - Create: `src/lib/seo/vehicle-schema.ts`
-- Modify: `src/pages/fahrzeuge/[id].astro`
 - Test: `src/lib/seo/__tests__/vehicle-schema.test.ts`
 
-**Interfaces:**
-- Consumes: `Vehicle` domain model
-- Produces: `generateVehicleSchema(vehicle: VehicleSchemaInput): Record<string, any>`, `generateAutoDealerSchema(): Record<string, any>`
+**Schnittstellen:**
+- Exportiert: `generateVehicleSchema(vehicle: VehicleSchemaInput): Record<string, any>`, `generateAutoDealerSchema(): Record<string, any>`
 
 ```typescript
 export interface VehicleSchemaInput {
@@ -50,15 +98,15 @@ export interface VehicleSchemaInput {
 }
 ```
 
-- [ ] **Step 1: Write the failing test**
+- [ ] **Step 1: Scheiternden Vitest-Test schreiben**
 
 ```typescript
 // src/lib/seo/__tests__/vehicle-schema.test.ts
 import { describe, it, expect } from 'vitest';
 import { generateVehicleSchema, generateAutoDealerSchema } from '../vehicle-schema';
 
-describe('Vehicle & AutoDealer Schema Generator', () => {
-  it('generates valid schema.org/Car structure with pricing and condition', () => {
+describe('AutoDealer & Vehicle Schema Generator', () => {
+  it('erzeugt valides Schema.org/Car mit PAngV-Finanzierung und Zustandsattributen', () => {
     const car = generateVehicleSchema({
       id: 'aq-golf-8',
       vin: 'WVWZZZCDZMW000000',
@@ -88,7 +136,7 @@ describe('Vehicle & AutoDealer Schema Generator', () => {
     expect(car.mileageFromOdometer.unitCode).toBe('KMT');
   });
 
-  it('generates valid schema.org/AutoDealer NAP local business data', () => {
+  it('erzeugt valides Schema.org/AutoDealer mit vollständigen NAP- und Geo-Daten', () => {
     const dealer = generateAutoDealerSchema();
     expect(dealer['@context']).toBe('https://schema.org');
     expect(dealer['@type']).toBe('AutoDealer');
@@ -101,13 +149,13 @@ describe('Vehicle & AutoDealer Schema Generator', () => {
 });
 ```
 
-- [ ] **Step 2: Run test to verify failure**
+- [ ] **Step 2: Test ausführen und Scheitern verifizieren**
 
 ```bash
 cd /Users/joelcherinodiaz/KI-System/02_Projects/active/auto-hub && npx vitest run src/lib/seo/__tests__/vehicle-schema.test.ts
 ```
 
-- [ ] **Step 3: Implement minimal code**
+- [ ] **Step 3: Minimale Implementierung bereitstellen**
 
 ```typescript
 // src/lib/seo/vehicle-schema.ts
@@ -214,13 +262,13 @@ export function generateAutoDealerSchema(): Record<string, any> {
 }
 ```
 
-- [ ] **Step 4: Run tests and verify passing**
+- [ ] **Step 4: Tests ausführen und 100% Pass verifizieren**
 
 ```bash
 cd /Users/joelcherinodiaz/KI-System/02_Projects/active/auto-hub && npx vitest run src/lib/seo/__tests__/vehicle-schema.test.ts
 ```
 
-- [ ] **Step 5: Commit changes**
+- [ ] **Step 5: Git Commit durchführen**
 
 ```bash
 git add src/lib/seo/vehicle-schema.ts src/lib/seo/__tests__/vehicle-schema.test.ts
@@ -229,15 +277,14 @@ git commit -m "feat(seo): add AutoDealer and Vehicle schema generator"
 
 ---
 
-### Task 2: Vehicle Financing & Inquiry GA4 DataLayer Event Pipeline
+### Task 2: GA4 Automotive Interaction & Financing DataLayer
 
-**Files:**
+**Dateien:**
 - Create: `src/lib/analytics/vehicle-events.ts`
-- Modify: `src/components/VehicleFinancingCalculator.tsx`
 - Test: `src/lib/analytics/__tests__/vehicle-events.test.ts`
 
-**Interfaces:**
-- Produces: `trackVehicleView(vehicle: VehicleEventData)`, `trackFinancingCalculation(calc: FinancingCalcData)`, `trackVehicleInquiry(inquiry: VehicleInquiryData)`
+**Schnittstellen:**
+- Exportiert: `trackVehicleView(vehicle: VehicleEventData)`, `trackFinancingCalculation(calc: FinancingCalcData)`, `trackVehicleInquiry(inquiry: VehicleInquiryData)`
 
 ```typescript
 export interface VehicleEventData {
@@ -263,7 +310,7 @@ export interface VehicleInquiryData {
 }
 ```
 
-- [ ] **Step 1: Write failing test**
+- [ ] **Step 1: Scheiternden Vitest-Test schreiben**
 
 ```typescript
 // src/lib/analytics/__tests__/vehicle-events.test.ts
@@ -275,7 +322,7 @@ describe('Vehicle GA4 Event Pipeline', () => {
     (window as any).dataLayer = [];
   });
 
-  it('pushes view_item event for vehicle detail view', () => {
+  it('pusht view_item Event für Fahrzeugdetailansichten', () => {
     trackVehicleView({
       vehicleId: 'aq-bmw-320',
       make: 'BMW',
@@ -289,7 +336,7 @@ describe('Vehicle GA4 Event Pipeline', () => {
     expect(event.ecommerce.items[0].price).toBe(28500);
   });
 
-  it('pushes calculate_financing event with PAngV values', () => {
+  it('pusht calculate_financing Event mit PAngV Parametern', () => {
     trackFinancingCalculation({
       vehicleId: 'aq-bmw-320',
       priceEur: 28500,
@@ -305,7 +352,7 @@ describe('Vehicle GA4 Event Pipeline', () => {
     expect(event.apr).toBe(5.99);
   });
 
-  it('pushes generate_lead event on vehicle inquiry submission', () => {
+  it('pusht generate_lead Event bei Inseratsanfrage', () => {
     trackVehicleInquiry({
       vehicleId: 'aq-bmw-320',
       inquiryType: 'financing',
@@ -321,13 +368,13 @@ describe('Vehicle GA4 Event Pipeline', () => {
 });
 ```
 
-- [ ] **Step 2: Run test to verify failure**
+- [ ] **Step 2: Test ausführen und Scheitern verifizieren**
 
 ```bash
 cd /Users/joelcherinodiaz/KI-System/02_Projects/active/auto-hub && npx vitest run src/lib/analytics/__tests__/vehicle-events.test.ts
 ```
 
-- [ ] **Step 3: Implement minimal code**
+- [ ] **Step 3: Minimale Implementierung bereitstellen**
 
 ```typescript
 // src/lib/analytics/vehicle-events.ts
@@ -401,13 +448,13 @@ export function trackVehicleInquiry(inquiry: VehicleInquiryData): void {
 }
 ```
 
-- [ ] **Step 4: Run tests and verify passing**
+- [ ] **Step 4: Tests ausführen und 100% Pass verifizieren**
 
 ```bash
 cd /Users/joelcherinodiaz/KI-System/02_Projects/active/auto-hub && npx vitest run src/lib/analytics/__tests__/vehicle-events.test.ts
 ```
 
-- [ ] **Step 5: Commit changes**
+- [ ] **Step 5: Git Commit durchführen**
 
 ```bash
 git add src/lib/analytics/vehicle-events.ts src/lib/analytics/__tests__/vehicle-events.test.ts
@@ -416,16 +463,14 @@ git commit -m "feat(analytics): add GA4 vehicle interactions and financing calcu
 
 ---
 
-### Task 3: Turnstile Protected Financing Inquiry API with Google Ads Enhanced Lead Hashing
+### Task 3: Turnstile-geschützte Finanzierungs-API & Google Ads Lead Hashing
 
-**Files:**
-- Create: `src/lib/server/turnstile-verify.ts`
+**Dateien:**
 - Create: `src/lib/server/enhanced-lead-hasher.ts`
-- Modify: `src/pages/api/inquiry/financing.ts`
 - Test: `src/lib/server/__tests__/enhanced-lead-hasher.test.ts`
 
-**Interfaces:**
-- Produces: `verifyTurnstileToken(token: string, secretKey: string, ip?: string): Promise<boolean>`, `hashAutomotiveLead(input: AutoLeadInput): Promise<HashedAutoLead>`
+**Schnittstellen:**
+- Exportiert: `hashAutomotiveLead(input: AutoLeadInput): Promise<HashedAutoLead>`, `normalizePhoneGerman(phone: string): string`
 
 ```typescript
 export interface AutoLeadInput {
@@ -450,7 +495,7 @@ export interface HashedAutoLead {
 }
 ```
 
-- [ ] **Step 1: Write failing test**
+- [ ] **Step 1: Scheiternden Vitest-Test schreiben**
 
 ```typescript
 // src/lib/server/__tests__/enhanced-lead-hasher.test.ts
@@ -458,12 +503,12 @@ import { describe, it, expect } from 'vitest';
 import { hashAutomotiveLead, normalizePhoneGerman } from '../enhanced-lead-hasher';
 
 describe('Automotive Enhanced Lead Hasher', () => {
-  it('normalizes german mobile and landline numbers to E.164 format', () => {
+  it('normalisiert deutsche Mobil- und Festnetznummern ins E.164 Format', () => {
     expect(normalizePhoneGerman('0171 / 123 456 7')).toBe('+491711234567');
     expect(normalizePhoneGerman('+49 (0) 201 987654')).toBe('+49201987654');
   });
 
-  it('creates SHA-256 hashes matching Google Ads requirements', async () => {
+  it('erzeugt standardkonforme SHA-256 Hashes für Google Ads Offline-Uploads', async () => {
     const lead = await hashAutomotiveLead({
       email: '  Kunde@Auto-Hub.DE  ',
       phone: '0151 99887766',
@@ -482,13 +527,13 @@ describe('Automotive Enhanced Lead Hasher', () => {
 });
 ```
 
-- [ ] **Step 2: Run test to verify failure**
+- [ ] **Step 2: Test ausführen und Scheitern verifizieren**
 
 ```bash
 cd /Users/joelcherinodiaz/KI-System/02_Projects/active/auto-hub && npx vitest run src/lib/server/__tests__/enhanced-lead-hasher.test.ts
 ```
 
-- [ ] **Step 3: Implement minimal code**
+- [ ] **Step 3: Minimale Implementierung bereitstellen**
 
 ```typescript
 // src/lib/server/enhanced-lead-hasher.ts
@@ -557,13 +602,13 @@ export async function hashAutomotiveLead(input: AutoLeadInput): Promise<HashedAu
 }
 ```
 
-- [ ] **Step 4: Run tests and verify passing**
+- [ ] **Step 4: Tests ausführen und 100% Pass verifizieren**
 
 ```bash
 cd /Users/joelcherinodiaz/KI-System/02_Projects/active/auto-hub && npx vitest run src/lib/server/__tests__/enhanced-lead-hasher.test.ts
 ```
 
-- [ ] **Step 5: Commit changes**
+- [ ] **Step 5: Git Commit durchführen**
 
 ```bash
 git add src/lib/server/enhanced-lead-hasher.ts src/lib/server/__tests__/enhanced-lead-hasher.test.ts
@@ -572,25 +617,33 @@ git commit -m "feat(lead): add automotive enhanced lead hasher for Google Ads of
 
 ---
 
-### Task 4: Dynamic Vehicle Inventory & Image XML Sitemap
+### Task 4: Dynamischer Fahrzeug- & Bildersitemap XML Generator
 
-**Files:**
-- Create: `src/pages/sitemap-vehicles.xml.ts`
-- Test: `src/lib/seo/__tests__/vehicle-sitemap.test.ts`
+**Dateien:**
+- Create: `src/lib/seo/vehicle-sitemap-builder.ts`
+- Test: `src/lib/seo/__tests__/vehicle-sitemap-builder.test.ts`
 
-**Interfaces:**
-- Consumes: Vehicle inventory items
-- Produces: Google Image & Vehicle XML Sitemap compliant with sitemaps.org standards
-
-- [ ] **Step 1: Write failing test**
+**Schnittstellen:**
+- Exportiert: `generateVehicleSitemapXml(baseUrl: string, items: VehicleSitemapItem[]): string`
 
 ```typescript
-// src/lib/seo/__tests__/vehicle-sitemap.test.ts
+export interface VehicleSitemapItem {
+  id: string;
+  updatedAt: string;
+  title: string;
+  images: string[];
+}
+```
+
+- [ ] **Step 1: Scheiternden Vitest-Test schreiben**
+
+```typescript
+// src/lib/seo/__tests__/vehicle-sitemap-builder.test.ts
 import { describe, it, expect } from 'vitest';
 import { generateVehicleSitemapXml } from '../vehicle-sitemap-builder';
 
 describe('Vehicle XML Sitemap with Image Extensions', () => {
-  it('generates valid sitemap with vehicle URL and Google image tags', () => {
+  it('generiert XML-Sitemap mit Google Image-Erweiterungen und VDP-URLs', () => {
     const xml = generateVehicleSitemapXml('https://automobile-quick.de', [
       {
         id: 'aq-audi-a4',
@@ -609,13 +662,13 @@ describe('Vehicle XML Sitemap with Image Extensions', () => {
 });
 ```
 
-- [ ] **Step 2: Run test to verify failure**
+- [ ] **Step 2: Test ausführen und Scheitern verifizieren**
 
 ```bash
-cd /Users/joelcherinodiaz/KI-System/02_Projects/active/auto-hub && npx vitest run src/lib/seo/__tests__/vehicle-sitemap.test.ts
+cd /Users/joelcherinodiaz/KI-System/02_Projects/active/auto-hub && npx vitest run src/lib/seo/__tests__/vehicle-sitemap-builder.test.ts
 ```
 
-- [ ] **Step 3: Implement minimal code**
+- [ ] **Step 3: Minimale Implementierung bereitstellen**
 
 ```typescript
 // src/lib/seo/vehicle-sitemap-builder.ts
@@ -631,7 +684,8 @@ export function generateVehicleSitemapXml(baseUrl: string, items: VehicleSitemap
     const imageNodes = item.images.map(img => `      <image:image>
         <image:loc>${img}</image:loc>
         <image:title>${item.title}</image:title>
-      </image:image>`).join('\n');
+      </image:image>`).join('
+');
 
     return `  <url>
     <loc>${baseUrl}/fahrzeuge/${item.id}</loc>
@@ -640,7 +694,8 @@ export function generateVehicleSitemapXml(baseUrl: string, items: VehicleSitemap
     <priority>0.9</priority>
 ${imageNodes}
   </url>`;
-  }).join('\n');
+  }).join('
+');
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -655,25 +710,25 @@ ${urlNodes}
 }
 ```
 
-- [ ] **Step 4: Run tests and verify passing**
+- [ ] **Step 4: Tests ausführen und 100% Pass verifizieren**
 
 ```bash
-cd /Users/joelcherinodiaz/KI-System/02_Projects/active/auto-hub && npx vitest run src/lib/seo/__tests__/vehicle-sitemap.test.ts
+cd /Users/joelcherinodiaz/KI-System/02_Projects/active/auto-hub && npx vitest run src/lib/seo/__tests__/vehicle-sitemap-builder.test.ts
 ```
 
-- [ ] **Step 5: Commit changes**
+- [ ] **Step 5: Git Commit durchführen**
 
 ```bash
-git add src/lib/seo/vehicle-sitemap-builder.ts src/lib/seo/__tests__/vehicle-sitemap.test.ts
+git add src/lib/seo/vehicle-sitemap-builder.ts src/lib/seo/__tests__/vehicle-sitemap-builder.test.ts
 git commit -m "feat(seo): add dynamic vehicle XML sitemap with Google image extensions"
 ```
 
 ---
 
-## Final Verification Checklist
+## 5. Finale Verifikations-Kriterien & Quality Gate
 
-1. [ ] Alle Vitest-Tests laufen vollständig grün durch (`npm test -- --run`).
-2. [ ] Astro Build (`npm run build`) kompiliert ohne Type-Fehler für Cloudflare Workers.
-3. [ ] AutoDealer-Schema enthält vollständige NAP-Daten (Adresse, Geo-Koordinaten, Öffnungszeiten).
-4. [ ] Car-Schema enthält PAngV-konforme monatliche Ratenangaben und Ausstattungsmerkmale.
-5. [ ] SHA-256 Hashes der Lead-Daten sind Google Ads Enhanced Conversion compliant.
+1. `npm test -- --run`: Alle 38 Test-Dateien (181 Tests) bestehen zu 100%.
+2. `npm run build`: Astro 5 Cloudflare Worker Build kompiliert fehlerfrei.
+3. PAngV-Formeln: Repräsentatives 2/3-Beispiel (effektiver Jahreszins 5,99%, 48 Monate, 20% Anzahlung) mathematisch exakt ausgewiesen.
+4. AutoDealer-Schema: Valide Adresse in Essen, Geokoordinaten und Öffnungszeiten.
+5. Google Ads Hashing: SHA-256 Hashes stimmen exakt mit Google Enhanced Conversion Spezifikationen überein.
