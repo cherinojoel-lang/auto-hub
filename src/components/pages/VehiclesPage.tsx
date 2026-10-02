@@ -48,7 +48,8 @@ function registrationTimestamp(value?: string) {
 const titleCache = new Map<string, { title: string; highlights: string[] }>();
 
 function splitMarketplaceTitle(title: string) {
-  if (titleCache.has(title)) return titleCache.get(title)!;
+  const cached = titleCache.get(title);
+  if (cached) return cached;
 
   const parts = title
     .split('*')
@@ -60,9 +61,12 @@ function splitMarketplaceTitle(title: string) {
     highlights: parts.slice(1, 4),
   };
 
-  if (titleCache.size >= 500) titleCache.delete(titleCache.keys().next().value);
-  titleCache.set(title, result);
+  if (titleCache.size >= 500) {
+    const oldestKey = titleCache.keys().next().value;
+    if (oldestKey !== undefined) titleCache.delete(oldestKey);
+  }
 
+  titleCache.set(title, result);
   return result;
 }
 
