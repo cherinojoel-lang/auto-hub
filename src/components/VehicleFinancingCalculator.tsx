@@ -175,7 +175,7 @@ export default function VehicleFinancingCalculator({
 
       {/* PAngV Disclosure */}
       <p className="text-[10px] text-text-secondary text-center leading-normal">
-        Repräsentatives Berechnungsbeispiel gem. § 17 PAngV: Fahrzeugpreis: {formatEuro(price)}, Anzahlung: {formatEuro(downPayment)}, Nettodarlehensbetrag: {formatEuro(loanAmount)}, {loanTerm} Monatsraten à {formatEuro(monthlyRate)}, eff. Jahreszins: {interestRate}%, Sollzinssatz gebunden: 5,83% p.a., Gesamtbetrag: {formatEuro(totalRepayment)}. Bonität vorausgesetzt. Vermittlung erfolgt für Partnerbanken.
+        Repräsentatives 2/3-Beispiel gem. § 17 PAngV: Fahrzeugpreis: {formatEuro(price)}, Anzahlung: {formatEuro(downPayment)}, Nettodarlehensbetrag: {formatEuro(loanAmount)}, {loanTerm} Monatsraten à {formatEuro(monthlyRate)}, eff. Jahreszins: {interestRate}%, fester Sollzinssatz: 5,83% p.a., Gesamtbetrag: {formatEuro(totalRepayment)}. Bonität vorausgesetzt. Unverbindliche Beispielrechnung. Vermittlung erfolgt als freier Kreditvermittler für kooperierende Partnerbanken (z. B. Santander Consumer Bank AG, Santander-Platz 1, 41061 Mönchengladbach oder Bank11 GmbH, Hammer Landstraße 91, 41460 Neuss).
       </p>
     </div>
   );
