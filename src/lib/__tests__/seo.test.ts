@@ -159,13 +159,13 @@ describe('seo utility', () => {
 
       const script = document.querySelector('script[type="application/ld+json"]') as HTMLScriptElement;
       expect(script).not.toBeNull();
-      expect(script.textContent).toBe(JSON.stringify(structuredData));
+      expect(script.textContent).toBe(JSON.stringify(structuredData).replace(/</g, '\\u003c').replace(/>/g, '\\u003e'));
     });
 
     it('removes existing structured data before adding new one', () => {
       const initialScript = document.createElement('script');
       initialScript.type = 'application/ld+json';
-      initialScript.textContent = JSON.stringify({ old: 'data' });
+      initialScript.textContent = JSON.stringify({ old: 'data' }).replace(/</g, '\\u003c').replace(/>/g, '\\u003e');
       document.head.appendChild(initialScript);
 
       const newStructuredData = { new: 'data' };
@@ -180,7 +180,7 @@ describe('seo utility', () => {
 
       const scripts = document.querySelectorAll('script[type="application/ld+json"]');
       expect(scripts.length).toBe(1);
-      expect(scripts[0].textContent).toBe(JSON.stringify(newStructuredData));
+      expect(scripts[0].textContent).toBe(JSON.stringify(newStructuredData).replace(/</g, '\\u003c').replace(/>/g, '\\u003e'));
     });
 
     it('updates existing meta tags instead of appending new ones', () => {
