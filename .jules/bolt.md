@@ -25,3 +25,6 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+## 2024-10-02 - [splitMarketplaceTitle Memoization]
+**Learning:** Purely derived string computations on vehicle titles, like `splitMarketplaceTitle`, were causing significant unnecessary overhead when re-evaluating string parsing/splitting operations repeatedly in large render loops.
+**Action:** Always cache purely derived string operations using a bounded `Map` limit (e.g. `Map` cache size limit of 500) within the function itself. Explicitly evict the oldest entry when size exceeds the limit to avoid long-lived session OOM memory leaks.
