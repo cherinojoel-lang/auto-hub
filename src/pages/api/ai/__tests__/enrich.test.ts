@@ -60,4 +60,24 @@ describe('POST /api/ai/enrich', () => {
       })
     );
   });
+
+  it('does not leak internal error details on failure', async () => {
+    mockAiRun.mockRejectedValueOnce(new Error('Super secret internal binding error details'));
+
+    const request = new Request('https://automobile-quick.de/api/ai/enrich', {
+      method: 'POST',
+      body: JSON.stringify({
+        make: 'Audi',
+        model: 'A4 Avant',
+      }),
+      headers: { 'content-type': 'application/json' },
+    });
+
+    const response = await POST({ request } as any);
+    expect(response.status).toBe(500);
+    const data = await response.json();
+    expect(data.ok).toBe(false);
+    expect(data.error).toBe('ai_inference_failed');
+    expect(data.details).toBeUndefined(); // Should not leak 'Super secret internal binding error details'
+  });
 });
