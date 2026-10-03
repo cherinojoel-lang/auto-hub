@@ -1,5 +1,55 @@
 # Changelog
 
+
+## [Unreleased] - 2026-09-24 to 2026-10-01
+
+### 🚀 Features & Enhancements
+- 🎨 Palette: Fix CI by adding continue-on-error and removing invalid path (`4a07cd4`)
+- feat(vdp): interactive financing calculator, trust badges & turnstile integration [T-41] (#769) (`c216f1b`)
+- 🎨 Palette: I have added loading spinners to the form buttons. (`42e6834`)
+- feat: implement bounded Map cache for splitMarketplaceTitle (`6727afd`)
+- feat(ui): add accessible form validation and fix CI (`cef0f3d`)
+- 🎨 Palette: Add explicit label associations to Trade-In form (`c295f97`)
+- 🎨 Palette: Improve accessible form validation in ContactSection & Fix CI (`a48ebae`)
+
+### ⚡ Performance (Bolt)
+- perf: Optimize array processing loops and fix CI (`27af572`)
+- perf: optimize array slice operations (`a88f3ec`)
+- ⚡ Bolt: Cache derived values during vehicle list rendering (`aebdddc`)
+- perf: combine filter calls in vehicle filter logic and fix CI errors (`5834558`)
+- Perf: Cache computed properties and regex evaluation (`2c63700`)
+- ⚡ Bolt: Optimize vehicle data derivations and parsing (`cb1040e`)
+
+### 🛡️ Security (Sentinel)
+- fix(security): allow challenges.cloudflare.com in CSP script-src and frame-src (`c8bdaf3`)
+- chore: resolve security scan findings and fix CI (`ed5c989`)
+- fix(ci): update dependencies and document zero-findings for security scans (`2f22c31`)
+- fix: resolve CI failures and CSP Turnstile bug (`27e7d18`)
+- Fix CSP to allow Cloudflare Turnstile, remove invalid files, and remove failing gemini CI (`d0d2e22`)
+- Security scan: fix dependencies and document findings (`a4f9050`)
+- fix: add Cloudflare Turnstile to CSP and fix CI failures (`204dbc5`)
+- chore: Security scan fixes and vulnerability updates (`1ab4638`)
+
+### 🧹 Fixes & Chores
+- Fix CI failures (`c882019`)
+- fix(ci): remove invalid windows file path (`a070b8c`)
+- chore(main): release 1.0.0 (`fa1c43c`)
+- ci: bypass gemini api 401 error in workflow (`f6b8e82`)
+- Fix CI failures: remove invalid path and bypass Gemini API auth error (`57d6294`)
+- fix(ci): resolve windows checkout error and bypass gemini auth failure (`3cdd702`)
+- fix(ci): fix invalid file path and bypass auth errors (`5f621ca`)
+- Fix CI failure: invalid path run_all_phases. on Windows runners (`c441dbf`)
+- chore: fix CI failures (`2902c69`)
+- docs: fix CI checkout failures on Windows by removing run_all_phases. (`f89a52c`)
+- chore: remove invalid symlink to fix Windows CI checkout and fix dependencies (`50d9045`)
+- ci: fix gemini and ossar check suite failures (`6d0b80a`)
+- fix(ci): trigger action again (`e8be03e`)
+- Documentation update regarding Gemini Review pipeline failure (`4935cf4`)
+- chore: Vorschau-URL vom HSB-Cloudflare-Konto auf Produktion umstellen (`72016c5`)
+- Refactor filterVehicles to use a single filter pass (`6437a95`)
+- Fix CI checks by removing invalid symlinks and failing workflow (`d7a8dc0`)
+- chore: bump setup-node version to 22 in all workflows (`f74819f`)
+
 ## [1.0.0-rc1] - 2026-09-05
 ### Added
 - Pre-production hardening complete (PR #635).
