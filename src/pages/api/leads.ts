@@ -59,9 +59,10 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     lead = normalizeLeadInput(raw);
   } catch (error) {
+    console.error('Lead normalization error:', error);
     return json({
       ok: false,
-      error: error instanceof Error ? error.message : 'invalid_lead',
+      error: 'invalid_lead',
     }, 400);
   }
 
@@ -86,6 +87,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     return json({ ok: true, lead_id: leadId }, 201);
   } catch (error) {
+    console.error('Lead capture error:', error);
     if (error instanceof BackendUnavailableError) {
       return json({ ok: false, error: 'backend_unavailable' }, 503);
     }
