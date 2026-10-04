@@ -88,7 +88,7 @@ export default function ContactPage() {
       {/* Hero Section */}
       <section className="relative bg-primary text-white py-16 md:py-24 overflow-hidden">
         <div className="container mx-auto px-4 relative z-10 max-w-4xl text-center">
-          <AnimatedElement>
+          <AnimatedElement priority={true}>
             <p className="text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-secondary mb-3">
               Automobile Quick · Iserlohn-Letmathe
             </p>
