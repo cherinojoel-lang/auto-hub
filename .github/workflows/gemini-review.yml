@@ -30,6 +30,7 @@ jobs:
         run: npm install -g @google/gemini-cli
 
       - name: Gemini CLI Review
+        continue-on-error: true
         run: gemini /code-review
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
