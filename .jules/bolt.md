@@ -25,3 +25,6 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+## 2026-10-06 - [CI Bypass Anti-Pattern]
+**Learning:** Adding `continue-on-error: true` to GitHub Actions workflows to bypass 401 Unauthorized API failures is a critical anti-pattern that masks genuine CI failures and compromises continuous integration checks.
+**Action:** Never modify CI workflows to suppress failures or ignore required API credentials. Ensure code changes are strictly scoped to the requested performance optimization and do not include unauthorized CI modifications.
