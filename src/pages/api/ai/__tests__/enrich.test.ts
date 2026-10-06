@@ -5,6 +5,7 @@ const mockAiRun = vi.fn();
 
 vi.mock('cloudflare:workers', () => ({
   env: {
+    ADMIN_API_SECRET: 'test-secret',
     AI: {
       run: (...args: unknown[]) => mockAiRun(...args),
     },
@@ -20,7 +21,7 @@ describe('POST /api/ai/enrich', () => {
     const request = new Request('https://automobile-quick.de/api/ai/enrich', {
       method: 'POST',
       body: JSON.stringify({ make: 'Audi' }),
-      headers: { 'content-type': 'application/json' },
+      headers: { 'content-type': 'application/json', 'Authorization': 'Bearer test-secret' },
     });
 
     const response = await POST({ request } as any);
@@ -45,7 +46,7 @@ describe('POST /api/ai/enrich', () => {
         power_hp: 190,
         features: ['Panoramadach', 'Matrix-LED', 'Navigation Plus'],
       }),
-      headers: { 'content-type': 'application/json' },
+      headers: { 'content-type': 'application/json', 'Authorization': 'Bearer test-secret' },
     });
 
     const response = await POST({ request } as any);

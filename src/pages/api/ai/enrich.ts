@@ -24,6 +24,14 @@ function json(body: unknown, status = 200) {
 }
 
 export const POST: APIRoute = async ({ request }) => {
+
+  const authHeader = request.headers.get('Authorization');
+  const expectedSecret = (env as unknown as { ADMIN_API_SECRET?: string }).ADMIN_API_SECRET;
+
+  if (!expectedSecret || authHeader !== `Bearer ${expectedSecret}`) {
+    return json({ ok: false, error: 'unauthorized' }, 401);
+  }
+
   let body: VehicleEnrichInput;
   try {
     body = (await request.json()) as VehicleEnrichInput;
