@@ -1,0 +1,5 @@
+package-lock\.json
+.*\.tar\.gz$
+tmp_tool.*
+node_modules.*
+\.wrangler.*
