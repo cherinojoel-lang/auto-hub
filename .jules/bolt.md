@@ -25,3 +25,6 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+## 2024-10-06 - WeakMap Caching for Derived Properties
+**Learning:** During list rendering in React, stable static entities often require repetitive string concatenation, regex checking, array filtering, and `Set` operations to derive properties. These can cause unnecessary CPU cycles on every render, especially inside mapping components like `VehicleCard`.
+**Action:** Use `WeakMap` or bounded `Map` to cache derived properties of stable object references, replacing re-evaluation during render loops with simple Map lookups.

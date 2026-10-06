@@ -12,9 +12,18 @@ export const FEATURE_PATTERNS: Array<{ label: string; pattern: RegExp }> = [
   { label: 'Hybrid', pattern: /hybrid/i },
 ];
 
+// ⚡ Bolt Optimization: Cache image counts to prevent creating new arrays/Sets on every render
+// Expected Impact: Reduces wasted CPU cycles during list iterations in VehicleInventorySection
+const imageCountCache = new WeakMap<Vehicle, number>();
+
 export const getVehicleImageCount = (vehicle: Vehicle): number => {
+  if (imageCountCache.has(vehicle)) {
+    return imageCountCache.get(vehicle)!;
+  }
   const images = [vehicle.mainImage, ...(vehicle.gallery || [])].filter(Boolean);
-  return new Set(images).size;
+  const count = new Set(images).size;
+  imageCountCache.set(vehicle, count);
+  return count;
 };
 
 const featuresCache = new WeakMap<Vehicle, string[]>();
@@ -38,8 +47,17 @@ export const getFeatureChips = (vehicle: Vehicle): string[] => deriveFeatures(ve
 
 export const getAllFeatures = (vehicle: Vehicle): string[] => deriveFeatures(vehicle);
 
+// ⚡ Bolt Optimization: Cache transmission regex extraction to prevent re-evaluating on every render
+// Expected Impact: Reduces string concatenation and regex overhead during list iterations
+const transmissionCache = new WeakMap<Vehicle, string | null>();
+
 export const getTransmission = (vehicle: Vehicle): string | null => {
+  if (transmissionCache.has(vehicle)) {
+    return transmissionCache.get(vehicle)!;
+  }
   const source = `${vehicle.title} ${vehicle.description || ''}`;
   const automatik = FEATURE_PATTERNS.find((f) => f.label === 'Automatik');
-  return automatik && automatik.pattern.test(source) ? 'Automatik' : null;
+  const result = automatik && automatik.pattern.test(source) ? 'Automatik' : null;
+  transmissionCache.set(vehicle, result);
+  return result;
 };
