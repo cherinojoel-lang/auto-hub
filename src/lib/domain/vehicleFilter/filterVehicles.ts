@@ -8,14 +8,23 @@ import {
   matchesYearFrom,
 } from './predicates';
 
+/**
+ * ⚡ Bolt: Performance Optimization
+ * 💡 What: Combined 6 separate .filter() calls into a single .filter() using logical AND.
+ * 🎯 Why: Chaining multiple .filter() calls allocates an intermediate array for each step, resulting in O(N * K) processing.
+ * 📊 Impact: Reduces array allocations from 6 per execution to 1, processing in strict O(N) time.
+ * 🔬 Measurement: O(N) single-pass operation vs previous O(N * 6) multi-pass.
+ */
 export const filterVehicles = (
   vehicles: ReadonlyArray<Vehicle>,
   criteria: FilterCriteria,
 ): Vehicle[] =>
-  vehicles
-    .filter((v) => v.status === 'available')
-    .filter((v) => matchesManufacturer(v, criteria.manufacturer))
-    .filter((v) => matchesPriceMax(v, criteria.priceMax))
-    .filter((v) => matchesFuel(v, criteria.fuel))
-    .filter((v) => matchesMaxMileage(v, criteria.maxMileage))
-    .filter((v) => matchesYearFrom(v, criteria.yearFrom));
+  vehicles.filter(
+    (v) =>
+      v.status === 'available' &&
+      matchesManufacturer(v, criteria.manufacturer) &&
+      matchesPriceMax(v, criteria.priceMax) &&
+      matchesFuel(v, criteria.fuel) &&
+      matchesMaxMileage(v, criteria.maxMileage) &&
+      matchesYearFrom(v, criteria.yearFrom),
+  );
