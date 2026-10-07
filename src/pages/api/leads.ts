@@ -59,9 +59,10 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     lead = normalizeLeadInput(raw);
   } catch (error) {
+    console.error('Lead normalization failed:', error);
     return json({
       ok: false,
-      error: error instanceof Error ? error.message : 'invalid_lead',
+      error: 'invalid_lead',
     }, 400);
   }
 
