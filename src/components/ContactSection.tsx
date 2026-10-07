@@ -309,7 +309,7 @@ export default function ContactSection() {
               <h3 className="text-xl sm:text-2xl font-heading font-bold text-foreground mb-4">Schnellanfrage</h3>
 
               {submitSuccess && (
-                <div role="status" className="p-4 bg-green-50 border border-green-200 rounded-md text-green-800 text-sm font-medium">
+                <div role="status" aria-live="polite" className="p-4 bg-green-50 border border-green-200 rounded-md text-green-800 text-sm font-medium">
                   Vielen Dank! Ihre Anfrage ist eingegangen. Wir melden uns schnellstmöglich bei Ihnen.
                 </div>
               )}
@@ -398,6 +398,7 @@ export default function ContactSection() {
               <button
                 type="submit"
                 disabled={isSubmitting}
+                aria-busy={isSubmitting}
                 className="w-full px-6 py-3.5 bg-secondary text-white font-bold rounded-md hover:bg-cta-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px] text-base"
               >
                 {isSubmitting ? 'Wird gesendet...' : 'Anfrage senden'}
