@@ -38,8 +38,16 @@ export const getFeatureChips = (vehicle: Vehicle): string[] => deriveFeatures(ve
 
 export const getAllFeatures = (vehicle: Vehicle): string[] => deriveFeatures(vehicle);
 
+// Performance optimization: Cache transmission regex lookups to avoid redundant execution during layout iterations
+const transmissionCache = new WeakMap<Vehicle, string | null>();
+
 export const getTransmission = (vehicle: Vehicle): string | null => {
+  if (transmissionCache.has(vehicle)) {
+    return transmissionCache.get(vehicle)!;
+  }
   const source = `${vehicle.title} ${vehicle.description || ''}`;
   const automatik = FEATURE_PATTERNS.find((f) => f.label === 'Automatik');
-  return automatik && automatik.pattern.test(source) ? 'Automatik' : null;
+  const result = automatik && automatik.pattern.test(source) ? 'Automatik' : null;
+  transmissionCache.set(vehicle, result);
+  return result;
 };
