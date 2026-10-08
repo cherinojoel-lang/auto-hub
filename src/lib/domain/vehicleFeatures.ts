@@ -12,9 +12,23 @@ export const FEATURE_PATTERNS: Array<{ label: string; pattern: RegExp }> = [
   { label: 'Hybrid', pattern: /hybrid/i },
 ];
 
+/**
+ * ⚡ Bolt Optimization: Cached Image Count
+ * 💡 What: Replaced inline Set creation with WeakMap caching for `getVehicleImageCount`.
+ * 🎯 Why: `getVehicleImageCount` was creating a new array and Set on every render for every visible vehicle.
+ * 📊 Impact: Eliminates redundant array allocation and Set operations during React re-renders.
+ * 🔬 Measurement: React Profiler will show reduced list rendering time in VehiclesPage.
+ */
+const imageCountCache = new WeakMap<Vehicle, number>();
+
 export const getVehicleImageCount = (vehicle: Vehicle): number => {
+  if (imageCountCache.has(vehicle)) {
+    return imageCountCache.get(vehicle)!;
+  }
   const images = [vehicle.mainImage, ...(vehicle.gallery || [])].filter(Boolean);
-  return new Set(images).size;
+  const count = new Set(images).size;
+  imageCountCache.set(vehicle, count);
+  return count;
 };
 
 const featuresCache = new WeakMap<Vehicle, string[]>();
@@ -38,8 +52,22 @@ export const getFeatureChips = (vehicle: Vehicle): string[] => deriveFeatures(ve
 
 export const getAllFeatures = (vehicle: Vehicle): string[] => deriveFeatures(vehicle);
 
+/**
+ * ⚡ Bolt Optimization: Cached Transmission Parsing
+ * 💡 What: Added WeakMap caching for `getTransmission`.
+ * 🎯 Why: Regular expression execution via `pattern.test` was occurring repeatedly for the same vehicle across renders.
+ * 📊 Impact: Prevents redundant regex evaluation for previously processed vehicle objects.
+ * 🔬 Measurement: React Profiler will show reduced list rendering time in VehiclesPage.
+ */
+const transmissionCache = new WeakMap<Vehicle, string | null>();
+
 export const getTransmission = (vehicle: Vehicle): string | null => {
+  if (transmissionCache.has(vehicle)) {
+    return transmissionCache.get(vehicle)!;
+  }
   const source = `${vehicle.title} ${vehicle.description || ''}`;
   const automatik = FEATURE_PATTERNS.find((f) => f.label === 'Automatik');
-  return automatik && automatik.pattern.test(source) ? 'Automatik' : null;
+  const result = automatik && automatik.pattern.test(source) ? 'Automatik' : null;
+  transmissionCache.set(vehicle, result);
+  return result;
 };
