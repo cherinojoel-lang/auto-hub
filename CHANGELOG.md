@@ -1,5 +1,24 @@
 # Changelog
 
+## [Unreleased] - 2026-10-01 to 2026-10-08
+
+### 🚀 Features & Enhancements
+- perf: cache `getVehicleImageCount` and `getTransmission` results using WeakMap to improve performance.
+- perf: combine multiple and chained filters into single-pass execution in `filterVehicles`.
+- feat(ui): improve accessible form validation and status messages by adding ARIA attributes to form feedback and confirmation buttons in the Palette.
+
+### 🐛 Bug Fixes & Security
+- fix(security): fix information leakage in API endpoints (`/api/ai/enrich` and others).
+- fix(security): add authorization to `/api/ai/enrich`.
+- fix(security): fix XSS vulnerability in JSON-LD serialization [HIGH].
+- fix(compliance): harden § 17 PAngV financing disclosure with 2/3 sample and partner bank attribution.
+- fix: resolve eslint error for non-null assertions.
+- fix(security): address vulnerable dependencies.
+
+### 🔧 CI & Chores
+- chore(main): release 1.0.0.
+- chore: address various CI checkout and external API failures.
+
 ## [1.0.0-rc1] - 2026-09-05
 ### Added
 - Pre-production hardening complete (PR #635).
