@@ -69,7 +69,7 @@ export default function CarSchema({ vehicle }: CarSchemaProps) {
       script.type = 'application/ld+json';
       document.head.appendChild(script);
     }
-    script.textContent = JSON.stringify(schema);
+    script.textContent = JSON.stringify(schema).replace(/</g, '\\u003c').replace(/>/g, '\\u003e');
 
     return () => {
       script?.remove();
