@@ -25,3 +25,7 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+
+## $(date +%Y-%m-%d) - [Vehicle Rerenders & Filtering Optimization]
+**Learning:** Component `VehicleCard` was re-running `getVehicleImageCount` and `getFeatureChips` synchronously on every render, while `VehicleDetailPage` was calling `setSimilarVehicle` inside `useEffect`, causing unnecessary component update cycles.
+**Action:** Always wrap derived local computations (e.g., helper functions receiving props) inside `React.useMemo` within list components and compute dependent local state values using `React.useMemo` directly from route parameters rather than tracking them separately via `useState` and `useEffect` updates.
