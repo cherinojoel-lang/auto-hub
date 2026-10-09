@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { AnimatedElement } from '@/components/ui/animated-element';
 import { useParams, Link } from 'react-router-dom';
 import { Calendar, Gauge, Zap, Fuel, ArrowLeft, Phone, MapPin, Wrench, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -30,11 +30,21 @@ const SAFE_SERVICE_POINTS = [
 export default function VehicleDetailPage() {
   const { id } = useParams<{ id: string }>();
   const [vehicle, setVehicle] = useState<Vehicle | null>(null);
-  const [similarVehicle, setSimilarVehicle] = useState<Vehicle[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentGalleryIndex, setCurrentGalleryIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const { toast } = useToast();
+
+  // Load similar vehicles with useMemo to avoid re-calculation or unnecessary state updates
+  const similarVehicle = useMemo(() => {
+    if (!id) return [];
+    try {
+      const safeVehicles = Array.isArray(vehiclesData) ? vehiclesData : [];
+      return safeVehicles.filter((v: Vehicle) => v.id !== id && !v.folder.startsWith(`${id}_`)).slice(0, 4);
+    } catch (error) {
+      return [];
+    }
+  }, [id]);
 
   useEffect(() => {
     loadVehicle();
@@ -49,9 +59,6 @@ export default function VehicleDetailPage() {
       const data = safeVehicles.find((v: Vehicle) => v.id === id || v.folder === id || v.folder.startsWith(`${id}_`)) || null;
       setVehicle(data);
       setCurrentGalleryIndex(0);
-      
-      // Load similar vehicles
-      setSimilarVehicle(safeVehicles.filter((v: Vehicle) => v.id !== id && !v.folder.startsWith(`${id}_`)).slice(0, 4));
       
       // Update SEO for vehicle detail page
       if (data) {
