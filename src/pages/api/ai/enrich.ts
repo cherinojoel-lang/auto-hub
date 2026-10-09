@@ -24,6 +24,18 @@ function json(body: unknown, status = 200) {
 }
 
 export const POST: APIRoute = async ({ request }) => {
+  const authHeader = request.headers.get('Authorization');
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return json({ ok: false, error: 'unauthorized' }, 401);
+  }
+
+  const token = authHeader.split(' ')[1];
+  const expectedToken = (env as unknown as { API_SECRET_TOKEN?: string }).API_SECRET_TOKEN;
+
+  if (!expectedToken || token !== expectedToken) {
+    return json({ ok: false, error: 'unauthorized' }, 401);
+  }
+
   let body: VehicleEnrichInput;
   try {
     body = (await request.json()) as VehicleEnrichInput;
