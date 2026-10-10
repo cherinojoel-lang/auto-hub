@@ -25,3 +25,6 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+## 2024-05-15 - [Rules of Hooks when Bypassing Components]
+**Learning:** When adding an early `return` to entirely bypass rendering logic or `useEffect` setups (such as bypassing an IntersectionObserver for a `priority` component), placing the `return` *before* existing hooks (`useState`, `useRef`, etc.) violates the Rules of Hooks, causing critical React errors.
+**Action:** Always ensure that early return shortcuts for performance are placed immediately *after* all unconditional React hooks are initialized but before any heavy setup, preserving the exact hook call order across renders.
