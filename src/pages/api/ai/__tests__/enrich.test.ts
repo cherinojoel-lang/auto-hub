@@ -5,6 +5,7 @@ const mockAiRun = vi.fn();
 
 vi.mock('cloudflare:workers', () => ({
   env: {
+    API_SECRET_TOKEN: 'valid-test-token',
     AI: {
       run: (...args: unknown[]) => mockAiRun(...args),
     },
@@ -16,11 +17,40 @@ describe('POST /api/ai/enrich', () => {
     vi.clearAllMocks();
   });
 
+  it('returns 401 when authorization header is missing', async () => {
+    const request = new Request('https://automobile-quick.de/api/ai/enrich', {
+      method: 'POST',
+      body: JSON.stringify({ make: 'Audi', model: 'A4' }),
+      headers: { 'content-type': 'application/json' },
+    });
+
+    const response = await POST({ request } as any);
+    expect(response.status).toBe(401);
+    const data = await response.json();
+    expect(data.error).toBe('unauthorized');
+  });
+
+  it('returns 401 when authorization token is invalid', async () => {
+    const request = new Request('https://automobile-quick.de/api/ai/enrich', {
+      method: 'POST',
+      body: JSON.stringify({ make: 'Audi', model: 'A4' }),
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': 'Bearer invalid-token'
+      },
+    });
+
+    const response = await POST({ request } as any);
+    expect(response.status).toBe(401);
+    const data = await response.json();
+    expect(data.error).toBe('unauthorized');
+  });
+
   it('returns 400 when make or model is missing', async () => {
     const request = new Request('https://automobile-quick.de/api/ai/enrich', {
       method: 'POST',
       body: JSON.stringify({ make: 'Audi' }),
-      headers: { 'content-type': 'application/json' },
+      headers: { 'content-type': 'application/json', 'Authorization': 'Bearer valid-test-token' },
     });
 
     const response = await POST({ request } as any);
@@ -45,7 +75,7 @@ describe('POST /api/ai/enrich', () => {
         power_hp: 190,
         features: ['Panoramadach', 'Matrix-LED', 'Navigation Plus'],
       }),
-      headers: { 'content-type': 'application/json' },
+      headers: { 'content-type': 'application/json', 'Authorization': 'Bearer valid-test-token' },
     });
 
     const response = await POST({ request } as any);
