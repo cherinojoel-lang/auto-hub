@@ -19,10 +19,7 @@ export const AnimatedElement: React.FC<AnimatedElementProps> = ({
   const [isVisible, setIsVisible] = useState(priority);
 
   useEffect(() => {
-    if (priority) {
-      setIsVisible(true);
-      return;
-    }
+
 
     const el = ref.current;
     if (!el) return;
@@ -49,6 +46,14 @@ export const AnimatedElement: React.FC<AnimatedElementProps> = ({
       if (timeoutId) clearTimeout(timeoutId);
     };
   }, [delay, priority]);
+
+  if (priority) {
+    return (
+      <div className={`transition-all duration-700 ease-out translate-x-0 translate-y-0 scale-100 opacity-100 ${className}`}>
+        {children}
+      </div>
+    );
+  }
 
   const getTransform = () => {
     if (isVisible) return 'translate-x-0 translate-y-0 scale-100 opacity-100';
