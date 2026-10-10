@@ -7,3 +7,7 @@
 **Vulnerability:** Stringified JSON injected directly into Astro's `set:html` for `<script type="application/ld+json">` lacked escaping for HTML characters (`<`, `>`).
 **Learning:** `JSON.stringify` does not escape HTML characters. Injecting it directly via `set:html` allows attackers to terminate the `<script>` block and execute arbitrary JavaScript if user-controlled content (e.g., vehicle titles) contains `</script>`.
 **Prevention:** Always escape `<` and `>` (e.g., to `\u003c` and `\u003e`) when serializing JSON intended for raw HTML injection in Astro templates.
+## 2026-10-10 - XSS via unescaped JSON in script tags
+**Vulnerability:** JSON-LD script tags dynamically populated with `JSON.stringify()` did not escape HTML characters, creating a potential XSS vector if data contained `</script>`.
+**Learning:** React/DOM APIs like `textContent` or `set:html` inserting JSON into `<script>` elements evaluate it as JavaScript, bypassing standard HTML escaping.
+**Prevention:** Always escape HTML brackets in JSON payloads meant for script blocks using `.replace(/</g, '\u003c').replace(/>/g, '\u003e')`.
