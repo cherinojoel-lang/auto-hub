@@ -25,3 +25,6 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+## 2026-10-11 - LRU Cache Memory Leak in SSR
+**Learning:** Bounded caches (like an LRU or simple array replacement) should be preferred over plain Maps in SSR contexts. Since the Node.js server instance stays alive, a naive `new Map()` for caching function calls based on generic text keys will keep growing infinitely over time as it processes different items, leading to severe memory leaks in production.
+**Action:** Always implement a size limit (`size > MAX`) on module-level Maps or use `WeakMap` when keying against object instances instead of primitives.
