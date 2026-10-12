@@ -12,9 +12,22 @@ export const FEATURE_PATTERNS: Array<{ label: string; pattern: RegExp }> = [
   { label: 'Hybrid', pattern: /hybrid/i },
 ];
 
+/**
+ * 💡 What: Added WeakMap-based caching to prevent recalculating image counts per render.
+ * 🎯 Why: This getter is called for every vehicle card during rendering, and previously created a new array and Set on every call.
+ * 📊 Impact: Reduces array/Set allocations and GC pressure in vehicle grid components.
+ * 🔬 Measurement: Observe fewer allocations and lower execution time in getVehicleImageCount when rendering vehicle lists.
+ */
+const imageCountCache = new WeakMap<Vehicle, number>();
+
 export const getVehicleImageCount = (vehicle: Vehicle): number => {
+  if (imageCountCache.has(vehicle)) {
+    return imageCountCache.get(vehicle)!;
+  }
   const images = [vehicle.mainImage, ...(vehicle.gallery || [])].filter(Boolean);
-  return new Set(images).size;
+  const count = new Set(images).size;
+  imageCountCache.set(vehicle, count);
+  return count;
 };
 
 const featuresCache = new WeakMap<Vehicle, string[]>();
@@ -38,8 +51,21 @@ export const getFeatureChips = (vehicle: Vehicle): string[] => deriveFeatures(ve
 
 export const getAllFeatures = (vehicle: Vehicle): string[] => deriveFeatures(vehicle);
 
+/**
+ * 💡 What: Added WeakMap-based caching to prevent redundant RegExp evaluations per render.
+ * 🎯 Why: This getter evaluates a RegExp against a concatenated string of title and description. Caching avoids re-evaluating it on every render for the same vehicle.
+ * 📊 Impact: Reduces string allocations and RegExp evaluations in vehicle grid components.
+ * 🔬 Measurement: Observe lower execution time in getTransmission when rendering vehicle lists.
+ */
+const transmissionCache = new WeakMap<Vehicle, string | null>();
+
 export const getTransmission = (vehicle: Vehicle): string | null => {
+  if (transmissionCache.has(vehicle)) {
+    return transmissionCache.get(vehicle)!;
+  }
   const source = `${vehicle.title} ${vehicle.description || ''}`;
   const automatik = FEATURE_PATTERNS.find((f) => f.label === 'Automatik');
-  return automatik && automatik.pattern.test(source) ? 'Automatik' : null;
+  const result = automatik && automatik.pattern.test(source) ? 'Automatik' : null;
+  transmissionCache.set(vehicle, result);
+  return result;
 };

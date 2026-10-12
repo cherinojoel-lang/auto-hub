@@ -25,3 +25,6 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+## 2026-10-12 - WeakMap caching for domain entity getters
+**Learning:** In Astro/React setups where pure getter functions like `getVehicleImageCount` run inside loops (e.g., rendering vehicle cards), recalculating arrays/Sets per render creates unnecessary GC pressure.
+**Action:** Use `WeakMap` keyed by the domain entity to cache computed derivations, making repeated reads O(1) and preventing redundant array allocations without leaking memory.
