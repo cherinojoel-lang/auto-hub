@@ -329,6 +329,7 @@ export default function ContactSection() {
                   type="text"
                   id="name"
                   name="name"
+                  required
                   value={formData.name}
                   onChange={handleInputChange}
                   className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-colors text-sm ${
@@ -350,6 +351,7 @@ export default function ContactSection() {
                   type="email"
                   id="email"
                   name="email"
+                  required
                   value={formData.email}
                   onChange={handleInputChange}
                   className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-colors text-sm ${
