@@ -149,6 +149,24 @@ export default function VehiclesPage() {
     return filters;
   }, [searchParams]);
 
+  // ⚡ Bolt: Optimize render loop performance
+  // Extracted heavy derivations (string splitting, array slicing, Regex tests via getFeatureChips)
+  // out of the pure render layout phase. This prevents expensive recalculations on every React re-render.
+  // Expected impact: Eliminates layout thrashing during filter state changes, reducing block time significantly.
+  const mappedVehicles = useMemo(() => {
+    return sortedVehicles.map((vehicle) => {
+      const imageCount = getVehicleImageCount(vehicle);
+      const transmission = getTransmission(vehicle);
+      const parsedTitle = splitMarketplaceTitle(vehicle.title);
+      const featureChips = parsedTitle.highlights.length
+        ? parsedTitle.highlights
+        : getFeatureChips(vehicle).slice(0, 3);
+
+      return { vehicle, imageCount, transmission, parsedTitle, featureChips };
+    });
+  }, [sortedVehicles]);
+
+
   const applyFilters = () => {
     const params = new URLSearchParams();
     if (manufacturer) params.set('manufacturer', manufacturer);
@@ -279,23 +297,6 @@ export default function VehiclesPage() {
       </label>
     </div>
   );
-
-  // ⚡ Bolt: Optimize render loop performance
-  // Extracted heavy derivations (string splitting, array slicing, Regex tests via getFeatureChips)
-  // out of the pure render layout phase. This prevents expensive recalculations on every React re-render.
-  // Expected impact: Eliminates layout thrashing during filter state changes, reducing block time significantly.
-  const mappedVehicles = useMemo(() => {
-    return sortedVehicles.map((vehicle) => {
-      const imageCount = getVehicleImageCount(vehicle);
-      const transmission = getTransmission(vehicle);
-      const parsedTitle = splitMarketplaceTitle(vehicle.title);
-      const featureChips = parsedTitle.highlights.length
-        ? parsedTitle.highlights
-        : getFeatureChips(vehicle).slice(0, 3);
-
-      return { vehicle, imageCount, transmission, parsedTitle, featureChips };
-    });
-  }, [sortedVehicles]);
 
   return (
     <div className="min-h-screen bg-background pb-28 md:pb-0">
