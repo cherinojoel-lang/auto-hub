@@ -66,10 +66,11 @@ Antworte strukturiert mit:
       vehicle: `${body.make} ${body.model}`,
     });
   } catch (error) {
+    // Log the detailed error server-side to prevent CWE-209 Information Exposure
+    console.error('AI inference failed in /api/ai/enrich:', error);
     return json({
       ok: false,
       error: 'ai_inference_failed',
-      details: error instanceof Error ? error.message : String(error),
     }, 500);
   }
 };
