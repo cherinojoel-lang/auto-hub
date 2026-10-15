@@ -122,6 +122,18 @@ export default function VehiclesPage() {
     });
   }, [filteredVehicles, sort]);
 
+  // ⚡ Bolt: Extract heavy derived calculations out of the render loop
+  const vehicleCardsData = useMemo(() => sortedVehicles.map((vehicle, index) => {
+    const imageCount = getVehicleImageCount(vehicle);
+    const transmission = getTransmission(vehicle);
+    const parsedTitle = splitMarketplaceTitle(vehicle.title);
+    const featureChips = parsedTitle.highlights.length
+      ? parsedTitle.highlights
+      : getFeatureChips(vehicle).slice(0, 3);
+
+    return { vehicle, index, imageCount, transmission, parsedTitle, featureChips };
+  }), [sortedVehicles]);
+
   const activeFilters = useMemo(() => {
     const filters: Array<{ key: string; label: string }> = [];
     const appliedManufacturer = searchParams.get('manufacturer');
@@ -472,15 +484,7 @@ export default function VehiclesPage() {
 
         {sortedVehicles.length > 0 ? (
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
-            {sortedVehicles.map((vehicle, index) => {
-              const imageCount = getVehicleImageCount(vehicle);
-              const transmission = getTransmission(vehicle);
-              const parsedTitle = splitMarketplaceTitle(vehicle.title);
-              const featureChips = parsedTitle.highlights.length
-                ? parsedTitle.highlights
-                : getFeatureChips(vehicle).slice(0, 3);
-
-              return (
+            {vehicleCardsData.map(({ vehicle, index, imageCount, transmission, parsedTitle, featureChips }) => (
                 <article
                   key={vehicle.id}
                   className="group flex h-full flex-col overflow-hidden rounded-xl border border-border-line bg-surface-elevated shadow-sm transition-shadow hover:shadow-md"
@@ -578,8 +582,7 @@ export default function VehiclesPage() {
                     </div>
                   </div>
                 </article>
-              );
-            })}
+            ))}
           </div>
         ) : (
           <div className="rounded-xl border border-border-line bg-white px-6 py-16 text-center shadow-sm">
