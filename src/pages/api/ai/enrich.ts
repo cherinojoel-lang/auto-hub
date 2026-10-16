@@ -66,10 +66,11 @@ Antworte strukturiert mit:
       vehicle: `${body.make} ${body.model}`,
     });
   } catch (error) {
+    console.error('AI inference error:', error instanceof Error ? error.message : String(error));
     return json({
       ok: false,
       error: 'ai_inference_failed',
-      details: error instanceof Error ? error.message : String(error),
+      details: 'ai_inference_failed',
     }, 500);
   }
 };
