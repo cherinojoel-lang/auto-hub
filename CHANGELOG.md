@@ -1,5 +1,25 @@
 # Changelog
 
+## [Unreleased] - 2026-10-09 to 2026-10-15
+
+### 🛡️ Security (Sentinel)
+- Prevent information exposure and leakage in API error responses and the AI enrich endpoint.
+- Fix XSS vulnerabilities by sanitizing JSON.stringify output in JSON-LD script tags.
+- Resolve high severity vulnerable dependencies.
+
+### ⚡ Performance (Bolt)
+- Optimize `VehiclesPage` renders by extracting mapping derivations and utilizing `useMemo`.
+- Optimize vehicle filtering to a single pass and combine multiple array filter iterations.
+- Memoize expensive title parsing, regex operations, `getVehicleImageCount`, and `getTransmission` using caching.
+- Optimize Hero Component LCP and vehicle card rendering hooks.
+
+### 🎨 Accessibility & UI (Palette)
+- Add native HTML validation to required contact form fields.
+
+### 🧹 Chores & CI
+- Fix Windows CI path issues, resolve CI check failures, and remove invalid files.
+- Update CHANGELOG.md with weekly commits.
+
 ## [1.0.0-rc1] - 2026-09-05
 ### Added
 - Pre-production hardening complete (PR #635).
