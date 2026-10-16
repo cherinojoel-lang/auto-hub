@@ -4,3 +4,6 @@
 ## 2024-05-31 - Mobile Menu Toggle Accessibility
 **Learning:** The application uses two different patterns for hiding/showing mobile menus: `Header.tsx` conditionally unmounts the `<nav>` node entirely, while `StickyHeader.tsx` keeps the menu in the DOM but hides it using CSS transform classes (`translate-x-full`). This requires different strategies for the `aria-controls` attribute on the toggle buttons to prevent screen readers from pointing to non-existent nodes when unmounted.
 **Action:** When adding accessibility features to toggle buttons, always verify if the target container is hidden via CSS or conditionally unmounted, and set `aria-controls` to `undefined` dynamically when the target is removed from the DOM.
+## 2026-10-16 - Trade-In Page Form Missing Label Associations
+**Learning:** Even when standard forms (like LeadForm) use label-wrapping or explicit htmlFor mapping, isolated pages (like TradeInPage) can still miss them. This degrades screen reader accessibility and reduces the clickable area for form fields.
+**Action:** Ensure all form labels are explicitly associated with their inputs using htmlFor and id attributes, improving both accessibility and general usability.
