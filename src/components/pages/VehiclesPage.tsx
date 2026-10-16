@@ -45,16 +45,29 @@ function registrationTimestamp(value?: string) {
   return Number.isFinite(year) ? new Date(year, 0, 1).getTime() : 0;
 }
 
+const titleCache = new Map<string, { title: string; highlights: string[] }>();
+
 function splitMarketplaceTitle(title: string) {
+  const cached = titleCache.get(title);
+  if (cached) return cached;
+
   const parts = title
     .split('*')
     .map((part) => part.trim())
     .filter(Boolean);
 
-  return {
+  const result = {
     title: parts[0] || title,
     highlights: parts.slice(1, 4),
   };
+
+  if (titleCache.size >= 500) {
+    const oldestKey = titleCache.keys().next().value;
+    if (oldestKey !== undefined) titleCache.delete(oldestKey);
+  }
+
+  titleCache.set(title, result);
+  return result;
 }
 
 export default function VehiclesPage() {
