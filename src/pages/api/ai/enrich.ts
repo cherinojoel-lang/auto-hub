@@ -66,10 +66,14 @@ Antworte strukturiert mit:
       vehicle: `${body.make} ${body.model}`,
     });
   } catch (error) {
-    return json({
-      ok: false,
-      error: 'ai_inference_failed',
-      details: error instanceof Error ? error.message : String(error),
-    }, 500);
+    console.error('AI Enrichment Failed:', error);
+    return json(
+      {
+        ok: false,
+        error: 'ai_inference_failed',
+        details: 'An internal error occurred during AI enrichment.',
+      },
+      500
+    );
   }
 };
