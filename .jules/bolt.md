@@ -25,3 +25,6 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+## 2026-10-17 - [Vehicle Feature Derivations Optimization]
+**Learning:** Functions like `getTransmission` and `getVehicleImageCount` were executing repeated regex evaluations and object allocations (Sets/Arrays) on every render loop across multiple vehicle cards, leading to unnecessary GC pressure and increased block times.
+**Action:** Always utilize the already-cached `deriveFeatures` result for transmission detection and introduce a `WeakMap` cache for image count calculations to guarantee O(1) performance in frequently re-rendered pure components.
