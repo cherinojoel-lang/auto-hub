@@ -25,3 +25,11 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+
+## 2024-10-17 - [O(N) Regex Optimization in List Renders]
+**Learning:** `getTransmission` was repeatedly concatenating vehicle title and description strings and running a regex test (`pattern.test(source)`) for every vehicle rendered in list views like `VehiclesPage`, despite `deriveFeatures(vehicle)` already utilizing a `WeakMap` cache to extract the same feature patterns.
+**Action:** Always reuse cached derived feature datasets rather than re-executing string operations and regular expressions in functions that are called recursively within heavy component render loops to avoid O(N) block time degradation.
+
+## 2024-10-17 - [Handling Actions Workflow Deprecation warnings and Checkout Errors in CI]
+**Learning:** CI failures can occur from un-fixed errors like Invalid paths (`invalid path 'run_all_phases.'`) blocking checkout steps in Windows CI runners (`OSSAR-Scan`), and authentication errors from expired tokens with an external API script (`gemini-review.yml`).
+**Action:** When re-submitting PRs to fix CI pipeline breaks unrelated to the application code, correctly diagnose workflow files or environmental discrepancies. Use `--continue-on-error: true` in action steps to prevent full suite failure on external authentication failures. For Windows runners (like OSSAR-Scan), invalid paths with a trailing dot (`run_all_phases.`) must be cleanly deleted, or git checkouts fail with `exit code 128`.
