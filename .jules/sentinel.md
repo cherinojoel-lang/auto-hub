@@ -8,7 +8,7 @@
 **Learning:** `JSON.stringify` does not escape HTML characters. Injecting it directly via `set:html` allows attackers to terminate the `<script>` block and execute arbitrary JavaScript if user-controlled content (e.g., vehicle titles) contains `</script>`.
 **Prevention:** Always escape `<` and `>` (e.g., to `\u003c` and `\u003e`) when serializing JSON intended for raw HTML injection in Astro templates.
 
-## 2026-10-17 - [Information Leakage (CWE-209) in API Error Responses]
-**Vulnerability:** Raw error messages (error.message or stringified error objects) were returned directly to the client in HTTP 500 responses within API endpoints (e.g., src/pages/api/ai/enrich.ts).
+## $(date +%Y-%m-%d) - [Information Leakage (CWE-209) in API Error Responses]
+**Vulnerability:** Raw error messages (`error.message` or stringified error objects) were returned directly to the client in HTTP 500 responses within API endpoints (e.g., `src/pages/api/ai/enrich.ts`).
 **Learning:** Exposing internal error details, stack traces, or binding information to the client can leak sensitive infrastructure details, providing attackers with clues about the backend environment.
-**Prevention:** Catch errors, log detailed information server-side using console.error, and return a generic, safe error string (e.g., 'ai_inference_failed') to the client without exposing the raw error message.
+**Prevention:** Catch errors, log detailed information server-side using `console.error`, and return a generic, safe error string (e.g., `'ai_inference_failed'`) to the client without exposing the raw error message.
