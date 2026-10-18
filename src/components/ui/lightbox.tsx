@@ -38,7 +38,7 @@ export const Lightbox: React.FC<LightboxProps> = ({
       aria-label="Bildgalerie"
     >
       <button
-        className="absolute top-4 right-4 text-white/80 hover:text-white p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+        className="absolute top-4 right-4 text-white/80 hover:text-white p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
         onClick={onClose}
         aria-label="Galerie schließen"
       >
@@ -51,7 +51,7 @@ export const Lightbox: React.FC<LightboxProps> = ({
 
       {images.length > 1 && (
         <button
-          className="absolute left-4 text-white/80 hover:text-white p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors z-10"
+          className="absolute left-4 text-white/80 hover:text-white p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
           onClick={(e) => { e.stopPropagation(); onPrev(); }}
           aria-label="Vorheriges Bild"
         >
@@ -69,7 +69,7 @@ export const Lightbox: React.FC<LightboxProps> = ({
 
       {images.length > 1 && (
         <button
-          className="absolute right-4 text-white/80 hover:text-white p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors z-10"
+          className="absolute right-4 text-white/80 hover:text-white p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
           onClick={(e) => { e.stopPropagation(); onNext(); }}
           aria-label="Nächstes Bild"
         >
@@ -83,7 +83,7 @@ export const Lightbox: React.FC<LightboxProps> = ({
             <button
               key={`${img}-${i}`}
               onClick={(e) => { e.stopPropagation(); onGoTo(i); }}
-              className={`flex-shrink-0 w-12 h-9 rounded overflow-hidden border-2 transition-colors ${
+              className={`flex-shrink-0 w-12 h-9 rounded overflow-hidden border-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/95 ${
                 i === currentIndex ? 'border-white' : 'border-transparent opacity-60 hover:opacity-100'
               }`}
               aria-label={`Bild ${i + 1} anzeigen`}
