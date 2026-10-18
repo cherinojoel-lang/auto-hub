@@ -4,3 +4,6 @@
 ## 2024-05-31 - Mobile Menu Toggle Accessibility
 **Learning:** The application uses two different patterns for hiding/showing mobile menus: `Header.tsx` conditionally unmounts the `<nav>` node entirely, while `StickyHeader.tsx` keeps the menu in the DOM but hides it using CSS transform classes (`translate-x-full`). This requires different strategies for the `aria-controls` attribute on the toggle buttons to prevent screen readers from pointing to non-existent nodes when unmounted.
 **Action:** When adding accessibility features to toggle buttons, always verify if the target container is hidden via CSS or conditionally unmounted, and set `aria-controls` to `undefined` dynamically when the target is removed from the DOM.
+## 2026-10-18 - Missing Focus Indicators on Custom Gallery Controls
+**Learning:** Custom interactive components like the Lightbox image gallery often lack visual focus indicators (`focus-visible:ring-...`) for keyboard navigation, making them difficult to use for keyboard-only users, especially when placed over dark overlay backgrounds.
+**Action:** Always verify keyboard accessibility and add explicit `focus-visible` styles with appropriate contrast (e.g., `focus-visible:ring-white`) to custom buttons and interactive elements, particularly in custom modal dialogs or galleries.
