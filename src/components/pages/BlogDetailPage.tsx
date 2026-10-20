@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { BaseCrudService } from '@/integrations';
 import { Image } from '@/components/ui/image';
@@ -56,12 +56,12 @@ export default function BlogDetailPage() {
     return d.toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' });
   };
 
-  const renderContent = (content: string | undefined) => {
+  // Moved useMemo to top-level of component
+  const parsedContent = useMemo(() => {
+    const content = article?.content;
     if (!content) return null;
 
-    return (
-      <div className="prose prose-lg max-w-none font-paragraph text-neutral-700 leading-relaxed">
-        {content.split('\n\n').map((paragraph, index) => {
+    return content.split('\n\n').map((paragraph, index) => {
           // Handle headings
           if (paragraph.startsWith('# ')) {
             return (
@@ -160,7 +160,14 @@ export default function BlogDetailPage() {
             );
           }
           return null;
-        })}
+        });
+  }, [article?.content]);
+
+  const renderContent = () => {
+    if (!parsedContent) return null;
+    return (
+      <div className="prose prose-lg max-w-none font-paragraph text-neutral-700 leading-relaxed">
+        {parsedContent}
       </div>
     );
   };
@@ -234,7 +241,7 @@ export default function BlogDetailPage() {
             </h1>
 
             {/* Content */}
-            {renderContent(article.content)}
+            {renderContent()}
 
             {/* Back Link */}
             <div className="mt-12 pt-6 border-t border-neutral-200">
