@@ -12,10 +12,15 @@ export const filterVehicles = (
   vehicles: ReadonlyArray<Vehicle>,
   criteria: FilterCriteria,
 ): Vehicle[] =>
-  vehicles
-    .filter((v) => v.status === 'available')
-    .filter((v) => matchesManufacturer(v, criteria.manufacturer))
-    .filter((v) => matchesPriceMax(v, criteria.priceMax))
-    .filter((v) => matchesFuel(v, criteria.fuel))
-    .filter((v) => matchesMaxMileage(v, criteria.maxMileage))
-    .filter((v) => matchesYearFrom(v, criteria.yearFrom));
+  // ⚡ Bolt Performance Optimization:
+  // Combined 6 separate .filter() calls into a single iteration.
+  // Reduces time complexity from O(6n) to O(n) and avoids allocating 5 intermediate arrays in memory.
+  // Also utilizes short-circuit evaluation (&&) to skip subsequent checks if an earlier condition fails.
+  vehicles.filter((v) =>
+    v.status === 'available' &&
+    matchesManufacturer(v, criteria.manufacturer) &&
+    matchesPriceMax(v, criteria.priceMax) &&
+    matchesFuel(v, criteria.fuel) &&
+    matchesMaxMileage(v, criteria.maxMileage) &&
+    matchesYearFrom(v, criteria.yearFrom)
+  );
