@@ -309,13 +309,13 @@ export default function ContactSection() {
               <h3 className="text-xl sm:text-2xl font-heading font-bold text-foreground mb-4">Schnellanfrage</h3>
 
               {submitSuccess && (
-                <div role="status" className="p-4 bg-green-50 border border-green-200 rounded-md text-green-800 text-sm font-medium">
+                <div role="status" aria-live="polite" className="p-4 bg-green-50 border border-green-200 rounded-md text-green-800 text-sm font-medium">
                   Vielen Dank! Ihre Anfrage ist eingegangen. Wir melden uns schnellstmöglich bei Ihnen.
                 </div>
               )}
 
               {submitError && (
-                <div role="alert" className="p-4 bg-amber-50 border border-amber-300 rounded-md text-amber-900 text-sm font-medium">
+                <div role="alert" aria-live="assertive" className="p-4 bg-amber-50 border border-amber-300 rounded-md text-amber-900 text-sm font-medium">
                   {submitError}
                 </div>
               )}
@@ -335,9 +335,11 @@ export default function ContactSection() {
                     formErrors.name ? 'border-red-500 bg-red-50/50' : 'border-border-line'
                   }`}
                   placeholder="Ihr Name"
+                  aria-invalid={!!formErrors.name}
+                  aria-describedby={formErrors.name ? "name-error" : undefined}
                 />
                 {formErrors.name && (
-                  <p className="text-red-600 text-xs mt-1 font-medium">{formErrors.name}</p>
+                  <p id="name-error" role="alert" className="text-red-600 text-xs mt-1 font-medium">{formErrors.name}</p>
                 )}
               </div>
 
@@ -356,9 +358,11 @@ export default function ContactSection() {
                     formErrors.email ? 'border-red-500 bg-red-50/50' : 'border-border-line'
                   }`}
                   placeholder="ihre.email@example.com"
+                  aria-invalid={!!formErrors.email}
+                  aria-describedby={formErrors.email ? "email-error" : undefined}
                 />
                 {formErrors.email && (
-                  <p className="text-red-600 text-xs mt-1 font-medium">{formErrors.email}</p>
+                  <p id="email-error" role="alert" className="text-red-600 text-xs mt-1 font-medium">{formErrors.email}</p>
                 )}
               </div>
 
