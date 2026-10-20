@@ -122,6 +122,19 @@ export default function VehiclesPage() {
     });
   }, [filteredVehicles, sort]);
 
+
+  // ⚡ Bolt: Extract heavy derived calculations (parsing strings, image counts)
+  // out of the pure render loop into a memoized array
+  const processedVehicles = useMemo(() => {
+    return sortedVehicles.map((vehicle) => ({
+      vehicle,
+      imageCount: getVehicleImageCount(vehicle),
+      transmission: getTransmission(vehicle),
+      parsedTitle: splitMarketplaceTitle(vehicle.title),
+      featureChips: getFeatureChips(vehicle),
+    }));
+  }, [sortedVehicles]);
+
   const activeFilters = useMemo(() => {
     const filters: Array<{ key: string; label: string }> = [];
     const appliedManufacturer = searchParams.get('manufacturer');
@@ -472,13 +485,10 @@ export default function VehiclesPage() {
 
         {sortedVehicles.length > 0 ? (
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
-            {sortedVehicles.map((vehicle, index) => {
-              const imageCount = getVehicleImageCount(vehicle);
-              const transmission = getTransmission(vehicle);
-              const parsedTitle = splitMarketplaceTitle(vehicle.title);
+            {processedVehicles.map(({ vehicle, imageCount, transmission, parsedTitle, featureChips: rawFeatureChips }, index) => {
               const featureChips = parsedTitle.highlights.length
                 ? parsedTitle.highlights
-                : getFeatureChips(vehicle).slice(0, 3);
+                : rawFeatureChips.slice(0, 3);
 
               return (
                 <article
