@@ -21,11 +21,12 @@ jobs:
   semgrep:
     name: Semgrep Scan
     runs-on: ubuntu-latest
-    container:
-      image: returntocorp/semgrep
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Install Semgrep
+        run: pip install semgrep
 
       - name: Run Semgrep (Open Source Rules)
         run: |
