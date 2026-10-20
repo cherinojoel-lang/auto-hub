@@ -1,5 +1,34 @@
 # Changelog
 
+## [Unreleased] - 2026-09-10 to 2026-09-17
+
+### 🚀 Features & Enhancements
+- fix: patch critical Astro dependency chain, reconcile stale superpowers plans (`f1fa34a`)
+
+### ⚡ Performance (Bolt)
+- Bolt: Cache vehicle image count and transmission results (`356fcda`)
+- Bolt: Combine filter calls for O(N) performance (`6c4f915`)
+- Bolt: Cache vehicle data extraction to reduce render block time (`d51945e`)
+- Bolt: Optimize vehicle filter performance (`e75889d`)
+- Bolt: Combine chained filters for O(n) array traversal (`6aa1b37`)
+- Bolt: Optimize array truncation by replacing filter().slice() with early-exit loops (`09a1751`)
+
+### 🛡️ Security (Sentinel)
+- Sentinel: [MEDIUM] Fix error details leakage in AI endpoint (`4db9b1f`)
+- Security fixes and dependency updates (`05f058b`, `b12f21e`, `724c912`, `f69088d`)
+- fix: Fix Turnstile CSP (`4a2dd1b`)
+
+### 🎨 Accessibility & UI (Palette)
+- Palette: Add form a11y attributes (`891ff3e`)
+- Palette: Add focus indicators to sliders and aria-live to status messages (`e50401a`)
+- Palette: Improve accessibility of financing calculator inputs (`b5b4625`)
+
+### 🧹 Code Health & CI
+- chore: resolve CI failures by updating node version and removing broken workflows (`1e1393a`, `8037e8c`, `813852e`, `543942e`, `a968eb2`, `c755f78`, `b800792`, `d45d144`, `8755760`)
+- chore: Fix Windows CI checkout error (`86434a7`, `91f3076`)
+- chore: add npm test script alias for vitest run (fixes #208) (`446b000`)
+- chore(main): release 1.0.0 (`7145284`)
+
 ## [1.0.0-rc1] - 2026-09-05
 ### Added
 - Pre-production hardening complete (PR #635).
