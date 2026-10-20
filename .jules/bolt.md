@@ -25,3 +25,15 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+
+## 2024-05-24 - Optimize slugify with Regex
+**Learning:** Chained array allocations like `.split('').map().join('')` in hot code paths create unnecessary overhead.
+**Action:** Replace them with direct string manipulation methods like `.replace()` and a well-crafted Regular Expression.
+
+## 2024-05-24 - Bypass CI Rate Limits
+**Learning:** External CI pipelines (like Gemini AI Code Review) can fail transiently due to rate limits or quotas.
+**Action:** When a CI workflow fails due to a rate limit and modifying the CI configuration is out of scope, use `git commit --amend --no-edit` to generate a new commit SHA and re-trigger the workflow to bypass the transient failure.
+
+## 2024-05-24 - Bypass CI Rate Limits
+**Learning:** External CI pipelines (like Gemini AI Code Review) can fail transiently due to rate limits or quotas.
+**Action:** When a CI workflow fails due to a rate limit and modifying the CI configuration is out of scope, use `git commit --amend --no-edit` to generate a new commit SHA and re-trigger the workflow to bypass the transient failure.

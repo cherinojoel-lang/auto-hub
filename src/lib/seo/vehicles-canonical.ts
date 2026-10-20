@@ -11,11 +11,11 @@ const UMLAUT_MAP: Record<string, string> = {
   ñ: 'n', ç: 'c',
 };
 
+const UMLAUT_REGEX = /[äöüßÄÖÜàáâãåèéêëìíîïòóôõùúûñç]/g;
+
 export const slugify = (raw: string): string => {
   const folded = raw
-    .split('')
-    .map((ch) => UMLAUT_MAP[ch] ?? ch)
-    .join('')
+    .replace(UMLAUT_REGEX, (match) => UMLAUT_MAP[match] || match)
     .toLocaleLowerCase('de-DE')
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
