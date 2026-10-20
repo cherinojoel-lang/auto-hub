@@ -26,6 +26,9 @@ const IMMUTABLE_ASSET_PATTERN = /^\/(?:_astro\/|.*\.(?:avif|webp|jpe?g|png|svg|g
 const CANONICAL_HOST = 'www.automobile-quick.de';
 const APEX_HOST = 'automobile-quick.de';
 
+// ⚡ Bolt: optimize request middleware performance by hoisting static headers
+const SECURITY_HEADERS_ENTRIES = Object.entries(SECURITY_HEADERS);
+
 export const onRequest: MiddlewareHandler = async ({ url }, next) => {
   // Preserve the long-established www host as the single production canonical.
   // workers.dev preview hosts are intentionally unaffected.
@@ -38,7 +41,7 @@ export const onRequest: MiddlewareHandler = async ({ url }, next) => {
 
   const response = await next();
 
-  for (const [name, value] of Object.entries(SECURITY_HEADERS)) {
+  for (const [name, value] of SECURITY_HEADERS_ENTRIES) {
     response.headers.set(name, value);
   }
 
