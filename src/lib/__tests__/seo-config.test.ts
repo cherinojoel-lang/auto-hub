@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { generateBusinessSchema, SITE_CONFIG, OPENING_HOURS } from '../seo-config';
+import { generateBusinessSchema, generateProductSchema, SITE_CONFIG, OPENING_HOURS } from '../seo-config';
 
 describe('seo-config', () => {
   describe('generateBusinessSchema', () => {
@@ -51,4 +51,64 @@ describe('seo-config', () => {
       expect(schema).not.toHaveProperty('reviewCount');
     });
   });
+
+  describe('generateProductSchema', () => {
+    it('uses title when provided', () => {
+      const vehicle = {
+        title: 'VW Golf VII 1.4 TSI',
+        make: 'Volkswagen',
+        model: 'Golf',
+        description: 'Very nice car',
+        mainImage: 'https://example.com/golf.jpg',
+        priceValue: 12500
+      };
+
+      const schema = generateProductSchema(vehicle);
+
+      expect(schema['@context']).toBe('https://schema.org');
+      expect(schema['@type']).toBe('Product');
+      expect(schema.name).toBe('VW Golf VII 1.4 TSI');
+      expect(schema.description).toBe('Very nice car');
+      expect(schema.image).toBe('https://example.com/golf.jpg');
+      expect(schema.offers).toEqual({
+        '@type': 'Offer',
+        price: '12500',
+        priceCurrency: 'EUR',
+        availability: 'https://schema.org/InStock'
+      });
+    });
+
+    it('falls back to make and model when title is missing', () => {
+      const vehicle = {
+        make: 'Volkswagen',
+        model: 'Golf',
+        priceValue: 12500
+      };
+
+      const schema = generateProductSchema(vehicle);
+      expect(schema.name).toBe('Volkswagen Golf');
+    });
+
+    it('parses price string if priceValue is missing', () => {
+      const vehicle = {
+        make: 'Volkswagen',
+        model: 'Golf',
+        price: '12.500 €'
+      };
+
+      const schema = generateProductSchema(vehicle);
+      expect(schema.offers.price).toBe('12500');
+    });
+
+    it('defaults price to 0 if neither priceValue nor price is provided', () => {
+      const vehicle = {
+        make: 'Volkswagen',
+        model: 'Golf',
+      };
+
+      const schema = generateProductSchema(vehicle);
+      expect(schema.offers.price).toBe('0');
+    });
+  });
+
 });
