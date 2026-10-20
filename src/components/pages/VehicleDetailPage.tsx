@@ -51,7 +51,15 @@ export default function VehicleDetailPage() {
       setCurrentGalleryIndex(0);
       
       // Load similar vehicles
-      setSimilarVehicle(safeVehicles.filter((v: Vehicle) => v.id !== id && !v.folder.startsWith(`${id}_`)).slice(0, 4));
+      const similar: Vehicle[] = [];
+      const idPrefix = `${id}_`;
+      for (const v of safeVehicles) {
+        if (v.id !== id && !v.folder.startsWith(idPrefix)) {
+          similar.push(v);
+          if (similar.length === 4) break;
+        }
+      }
+      setSimilarVehicle(similar);
       
       // Update SEO for vehicle detail page
       if (data) {
