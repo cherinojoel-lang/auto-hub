@@ -19,6 +19,9 @@ jobs:
       security-events: write
       actions: read
     steps:
+      - name: Configure Git for Windows paths
+        run: git config --global core.protectNTFS false
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
