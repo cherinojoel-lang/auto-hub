@@ -25,3 +25,7 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+
+## 2026-09-28 - [splitMarketplaceTitle Caching]
+**Learning:** The `splitMarketplaceTitle` function in `VehiclesPage.tsx` was executing string manipulation operations (`split`, `map`, `filter`) in the render loop without caching, reducing render performance for long lists of vehicles.
+**Action:** Replaced the unoptimized string operations with a `Map` cache, limiting the size to 500 to prevent OOM errors, thereby significantly improving frontend block times.
