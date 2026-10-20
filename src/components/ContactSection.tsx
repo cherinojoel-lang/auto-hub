@@ -331,13 +331,15 @@ export default function ContactSection() {
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
+                  aria-invalid={!!formErrors.name}
+                  aria-describedby={formErrors.name ? "name-error" : undefined}
                   className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-colors text-sm ${
                     formErrors.name ? 'border-red-500 bg-red-50/50' : 'border-border-line'
                   }`}
                   placeholder="Ihr Name"
                 />
                 {formErrors.name && (
-                  <p className="text-red-600 text-xs mt-1 font-medium">{formErrors.name}</p>
+                  <p id="name-error" role="alert" className="text-red-600 text-xs mt-1 font-medium">{formErrors.name}</p>
                 )}
               </div>
 
@@ -352,13 +354,15 @@ export default function ContactSection() {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
+                  aria-invalid={!!formErrors.email}
+                  aria-describedby={formErrors.email ? "email-error" : undefined}
                   className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-colors text-sm ${
                     formErrors.email ? 'border-red-500 bg-red-50/50' : 'border-border-line'
                   }`}
                   placeholder="ihre.email@example.com"
                 />
                 {formErrors.email && (
-                  <p className="text-red-600 text-xs mt-1 font-medium">{formErrors.email}</p>
+                  <p id="email-error" role="alert" className="text-red-600 text-xs mt-1 font-medium">{formErrors.email}</p>
                 )}
               </div>
 
