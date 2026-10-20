@@ -25,3 +25,6 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+## 2024-05-15 - [String Operations Cache in Render Loop]
+**Learning:** `splitMarketplaceTitle` in `VehiclesPage.tsx` runs expensive string `.split()` and `.slice()` operations repeatedly during array sorting and filtering without memoization. However, using a `Map` cache globally across renders speeds this up.
+**Action:** When a pure function with static string inputs like `splitMarketplaceTitle` or `getTransmission` is repeatedly called in a render loop, cache the result globally with an LRU Map or a WeakMap if the keys are objects. Ensure you limit the size of standard `Map` caches (e.g., using `size >= 500`) to prevent memory leaks in SSR/long-running environments.
