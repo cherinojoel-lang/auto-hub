@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { updateMetaTags, SEOConfig, getStructuredDataBreadcrumb } from '../seo';
+import { updateMetaTags, SEOConfig, getStructuredDataBreadcrumb, getStructuredDataProduct } from '../seo';
 
 describe('seo utility', () => {
   describe('updateMetaTags', () => {
@@ -279,6 +279,135 @@ describe('seo utility', () => {
           },
         ],
       });
+    });
+  });
+
+  describe('getStructuredDataProduct', () => {
+    it('returns fully populated structured data when vehicle has all properties', () => {
+      const vehicle = {
+        id: '12345',
+        title: 'Audi A4 Avant',
+        price: '€ 15.000,-',
+        make: 'Audi',
+        model: 'A4',
+        firstRegistration: '05/2018',
+        mileage: '85.000 km',
+        power: '150 PS',
+        fuel: 'Diesel',
+        mainImage: '/images/audi-a4.jpg',
+        gallery: [
+          '/images/audi-a4.jpg',
+          '/images/audi-a4-2.jpg',
+          '/images/audi-a4-3.jpg',
+          '/images/audi-a4-4.jpg',
+          '/images/audi-a4-5.jpg',
+          '/images/audi-a4-6.jpg',
+        ],
+      };
+
+      const result = getStructuredDataProduct(vehicle);
+
+      expect(result).toEqual({
+        '@context': 'https://schema.org',
+        '@type': 'Car',
+        'name': 'Audi A4 Avant',
+        'description': 'Audi A4 Avant gebraucht kaufen in Iserlohn-Letmathe. EZ 05/2018, 85.000 km, 150 PS. Top Zustand bei Automobile Quick.',
+        'image': [
+          'https://www.automobile-quick.de/images/audi-a4.jpg',
+          'https://www.automobile-quick.de/images/audi-a4-2.jpg',
+          'https://www.automobile-quick.de/images/audi-a4-3.jpg',
+          'https://www.automobile-quick.de/images/audi-a4-4.jpg',
+          'https://www.automobile-quick.de/images/audi-a4-5.jpg',
+        ],
+        'brand': {
+          '@type': 'Brand',
+          'name': 'Audi'
+        },
+        'model': 'A4',
+        'vehicleModelDate': '05/2018',
+        'mileageFromOdometer': {
+          '@type': 'QuantitativeValue',
+          'value': '85000',
+          'unitCode': 'KMT'
+        },
+        'fuelType': 'Diesel',
+        'offers': {
+          '@type': 'Offer',
+          'price': 15000,
+          'priceCurrency': 'EUR',
+          'availability': 'https://schema.org/InStock',
+          'url': 'https://www.automobile-quick.de/fahrzeugdetail/12345',
+          'seller': {
+            '@type': 'LocalBusiness',
+            'name': 'Automobile Quick',
+            'address': {
+              '@type': 'PostalAddress',
+              'streetAddress': 'Hagener Str. 126a',
+              'addressLocality': 'Iserlohn',
+              'postalCode': '58642',
+              'addressCountry': 'DE'
+            }
+          }
+        }
+      });
+    });
+
+    it('handles missing price and mileage safely', () => {
+      const vehicle = {
+        id: '12345',
+        title: 'Audi A4 Avant',
+        make: 'Audi',
+        model: 'A4',
+        firstRegistration: '05/2018',
+        power: '150 PS',
+        fuel: 'Diesel',
+        mainImage: '/images/audi-a4.jpg',
+      };
+
+      const result = getStructuredDataProduct(vehicle);
+
+      expect(result.offers.price).toBe(0);
+      expect(result.mileageFromOdometer.value).toBeUndefined();
+      expect(result.image.length).toBe(1); // Only main image
+    });
+
+    it('handles poorly formatted price string gracefully', () => {
+      const vehicle = {
+        id: '12345',
+        title: 'Audi A4 Avant',
+        price: 'contact for price', // Non-numeric
+      };
+
+      const result = getStructuredDataProduct(vehicle);
+
+      expect(result.offers.price).toBe(0); // NaN becomes 0 due to || 0
+    });
+
+    it('handles undefined gallery array safely', () => {
+      const vehicle = {
+        id: '12345',
+        title: 'Audi A4 Avant',
+        mainImage: '/images/audi-a4.jpg',
+        gallery: undefined
+      };
+
+      const result = getStructuredDataProduct(vehicle);
+
+      expect(result.image).toEqual([
+        'https://www.automobile-quick.de/images/audi-a4.jpg'
+      ]);
+    });
+
+    it('handles null vehicle.price gracefully', () => {
+      const vehicle = {
+        id: '12345',
+        title: 'Audi A4 Avant',
+        price: null,
+      };
+
+      const result = getStructuredDataProduct(vehicle);
+
+      expect(result.offers.price).toBe(0);
     });
   });
 });
