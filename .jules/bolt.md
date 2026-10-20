@@ -25,3 +25,7 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+
+## 2024-05-16 - [String Parsing Caching in Component Lists]
+**Learning:** Applying frequent string parsing/splitting (like extracting title highlights) across a list of components causes high CPU usage and garbage collection, but naively caching string keys in an unbounded `Map` causes memory leaks in long-lived or SSR environments.
+**Action:** Use a bounded `Map` with LRU-style eviction (e.g., `if (cache.size >= 500) cache.delete(cache.keys().next().value)`) when memoizing string derivations in render loops.
