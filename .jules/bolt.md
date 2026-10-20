@@ -25,3 +25,7 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+
+## 2024-05-15 - [Static Array Rendering Optimizations]
+**Learning:** Found an unmemoized array `slice()` operation mapping over a global static list of objects directly inside a React functional component's render body (`featuredReviews.slice(0, 6).map()`). This triggers an array allocation on every single re-render of the component, which adds unnecessary memory garbage and triggers wasteful virtual DOM reconciliation on child nodes.
+**Action:** Always wrap derived static slices inside `React.useMemo(() => data.slice(...), [])` when referencing constant globals inside component rendering bodies.
