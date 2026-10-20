@@ -25,3 +25,11 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+
+## 2024-11-20 - [Redundant array method calls]
+**Learning:** Found multiple places applying array operators `.filter` or `.slice` to a constant derived array during component renders without memoization, such as `featuredReviews.slice(0, 6)`.
+**Action:** Extract the static, unchanging derivation into a `React.useMemo` to skip array allocation and operation during re-renders.
+
+## 2024-11-20 - [Avoid redundant computation and regex in property check]
+**Learning:** `getTransmission(vehicle)` was concatenating a large string (`title` + `description`), fetching an object from an array (`FEATURE_PATTERNS.find`), and executing a Regex (`pattern.test`), entirely repeating work already computed and O(1) cached inside `deriveFeatures()`.
+**Action:** Replace duplicated processing by calling the memoized derivation (`deriveFeatures`) and using `.includes('Automatik')`, skipping duplicate allocations and regex processing entirely.
