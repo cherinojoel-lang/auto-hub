@@ -45,16 +45,34 @@ function registrationTimestamp(value?: string) {
   return Number.isFinite(year) ? new Date(year, 0, 1).getTime() : 0;
 }
 
+const titleCache = new Map<string, { title: string; highlights: string[] }>();
+
+// ⚡ Bolt: Bounded cache (size 500) for expensive string splitting to reduce JS heap allocations
 function splitMarketplaceTitle(title: string) {
+  const cached = titleCache.get(title);
+  if (cached !== undefined) {
+    return cached;
+  }
+
   const parts = title
     .split('*')
     .map((part) => part.trim())
     .filter(Boolean);
 
-  return {
+  const result = {
     title: parts[0] || title,
     highlights: parts.slice(1, 4),
   };
+
+  if (titleCache.size >= 500) {
+    const firstKey = titleCache.keys().next().value;
+    if (firstKey !== undefined) {
+      titleCache.delete(firstKey);
+    }
+  }
+  titleCache.set(title, result);
+
+  return result;
 }
 
 export default function VehiclesPage() {
