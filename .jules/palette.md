@@ -4,3 +4,6 @@
 ## 2024-05-31 - Mobile Menu Toggle Accessibility
 **Learning:** The application uses two different patterns for hiding/showing mobile menus: `Header.tsx` conditionally unmounts the `<nav>` node entirely, while `StickyHeader.tsx` keeps the menu in the DOM but hides it using CSS transform classes (`translate-x-full`). This requires different strategies for the `aria-controls` attribute on the toggle buttons to prevent screen readers from pointing to non-existent nodes when unmounted.
 **Action:** When adding accessibility features to toggle buttons, always verify if the target container is hidden via CSS or conditionally unmounted, and set `aria-controls` to `undefined` dynamically when the target is removed from the DOM.
+## 2026-09-29 - Adding Spinners to Forms
+**Learning:** For forms that trigger a network request, providing immediate feedback with a loading spinner significantly enhances the user experience. Adding `aria-busy` when submitting is crucial for screen readers to properly announce the loading state.
+**Action:** Consistently apply `aria-busy={isSubmitting}` and visual loading indicators (like `Loader2` from `lucide-react`) to all major form submission buttons in the future.

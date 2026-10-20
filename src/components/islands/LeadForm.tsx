@@ -1,5 +1,6 @@
 import { type FormEvent, useEffect, useRef, useState } from 'react';
 import { extractAttribution, type Attribution } from '@/domain/attribution';
+import { Loader2 } from 'lucide-react';
 
 type Props = {
   vehicleId?: string;
@@ -239,7 +240,8 @@ export default function LeadForm({ vehicleId = '', topic = '', turnstileSiteKey 
         )}
       </div>
 
-      <button type="submit" className="btn-premium-secondary mt-7 w-full sm:w-auto" disabled={state.status === 'submitting' || !turnstileSiteKey}>
+      <button type="submit" className="btn-premium-secondary mt-7 w-full sm:w-auto flex items-center justify-center gap-2" aria-busy={state.status === 'submitting'} disabled={state.status === 'submitting' || !turnstileSiteKey}>
+        {state.status === 'submitting' && <Loader2 className="w-5 h-5 animate-spin" />}
         {state.status === 'submitting' ? 'Wird gesendet …' : 'Anfrage senden'}
       </button>
 
