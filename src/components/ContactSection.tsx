@@ -329,6 +329,7 @@ export default function ContactSection() {
                   type="text"
                   id="name"
                   name="name"
+                  maxLength={100}
                   value={formData.name}
                   onChange={handleInputChange}
                   className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-colors text-sm ${
@@ -350,6 +351,7 @@ export default function ContactSection() {
                   type="email"
                   id="email"
                   name="email"
+                  maxLength={254}
                   value={formData.email}
                   onChange={handleInputChange}
                   className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-colors text-sm ${
@@ -371,6 +373,7 @@ export default function ContactSection() {
                   type="tel"
                   id="phone"
                   name="phone"
+                  maxLength={50}
                   value={formData.phone}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 border border-border-line rounded-md focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-colors text-sm"
@@ -386,12 +389,17 @@ export default function ContactSection() {
                 <textarea
                   id="message"
                   name="message"
+                  maxLength={2000}
+                  aria-describedby="message-counter"
                   value={formData.message}
                   onChange={handleInputChange}
                   rows={4}
                   className="w-full px-4 py-3 border border-border-line rounded-md focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-colors text-sm resize-none"
                   placeholder="Ihre Nachricht an uns..."
                 />
+                <div id="message-counter" aria-live="polite" className="text-xs text-slate-500 mt-1 text-right">
+                  {formData.message.length} / 2000 Zeichen
+                </div>
               </div>
 
               {/* Submit Button */}
