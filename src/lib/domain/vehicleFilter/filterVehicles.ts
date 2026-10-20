@@ -12,10 +12,15 @@ export const filterVehicles = (
   vehicles: ReadonlyArray<Vehicle>,
   criteria: FilterCriteria,
 ): Vehicle[] =>
-  vehicles
-    .filter((v) => v.status === 'available')
-    .filter((v) => matchesManufacturer(v, criteria.manufacturer))
-    .filter((v) => matchesPriceMax(v, criteria.priceMax))
-    .filter((v) => matchesFuel(v, criteria.fuel))
-    .filter((v) => matchesMaxMileage(v, criteria.maxMileage))
-    .filter((v) => matchesYearFrom(v, criteria.yearFrom));
+  // Performance optimization: Combine multiple filter conditions into a single pass using logical &&.
+  // This reduces the number of array iterations from 6 to 1 and avoids intermediate array allocations,
+  // significantly improving performance, especially for large vehicle catalogs.
+  vehicles.filter(
+    (v) =>
+      v.status === 'available' &&
+      matchesManufacturer(v, criteria.manufacturer) &&
+      matchesPriceMax(v, criteria.priceMax) &&
+      matchesFuel(v, criteria.fuel) &&
+      matchesMaxMileage(v, criteria.maxMileage) &&
+      matchesYearFrom(v, criteria.yearFrom),
+  );
