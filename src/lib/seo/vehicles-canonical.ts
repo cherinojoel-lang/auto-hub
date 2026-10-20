@@ -11,14 +11,27 @@ const UMLAUT_MAP: Record<string, string> = {
   ñ: 'n', ç: 'c',
 };
 
+const slugCache = new Map<string, string>();
+
 export const slugify = (raw: string): string => {
+  if (slugCache.has(raw)) {
+    return slugCache.get(raw)!;
+  }
   const folded = raw
-    .split('')
-    .map((ch) => UMLAUT_MAP[ch] ?? ch)
-    .join('')
+    .replace(/[äöüßÄÖÜàáâãåèéêëìíîïòóôõùúûñç]/g, (match) => UMLAUT_MAP[match] || match)
     .toLocaleLowerCase('de-DE')
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
+
+  // Prevent unbounded memory growth in long-running processes
+  if (slugCache.size >= 500) {
+    const firstKey = slugCache.keys().next().value;
+    if (firstKey !== undefined) {
+        slugCache.delete(firstKey);
+    }
+  }
+
+  slugCache.set(raw, folded);
   return folded;
 };
 
