@@ -66,10 +66,12 @@ Antworte strukturiert mit:
       vehicle: `${body.make} ${body.model}`,
     });
   } catch (error) {
+    // 🛡️ Sentinel: Prevent information leakage (CWE-209).
+    // Log details server-side, but return a generic error to the client.
+    console.error('AI inference failed:', error);
     return json({
       ok: false,
       error: 'ai_inference_failed',
-      details: error instanceof Error ? error.message : String(error),
     }, 500);
   }
 };
