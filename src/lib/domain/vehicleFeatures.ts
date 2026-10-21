@@ -39,7 +39,9 @@ export const getFeatureChips = (vehicle: Vehicle): string[] => deriveFeatures(ve
 export const getAllFeatures = (vehicle: Vehicle): string[] => deriveFeatures(vehicle);
 
 export const getTransmission = (vehicle: Vehicle): string | null => {
-  const source = `${vehicle.title} ${vehicle.description || ''}`;
-  const automatik = FEATURE_PATTERNS.find((f) => f.label === 'Automatik');
-  return automatik && automatik.pattern.test(source) ? 'Automatik' : null;
+  // Optimization: deriveFeatures utilizes a WeakMap cache. By reusing it here,
+  // we avoid redundantly allocating strings and running regex patterns for every rendering loop.
+  // Impact: O(1) cache lookup significantly reduces block time when mapping large vehicle sets.
+  const features = deriveFeatures(vehicle);
+  return features.includes('Automatik') ? 'Automatik' : null;
 };
