@@ -9,27 +9,34 @@ export type ImageProps = ImgHTMLAttributes<HTMLImageElement> & {
 
 export const Image = forwardRef<HTMLImageElement, ImageProps>(
   ({ src, fittingType, fetchPriority, ...props }, ref) => {
-    const [imgSrc, setImgSrc] = useState<string | undefined>(src);
+    /**
+     * ⚡ Bolt Optimization: Derived state for image src
+     * 💡 What: Replaced useEffect with derived state pattern.
+     * 🎯 Why: Using useEffect to sync props to state causes an unnecessary extra render pass.
+     * 📊 Impact: Eliminates redundant re-renders for all images across the application.
+     * 🔬 Measurement: Tested manually via performance API and vitest execution.
+     */
+    const [prevSrc, setPrevSrc] = useState<string | undefined>(src);
     const [hasError, setHasError] = useState(false);
 
-    useEffect(() => {
-      setImgSrc(src);
+    if (src !== prevSrc) {
+      setPrevSrc(src);
       setHasError(false);
-    }, [src]);
+    }
 
     const handleImageError = () => {
       if (!hasError) {
         setHasError(true);
-        setImgSrc(FALLBACK_IMAGE_URL);
       }
     };
 
+    const actualSrc = hasError ? FALLBACK_IMAGE_URL : src;
     const objectFit = fittingType === 'fit' ? 'contain' : 'cover';
 
     return (
       <img
         ref={ref}
-        src={imgSrc || FALLBACK_IMAGE_URL}
+        src={actualSrc || FALLBACK_IMAGE_URL}
         style={{ objectFit, ...props.style }}
         onError={handleImageError}
         {...props}
