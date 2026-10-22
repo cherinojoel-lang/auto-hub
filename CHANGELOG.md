@@ -1,5 +1,27 @@
 # Changelog
 
+## [Unreleased] - 2026-10-16 to 2026-10-22
+
+### ⚡ Performance (Bolt)
+- perf: Optimize vehicle feature derivation functions using WeakMap cache.
+- perf: Memoize derived vehicle data in VehiclesPage.
+- perf: Refactor vehicle filter to single pass optimization.
+- perf(image): Remove unused useEffect import and optimize error state.
+
+### 🛡️ Security (Sentinel)
+- Sentinel: [MEDIUM] Fix Information Leakage (CWE-209) in AI enrich API endpoint.
+- fix(security): Resolve npm vulnerabilities.
+
+### 🎨 Accessibility & UI (Palette)
+- Palette: Add `aria-busy` to form submission buttons.
+- Palette: Add explicit label-input associations to TradeInPage.
+- Palette: Add focus-visible styles to Lightbox buttons.
+- Palette: Add aria attributes for form validation.
+
+### 🧹 Code Health & CI
+- chore: Fix Windows CI pipeline by removing invalid symlinks.
+- ci: Allow Gemini API code review script to fail gracefully due to external secret limitations.
+
 ## [1.0.0-rc1] - 2026-09-05
 ### Added
 - Pre-production hardening complete (PR #635).
