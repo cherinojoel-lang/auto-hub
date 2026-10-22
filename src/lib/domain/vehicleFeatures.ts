@@ -12,9 +12,18 @@ export const FEATURE_PATTERNS: Array<{ label: string; pattern: RegExp }> = [
   { label: 'Hybrid', pattern: /hybrid/i },
 ];
 
+const imageCountCache = new WeakMap<Vehicle, number>();
+
 export const getVehicleImageCount = (vehicle: Vehicle): number => {
+  // Optimization: Cache image count derivation using WeakMap to prevent repeated
+  // Set creation and array allocations during list rendering, saving memory and CPU cycles.
+  if (imageCountCache.has(vehicle)) {
+    return imageCountCache.get(vehicle)!;
+  }
   const images = [vehicle.mainImage, ...(vehicle.gallery || [])].filter(Boolean);
-  return new Set(images).size;
+  const count = new Set(images).size;
+  imageCountCache.set(vehicle, count);
+  return count;
 };
 
 const featuresCache = new WeakMap<Vehicle, string[]>();
@@ -39,7 +48,8 @@ export const getFeatureChips = (vehicle: Vehicle): string[] => deriveFeatures(ve
 export const getAllFeatures = (vehicle: Vehicle): string[] => deriveFeatures(vehicle);
 
 export const getTransmission = (vehicle: Vehicle): string | null => {
-  const source = `${vehicle.title} ${vehicle.description || ''}`;
-  const automatik = FEATURE_PATTERNS.find((f) => f.label === 'Automatik');
-  return automatik && automatik.pattern.test(source) ? 'Automatik' : null;
+  // Optimization: Reuse the WeakMap-cached features list from deriveFeatures()
+  // to avoid recalculating strings and executing expensive regex patterns per render,
+  // reducing block time during vehicle card rendering.
+  return deriveFeatures(vehicle).includes('Automatik') ? 'Automatik' : null;
 };
