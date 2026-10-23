@@ -35,44 +35,26 @@ const FUEL_OPTIONS = deriveFuelOptions(vehiclesData);
 
 type SortOption = 'newest' | 'price-asc' | 'price-desc';
 
-/**
- * 💡 What: Added memoization for registrationTimestamp and splitMarketplaceTitle using Maps
- * 🎯 Why: These functions are called repeatedly during vehicle sorting (O(n log n)) and list rendering (O(n))
- * 📊 Impact: Prevents redundant Date allocations and string splitting operations, significantly reducing CPU overhead during sorting/rendering
- * 🔬 Measurement: Observe reduced execution time of sorting functions and faster render cycles for VehiclesPage
- */
-const timestampCache = new Map<string, number>();
-
 function registrationTimestamp(value?: string) {
   if (!value) return 0;
-  if (timestampCache.has(value)) return timestampCache.get(value)!;
   const parts = value.split('/').map((part) => Number(part));
-  let result = 0;
   if (parts.length === 2 && Number.isFinite(parts[0]) && Number.isFinite(parts[1])) {
-    result = new Date(parts[1], Math.max(0, parts[0] - 1), 1).getTime();
-  } else {
-    const year = Number(parts.at(-1));
-    result = Number.isFinite(year) ? new Date(year, 0, 1).getTime() : 0;
+    return new Date(parts[1], Math.max(0, parts[0] - 1), 1).getTime();
   }
-  timestampCache.set(value, result);
-  return result;
+  const year = Number(parts.at(-1));
+  return Number.isFinite(year) ? new Date(year, 0, 1).getTime() : 0;
 }
 
-const titleCache = new Map<string, { title: string; highlights: string[] }>();
-
 function splitMarketplaceTitle(title: string) {
-  if (titleCache.has(title)) return titleCache.get(title)!;
   const parts = title
     .split('*')
     .map((part) => part.trim())
     .filter(Boolean);
 
-  const result = {
+  return {
     title: parts[0] || title,
     highlights: parts.slice(1, 4),
   };
-  titleCache.set(title, result);
-  return result;
 }
 
 export default function VehiclesPage() {

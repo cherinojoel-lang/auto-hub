@@ -13,15 +13,17 @@ export const FEATURE_PATTERNS: Array<{ label: string; pattern: RegExp }> = [
 ];
 
 /**
- * 💡 What: Added WeakMap-based memoization for getVehicleImageCount and getTransmission
- * 🎯 Why: These functions perform array allocations, Set initializations, and regex testing repeatedly during list rendering
- * 📊 Impact: Prevents redundant heavy operations for each vehicle card, improving list render performance
- * 🔬 Measurement: Observe faster initial render times and scroll performance in vehicle listing views
+ * 💡 What: Added safe WeakMap-based memoization for getVehicleImageCount
+ * 🎯 Why: This function repeatedly maps arrays and initializes Sets during long list rendering.
+ * 📊 Impact: Significantly reduces allocations and array filtering operations per vehicle rendering iteration.
+ * 🔬 Measurement: Observe faster initial render times and scroll performance in list/grid views.
  */
 const imageCountCache = new WeakMap<Vehicle, number>();
 
 export const getVehicleImageCount = (vehicle: Vehicle): number => {
-  if (imageCountCache.has(vehicle)) return imageCountCache.get(vehicle)!;
+  const cached = imageCountCache.get(vehicle);
+  if (cached !== undefined) return cached;
+
   const images = [vehicle.mainImage, ...(vehicle.gallery || [])].filter(Boolean);
   const count = new Set(images).size;
   imageCountCache.set(vehicle, count);
@@ -49,13 +51,8 @@ export const getFeatureChips = (vehicle: Vehicle): string[] => deriveFeatures(ve
 
 export const getAllFeatures = (vehicle: Vehicle): string[] => deriveFeatures(vehicle);
 
-const transmissionCache = new WeakMap<Vehicle, string | null>();
-
 export const getTransmission = (vehicle: Vehicle): string | null => {
-  if (transmissionCache.has(vehicle)) return transmissionCache.get(vehicle)!;
   const source = `${vehicle.title} ${vehicle.description || ''}`;
   const automatik = FEATURE_PATTERNS.find((f) => f.label === 'Automatik');
-  const result = automatik && automatik.pattern.test(source) ? 'Automatik' : null;
-  transmissionCache.set(vehicle, result);
-  return result;
+  return automatik && automatik.pattern.test(source) ? 'Automatik' : null;
 };
