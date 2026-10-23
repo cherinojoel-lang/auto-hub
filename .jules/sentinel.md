@@ -7,3 +7,8 @@
 **Vulnerability:** Stringified JSON injected directly into Astro's `set:html` for `<script type="application/ld+json">` lacked escaping for HTML characters (`<`, `>`).
 **Learning:** `JSON.stringify` does not escape HTML characters. Injecting it directly via `set:html` allows attackers to terminate the `<script>` block and execute arbitrary JavaScript if user-controlled content (e.g., vehicle titles) contains `</script>`.
 **Prevention:** Always escape `<` and `>` (e.g., to `\u003c` and `\u003e`) when serializing JSON intended for raw HTML injection in Astro templates.
+
+## 2026-10-23 - [Information Leakage (CWE-209) in API Endpoints]
+**Vulnerability:** The AI enrichment API endpoint (`src/pages/api/ai/enrich.ts`) returned raw error details via `error.message` directly to the client in the 500 HTTP response.
+**Learning:** Returning detailed error messages (including internal Cloudflare bindings or raw stack traces) allows attackers to glean details about the backend architecture or current system state.
+**Prevention:** Catch blocks that respond to client requests should only return generic error identifiers (e.g., `ai_inference_failed`). Log detailed information server-side using `console.error`.
