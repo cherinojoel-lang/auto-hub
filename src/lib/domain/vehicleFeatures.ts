@@ -12,9 +12,22 @@ export const FEATURE_PATTERNS: Array<{ label: string; pattern: RegExp }> = [
   { label: 'Hybrid', pattern: /hybrid/i },
 ];
 
+/**
+ * 💡 What: Added safe WeakMap-based memoization for getVehicleImageCount
+ * 🎯 Why: This function repeatedly maps arrays and initializes Sets during long list rendering.
+ * 📊 Impact: Significantly reduces allocations and array filtering operations per vehicle rendering iteration.
+ * 🔬 Measurement: Observe faster initial render times and scroll performance in list/grid views.
+ */
+const imageCountCache = new WeakMap<Vehicle, number>();
+
 export const getVehicleImageCount = (vehicle: Vehicle): number => {
+  const cached = imageCountCache.get(vehicle);
+  if (cached !== undefined) return cached;
+
   const images = [vehicle.mainImage, ...(vehicle.gallery || [])].filter(Boolean);
-  return new Set(images).size;
+  const count = new Set(images).size;
+  imageCountCache.set(vehicle, count);
+  return count;
 };
 
 const featuresCache = new WeakMap<Vehicle, string[]>();
