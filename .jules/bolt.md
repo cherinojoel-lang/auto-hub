@@ -25,3 +25,6 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+## 2026-10-24 - [Optimize Vehicle Features Extraction]
+**Learning:** During render loops mapping over large datasets (like `VehiclesPage.tsx`), extracting purely derived properties (e.g., parsing titles, extracting feature chips) from the render phase into a top-level `useMemo` block prevents severe main-thread blocking and re-evaluations upon unrelated re-renders. Furthermore, cached functions using `WeakMap` (like `deriveFeatures`) should be reused across different helper methods to avoid allocating new strings and repeatedly testing expensive Regular Expressions (e.g., inside `getTransmission`).
+**Action:** Always wrap heavy localized string derivations inside iterating map components within a top-level `useMemo`, and always reuse existing `WeakMap` cached utility derivations rather than running redundant string concatenation and regexes.
