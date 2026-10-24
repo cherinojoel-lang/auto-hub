@@ -38,8 +38,15 @@ export const getFeatureChips = (vehicle: Vehicle): string[] => deriveFeatures(ve
 
 export const getAllFeatures = (vehicle: Vehicle): string[] => deriveFeatures(vehicle);
 
+/**
+ * Gets the transmission type for a vehicle.
+ *
+ * @optimization
+ * - What: Reuses the memoized `deriveFeatures` function instead of recalculating regex on raw strings.
+ * - Why: The previous implementation performed duplicate string concatenations and regex test evaluations for every rendered vehicle card.
+ * - Impact: O(1) cache lookup for transmission instead of O(N) regex evaluations (where N is the length of title + description). Reduces CPU usage during listing renders.
+ * - Measurement: Render time of VehiclesPage with hundreds of items should decrease by avoiding redundant string/regex operations.
+ */
 export const getTransmission = (vehicle: Vehicle): string | null => {
-  const source = `${vehicle.title} ${vehicle.description || ''}`;
-  const automatik = FEATURE_PATTERNS.find((f) => f.label === 'Automatik');
-  return automatik && automatik.pattern.test(source) ? 'Automatik' : null;
+  return deriveFeatures(vehicle).includes('Automatik') ? 'Automatik' : null;
 };
