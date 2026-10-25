@@ -122,6 +122,22 @@ export default function VehiclesPage() {
     });
   }, [filteredVehicles, sort]);
 
+  // Performance optimization: Pre-calculate expensive derived vehicle data
+  // outside of the JSX render loop and map. This prevents recalculating
+  // image counts, transmission strings, title splitting, and feature chips
+  // on every single render cycle when filters or sort order changes.
+  const mappedVehicles = useMemo(() => {
+    return sortedVehicles.map(vehicle => {
+      const imageCount = getVehicleImageCount(vehicle);
+      const transmission = getTransmission(vehicle);
+      const parsedTitle = splitMarketplaceTitle(vehicle.title);
+      const featureChips = parsedTitle.highlights.length
+        ? parsedTitle.highlights
+        : getFeatureChips(vehicle).slice(0, 3);
+      return { vehicle, imageCount, transmission, parsedTitle, featureChips };
+    });
+  }, [sortedVehicles]);
+
   const activeFilters = useMemo(() => {
     const filters: Array<{ key: string; label: string }> = [];
     const appliedManufacturer = searchParams.get('manufacturer');
@@ -470,16 +486,9 @@ export default function VehiclesPage() {
           </div>
         )}
 
-        {sortedVehicles.length > 0 ? (
+        {mappedVehicles.length > 0 ? (
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
-            {sortedVehicles.map((vehicle, index) => {
-              const imageCount = getVehicleImageCount(vehicle);
-              const transmission = getTransmission(vehicle);
-              const parsedTitle = splitMarketplaceTitle(vehicle.title);
-              const featureChips = parsedTitle.highlights.length
-                ? parsedTitle.highlights
-                : getFeatureChips(vehicle).slice(0, 3);
-
+            {mappedVehicles.map(({ vehicle, imageCount, transmission, parsedTitle, featureChips }, index) => {
               return (
                 <article
                   key={vehicle.id}
