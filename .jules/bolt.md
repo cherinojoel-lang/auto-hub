@@ -25,3 +25,9 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+
+## 2023-10-24 - Pre-calculate Derived Data in Mapping
+
+**Learning:** When mapping over large datasets like vehicle lists in React components, performing expensive string manipulation and regex-based feature extraction (like `getFeatureChips`, `splitMarketplaceTitle`, and `getTransmission`) inside the render loop causes significant unneeded performance overhead on every re-render (e.g., when filters or sort order changes).
+
+**Action:** Extract heavy derived calculations out of the map inside the render phase and into a `useMemo` block that covers the entire dataset map, caching the transformed objects before rendering.
