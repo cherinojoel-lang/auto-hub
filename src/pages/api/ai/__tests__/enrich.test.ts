@@ -29,6 +29,26 @@ describe('POST /api/ai/enrich', () => {
     expect(data.error).toBe('make_and_model_required');
   });
 
+  it('does not expose internal error messages on AI failure', async () => {
+    mockAiRun.mockRejectedValueOnce(new Error('Internal binding timeout'));
+
+    const request = new Request('https://automobile-quick.de/api/ai/enrich', {
+      method: 'POST',
+      body: JSON.stringify({
+        make: 'Audi',
+        model: 'A4 Avant',
+      }),
+      headers: { 'content-type': 'application/json' },
+    });
+
+    const response = await POST({ request } as any);
+    expect(response.status).toBe(500);
+    const data = await response.json();
+    expect(data.ok).toBe(false);
+    expect(data.error).toBe('ai_inference_failed');
+    expect(data.details).toBeUndefined();
+  });
+
   it('calls Workers AI and returns enrichment text on success', async () => {
     mockAiRun.mockResolvedValueOnce({
       response: 'Topgepflegter Audi A4 Avant mit Traumausstattung.',
