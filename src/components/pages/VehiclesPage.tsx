@@ -194,6 +194,27 @@ export default function VehiclesPage() {
     setSearchParams(params);
   };
 
+  // Optimization: Extract heavy derived calculations (parsing strings, regex test over properties)
+  // out of the main render phase by memoizing the mapped dataset for the current sorted list
+  const vehicleCardsData = useMemo(() => {
+    return sortedVehicles.map(vehicle => {
+      const imageCount = getVehicleImageCount(vehicle);
+      const transmission = getTransmission(vehicle);
+      const parsedTitle = splitMarketplaceTitle(vehicle.title);
+      const featureChips = parsedTitle.highlights.length
+        ? parsedTitle.highlights
+        : getFeatureChips(vehicle).slice(0, 3);
+
+      return {
+        vehicle,
+        imageCount,
+        transmission,
+        parsedTitle,
+        featureChips
+      };
+    });
+  }, [sortedVehicles]);
+
   const filterFields = (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
       <label className="grid gap-2 text-xs font-bold uppercase tracking-wide text-foreground">
@@ -470,16 +491,9 @@ export default function VehiclesPage() {
           </div>
         )}
 
-        {sortedVehicles.length > 0 ? (
+        {vehicleCardsData.length > 0 ? (
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
-            {sortedVehicles.map((vehicle, index) => {
-              const imageCount = getVehicleImageCount(vehicle);
-              const transmission = getTransmission(vehicle);
-              const parsedTitle = splitMarketplaceTitle(vehicle.title);
-              const featureChips = parsedTitle.highlights.length
-                ? parsedTitle.highlights
-                : getFeatureChips(vehicle).slice(0, 3);
-
+            {vehicleCardsData.map(({ vehicle, imageCount, transmission, parsedTitle, featureChips }, index) => {
               return (
                 <article
                   key={vehicle.id}
