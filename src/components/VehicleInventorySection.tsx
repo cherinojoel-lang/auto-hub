@@ -57,6 +57,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, index }) => {
             width={400}
             height={250}
             loading={index < 3 ? 'eager' : 'lazy'}
+            fetchPriority={index < 3 ? 'high' : 'auto'}
           />
           <div className="absolute top-3 left-3 bg-white/95 text-primary px-3 py-1.5 text-xs font-bold rounded-md border border-border-line">
             {vehicle.isNew ? 'Neu eingetroffen' : 'Verfügbar'}
