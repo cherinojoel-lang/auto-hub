@@ -239,7 +239,7 @@ export default function LeadForm({ vehicleId = '', topic = '', turnstileSiteKey 
         )}
       </div>
 
-      <button type="submit" className="btn-premium-secondary mt-7 w-full sm:w-auto" disabled={state.status === 'submitting' || !turnstileSiteKey}>
+      <button type="submit" className="btn-premium-secondary mt-7 w-full sm:w-auto" disabled={state.status === 'submitting' || !turnstileSiteKey} aria-busy={state.status === 'submitting'}>
         {state.status === 'submitting' ? 'Wird gesendet …' : 'Anfrage senden'}
       </button>
 
