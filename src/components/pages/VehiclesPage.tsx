@@ -45,16 +45,29 @@ function registrationTimestamp(value?: string) {
   return Number.isFinite(year) ? new Date(year, 0, 1).getTime() : 0;
 }
 
+const titleCache = new Map<string, { title: string; highlights: string[] }>();
+
+/**
+ * 💡 What: Caches the result of splitMarketplaceTitle using a Map based on the title string.
+ * 🎯 Why: String splitting and array mapping/filtering are relatively expensive operations to perform on every render for every vehicle in the list.
+ * 📊 Impact: Reduces string manipulation overhead during list rendering, particularly beneficial when the list has many items.
+ * 🔬 Measurement: Verify with `npm run test:run src/components/pages/__tests__/VehiclesPage.test.tsx`.
+ */
 function splitMarketplaceTitle(title: string) {
+  if (titleCache.has(title)) {
+    return titleCache.get(title)!;
+  }
   const parts = title
     .split('*')
     .map((part) => part.trim())
     .filter(Boolean);
 
-  return {
+  const result = {
     title: parts[0] || title,
     highlights: parts.slice(1, 4),
   };
+  titleCache.set(title, result);
+  return result;
 }
 
 export default function VehiclesPage() {
