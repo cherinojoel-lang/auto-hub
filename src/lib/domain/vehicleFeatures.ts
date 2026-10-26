@@ -38,8 +38,21 @@ export const getFeatureChips = (vehicle: Vehicle): string[] => deriveFeatures(ve
 
 export const getAllFeatures = (vehicle: Vehicle): string[] => deriveFeatures(vehicle);
 
+const transmissionCache = new WeakMap<Vehicle, string | null>();
+
+/**
+ * 💡 What: Caches the result of getTransmission using a WeakMap based on the vehicle object.
+ * 🎯 Why: getTransmission performs string concatenation and regex searches every time it is called. Caching avoids this redundant work, especially when iterating over vehicles in lists.
+ * 📊 Impact: Reduces CPU cycles spent on regex execution during list rendering.
+ * 🔬 Measurement: Verify with `npm run test:run src/lib/domain/__tests__/vehicleFeatures.test.ts`. Look for consistent correct outputs with zero regressions.
+ */
 export const getTransmission = (vehicle: Vehicle): string | null => {
+  if (transmissionCache.has(vehicle)) {
+    return transmissionCache.get(vehicle) ?? null;
+  }
   const source = `${vehicle.title} ${vehicle.description || ''}`;
   const automatik = FEATURE_PATTERNS.find((f) => f.label === 'Automatik');
-  return automatik && automatik.pattern.test(source) ? 'Automatik' : null;
+  const result = automatik && automatik.pattern.test(source) ? 'Automatik' : null;
+  transmissionCache.set(vehicle, result);
+  return result;
 };
