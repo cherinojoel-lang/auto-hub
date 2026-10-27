@@ -25,3 +25,7 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+
+## 2026-10-27 - Optimized string parsers with character code loops
+**Learning:** String allocations and Regex lookups are slow when processing large arrays synchronously on the frontend. We were spending unnecessary time parsing mileage, price and registration year with `.replace(/\D/g, '')` and `.match()`.
+**Action:** Replace string matching logic with simple `charCodeAt()` for loops in single pass to bypass expensive object allocations and regex matching.

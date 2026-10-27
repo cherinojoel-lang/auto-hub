@@ -22,7 +22,7 @@ export const parseMileageKm = (raw: string | null | undefined): number | null =>
 export const parseYearFromRegistration = (raw: string | null | undefined): number | null => {
   if (!raw) return null;
   const len = raw.length;
-  let yearStr;
+  let yearStr: string;
 
   if (len === 4) {
     yearStr = raw;
