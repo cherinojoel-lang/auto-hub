@@ -90,6 +90,8 @@
     "@astrojs/language-server": "^2.16.10",
     "volar-service-yaml": "^0.0.71",
     "yaml-language-server": "^1.23.0",
-    "yaml": "^2.9.0"
+    "yaml": "^2.9.0",
+    "undici": "8.12.3",
+    "postcss-selector-parser": "7.1.7"
   }
 }
