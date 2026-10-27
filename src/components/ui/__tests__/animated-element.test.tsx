@@ -5,15 +5,17 @@ import { AnimatedElement } from '../animated-element';
 describe('AnimatedElement', () => {
   it('renders children and is immediately visible when priority is true', () => {
     render(
-      <AnimatedElement priority={true}>
+      <AnimatedElement priority={true} className="test-class">
         <span>Hero Title</span>
       </AnimatedElement>
     );
 
     const el = screen.getByText('Hero Title').parentElement;
     expect(el).toBeInTheDocument();
-    expect(el?.className).toContain('opacity-100');
-    expect(el?.className).toContain('translate-x-0');
+    // After LCP optimization, priority true completely bypasses transform classes
+    // and returns the element with just its base className to prevent styling jumps
+    expect(el?.className).toBe('test-class');
+    expect(el?.className).not.toContain('opacity-0');
   });
 
   it('renders children with initial transform when priority is false', () => {
