@@ -39,7 +39,9 @@ export const getFeatureChips = (vehicle: Vehicle): string[] => deriveFeatures(ve
 export const getAllFeatures = (vehicle: Vehicle): string[] => deriveFeatures(vehicle);
 
 export const getTransmission = (vehicle: Vehicle): string | null => {
-  const source = `${vehicle.title} ${vehicle.description || ''}`;
-  const automatik = FEATURE_PATTERNS.find((f) => f.label === 'Automatik');
-  return automatik && automatik.pattern.test(source) ? 'Automatik' : null;
+  // Optimization: Reuse the WeakMap cached features from deriveFeatures
+  // instead of recalculating strings and executing new regex patterns.
+  // This reduces rendering time in list views like VehiclesPage.
+  const features = deriveFeatures(vehicle);
+  return features.includes('Automatik') ? 'Automatik' : null;
 };

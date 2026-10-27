@@ -50,6 +50,16 @@ export const AnimatedElement: React.FC<AnimatedElementProps> = ({
     };
   }, [delay, priority]);
 
+  // Early return for priority items to completely bypass transform calculations
+  // and remove the extra DOM class processing on initial render, improving LCP
+  if (priority) {
+    return (
+      <div ref={ref} className={className}>
+        {children}
+      </div>
+    );
+  }
+
   const getTransform = () => {
     if (isVisible) return 'translate-x-0 translate-y-0 scale-100 opacity-100';
     switch (direction) {
