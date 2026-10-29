@@ -3,6 +3,18 @@ import { Link } from 'react-router-dom';
 import { Calculator, ShieldCheck, CheckCircle2, Award, Clock, ArrowRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
+/**
+ * 💡 What: Extracted `Intl.NumberFormat` instantiation out of the render cycle.
+ * 🎯 Why: Instantiating `Intl.NumberFormat` is a known performance bottleneck in JS. Moving it outside the component prevents it from being recreated on every render/slider change.
+ * 📊 Impact: Reduces render block time during slider interaction.
+ * 🔬 Measurement: Profile the component with the React Profiler while moving the slider; observe reduced commit times.
+ */
+const euroFormatter = new Intl.NumberFormat('de-DE', {
+  style: 'currency',
+  currency: 'EUR',
+  maximumFractionDigits: 0,
+});
+
 interface VehicleFinancingCalculatorProps {
   vehiclePrice: number;
   vehicleTitle: string;
@@ -44,11 +56,7 @@ export default function VehicleFinancingCalculator({
   }, [price, downPayment, loanTerm, interestRate]);
 
   const formatEuro = (val: number) => {
-    return new Intl.NumberFormat('de-DE', {
-      style: 'currency',
-      currency: 'EUR',
-      maximumFractionDigits: 0,
-    }).format(val);
+    return euroFormatter.format(val);
   };
 
   const termOptions = [24, 36, 48, 60, 72, 84];
