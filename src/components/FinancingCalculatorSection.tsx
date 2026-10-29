@@ -3,6 +3,17 @@ import { useNavigate } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
+/**
+ * 💡 What: Extracted `Intl.NumberFormat` instantiation out of the render cycle.
+ * 🎯 Why: Instantiating `Intl.NumberFormat` is a known performance bottleneck in JS. Moving it outside the component prevents it from being recreated on every render/slider change.
+ * 📊 Impact: Reduces render block time during slider interaction.
+ * 🔬 Measurement: Profile the component with the React Profiler while moving the slider; observe reduced commit times.
+ */
+const currencyFormatter = new Intl.NumberFormat('de-DE', {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+
 export default function FinancingCalculatorSection() {
   const navigate = useNavigate();
   const [purchasePrice, setPurchasePrice] = useState(25000);
@@ -26,10 +37,7 @@ export default function FinancingCalculatorSection() {
   }, [purchasePrice, downPayment, loanTerm, interestRate]);
 
   const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('de-DE', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }).format(value);
+    return currencyFormatter.format(value);
   };
 
   const handleFinancingRequest = () => {
