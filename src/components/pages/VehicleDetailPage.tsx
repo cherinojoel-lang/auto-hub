@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { AnimatedElement } from '@/components/ui/animated-element';
 import { useParams, Link } from 'react-router-dom';
 import { Calendar, Gauge, Zap, Fuel, ArrowLeft, Phone, MapPin, Wrench, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -30,7 +30,6 @@ const SAFE_SERVICE_POINTS = [
 export default function VehicleDetailPage() {
   const { id } = useParams<{ id: string }>();
   const [vehicle, setVehicle] = useState<Vehicle | null>(null);
-  const [similarVehicle, setSimilarVehicle] = useState<Vehicle[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentGalleryIndex, setCurrentGalleryIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -49,9 +48,6 @@ export default function VehicleDetailPage() {
       const data = safeVehicles.find((v: Vehicle) => v.id === id || v.folder === id || v.folder.startsWith(`${id}_`)) || null;
       setVehicle(data);
       setCurrentGalleryIndex(0);
-      
-      // Load similar vehicles
-      setSimilarVehicle(safeVehicles.filter((v: Vehicle) => v.id !== id && !v.folder.startsWith(`${id}_`)).slice(0, 4));
       
       // Update SEO for vehicle detail page
       if (data) {
@@ -97,6 +93,23 @@ export default function VehicleDetailPage() {
   const galleryImages = getGalleryImages();
   const hasMultipleImages = galleryImages.length > 1;
   const currentImage = galleryImages[currentGalleryIndex] || vehicle?.mainImage;
+
+  /**
+   * ⚡ Bolt: Derived state optimization
+   * 💡 What: Replaced similarVehicle useState with a derived useMemo calculation.
+   * 🎯 Why: Previously, similarVehicle was explicitly set during the loadVehicle effect, triggering an unnecessary second render pass. Deriving it synchronously prevents redundant component state updates.
+   * 📊 Impact: Eliminates an unnecessary re-render on initial load, slightly improving Time to Interactive (TTI).
+   * 🔬 Measurement: Verify reduced render cycles in React DevTools Profiler upon navigating to the detail page.
+   */
+  const similarVehicle = useMemo(() => {
+    if (!id) return [];
+    try {
+      const safeVehicles = Array.isArray(vehiclesData) ? vehiclesData : [];
+      return safeVehicles.filter((v: Vehicle) => v.id !== id && !v.folder.startsWith(`${id}_`)).slice(0, 4);
+    } catch {
+      return [];
+    }
+  }, [id]);
 
   const vehicleFeatures = vehicle ? getAllFeatures(vehicle) : [];
   const transmission = vehicle ? getTransmission(vehicle) : null;
