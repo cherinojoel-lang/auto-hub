@@ -7,6 +7,42 @@
 - 649 WebP gallery images mapped and validated without broken links.
 - Cloudflare preview live at https://owner-review-automobile-quick-preview.hsb-boden.workers.dev.
 
+## [Unreleased] - 2026-10-23 to 2026-10-30
+
+### 🚀 Features & Enhancements
+- None this week
+
+### ⚡ Performance
+- Extracted Intl.NumberFormat out of render cycles (`e5b0eb2`)
+- Optimize deriveFeatures by caching the output (`d73a991`)
+- ⚡ Bolt: Refactor filterVehicles to single pass (`f76b481`)
+- perf: optimize string parsing in vehicle filters using char-code loops (`d761c59`)
+- chore: Apply performance optimizations for LCP and rendering speedup (`4e0baaa`)
+- perf: cache getTransmission and splitMarketplaceTitle (`cd08f63`)
+- Optimize performance: cache vehicle derivations, add AnimatedElement early return, use eager loading for hero images (`18fbf9c`)
+- perf: reuse memoized features for transmission lookup (`71bc1b6`)
+- ⚡ Bolt: Optimize vehicle features caching & mapping (`144b5b1`)
+- chore: memoize heavy computations during vehicle processing (`60ff3f3`)
+
+### 🛡️ Security
+- chore(deps): Update vulnerable dependencies and fix security issues (`b7377bb`)
+- Fix CWE-209 in enrich API endpoint (`3c76678`)
+- chore: address security scan findings (`fb4d636`)
+- 🛡️ Sentinel: [MEDIUM] Fix Information Exposure (CWE-209) (`7d3a597`)
+- 🛡️ Sentinel: Fix information leakage (CWE-209) in AI enrich endpoint (`2744dee`)
+- 🛡️ Sentinel: [MEDIUM] Fix information leakage in AI enrich endpoint (`c2c8bdf`)
+- 🛡️ Sentinel: Fix information leakage in AI endpoint (`5798361`)
+
+### 🎨 Accessibility & UI
+- Add aria-busy attribute to form buttons during processing (`1bb8001`, `cbb2a6f`, `b18f27e`, `50594b6`, `8ee91dc`, `4eef58f`, `8d454db`)
+
+### 🧹 Code Health & CI
+- Fix Windows CI and Gemini review action failures (`5d7b188`)
+- chore: fix CI breaking issues by allowing gemini failure and removing invalid symlink (`9387e89`)
+- fix(ci): fix paths and ignore gemini error (`c47ff7e`)
+- chore: allow gemini review job to fail gracefully (`3bdfb76`)
+
+
 ## [Unreleased] - 2026-05-15 to 2026-05-21
 
 ### 🚀 Features & Enhancements
