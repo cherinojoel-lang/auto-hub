@@ -18,6 +18,8 @@ export const AnimatedElement: React.FC<AnimatedElementProps> = ({
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(priority);
 
+
+
   useEffect(() => {
     if (priority) {
       setIsVisible(true);
