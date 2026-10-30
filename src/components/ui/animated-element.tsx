@@ -18,6 +18,8 @@ export const AnimatedElement: React.FC<AnimatedElementProps> = ({
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(priority);
 
+
+
   useEffect(() => {
     if (priority) {
       setIsVisible(true);
@@ -49,6 +51,15 @@ export const AnimatedElement: React.FC<AnimatedElementProps> = ({
       if (timeoutId) clearTimeout(timeoutId);
     };
   }, [delay, priority]);
+
+  // Optimization: Return early for priority elements to bypass render wrappers and CSS class calculations
+  if (priority) {
+    return (
+      <div ref={ref} className={`opacity-100 translate-x-0 translate-y-0 scale-100 ${className}`}>
+        {children}
+      </div>
+    );
+  }
 
   const getTransform = () => {
     if (isVisible) return 'translate-x-0 translate-y-0 scale-100 opacity-100';
