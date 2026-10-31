@@ -4,3 +4,6 @@
 ## 2024-05-31 - Mobile Menu Toggle Accessibility
 **Learning:** The application uses two different patterns for hiding/showing mobile menus: `Header.tsx` conditionally unmounts the `<nav>` node entirely, while `StickyHeader.tsx` keeps the menu in the DOM but hides it using CSS transform classes (`translate-x-full`). This requires different strategies for the `aria-controls` attribute on the toggle buttons to prevent screen readers from pointing to non-existent nodes when unmounted.
 **Action:** When adding accessibility features to toggle buttons, always verify if the target container is hidden via CSS or conditionally unmounted, and set `aria-controls` to `undefined` dynamically when the target is removed from the DOM.
+## 2026-10-31 - Add aria-busy to loading buttons
+**Learning:** Submit buttons indicating a loading state must include an `aria-busy` attribute bound to the active submitting state, alongside the standard disabled attributes, to properly announce the busy state to screen readers.
+**Action:** Always add `aria-busy` to buttons when they enter a loading state.
