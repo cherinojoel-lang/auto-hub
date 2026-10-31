@@ -50,6 +50,17 @@ export const AnimatedElement: React.FC<AnimatedElementProps> = ({
     };
   }, [delay, priority]);
 
+  // ⚡ Bolt Performance Optimization:
+  // Early return for priority elements (LCP assets) to bypass expensive CSS transition class
+  // calculations and rendering delays. This significantly reduces main-thread blocking time for hero content.
+  if (priority) {
+    return (
+      <div ref={ref} className={className}>
+        {children}
+      </div>
+    );
+  }
+
   const getTransform = () => {
     if (isVisible) return 'translate-x-0 translate-y-0 scale-100 opacity-100';
     switch (direction) {

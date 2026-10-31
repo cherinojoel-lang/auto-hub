@@ -12,8 +12,8 @@ describe('AnimatedElement', () => {
 
     const el = screen.getByText('Hero Title').parentElement;
     expect(el).toBeInTheDocument();
-    expect(el?.className).toContain('opacity-100');
-    expect(el?.className).toContain('translate-x-0');
+    // Bypassed transition classes are no longer present on priority elements
+    expect(el?.className).not.toContain('opacity-0');
   });
 
   it('renders children with initial transform when priority is false', () => {

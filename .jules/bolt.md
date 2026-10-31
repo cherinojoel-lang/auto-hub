@@ -25,3 +25,7 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+
+## 2024-05-28 - [Bypassing CSS Transitions for Priority Elements]
+**Learning:** LCP assets like Hero images were being wrapped in AnimatedElement components. While we can set `priority={true}` to skip the IntersectionObserver delay, the component was still applying CSS transition classes (e.g. `transition-all duration-700`) and `translate` computations on first render, leading to unnecessary style calculations on the main thread for above-the-fold content.
+**Action:** Always use an early `return` statement inside wrapper components like `AnimatedElement` when a `priority` or similar bypass flag is set. This completely skips the application of transition classes and states, ensuring immediate rendering of critical content.
