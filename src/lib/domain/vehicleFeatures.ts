@@ -12,9 +12,23 @@ export const FEATURE_PATTERNS: Array<{ label: string; pattern: RegExp }> = [
   { label: 'Hybrid', pattern: /hybrid/i },
 ];
 
+/**
+ * 💡 What: Cached image count using WeakMap.
+ * 🎯 Why: Avoids re-computing set size on every render for grid components.
+ * 📊 Impact: O(1) retrieval time after first computation.
+ * 🔬 Measurement: Observe React Profiler during scrolling the vehicle list.
+ */
+const imageCountCache = new WeakMap<Vehicle, number>();
+
 export const getVehicleImageCount = (vehicle: Vehicle): number => {
+  const cachedCount = imageCountCache.get(vehicle);
+  if (cachedCount !== undefined) {
+    return cachedCount;
+  }
   const images = [vehicle.mainImage, ...(vehicle.gallery || [])].filter(Boolean);
-  return new Set(images).size;
+  const count = new Set(images).size;
+  imageCountCache.set(vehicle, count);
+  return count;
 };
 
 const featuresCache = new WeakMap<Vehicle, string[]>();
@@ -38,8 +52,22 @@ export const getFeatureChips = (vehicle: Vehicle): string[] => deriveFeatures(ve
 
 export const getAllFeatures = (vehicle: Vehicle): string[] => deriveFeatures(vehicle);
 
+/**
+ * 💡 What: Cached transmission parsing using WeakMap.
+ * 🎯 Why: Avoids regex tests on long strings for every list item during rendering/sorting.
+ * 📊 Impact: O(1) lookup after first computation instead of regex evaluation.
+ * 🔬 Measurement: Measure time spent in getTransmission during VehiclesPage rendering.
+ */
+const transmissionCache = new WeakMap<Vehicle, string | null>();
+
 export const getTransmission = (vehicle: Vehicle): string | null => {
+  const cachedTransmission = transmissionCache.get(vehicle);
+  if (cachedTransmission !== undefined) {
+    return cachedTransmission;
+  }
   const source = `${vehicle.title} ${vehicle.description || ''}`;
   const automatik = FEATURE_PATTERNS.find((f) => f.label === 'Automatik');
-  return automatik && automatik.pattern.test(source) ? 'Automatik' : null;
+  const result = automatik && automatik.pattern.test(source) ? 'Automatik' : null;
+  transmissionCache.set(vehicle, result);
+  return result;
 };
