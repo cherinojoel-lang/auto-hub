@@ -21,8 +21,9 @@ export const FEATURE_PATTERNS: Array<{ label: string; pattern: RegExp }> = [
 const imageCountCache = new WeakMap<Vehicle, number>();
 
 export const getVehicleImageCount = (vehicle: Vehicle): number => {
-  if (imageCountCache.has(vehicle)) {
-    return imageCountCache.get(vehicle)!;
+  const cachedCount = imageCountCache.get(vehicle);
+  if (cachedCount !== undefined) {
+    return cachedCount;
   }
   const images = [vehicle.mainImage, ...(vehicle.gallery || [])].filter(Boolean);
   const count = new Set(images).size;
@@ -60,8 +61,9 @@ export const getAllFeatures = (vehicle: Vehicle): string[] => deriveFeatures(veh
 const transmissionCache = new WeakMap<Vehicle, string | null>();
 
 export const getTransmission = (vehicle: Vehicle): string | null => {
-  if (transmissionCache.has(vehicle)) {
-    return transmissionCache.get(vehicle)!;
+  const cachedTransmission = transmissionCache.get(vehicle);
+  if (cachedTransmission !== undefined) {
+    return cachedTransmission;
   }
   const source = `${vehicle.title} ${vehicle.description || ''}`;
   const automatik = FEATURE_PATTERNS.find((f) => f.label === 'Automatik');
