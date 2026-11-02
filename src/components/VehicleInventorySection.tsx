@@ -14,8 +14,11 @@ interface VehicleCardProps {
 const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, index }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const imageCount = getVehicleImageCount(vehicle);
-  const featureChips = getFeatureChips(vehicle);
+  // Performance optimization: Memoize expensive feature derivation and image count calculation per vehicle
+  const { imageCount, featureChips } = React.useMemo(() => ({
+    imageCount: getVehicleImageCount(vehicle),
+    featureChips: getFeatureChips(vehicle)
+  }), [vehicle]);
 
   useEffect(() => {
     let timeoutId: ReturnType<typeof setTimeout>;
