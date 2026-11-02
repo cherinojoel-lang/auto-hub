@@ -1,0 +1,20 @@
+perf: Optimize performance bottlenecks
+
+💡 What:
+- Optimized \`AnimatedElement\` by bypassing the \`IntersectionObserver\` initialization, effect cleanup, and transition class assignments completely when \`priority={true}\`, returning a static wrapper directly. This prevents unnecessary ref calculations and delay timeouts for above-the-fold content.
+- Restructured \`filterVehicles\` to use early-exit boolean logic (single \`.filter\` with \`&&\` chain) instead of chained \`.filter\` array allocations.
+- Fixed \`<Image>\` in \`VehicleInventorySection\` and \`VehiclesPage\` to explicitly provide \`loading="eager"\` and \`fetchPriority="high"\` for above-the-fold LCP elements.
+
+🎯 Why:
+- The \`AnimatedElement\` component previously executed its entire effect hook and assigned invisible CSS classes even for \`priority={true}\` elements, causing unnecessary render cycles and delaying the LCP for critical hero content.
+- Chaining multiple \`.filter()\` array methods creates multiple intermediate arrays, causing memory bloat and GC pauses on large vehicle datasets. A single boolean chain prevents these intermediate allocations.
+- Top vehicles implicitly fell back to lazy loading or lacked \`fetchPriority\` hints, delaying their appearance on screen.
+
+📊 Impact:
+- **LCP:** Significantly improved by unblocking priority images and stripping JS delay logic from critical elements.
+- **Memory/CPU:** Reduced garbage collection overhead and intermediate array creation by collapsing 6 \`.filter()\` loops into 1.
+- **Render blocking:** Reduced by bypassing intersection observers on priority components.
+
+🔬 Measurement:
+- Local tests confirm priority components now render immediately in their final state without intermediate opacity/translation classes.
+- Unit and integration tests in CI continue to pass.
