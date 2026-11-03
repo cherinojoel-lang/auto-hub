@@ -152,9 +152,16 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, index }) => {
   );
 };
 
-export default function VehicleInventorySection() {
-  const topVehicles = React.useMemo(() => vehiclesData.filter((vehicle) => vehicle.status === 'available').slice(0, 6), []);
+/**
+ * ⚡ Bolt Optimization
+ * 💡 What: Extracted static topVehicles calculation outside the component instead of using React.useMemo().
+ * 🎯 Why: Hook initialization adds unnecessary overhead for constant expressions based on static imported data. Evaluating it once per module load is more efficient.
+ * 📊 Impact: Reduces hook initialization overhead on component mount/re-renders.
+ * 🔬 Measurement: Observe React DevTools Profiler to ensure reduced component initialization time.
+ */
+const TOP_VEHICLES = vehiclesData.filter((vehicle) => vehicle.status === 'available').slice(0, 6);
 
+export default function VehicleInventorySection() {
   return (
     <section className="py-16 sm:py-20 bg-surface" id="main-content">
       <div className="max-w-7xl mx-auto px-6">
@@ -170,7 +177,7 @@ export default function VehicleInventorySection() {
 
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-          {topVehicles.map((vehicle, index) => (
+          {TOP_VEHICLES.map((vehicle, index) => (
             <VehicleCard key={vehicle.id} vehicle={vehicle} index={index} />
           ))}
         </div>
