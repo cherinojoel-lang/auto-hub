@@ -320,6 +320,7 @@ export default function TradeInPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
+                aria-busy={isSubmitting}
                 className="w-full py-3.5 bg-secondary text-white font-bold rounded-md hover:bg-cta-hover transition-colors disabled:opacity-50 min-h-[48px] text-base"
               >
                 {isSubmitting ? 'Wird gesendet...' : 'Unverbindliche Anfrage senden'}
