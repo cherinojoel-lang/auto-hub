@@ -69,7 +69,6 @@ Antworte strukturiert mit:
     return json({
       ok: false,
       error: 'ai_inference_failed',
-      details: error instanceof Error ? error.message : String(error),
     }, 500);
   }
 };
