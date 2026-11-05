@@ -152,9 +152,15 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, index }) => {
   );
 };
 
-export default function VehicleInventorySection() {
-  const topVehicles = React.useMemo(() => vehiclesData.filter((vehicle) => vehicle.status === 'available').slice(0, 6), []);
+/**
+ * 💡 What: Extracted constant expression topVehicles outside the component.
+ * 🎯 Why: Hook initialization inside the component adds unnecessary overhead. Moving it outside ensures it is evaluated exactly once per module load.
+ * 📊 Impact: Eliminates useMemo hook overhead on every render of VehicleInventorySection.
+ * 🔬 Measurement: Observe reduced component initialization time in React DevTools Profiler.
+ */
+const topVehicles = vehiclesData.filter((vehicle) => vehicle.status === 'available').slice(0, 6);
 
+export default function VehicleInventorySection() {
   return (
     <section className="py-16 sm:py-20 bg-surface" id="main-content">
       <div className="max-w-7xl mx-auto px-6">

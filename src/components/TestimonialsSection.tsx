@@ -35,6 +35,14 @@ function SourceBadge({ source }: { source: Review['source'] }) {
   );
 }
 
+/**
+ * 💡 What: Extracted constant expression topReviews outside the component.
+ * 🎯 Why: Slicing the array directly in the render function causes unnecessary recalculation on every render. Moving it outside ensures it is evaluated exactly once per module load.
+ * 📊 Impact: Eliminates array slicing overhead on every render of TestimonialsSection.
+ * 🔬 Measurement: Observe reduced component initialization time in React DevTools Profiler.
+ */
+const topReviews = featuredReviews.slice(0, 6);
+
 export default function TestimonialsSection() {
   return (
     <section
@@ -108,7 +116,7 @@ export default function TestimonialsSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-          {featuredReviews.slice(0, 6).map((review) => (
+          {topReviews.map((review) => (
             <article
               key={`${review.name}-${review.date}`}
               className="group relative bg-surface-elevated rounded-lg border border-border-line p-6 sm:p-7 card-premium"
