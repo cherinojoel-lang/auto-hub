@@ -152,9 +152,16 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, index }) => {
   );
 };
 
-export default function VehicleInventorySection() {
-  const topVehicles = React.useMemo(() => vehiclesData.filter((vehicle) => vehicle.status === 'available').slice(0, 6), []);
+/**
+ * ⚡ Bolt Optimization
+ * 💡 What: Extracted topVehicles computation to module scope.
+ * 🎯 Why: vehiclesData is a static array, meaning the filtering and slicing logic doesn't depend on component state or props. Running it inside useMemo adds unnecessary React hook initialization overhead on every mount.
+ * 📊 Impact: Evaluates exactly once per module load instead of once per component instance.
+ * 🔬 Measurement: Verified no regressions by running tests.
+ */
+const topVehicles = vehiclesData.filter((vehicle) => vehicle.status === 'available').slice(0, 6);
 
+export default function VehicleInventorySection() {
   return (
     <section className="py-16 sm:py-20 bg-surface" id="main-content">
       <div className="max-w-7xl mx-auto px-6">
