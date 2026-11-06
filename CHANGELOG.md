@@ -7,7 +7,38 @@
 - 649 WebP gallery images mapped and validated without broken links.
 - Cloudflare preview live at https://owner-review-automobile-quick-preview.hsb-boden.workers.dev.
 
-## [Unreleased] - 2026-05-15 to 2026-05-21
+
+## [Unreleased] - 2026-10-31 to 2026-11-06
+
+### ⚡ Performance (Bolt)
+- Optimize AnimatedElement by early returning priority elements
+- Optimize static array slicing and filtering
+- chore: memoize derivation functions in vehicle card
+- perf: Implement WeakMap caching for vehicle features
+- perf: Optimize performance bottlenecks
+- perf: extract static topVehicles array from component
+- ⚡ Bolt: Bypass AnimatedElement overhead for LCP assets
+- ⚡ Bolt: Extract static constant expression
+- ⚡ Bolt: memoize feature and image derivations in VehicleCard
+- ⚡ Bolt: optimize filterVehicles performance
+
+### 🛡️ Security (Sentinel)
+- Fix information leakage in AI API
+- Security scan fixes
+- chore: Update dependencies to fix vulnerabilities
+- chore: fix security vulnerabilities and CI issues
+- fix(ci): address security vulnerabilities
+
+### 🎨 Accessibility & UI (Palette)
+- feat(a11y): add aria-busy to submitting buttons
+- 🎨 Palette: [Accessibility improvement] Add aria-busy to loading buttons
+
+### 🧹 Code Health & CI
+- chore: update vulnerable dependencies
+- fix(ci): fix windows checkout invalid path and mask gemini unauthorized error
+- fix: Resolve CI checksuite failures for checkout invalid path and Gemini Review authorization
+
+## [2026-05-15 to 2026-05-21] - 2026-05-15 to 2026-05-21
 
 ### 🚀 Features & Enhancements
 - feat: notify on Jules PRs (`ec4d4e2`)
