@@ -11,11 +11,12 @@ interface VehicleCardProps {
   index: number;
 }
 
-const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, index }) => {
+const VehicleCard: React.FC<VehicleCardProps> = React.memo(({ vehicle, index }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const imageCount = getVehicleImageCount(vehicle);
-  const featureChips = getFeatureChips(vehicle);
+  // Optimize expensive derivations by memoizing them to prevent recalculation on re-renders
+  const imageCount = React.useMemo(() => getVehicleImageCount(vehicle), [vehicle]);
+  const featureChips = React.useMemo(() => getFeatureChips(vehicle), [vehicle]);
 
   useEffect(() => {
     let timeoutId: ReturnType<typeof setTimeout>;
@@ -150,7 +151,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, index }) => {
       </div>
     </div>
   );
-};
+});
 
 export default function VehicleInventorySection() {
   const topVehicles = React.useMemo(() => vehiclesData.filter((vehicle) => vehicle.status === 'available').slice(0, 6), []);
