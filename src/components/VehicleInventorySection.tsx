@@ -152,9 +152,15 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, index }) => {
   );
 };
 
-export default function VehicleInventorySection() {
-  const topVehicles = React.useMemo(() => vehiclesData.filter((vehicle) => vehicle.status === 'available').slice(0, 6), []);
+/**
+ * 💡 What: Extracted `topVehicles` calculation outside of the React component.
+ * 🎯 Why: `vehiclesData` is static data generated at build time. Evaluating it inside the component using `useMemo` adds unnecessary hook initialization and evaluation overhead on mount. Extracting it to module scope ensures it is evaluated exactly once when the file is loaded.
+ * 📊 Impact: Eliminates `useMemo` hook call and recalculation overhead per component mount, marginally improving React mount time.
+ * 🔬 Measurement: Observe slightly faster initial render of VehicleInventorySection in React DevTools profiler.
+ */
+const topVehicles = vehiclesData.filter((vehicle) => vehicle.status === 'available').slice(0, 6);
 
+export default function VehicleInventorySection() {
   return (
     <section className="py-16 sm:py-20 bg-surface" id="main-content">
       <div className="max-w-7xl mx-auto px-6">
