@@ -25,3 +25,6 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+## 2026-11-07 - [React Memoization for VehicleCard]
+**Learning:** Found that VehicleCard does not use React.memo, meaning it can potentially re-render unnecessarily when its parent VehicleInventorySection re-renders. Also getVehicleImageCount and getFeatureChips could be memoized.
+**Action:** Wrap VehicleCard in React.memo and useMemo for derived state like getVehicleImageCount and getFeatureChips in VehicleInventorySection or VehicleCard.
