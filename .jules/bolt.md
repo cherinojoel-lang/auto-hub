@@ -25,3 +25,6 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
+## 2026-11-08 - [VehicleCard State-Driven Redundancy]
+**Learning:** React components employing visual state toggles (like `IntersectionObserver` updates flipping `isVisible`) will execute full render cycles on threshold triggers. Unmemoized computationally heavy variable definitions within these components (like dynamically filtering string patterns array collections across vehicle properties) become dangerous block-time escalators when replicated across multi-item lists, running needlessly twice per item entry instead of once.
+**Action:** Always verify stable function return references are stored via `React.useMemo()` within components harboring layout transition states, to firewall processing against arbitrary intersection or animation updates.
