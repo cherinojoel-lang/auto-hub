@@ -152,9 +152,15 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, index }) => {
   );
 };
 
-export default function VehicleInventorySection() {
-  const topVehicles = React.useMemo(() => vehiclesData.filter((vehicle) => vehicle.status === 'available').slice(0, 6), []);
+/**
+ * 💡 What: Extract static `topVehicles` computation outside of the component render function.
+ * 🎯 Why: Using `useMemo` for a completely static calculation inside the component adds unnecessary React hook initialization overhead on every mount, even though the dependency array `[]` ensures it only calculates once.
+ * 📊 Impact: Eliminates `useMemo` overhead and recalculation during React lifecycle since `vehiclesData` is static.
+ * 🔬 Measurement: Observe React component render metrics, no `useMemo` call for this component.
+ */
+const topVehicles = vehiclesData.filter((vehicle) => vehicle.status === 'available').slice(0, 6);
 
+export default function VehicleInventorySection() {
   return (
     <section className="py-16 sm:py-20 bg-surface" id="main-content">
       <div className="max-w-7xl mx-auto px-6">
