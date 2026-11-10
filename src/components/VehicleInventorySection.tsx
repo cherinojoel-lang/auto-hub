@@ -152,8 +152,15 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, index }) => {
   );
 };
 
+/**
+ * 💡 What: Extracted topVehicles constant outside of the component.
+ * 🎯 Why: To prevent recalculation on component re-renders and avoid useMemo hook initialization overhead.
+ * 📊 Impact: Eliminates useMemo overhead and evaluates the constant expression exactly once per module load.
+ * 🔬 Measurement: Observe memory usage and render time improvements in React DevTools.
+ */
+const topVehicles = vehiclesData.filter((vehicle) => vehicle.status === 'available').slice(0, 6);
+
 export default function VehicleInventorySection() {
-  const topVehicles = React.useMemo(() => vehiclesData.filter((vehicle) => vehicle.status === 'available').slice(0, 6), []);
 
   return (
     <section className="py-16 sm:py-20 bg-surface" id="main-content">
