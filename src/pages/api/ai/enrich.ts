@@ -66,10 +66,11 @@ Antworte strukturiert mit:
       vehicle: `${body.make} ${body.model}`,
     });
   } catch (error) {
+    // Security: Do not expose raw error details (which may contain internal state or stack traces) to the client.
+    console.error('AI enrichment inference failed:', error);
     return json({
       ok: false,
       error: 'ai_inference_failed',
-      details: error instanceof Error ? error.message : String(error),
     }, 500);
   }
 };
