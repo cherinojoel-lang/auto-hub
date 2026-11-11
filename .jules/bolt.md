@@ -25,7 +25,3 @@
 ## 2024-05-15 - [Vehicle Card Rerenders / Hook Dependency Isolation]
 **Learning:** Several higher-level wrapper hooks or unmemoized static `slice()` operations over derived collections like `topVehicles` trigger heavy waterfall updates of their child components in pure layout pages.
 **Action:** Always safely isolate layout iterations utilizing `.filter().slice()` over static global collections by wrapping them in `React.useMemo(() => ..., [])` with stable dependencies to prevent unnecessary VDOM comparison cycles.
-
-## 2023-11-06 - [Avoid useMemo for module-level constants]
-**Learning:** In React components, extracting static constant data operations (like filtering/slicing imported static arrays) outside of the component entirely is much more efficient than keeping it inside and wrapping it with `useMemo`. Using `useMemo` inside the component forces React to allocate hooks on every mount, even though the data never changes. When data does not depend on component state or props, calculate it once per module load at the file level.
-**Action:** When finding `useMemo` with empty dependency arrays `[]` wrapping operations on imported static data, extract the computation outside the component to eliminate the hook overhead completely.
