@@ -152,9 +152,15 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, index }) => {
   );
 };
 
-export default function VehicleInventorySection() {
-  const topVehicles = React.useMemo(() => vehiclesData.filter((vehicle) => vehicle.status === 'available').slice(0, 6), []);
+/**
+ * 💡 What: Extracted `topVehicles` computation outside the component.
+ * 🎯 Why: Using `useMemo` inside the component adds unnecessary hook overhead for static data.
+ * 📊 Impact: Eliminates hook overhead completely, reducing execution time on mount and re-renders.
+ * 🔬 Measurement: Observe slightly faster component mount times and lower memory allocation.
+ */
+const topVehicles = vehiclesData.filter((vehicle) => vehicle.status === 'available').slice(0, 6);
 
+export default function VehicleInventorySection() {
   return (
     <section className="py-16 sm:py-20 bg-surface" id="main-content">
       <div className="max-w-7xl mx-auto px-6">
