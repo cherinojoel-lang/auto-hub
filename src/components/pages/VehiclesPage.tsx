@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import {
   ArrowRight,
@@ -121,6 +121,19 @@ export default function VehiclesPage() {
       return registrationTimestamp(b.firstRegistration) - registrationTimestamp(a.firstRegistration);
     });
   }, [filteredVehicles, sort]);
+
+  const enrichedSortedVehicles = useMemo(() => {
+    return sortedVehicles.map(vehicle => {
+      const parsedTitle = splitMarketplaceTitle(vehicle.title);
+      return {
+        ...vehicle,
+        _imageCount: getVehicleImageCount(vehicle),
+        _transmission: getTransmission(vehicle),
+        _parsedTitle: parsedTitle,
+        _featureChips: parsedTitle.highlights.length ? parsedTitle.highlights : getFeatureChips(vehicle).slice(0, 3)
+      };
+    });
+  }, [sortedVehicles]);
 
   const activeFilters = useMemo(() => {
     const filters: Array<{ key: string; label: string }> = [];
@@ -470,15 +483,13 @@ export default function VehiclesPage() {
           </div>
         )}
 
-        {sortedVehicles.length > 0 ? (
+        {enrichedSortedVehicles.length > 0 ? (
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
-            {sortedVehicles.map((vehicle, index) => {
-              const imageCount = getVehicleImageCount(vehicle);
-              const transmission = getTransmission(vehicle);
-              const parsedTitle = splitMarketplaceTitle(vehicle.title);
-              const featureChips = parsedTitle.highlights.length
-                ? parsedTitle.highlights
-                : getFeatureChips(vehicle).slice(0, 3);
+            {enrichedSortedVehicles.map((vehicle, index) => {
+              const imageCount = vehicle._imageCount;
+              const transmission = vehicle._transmission;
+              const parsedTitle = vehicle._parsedTitle;
+              const featureChips = vehicle._featureChips;
 
               return (
                 <article
